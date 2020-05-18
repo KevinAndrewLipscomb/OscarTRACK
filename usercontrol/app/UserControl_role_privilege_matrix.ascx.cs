@@ -1,19 +1,17 @@
-using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 using Class_biz_role_privilege_map;
 using Class_biz_tiers;
 using Class_db_roles;
-using Class_db_role_privilege_map;
+using kix;
+using System;
+using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace UserControl_role_privilege_matrix
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_role_privilege_matrix: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_interactive;
         public bool be_loaded;
@@ -24,11 +22,10 @@ namespace UserControl_role_privilege_matrix
         public ArrayList crosstab_metadata_rec_arraylist;
         public string tier_filter;
         public string sort_order;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_role_privilege_matrix: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         private void Checkboxify(GridViewRow row)
         {
             CheckBox check_box;
@@ -295,8 +292,8 @@ namespace UserControl_role_privilege_matrix
 }
 
 namespace UserControl_role_privilege_matrix.Units
-{
-    public class UserControl_role_privilege_matrix
+  {
+  public class UserControl_role_privilege_matrix
     {
         public const string CHECKBOX_ID_PREFIX_PRIVILEGE_ID = "CheckBox_privilege_";
         public const string CHECKBOX_ID_PREFIX_ROLE_ID = "_role_";

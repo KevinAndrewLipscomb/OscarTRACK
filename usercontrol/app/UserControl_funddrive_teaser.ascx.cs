@@ -144,7 +144,7 @@ namespace UserControl_funddrive_teaser
         private struct p_type
         {
             public bool be_loaded;
-        } // end p_type
+        }
 
     } // end TWebUserControl_funddrive_teaser
 

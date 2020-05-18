@@ -10,12 +10,12 @@ using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignments
   {
 
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1051:Do not declare visible instance fields")]
   public class schedule_assignment_summary
     {
     public string id;
@@ -189,10 +189,10 @@ namespace Class_db_schedule_assignments
         my_sql_command_2.ExecuteNonQuery(); // Deliberately not db_trail.Saved.
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       return be_adventitious_change_detected;
@@ -372,12 +372,14 @@ namespace Class_db_schedule_assignments
     internal void BindAmbulanceStaffingTimeLineChartBaseDataList
       (
       #pragma warning disable IDE0060 // Remove unused parameter
+      #pragma warning disable CA1801 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       DataGrid target,
       string agency_filter,
       k.subtype<int> relative_month,
       string nominal_day_filter = k.EMPTY
+      #pragma warning restore CA1801 // Remove unused parameter
       #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
@@ -533,7 +535,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and"
         + " ("
@@ -960,7 +962,7 @@ namespace Class_db_schedule_assignments
           transaction.Rollback();
           if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
-            throw e;
+            throw;
             }
           }
         }
@@ -1107,7 +1109,7 @@ namespace Class_db_schedule_assignments
       object target
       )
       {
-      var post_filter = (agency_filter != k.EMPTY ? " and post_id = '" + agency_filter + "' or agency_satellite_station.agency_id = '" + agency_filter + "'" : k.EMPTY);
+      var post_filter = (agency_filter.Length > 0 ? " and post_id = '" + agency_filter + "' or agency_satellite_station.agency_id = '" + agency_filter + "'" : k.EMPTY);
       Open();
       using var my_sql_command = new MySqlCommand
         (
@@ -1456,7 +1458,7 @@ namespace Class_db_schedule_assignments
       +   " (enrollment_level.description in ('Staff','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
       + " )";
       //
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         filter += " and agency_id = '" + agency_filter + "'";
         }
@@ -1560,7 +1562,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and agency_id = '" + agency_filter + "'";
         }
@@ -1645,10 +1647,10 @@ namespace Class_db_schedule_assignments
         my_sql_command_4.ExecuteNonQuery();
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       //
@@ -1663,7 +1665,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and agency_id = '" + agency_filter + "'";
         }
@@ -1737,10 +1739,10 @@ namespace Class_db_schedule_assignments
         //
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       //
@@ -1758,7 +1760,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and (agency_id = '" + agency_filter + "'" + (post_footprint.Length > 0 ? " or a_from.post_id in (" + post_footprint + ") or a_to.post_id in (" + post_footprint + ")" : k.EMPTY ) + ")";
         }
@@ -1847,10 +1849,10 @@ namespace Class_db_schedule_assignments
         //
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       }
@@ -1864,7 +1866,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and agency.id = '" + agency_filter + "'";
         }
@@ -1997,7 +1999,7 @@ namespace Class_db_schedule_assignments
         using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from schedule_assignment where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
-      catch(System.Exception e)
+      catch(Exception e)
         {
         if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
           {
@@ -2005,7 +2007,7 @@ namespace Class_db_schedule_assignments
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();
@@ -2049,7 +2051,7 @@ namespace Class_db_schedule_assignments
           {
           if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
-            throw e;
+            throw;
             }
           }
         }
@@ -2576,7 +2578,7 @@ namespace Class_db_schedule_assignments
       // The following query is related to the queries in the first part of SpreadSelections().
       //
       var agency_condition_clause = k.EMPTY;
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         agency_condition_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
         }
@@ -3006,10 +3008,10 @@ namespace Class_db_schedule_assignments
         //
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       }
@@ -3055,10 +3057,10 @@ namespace Class_db_schedule_assignments
         //
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       }
@@ -3808,7 +3810,7 @@ namespace Class_db_schedule_assignments
             }
           else
             {
-            throw e;
+            throw;
             }
           }
         }

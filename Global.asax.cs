@@ -3,22 +3,14 @@ using System;
 using System.Threading;
 using System.Web;
 
+#pragma warning disable CA1716
 namespace Global
   {
   public class TGlobal: HttpApplication
     {
 
-    // / <summary>
-    // / Required method for Designer support -- do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
-    private void InitializeComponent()
-      {
-      }
-
     public TGlobal() : base()
       {
-      InitializeComponent();
       }
 
     protected void Application_Start(object sender, EventArgs e)

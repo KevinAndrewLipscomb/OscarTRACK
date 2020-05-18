@@ -36,9 +36,10 @@ namespace member_detail
           public string raw_member_phone_num;
           public string target_member_agency_id;
           public string target_member_id;
-          } // end p_type
+          }
 
         private p_type p;
+        
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -72,7 +73,7 @@ namespace member_detail
                     k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail")
                   );
                 //
-                if (p.raw_member_phone_num != k.EMPTY)
+                if (p.raw_member_phone_num.Length > 0)
                 {
                     Label_phone_num.Text = k.FormatAsNanpPhoneNum(p.raw_member_phone_num);
                 }
@@ -80,7 +81,7 @@ namespace member_detail
                 {
                     Label_phone_num.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
-                if (p.raw_member_email_address != k.EMPTY)
+                if (p.raw_member_email_address.Length > 0)
                 {
                     HyperLink_email_address.Text = p.raw_member_email_address;
                     HyperLink_email_address.NavigateUrl = "mailto:" + p.raw_member_email_address;
@@ -121,7 +122,7 @@ namespace member_detail
                 Label_elaboration.Text = p.biz_enrollment.ElaborationOf(p.enrollment_description);
                 LinkButton_enrollment_detail.Text = k.ExpandTildePath(LinkButton_enrollment_detail.Text);
                 //
-                if (p.biz_members.RetentionOf(Session["member_summary"]) != k.EMPTY)
+                if (p.biz_members.RetentionOf(Session["member_summary"]).Length > 0)
                 {
                     Label_years_of_service.Text = p.biz_members.RetentionOf(Session["member_summary"]);
                     priv_of_interest = "adjust-years-of-service";
@@ -228,7 +229,7 @@ namespace member_detail
                     p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.target_member_id);
                     p.raw_member_email_address = p.biz_members.EmailAddressOf(p.target_member_id);
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
-                    if (p.cad_num_string == k.EMPTY)
+                    if (p.cad_num_string.Length == 0)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }

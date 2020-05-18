@@ -1,17 +1,15 @@
-using appcommon;
-using Class_biz_members;
 using Class_biz_indicator_median_length_of_service;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+using Class_biz_members;
 using kix;
+using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace UserControl_ranked_length_of_service
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_ranked_length_of_service: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_members biz_members;
@@ -29,11 +27,10 @@ namespace UserControl_ranked_length_of_service
         public ArrayList r16_years_of_service_array_list;
         public ArrayList r17_years_of_service_array_list;
         public uint rank;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_ranked_length_of_service: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             bool be_trendable;

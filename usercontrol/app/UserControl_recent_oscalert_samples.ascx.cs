@@ -1,17 +1,11 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
-using AjaxControlToolkit;
 using Class_biz_oscalert_logs;
 using Class_biz_publicity;
-using Class_msg_protected;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
-using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace UserControl_recent_oscalert_samples
   {

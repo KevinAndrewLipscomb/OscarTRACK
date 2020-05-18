@@ -136,7 +136,7 @@ namespace Class_db_gripes
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

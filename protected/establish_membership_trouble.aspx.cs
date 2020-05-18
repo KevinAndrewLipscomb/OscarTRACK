@@ -96,7 +96,7 @@ namespace establish_membership_trouble
         {
             public TClass_biz_notifications biz_notifications;
             public TClass_biz_user biz_user;
-        } // end p_type
+        }
 
     } // end TWebForm_establish_membership_trouble
 

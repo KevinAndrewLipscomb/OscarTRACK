@@ -150,7 +150,7 @@ namespace Class_db_vehicle_usability_history
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -9,16 +9,21 @@ namespace Class_dbhomedb
   public abstract class TClass_dbhomedb
     {
 
-    protected MySqlConnection connection = null;
+    private MySqlConnection the_connection = null;
+    public MySqlConnection connection
+      {
+      get => the_connection;
+      set => the_connection = value;
+      }
 
     public TClass_dbhomedb() : base()
       {
-      connection = new MySqlConnection(connectionString:ConfigurationManager.AppSettings["dbhomedb_connection_string"]);
+      the_connection = new MySqlConnection(connectionString:ConfigurationManager.AppSettings["dbhomedb_connection_string"]);
       }
 
     protected void Close()
       {
-      connection.Close();
+      the_connection.Close();
       }
 
     protected void ExecuteOneOffProcedureScriptWithTolerance
@@ -37,7 +42,7 @@ namespace Class_dbhomedb
           }
         catch (MySqlException the_exception)
           {
-          if (!new ArrayList() {"PROCEDURE " + procedure_name + " already exists","PROCEDURE " + connection.Database + "." + procedure_name + " does not exist"}.Contains(the_exception.Message))
+          if (!new ArrayList() {"PROCEDURE " + procedure_name + " already exists","PROCEDURE " + the_connection.Database + "." + procedure_name + " does not exist"}.Contains(the_exception.Message))
             {
             throw;
             }
@@ -47,9 +52,9 @@ namespace Class_dbhomedb
 
     protected void Open()
       {
-      if (connection.State != ConnectionState.Open)
+      if (the_connection.State != ConnectionState.Open)
         {
-        connection.Open();
+        the_connection.Open();
         }
       }
 

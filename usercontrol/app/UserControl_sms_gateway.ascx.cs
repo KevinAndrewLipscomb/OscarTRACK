@@ -21,7 +21,7 @@ namespace UserControl_sms_gateway
       public TClass_biz_sms_gateways biz_sms_gateways;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_sms_gateways;
-      } // end p_type
+      }
 
     private p_type p;
 

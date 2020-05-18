@@ -343,7 +343,7 @@ namespace UserControl_custom_make
       public TClass_biz_custom_makes biz_custom_makes;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_custom_makes;
-      } // end p_type
+      }
 
     } // end TWebUserControl_custom_make
 

@@ -1,26 +1,22 @@
-using kix;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using Class_biz_agencies;
 using Class_db_agencies;
+using kix;
+using System;
+using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace UserControl_commensuration
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_commensuration: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_agencies biz_agencies;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_commensuration: ki_web_ui.usercontrol_class
-    {
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -141,8 +137,8 @@ namespace UserControl_commensuration
 }
 
 namespace UserControl_commensuration.Units
-{
-    public class UserControl_commensuration
+  {
+  public class UserControl_commensuration
     {
         public const int TCCI_AGENCY_ID = 0;
         public const int TCCI_DESIGNATOR = 1;

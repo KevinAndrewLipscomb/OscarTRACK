@@ -81,7 +81,8 @@ namespace report_commanded_gripe_sheet
     protected override void Render(HtmlTextWriter writer)
       {
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       // //
       // writer.Write(sb.ToString());
       // //

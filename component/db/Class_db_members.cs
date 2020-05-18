@@ -94,7 +94,7 @@ namespace Class_db_members
 
     }
 
-    public class member_summary
+    internal class member_summary
       {
       public string agency;
       public string agency_id;
@@ -160,7 +160,7 @@ namespace Class_db_members
             string sql;
             enrollment_date_string = enrollment_date.ToString("yyyy-MM-dd");
             sql = "START TRANSACTION;" + " insert into member" + " set first_name = \"" + first_name.ToUpper() + "\"" + " , last_name = \"" + last_name.ToUpper() + "\"";
-            if (cad_num != k.EMPTY)
+            if (cad_num.Length > 0)
             {
                 sql = sql + " , cad_num = \"" + cad_num + "\"";
             }
@@ -253,7 +253,7 @@ namespace Class_db_members
             bool result;
             string sql;
             sql = "select 1 from member where" + " (" + " first_name = \"" + first_name + "\"" + " and last_name = \"" + last_name + "\"";
-            if (cad_num == "")
+            if (cad_num.Length == 0)
             {
                 sql += ")";
             }
@@ -341,12 +341,12 @@ namespace Class_db_members
             MySqlDataReader dr;
             string where_clause;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != k.EMPTY)
+            if (unselected_literal.Length > 0)
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             where_clause = " where (enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical'," + "'Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee'))";
-            if (agency_filter != k.EMPTY)
+            if (agency_filter.Length > 0)
             {
                 where_clause += " and (agency_id = \"" + agency_filter + "\")";
             }
@@ -359,7 +359,7 @@ namespace Class_db_members
             }
             dr.Close();
             Close();
-            if (selected_value != k.EMPTY)
+            if (selected_value.Length > 0)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -429,7 +429,7 @@ namespace Class_db_members
             }
           dr.Close();
           Close();
-          if (selected_value != k.EMPTY)
+          if (selected_value.Length > 0)
             {
             ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -482,7 +482,7 @@ namespace Class_db_members
             }
           dr.Close();
           Close();
-          if (selected_value != k.EMPTY)
+          if (selected_value.Length > 0)
             {
             ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -1305,7 +1305,7 @@ namespace Class_db_members
         +         " (enrollment_level.description in ('Staff','College','Atypical','SpecOps'))"
         +       " )"
         +     " and"
-        +       " (agency.id " + (agency_filter == k.EMPTY ? "<> 0" : "= '" + agency_filter + "'") + ")"
+        +       " (agency.id " + (agency_filter.Length == 0 ? "<> 0" : "= '" + agency_filter + "'") + ")"
         +       (release_filter.Length > 0 ? " and (medical_release_code_description_map.pecking_order " + (release_filter == "1" ? ">=" : "<") + " 20)" : k.EMPTY)
         +       (do_limit_to_compliant ? " and ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','College','Atypical'),FALSE,NULL))" : k.EMPTY)
         +     " )"
@@ -1343,7 +1343,7 @@ namespace Class_db_members
       {
       var filter = " where month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
       + " and note is not null and note <> '' and note not like '%mesg(RETRACT)...from(OSCAR)%'";
-      if (agency_filter != k.EMPTY)
+      if (agency_filter.Length > 0)
         {
         filter += " and agency_id = '" + agency_filter + "'";
         }
@@ -1748,7 +1748,7 @@ namespace Class_db_members
             object id_obj;
             string sql;
             sql = "select id from member where first_name = \"" + first_name + "\" and last_name = \"" + last_name + "\"";
-            if (cad_num != k.EMPTY)
+            if (cad_num.Length > 0)
             {
                 sql = sql + " and cad_num = \"" + cad_num + "\"";
             }
@@ -1904,7 +1904,7 @@ namespace Class_db_members
         {
         length_of_service = (dr["length_of_service"] != DBNull.Value ? ((decimal)(dr["length_of_service"])).ToString("F2") + " years" : k.EMPTY);
         kind_of_leave = dr["kind_of_leave"].ToString().ToUpper();
-        if (kind_of_leave == k.EMPTY)
+        if (kind_of_leave.Length == 0)
           {
           kind_of_leave = "NONE";
           }

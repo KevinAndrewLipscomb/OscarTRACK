@@ -11,19 +11,18 @@ using UserControl_member_binder;
 
 namespace overview
 {
-    public struct p_type
+    public partial class TWebForm_overview: ki_web_ui.page_class
+    {
+
+    private struct p_type
     {
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
         public TClass_biz_members biz_members;
         public TClass_msg_protected.overview incoming;
-    } // end p_type
+    }
 
-    public partial class TWebForm_overview: ki_web_ui.page_class
-    {
         private p_type p;
-
-        protected ScriptManager ScriptManager_control = null;
 
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -77,7 +76,7 @@ namespace overview
                 SessionSet("privilege_array", p.biz_user.Privileges());
                 p.incoming = Message<TClass_msg_protected.overview>("protected","overview");
             }
-            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
+            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()).Length == 0)
             {
                 // Display controls appropriate ONLY to nonmembers.
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_establish_membership)(LoadControl("~/usercontrol/app/UserControl_establish_membership.ascx"))), "UserControl_establish_membership", PlaceHolder_establish_membership);

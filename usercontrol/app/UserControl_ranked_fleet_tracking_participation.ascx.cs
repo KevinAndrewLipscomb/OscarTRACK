@@ -1,23 +1,23 @@
 using Class_biz_members;
 using Class_biz_role_member_map;
-using kix;
 using System.Collections;
 using System.Web.UI.WebControls;
 
 namespace UserControl_ranked_fleet_tracking_participation
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_ranked_fleet_tracking_participation: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public uint rank;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_ranked_fleet_tracking_participation: ki_web_ui.usercontrol_class
-    {
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_auditor_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

@@ -1,30 +1,20 @@
+using Class_biz_members;
+using kix;
+using System;
 using System.Configuration;
 
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-using Class_biz_members;
-
 namespace change_member_driver_qualification
-{
-    public struct p_type
+  {
+  public partial class TWebForm_change_member_driver_qualification: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public bool be_driver_initially_qualified;
         public TClass_biz_members biz_members;
-    } // end p_type
+    }
 
-    public partial class TWebForm_change_member_driver_qualification: ki_web_ui.page_class
-    {
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

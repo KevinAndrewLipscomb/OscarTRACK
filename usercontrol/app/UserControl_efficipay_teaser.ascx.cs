@@ -144,7 +144,7 @@ namespace UserControl_efficipay_teaser
         private struct p_type
         {
             public bool be_loaded;
-        } // end p_type
+        }
 
     protected void Button_learn_Click(object sender, EventArgs e)
       {

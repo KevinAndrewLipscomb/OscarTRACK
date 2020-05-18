@@ -8,14 +8,14 @@ using System.Web.UI;
 namespace verify_efficipay_signature
   {
 
-  public struct p_type
-    {
-    public TClass_biz_efficipay_dockets biz_efficipay_dockets;
-    public TClass_biz_efficipay_tokens biz_efficipay_tokens;
-    }
-
   public partial class TWebForm_verify_efficipay_signature: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public TClass_biz_efficipay_dockets biz_efficipay_dockets;
+      public TClass_biz_efficipay_tokens biz_efficipay_tokens;
+      }
 
     private p_type p;
 

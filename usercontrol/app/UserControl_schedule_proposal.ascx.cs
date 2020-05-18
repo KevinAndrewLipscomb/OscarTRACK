@@ -132,7 +132,7 @@ namespace UserControl_schedule_proposal
       public const int CI_DESIGNATOR_LABEL = 1;
       }
 
-    public struct p_type
+    private struct p_type
       {
       public string agency_filter;
       public bool be_archival_end_of_month_watchbill;
@@ -500,8 +500,8 @@ namespace UserControl_schedule_proposal
           A.Columns[Static.TCI_N_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
           }
         //
-        A.Columns[Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != 1);
-        A.Columns[Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter.Length > 0) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter.Length > 0) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_NUM_UNITS_CITYWIDE].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_SPACER_MINOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_POST_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
@@ -527,8 +527,8 @@ namespace UserControl_schedule_proposal
           A.Columns[i.val].Visible = (p.individual_work_timelines_mode.val == 1);
           }
         A.Columns[Static.TCI_TIMELINE_SPACER_RIGHT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
-        A.Columns[Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != -1);
-        A.Columns[Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter.Length > 0) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter.Length > 0) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_NUM_UNITS_CITYWIDE].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_SPACER_MINOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_POST_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
@@ -744,7 +744,7 @@ namespace UserControl_schedule_proposal
       // Manage member_agency_id.
       //
       var member_agency_id = k.Safe(e.Item.Cells[tci_member_agency_id].Text,k.safe_hint_type.NUM);
-      if (member_agency_id != k.EMPTY)
+      if (member_agency_id.Length > 0)
         {
         ((e.Item.Cells[tci_member_agency_designator].Controls[0]) as Label).Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id + "&nbsp;&nbsp;");
         }
@@ -785,7 +785,7 @@ namespace UserControl_schedule_proposal
       var post_drop_down_list = ((e.Item.Cells[tci_post_designator].Controls[Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
       var post_label = ((e.Item.Cells[tci_post_designator].Controls[Static.CI_DESIGNATOR_LABEL]) as Label);
       var post_cardinality_drop_down_list = ((e.Item.Cells[tci_post_cardinality_interactive].Controls[0]) as DropDownList);
-      if (post_id != k.EMPTY)
+      if (post_id.Length > 0)
         {
         foreach (ListItem list_item in p.proto_post_list_item_array)
           {
@@ -814,7 +814,7 @@ namespace UserControl_schedule_proposal
             }
           else
             {
-            post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + post_drop_down_list.SelectedItem.Text;
+            post_label.Text = (p.depth_filter.Length == 0 ? "&nbsp;" : k.EMPTY) + post_drop_down_list.SelectedItem.Text;
             }
           if ((e.Item.Cells[tci_be_greenhorns].Text == "1") && p.be_ok_to_see_other_member_schedule_detail)
             {
@@ -830,7 +830,7 @@ namespace UserControl_schedule_proposal
             }
           }
         }
-      if ((post_id == k.EMPTY) || !p.be_interactive || !be_selected)
+      if ((post_id.Length == 0) || !p.be_interactive || !be_selected)
         {
         post_drop_down_list.Visible = false;
         post_cardinality_drop_down_list.Visible = false;

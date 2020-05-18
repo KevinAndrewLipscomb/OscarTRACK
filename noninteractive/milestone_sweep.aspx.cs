@@ -10,7 +10,7 @@ using Class_biz_milestones;
 
 namespace milestone_sweep
 {
-    public partial class TWebForm_milestone_sweep: System.Web.UI.Page
+    public partial class TWebForm_milestone_sweep: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify

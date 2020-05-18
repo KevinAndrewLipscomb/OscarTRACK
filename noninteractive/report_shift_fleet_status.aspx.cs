@@ -11,7 +11,7 @@ using UserControl_fleet;
 namespace report_shift_fleet_status
   {
 
-  public partial class TWebForm_report_shift_fleet_status: System.Web.UI.Page
+  public partial class TWebForm_report_shift_fleet_status: ki_web_ui.page_class
     {
 
     private struct p_type
@@ -71,7 +71,7 @@ namespace report_shift_fleet_status
           role_name = "Squad Commander";
           proto_member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name,p.agency_short_designator);
           }
-        Session.Add("privilege_array", new string[0]);
+        Session.Add("privilege_array", Array.Empty<string>());
         p.target = p.biz_role_member_map.EmailTargetOf(role_name,p.agency_short_designator) + k.COMMA + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)",p.agency_short_designator);
         }
       var c = LoadControl("~/usercontrol/app/UserControl_fleet.ascx") as TWebUserControl_fleet;
@@ -83,7 +83,8 @@ namespace report_shift_fleet_status
       {
       // Write the HTML stream into a StringBuilder.
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       //
       //writer.Write(sb.ToString());
       //

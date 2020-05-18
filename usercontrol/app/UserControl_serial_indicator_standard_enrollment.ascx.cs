@@ -9,6 +9,7 @@ namespace UserControl_serial_indicator_standard_enrollment
 {
     public partial class TWebUserControl_serial_indicator_standard_enrollment: ki_web_ui.usercontrol_class
     {
+
     private static class Static
       {
       public const int AVERAGE_NUM_MINUTES_PER_MONTH = 43829; // takes into account all scheduled leap days
@@ -24,7 +25,7 @@ namespace UserControl_serial_indicator_standard_enrollment
       }
 
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

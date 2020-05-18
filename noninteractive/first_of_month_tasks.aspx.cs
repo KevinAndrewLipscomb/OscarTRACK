@@ -4,7 +4,7 @@ using System;
 namespace first_of_month_tasks
   {
 
-  public partial class TWebForm_first_of_month_tasks: System.Web.UI.Page
+  public partial class TWebForm_first_of_month_tasks: ki_web_ui.page_class
     {
 
     // / <summary>

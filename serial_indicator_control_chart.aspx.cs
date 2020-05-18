@@ -4,22 +4,15 @@ using com.quinncurtis.chart2dnet;
 using com.quinncurtis.spcchartnet;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Threading;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace serial_indicator_control_chart
-{
-    public partial class TWebForm1: System.Web.UI.Page
+  {
+  public partial class TWebForm_serial_indicator_control_chart: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -48,7 +41,7 @@ namespace serial_indicator_control_chart
               {
               width_in_months.val = int.Parse(k.Safe(Request["width_in_months"],k.safe_hint_type.NUM));
               }
-            var chart = new SPCTimeVariableControlChart(SPCControlChartData.INDIVIDUAL_RANGE_CHART, 1, width_in_months.val, AVERAGE_NUM_MINUTES_PER_MONTH);
+            using var chart = new SPCTimeVariableControlChart(SPCControlChartData.INDIVIDUAL_RANGE_CHART, 1, width_in_months.val, AVERAGE_NUM_MINUTES_PER_MONTH);
             chart.Bounds = new Rectangle(0, 0, 781, 417);
             SPCControlChartData.DefaultSampleValueString = k.EMPTY;
             chart.ChartAlarmEmphasisMode = SPCChartBase.ALARM_HIGHLIGHT_SYMBOL;

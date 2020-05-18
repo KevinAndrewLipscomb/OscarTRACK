@@ -7,13 +7,13 @@ using UserControl_gripe_sheet;
 
 namespace gripe_sheet
   {
-  public struct p_type
-    {
-    public TClass_biz_user biz_user;
-    }
-
   public partial class TWebForm_gripe_sheet: ki_web_ui.page_class
     {
+    private struct p_type
+      {
+      public TClass_biz_user biz_user;
+      }
+
     private p_type p;
 
     // / <summary>

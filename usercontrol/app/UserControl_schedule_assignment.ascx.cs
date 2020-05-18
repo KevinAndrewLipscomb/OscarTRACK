@@ -388,7 +388,7 @@ namespace UserControl_schedule_assignment
       public TClass_biz_schedule_assignments biz_schedule_assignments;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_schedule_assignments;
-      } // end p_type
+      }
 
     } // end TWebUserControl_schedule_assignment
 

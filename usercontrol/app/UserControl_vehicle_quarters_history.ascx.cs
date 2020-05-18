@@ -385,7 +385,7 @@ namespace UserControl_vehicle_quarters_history
       public TClass_biz_vehicle_quarters_history biz_vehicle_quarters_history;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_vehicle_quarters_history;
-      } // end p_type
+      }
 
     } // end TWebUserControl_vehicle_quarters_history
 

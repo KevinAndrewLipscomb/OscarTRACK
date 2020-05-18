@@ -119,7 +119,7 @@ namespace Class_db_role_member_map_logs
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

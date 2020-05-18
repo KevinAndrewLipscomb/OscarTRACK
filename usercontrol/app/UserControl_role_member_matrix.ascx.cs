@@ -1,21 +1,19 @@
-using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_tiers;
 using Class_db_roles;
-using Class_db_role_member_map;
+using kix;
+using System;
+using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace UserControl_role_member_matrix
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_role_member_matrix: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public string agency_filter;
         public bool be_interactive;
@@ -29,11 +27,10 @@ namespace UserControl_role_member_matrix
         public ArrayList crosstab_metadata_rec_arraylist;
         public string sort_order;
         public string tier_filter;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_role_member_matrix: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         private void Checkboxify(GridViewRow row)
         {
             CheckBox check_box;
@@ -314,8 +311,8 @@ namespace UserControl_role_member_matrix
 }
 
 namespace UserControl_role_member_matrix.Units
-{
-    public class UserControl_role_member_matrix
+  {
+  public class UserControl_role_member_matrix
     {
         public const string CHECKBOX_ID_PREFIX_MEMBER_ID = "CheckBox_member_";
         public const string CHECKBOX_ID_PREFIX_ROLE_ID = "_role_";

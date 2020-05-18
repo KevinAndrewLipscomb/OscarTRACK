@@ -25,7 +25,8 @@ namespace UserControl_eval
   {
   public partial class TWebUserControl_eval: ki_web_ui.usercontrol_class
     {
-    public class UserControl_eval_Static
+
+    private static class Static
       {
       public const int TCI_OPEN = 0;
       public const int TCI_ID = 1;
@@ -520,7 +521,7 @@ namespace UserControl_eval
       else if (p.presentation_mode == presentation_mode_enum.EVALUATOR_WORK)
         {
         p.biz_skill_ratings.BindListItemCollectionForEvaluator(target: proto_driver_skill_rating_list_item_collection);
-        DataGrid_driver_skill.Columns[UserControl_eval_Static.TCI_DRIVER_SKILL_PERFORMED_NEEDS_RATING].Visible = true;
+        DataGrid_driver_skill.Columns[Static.TCI_DRIVER_SKILL_PERFORMED_NEEDS_RATING].Visible = true;
         }
       else
         {
@@ -702,14 +703,14 @@ namespace UserControl_eval
       for (var i = new k.subtype<int>(0,DataGrid_driver_skill.Items.Count); i.val < i.LAST; i.val++)
         {
         tcc = DataGrid_driver_skill.Items[i.val].Cells;
-        skill_rating_id = k.Safe((tcc[UserControl_eval_Static.TCI_DRIVER_SKILL_RATING].Controls[0] as DropDownList).SelectedValue,k.safe_hint_type.NUM);
-        driver_skill_rating_id = k.Safe(tcc[UserControl_eval_Static.TCI_DRIVER_SKILL_RATING_ID].Text,k.safe_hint_type.NUM);
+        skill_rating_id = k.Safe((tcc[Static.TCI_DRIVER_SKILL_RATING].Controls[0] as DropDownList).SelectedValue,k.safe_hint_type.NUM);
+        driver_skill_rating_id = k.Safe(tcc[Static.TCI_DRIVER_SKILL_RATING_ID].Text,k.safe_hint_type.NUM);
         if (skill_rating_id.Length > 0)
           {
           p.biz_driver_skill_ratings.Set
             (
             id:driver_skill_rating_id,
-            driver_skill_id:k.Safe(tcc[UserControl_eval_Static.TCI_DRIVER_SKILL_ID].Text,k.safe_hint_type.NUM),
+            driver_skill_id:k.Safe(tcc[Static.TCI_DRIVER_SKILL_ID].Text,k.safe_hint_type.NUM),
             skill_rating_id:skill_rating_id,
             eval_id:p.biz_evals.IdOf(p.summary)
             );
@@ -792,7 +793,7 @@ namespace UserControl_eval
       Panel_driving_summary.Visible = be_in_any_work_or_review_mode && !p.be_evaluatee_driver_qualified;
       Panel_third_rebuttal.Visible = (new ArrayList() {"NEEDS_EVALUATEE_REBUTTAL","ARCHIVED"}).Contains(p.biz_evals.StatusDescriptionOf(p.summary));
       //
-      DataGrid_control.Columns[UserControl_eval_Static.TCI_OPEN].Visible = new ArrayList {presentation_mode_enum.EVALUATEE_WORK,presentation_mode_enum.EVALUATOR_WORK}.Contains(p.presentation_mode);
+      DataGrid_control.Columns[Static.TCI_OPEN].Visible = new ArrayList {presentation_mode_enum.EVALUATEE_WORK,presentation_mode_enum.EVALUATOR_WORK}.Contains(p.presentation_mode);
       }
 
     private void SetDependentFieldAblements(bool ablement)
@@ -1243,7 +1244,7 @@ namespace UserControl_eval
         {
         if (p.be_interactive)
           {
-          link_button = ((e.Item.Cells[UserControl_eval_Static.TCI_OPEN].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_OPEN].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -1257,7 +1258,7 @@ namespace UserControl_eval
           }
         else
           {
-          e.Item.Cells[UserControl_eval_Static.TCI_OPEN].Visible = false;
+          e.Item.Cells[Static.TCI_OPEN].Visible = false;
           }
         p.num_patient_encounters.val++;
         }
@@ -1270,7 +1271,7 @@ namespace UserControl_eval
         BuildMessageDropCrumbAndTransfer
           (
           eval_id:p.biz_evals.IdOf(p.summary),
-          target_id:k.Safe(e.Item.Cells[UserControl_eval_Static.TCI_ID].Text,k.safe_hint_type.NUM)
+          target_id:k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM)
           );
         }
       }
@@ -1301,9 +1302,9 @@ namespace UserControl_eval
         {
         tcc = DataGrid_driver_skill.Items[i.val].Cells;
         args.IsValid =
-          ((tcc[UserControl_eval_Static.TCI_DRIVER_SKILL_PERFORMED_NEEDS_RATING].Text != "?")
+          ((tcc[Static.TCI_DRIVER_SKILL_PERFORMED_NEEDS_RATING].Text != "?")
         ||
-          (k.Safe((tcc[UserControl_eval_Static.TCI_DRIVER_SKILL_RATING].Controls[0] as DropDownList).SelectedValue,k.safe_hint_type.NUM).Length > 0));
+          (k.Safe((tcc[Static.TCI_DRIVER_SKILL_RATING].Controls[0] as DropDownList).SelectedValue,k.safe_hint_type.NUM).Length > 0));
         }
       }
 
@@ -1311,9 +1312,9 @@ namespace UserControl_eval
       {
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        var skill_rating_id = k.Safe(e.Item.Cells[UserControl_eval_Static.TCI_DRIVER_SKILL_RATING_SKILL_RATING_ID].Text,k.safe_hint_type.NUM);
-        var skill_rating_drop_down_list = ((e.Item.Cells[UserControl_eval_Static.TCI_DRIVER_SKILL_RATING].Controls[0]) as DropDownList);
-//        if (skill_rating_id != k.EMPTY)
+        var skill_rating_id = k.Safe(e.Item.Cells[Static.TCI_DRIVER_SKILL_RATING_SKILL_RATING_ID].Text,k.safe_hint_type.NUM);
+        var skill_rating_drop_down_list = ((e.Item.Cells[Static.TCI_DRIVER_SKILL_RATING].Controls[0]) as DropDownList);
+//        if (skill_rating_id.Length > 0)
 //          {
           foreach (ListItem list_item in p.proto_driver_skill_rating_list_item_array)
             {

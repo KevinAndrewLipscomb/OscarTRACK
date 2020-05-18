@@ -59,7 +59,7 @@ namespace Class_db_care_skills
       )
       {
       ((target) as ListControl).Items.Clear();
-      if (unselected_literal != k.EMPTY)
+      if (unselected_literal.Length > 0)
         {
         ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
         }
@@ -72,7 +72,7 @@ namespace Class_db_care_skills
         }
       dr.Close();
       Close();
-      if (selected_value != k.EMPTY)
+      if (selected_value.Length > 0)
         {
         ((target) as ListControl).SelectedValue = selected_value;
         }
@@ -95,7 +95,7 @@ namespace Class_db_care_skills
         using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from care_skill where id = '" + id + "'"), connection);
         my_sql_command.ExecuteNonQuery();
         }
-      catch(System.Exception e)
+      catch(Exception e)
         {
         if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
           {
@@ -103,7 +103,7 @@ namespace Class_db_care_skills
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

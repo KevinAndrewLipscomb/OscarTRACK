@@ -60,7 +60,7 @@ namespace Class_db_skill_ratings
       )
       {
       ((target) as ListControl).Items.Clear();
-      if (unselected_literal != k.EMPTY)
+      if (unselected_literal.Length > 0)
         {
         ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
         }
@@ -73,7 +73,7 @@ namespace Class_db_skill_ratings
         }
       dr.Close();
       Close();
-      if (selected_value != k.EMPTY)
+      if (selected_value.Length > 0)
         {
         ((target) as ListControl).SelectedValue = selected_value;
         }
@@ -149,7 +149,7 @@ namespace Class_db_skill_ratings
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

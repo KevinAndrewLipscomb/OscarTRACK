@@ -54,7 +54,7 @@ namespace Class_biz_patient_encounters
       out string patient_age,
       out string patient_age_unit_id,
       out string patient_encounter_level_id,
-      out string guid
+      out string the_guid
       )
       {
       return db_patient_encounters.Get
@@ -65,7 +65,7 @@ namespace Class_biz_patient_encounters
         out patient_age,
         out patient_age_unit_id,
         out patient_encounter_level_id,
-        out guid
+        out the_guid
         );
       }
 
@@ -77,7 +77,7 @@ namespace Class_biz_patient_encounters
       string patient_age,
       string patient_age_unit_id,
       string patient_encounter_level_id,
-      string guid
+      string the_guid
       )
       {
       db_patient_encounters.Set
@@ -88,7 +88,7 @@ namespace Class_biz_patient_encounters
         patient_age,
         patient_age_unit_id,
         patient_encounter_level_id,
-        guid
+        the_guid
         );
       }
 

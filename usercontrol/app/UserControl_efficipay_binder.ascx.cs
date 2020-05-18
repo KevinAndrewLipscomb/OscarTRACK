@@ -10,27 +10,28 @@ using UserControl_efficipay_teaser;
 
 namespace UserControl_efficipay_binder
   {
-  public class UserControl_efficipay_binder_Static
-    {
-    public const int TSSI_TEASER = 0;
-    public const int TSSI_CURRENT = 1;
-    }
-
-  public struct p_type
-    {
-    public bool be_loaded;
-    public bool be_ok_to_perform_efficipay_ops;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_efficipay_dockets biz_efficipay_dockets;
-    public TClass_biz_members biz_members;
-    public TClass_biz_user biz_user;
-    public string content_id;
-    public string user_member_agency_id;
-    public uint tab_index;
-    }
-
   public partial class TWebUserControl_efficipay_binder: ki_web_ui.usercontrol_class
     {
+
+    private class Static
+      {
+      public const int TSSI_TEASER = 0;
+      public const int TSSI_CURRENT = 1;
+      }
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public bool be_ok_to_perform_efficipay_ops;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_efficipay_dockets biz_efficipay_dockets;
+      public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
+      public string content_id;
+      public string user_member_agency_id;
+      public uint tab_index;
+      }
+
     private p_type p;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -84,11 +85,11 @@ namespace UserControl_efficipay_binder
             );
         if (p.be_ok_to_perform_efficipay_ops)
           {
-          p.tab_index = UserControl_efficipay_binder_Static.TSSI_CURRENT;
+          p.tab_index = Static.TSSI_CURRENT;
           }
         else
           {
-          p.tab_index = UserControl_efficipay_binder_Static.TSSI_TEASER;
+          p.tab_index = Static.TSSI_TEASER;
           }
         FillPlaceHolder(true);
         }
@@ -129,17 +130,19 @@ namespace UserControl_efficipay_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target = k.EMPTY
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
-      if (p.tab_index == UserControl_efficipay_binder_Static.TSSI_TEASER)
+      if (p.tab_index == Static.TSSI_TEASER)
         {
         var c = ((TWebUserControl_efficipay_teaser)(LoadControl("~/usercontrol/app/UserControl_efficipay_teaser.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay_teaser",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
-      else if (p.tab_index == UserControl_efficipay_binder_Static.TSSI_CURRENT)
+      else if (p.tab_index == Static.TSSI_CURRENT)
         {
         var c = ((TWebUserControl_efficipay)(LoadControl("~/usercontrol/app/UserControl_efficipay.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay",PlaceHolder_content); // As a special case, we are disregarding be_fresh_control_required here.
@@ -149,15 +152,15 @@ namespace UserControl_efficipay_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         if (target.ToLower().Contains("/teaser/"))
           {
-          p.tab_index = UserControl_efficipay_binder_Static.TSSI_TEASER;
+          p.tab_index = Static.TSSI_TEASER;
           }
         else if (target.ToLower().Contains("/efficipay/"))
           {
-          p.tab_index = UserControl_efficipay_binder_Static.TSSI_CURRENT;
+          p.tab_index = Static.TSSI_CURRENT;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;

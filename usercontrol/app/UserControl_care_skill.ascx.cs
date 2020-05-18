@@ -1,3 +1,5 @@
+// Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
+
 using Class_biz_care_skills;
 using kix;
 using System;
@@ -6,11 +8,18 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_care_skill
 {
-    // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
     public partial class TWebUserControl_care_skill: ki_web_ui.usercontrol_class
     {
+
+        private struct p_type
+        {
+            public bool be_loaded;
+            public bool be_ok_to_config_care_skills;
+            public TClass_biz_care_skills biz_care_skills;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         private void Clear()
         {
             TextBox_id.Text = k.EMPTY;
@@ -320,13 +329,6 @@ namespace UserControl_care_skill
           }
             }
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-            public bool be_ok_to_config_care_skills;
-            public TClass_biz_care_skills biz_care_skills;
-        } // end p_type
 
     } // end TWebUserControl_care_skill
 

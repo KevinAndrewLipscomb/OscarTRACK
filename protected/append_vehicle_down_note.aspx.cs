@@ -4,18 +4,13 @@ using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace append_vehicle_down_note
   {
-  public struct p_type
+  public partial class TWebForm_append_vehicle_down_note: ki_web_ui.page_class
+    {
+  private struct p_type
     {
     public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
     public TClass_biz_vehicles biz_vehicles;
@@ -23,8 +18,6 @@ namespace append_vehicle_down_note
     public string vehicle_id;
     }
 
-  public partial class TWebForm_append_vehicle_down_note: ki_web_ui.page_class
-    {
     private p_type p;
 
     // / <summary>

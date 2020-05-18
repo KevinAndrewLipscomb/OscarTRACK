@@ -112,7 +112,7 @@ namespace Class_db_efficipay_tokens
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

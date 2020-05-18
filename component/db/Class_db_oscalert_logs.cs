@@ -14,11 +14,13 @@ namespace Class_db_oscalert_logs
     internal void BindBaseDataList
       (
       #pragma warning disable IDE0060 // Remove unused parameter
+      #pragma warning disable CA1801 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       object target,
       string impression_filter,
       string recency_filter
+      #pragma warning restore CA1801 // Remove unused parameter
       #pragma warning restore IDE0060 // Remove unused parameter
       )
       {

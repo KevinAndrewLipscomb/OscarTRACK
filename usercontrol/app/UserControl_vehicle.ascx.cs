@@ -548,7 +548,7 @@ namespace UserControl_vehicle
       {
       args.IsValid = false;
       var textbox_model_year_text = k.Safe(TextBox_model_year.Text,k.safe_hint_type.NUM);
-      if (textbox_model_year_text == k.EMPTY)
+      if (textbox_model_year_text.Length == 0)
         {
         args.IsValid = true;
         }
@@ -597,14 +597,14 @@ namespace UserControl_vehicle
       {
       var name_with_competing_bumper_number = p.biz_vehicles.NameWithCompetingBumperNumber(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_bumper_number.Text,k.safe_hint_type.NUM));
       CustomValidator_bumper_number.ErrorMessage += name_with_competing_bumper_number;
-      args.IsValid = (name_with_competing_bumper_number == k.EMPTY);
+      args.IsValid = (name_with_competing_bumper_number.Length == 0);
       }
 
     protected void CustomValidator_vin_ServerValidate(object source, ServerValidateEventArgs args)
       {
       var name_with_competing_vin = p.biz_vehicles.NameWithCompetingVin(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_vin.Text,k.safe_hint_type.ALPHANUM));
       CustomValidator_vin.ErrorMessage += name_with_competing_vin;
-      args.IsValid = (name_with_competing_vin == k.EMPTY);
+      args.IsValid = (name_with_competing_vin.Length == 0);
       }
 
     protected void CustomValidator_name_ServerValidate(object source, ServerValidateEventArgs args)
@@ -616,7 +616,7 @@ namespace UserControl_vehicle
       {
       var active_name_with_competing_license_plate = p.biz_vehicles.ActiveNameWithCompetingLicensePlate(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM), k.Safe(TextBox_license_plate.Text, k.safe_hint_type.ALPHANUM));
       CustomValidator_license_plate.ErrorMessage += active_name_with_competing_license_plate;
-      args.IsValid = (active_name_with_competing_license_plate == k.EMPTY);
+      args.IsValid = (active_name_with_competing_license_plate.Length == 0);
       }
 
     protected void CustomValidator_be_target_pm_mileage_meaningful_ServerValidate(object source, ServerValidateEventArgs args)

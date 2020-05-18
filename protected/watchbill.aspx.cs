@@ -31,7 +31,7 @@ namespace watchbill
         {
         Title = ConfigurationManager.AppSettings["application_name"] + " - watchbill";
         //
-        if (p.agency_filter == k.EMPTY)
+        if (p.agency_filter.Length == 0)
           {
           Literal_agency.Text = "ALL RESCUE SQUADS";
           }
@@ -39,7 +39,7 @@ namespace watchbill
           {
           Literal_agency.Text = p.biz_agencies.MediumDesignatorOf(p.agency_filter).ToUpper();
           }
-        if (p.release_filter == k.EMPTY)
+        if (p.release_filter.Length == 0)
           {
           Literal_release_filter.Text = "all assigned personnel";
           }

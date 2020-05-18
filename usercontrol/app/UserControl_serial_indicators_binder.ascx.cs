@@ -1,32 +1,26 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
-using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_serial_fleet_indicators_binder;
 using UserControl_serial_personnel_indicators_binder;
 
 namespace UserControl_serial_indicators_binder
   {
-  public class UserControl_serial_indicators_binder_Static
-    {
-    public const int TSSI_PERSONNEL = 0;
-    public const int TSSI_FLEET = 1;
-    }
-
-  public struct p_type
-    {
-    public bool be_loaded;
-    public string content_id;
-    public uint tab_index;
-    }
-
   public partial class TWebUserControl_serial_indicators_binder: ki_web_ui.usercontrol_class
     {
+
+    private static class Static
+      {
+      public const int TSSI_PERSONNEL = 0;
+      public const int TSSI_FLEET = 1;
+      }
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public string content_id;
+      public uint tab_index;
+      }
+
     private p_type p;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -49,11 +43,11 @@ namespace UserControl_serial_indicators_binder
         //
         // Dynamic controls must be re-added on each postback.
         //
-        if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_PERSONNEL)
+        if (p.tab_index == Static.TSSI_PERSONNEL)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))), "UserControl_serial_personnel_indicators_binder", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_FLEET)
+        else if (p.tab_index == Static.TSSI_FLEET)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_fleet_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_fleet_indicators_binder.ascx"))), "UserControl_serial_fleet_indicators_binder", PlaceHolder_content);
           }
@@ -61,7 +55,7 @@ namespace UserControl_serial_indicators_binder
       else
         {
         p.be_loaded = false;
-        p.tab_index = UserControl_serial_indicators_binder_Static.TSSI_PERSONNEL;
+        p.tab_index = Static.TSSI_PERSONNEL;
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))),"UserControl_serial_personnel_indicators_binder",PlaceHolder_content,InstanceId());
         }
       }
@@ -96,11 +90,11 @@ namespace UserControl_serial_indicators_binder
       {
       p.tab_index = (uint)(TabContainer_control.ActiveTabIndex);
       PlaceHolder_content.Controls.Clear();
-      if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_PERSONNEL)
+      if (p.tab_index == Static.TSSI_PERSONNEL)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))),"UserControl_serial_personnel_indicators_binder",PlaceHolder_content,InstanceId());
         }
-      else if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_FLEET)
+      else if (p.tab_index == Static.TSSI_FLEET)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_fleet_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_fleet_indicators_binder.ascx"))),"UserControl_serial_fleet_indicators_binder",PlaceHolder_content,InstanceId());
         }

@@ -1,28 +1,19 @@
+using Class_biz_users;
+using kix;
+using System;
 using System.Configuration;
 
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-using Class_biz_users;
-
 namespace remind_username
-{
-    public struct p_type
+  {
+  public partial class TWebForm_remind_username: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public TClass_biz_users biz_users;
-    } // end p_type
+    }
 
-    public partial class TWebForm_remind_username: ki_web_ui.page_class
-    {
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

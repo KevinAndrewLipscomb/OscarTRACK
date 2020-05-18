@@ -1,30 +1,23 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
-using Class_biz_vehicle_quarters;
-using Class_biz_vehicle_quarters_history;
 using Class_biz_vehicles;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace update_vehicle_mileage
   {
-  public struct p_type
-    {
-    public TClass_biz_vehicles biz_vehicles;
-    public string vehicle_id;
-    public object vehicle_summary;
-    }
-
   public partial class TWebForm_update_vehicle_mileage: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public TClass_biz_vehicles biz_vehicles;
+      public string vehicle_id;
+      public object vehicle_summary;
+      }
+
     private p_type p;
 
     // / <summary>
@@ -46,7 +39,7 @@ namespace update_vehicle_mileage
         Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         Literal_vehicle_name_3.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         var recent_mileage = p.biz_vehicles.RecentMileageOf(p.vehicle_summary);
-        if (recent_mileage != k.EMPTY)
+        if (recent_mileage.Length > 0)
           {
           Literal_recent_mileage.Text = recent_mileage;
           }
@@ -55,7 +48,7 @@ namespace update_vehicle_mileage
           Literal_recent_mileage.Text = "(not specified)";
           }
         var recent_mileage_update_time = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
-        if (recent_mileage_update_time != k.EMPTY)
+        if (recent_mileage_update_time.Length > 0)
           {
           Literal_recent_mileage_update_time.Text = recent_mileage_update_time;
           }

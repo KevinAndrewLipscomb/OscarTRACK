@@ -363,7 +363,7 @@ namespace UserControl_shift
       public TClass_biz_shifts biz_shifts;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_shifts;
-      } // end p_type
+      }
 
     } // end TWebUserControl_shift
 

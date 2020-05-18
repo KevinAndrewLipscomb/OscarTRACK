@@ -289,7 +289,7 @@ namespace Class_biz_schedule_assignments
       bool be_ok_to_edit_schedule_for_any_special_agency
       )
       {
-      return (post_id != k.EMPTY)
+      return (post_id.Length > 0)
       && be_interactive
       &&
         (

@@ -6,7 +6,7 @@ namespace Class_msg_protected
 {
 	public class TClass_msg_protected
 	  {
-    public class confirm_paypal_donation
+    internal class confirm_paypal_donation
       {
       internal process_paypal_donation from_process_paypal_donation;
       internal string resident_id = k.EMPTY;
@@ -17,43 +17,43 @@ namespace Class_msg_protected
       internal string num_priors = k.EMPTY;
       internal string avg_amount = k.EMPTY;
       }
-    public class coverage_assistant
+    internal class coverage_assistant
       {
       internal object summary = null;
       }
-    public class efficipay_docket_detail
+    internal class efficipay_docket_detail
       {
       internal string agency_id = k.EMPTY;
       internal object summary = null;
       }
-    public class eval_detail
+    internal class eval_detail
       {
       internal string id = k.EMPTY;
       internal string user_member_id = k.EMPTY;
       internal bool be_user_evaluatee = true;
       }
-    public class individual_tapout_detail
+    internal class individual_tapout_detail
       {
       internal string member_id = k.EMPTY;
       }
-    public class member_schedule_detail
+    internal class member_schedule_detail
       {
       internal string member_id = k.EMPTY;
       internal k.subtype<int> relative_month;
       internal string member_agency_id = k.EMPTY;
       }
-    public class patient_encounter_detail
+    internal class patient_encounter_detail
       {
       internal presentation_mode_enum presentation_mode = presentation_mode_enum.NONE;
       internal string eval_id = k.EMPTY;
       internal string eval_spec = k.EMPTY;
       internal string id = k.EMPTY;
       }
-    public class overview
+    internal class overview
       {
       internal string target = k.EMPTY;
       }
-    public class process_paypal_donation
+    internal class process_paypal_donation
       {
       internal string agency = k.EMPTY;
       internal string amount_donated = k.EMPTY;
@@ -64,7 +64,7 @@ namespace Class_msg_protected
       internal string donor_street_id = k.EMPTY;
       internal string donor_street_name = k.EMPTY;
       }
-    public class quickmessage_by_shift
+    internal class quickmessage_by_shift
       {
       internal string agency_filter = k.EMPTY;
       internal string release_filter = k.EMPTY;

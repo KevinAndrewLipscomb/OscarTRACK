@@ -11,7 +11,7 @@ namespace change_member_medical_release_level
   public partial class TWebForm_change_member_medical_release_level: ki_web_ui.page_class
     {
 
-    public struct p_type
+    private struct p_type
       {
       public TClass_biz_medical_release_levels biz_medical_release_levels;
       public TClass_biz_members biz_members;
@@ -20,8 +20,6 @@ namespace change_member_medical_release_level
       }
 
     private p_type p;
-
-        protected new System.Web.UI.HtmlControls.HtmlTitle Title = null;
 
         // / <summary>
         // / Required method for Designer support -- do not modify

@@ -2,7 +2,6 @@ using Class_biz_agencies;
 using Class_biz_members;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Text;
@@ -10,17 +9,19 @@ using System.Web.UI;
 using UserControl_roster;
 
 namespace report_monthly_current_phone_list
-{
-    public struct p_type
+  {
+  public partial class TWebForm_report_monthly_current_phone_list: ki_web_ui.page_class
+    {
+
+    private struct p_type
     {
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_members biz_members;
         public string member_id;
-    } // end p_type
+    }
 
-    public partial class TWebForm_report_monthly_current_phone_list: System.Web.UI.Page
-    {
         private p_type p;
+        
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -61,7 +62,7 @@ namespace report_monthly_current_phone_list
             else
             {
                 role_name = "Squad Commander";
-                Session.Add("privilege_array", new string[0]);
+                Session.Add("privilege_array", Array.Empty<string>());
             }
             p.member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name, Request["agency"]);
             Session.Add("member_id", p.member_id);
@@ -71,19 +72,17 @@ namespace report_monthly_current_phone_list
 
         protected override void Render(HtmlTextWriter writer)
         {
-            string body;
             uint i;
-            Queue recipient_q;
-            StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
-            sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
+            var sb = new StringBuilder();
+            using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+            base.Render(html_text_writer);
             // //
             // writer.Write(sb.ToString());
             // //
-            body = sb.ToString();
+            var body = sb.ToString();
             // Send output stream as an email message.
-            recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue(Request["agency"]);
+            var recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue(Request["agency"]);
             uint recipient_q_count = (uint)(recipient_q.Count);
             for (i = 1; i <= recipient_q_count; i ++ )
             {

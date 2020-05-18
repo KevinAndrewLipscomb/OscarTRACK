@@ -7,7 +7,7 @@ namespace roles
   public partial class TWebForm_roles: ki_web_ui.page_class
     {
 
-    public struct p_type
+    private struct p_type
       {
       }
 

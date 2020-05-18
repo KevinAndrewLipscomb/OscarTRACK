@@ -361,7 +361,7 @@ namespace UserControl_vehicle_down_nature
       public TClass_biz_vehicle_down_natures biz_vehicle_down_natures;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_vehicle_down_natures;
-      } // end p_type
+      }
 
     } // end TWebUserControl_vehicle_down_nature
 

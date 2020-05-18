@@ -99,7 +99,7 @@ namespace Class_db_agency_satellite_stations
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -9,11 +9,13 @@ using kix;
 using System;
 using System.Configuration;
 using System.Web.UI;
-using UserControl_drop_down_date;
 
 namespace add_member
-{
-    public struct p_type
+  {
+  public partial class TWebForm_add_member: ki_web_ui.page_class
+    {
+
+    private struct p_type
     {
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_enrollment biz_enrollment;
@@ -22,13 +24,9 @@ namespace add_member
         public TClass_biz_sections biz_sections;
         public TClass_biz_sms_gateways biz_sms_gateways;
         public TClass_biz_user biz_user;
-    } // end p_type
+    }
 
-    public partial class TWebForm_add_member: ki_web_ui.page_class
-    {
         private p_type p;
-
-        protected TWebUserControl_drop_down_date UserControl_enrollment_date = null;
 
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -112,7 +110,7 @@ namespace add_member
             first_name = k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME);
             last_name = k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME);
             similars = p.biz_members.NamesSimilarTo(first_name, last_name, "<br>");
-            if (similars != k.EMPTY)
+            if (similars.Length > 0)
             {
                 Label_similars.Text = similars;
             }
@@ -172,7 +170,7 @@ namespace add_member
 
         protected void CustomValidator_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = (args.Value == k.EMPTY) || kix.k.BeValidDomainPartOfEmailAddress(args.Value);
+            args.IsValid = (args.Value.Length == 0) || kix.k.BeValidDomainPartOfEmailAddress(args.Value);
         }
 
         private void TWebForm_add_member_PreRender(object sender, System.EventArgs e)

@@ -3,15 +3,16 @@ using UserControl_dashboard_serial_aspects_binder;
 
 namespace UserControl_dashboard_binder
 {
-    public struct p_type
+    public partial class TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public bool be_loaded;
         public uint tab_index;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

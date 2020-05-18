@@ -327,7 +327,7 @@ namespace UserControl_gripe
       {
       //TextBox_vehicle_name.Enabled = ablement;
       //TextBox_description.Enabled = ablement;
-      var be_prior_entry = (TextBox_description.Text.Trim() != k.EMPTY);
+      var be_prior_entry = (TextBox_description.Text.Trim().Length > 0);
       Label_prior_entry.Enabled = ablement && be_prior_entry;
       Panel_prior_entry.Enabled = ablement && be_prior_entry;
       TextBox_note_to_append.Enabled = ablement;

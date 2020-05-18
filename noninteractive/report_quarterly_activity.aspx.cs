@@ -8,7 +8,7 @@ using System.Web.UI;
 
 namespace report_quarterly_activity
   {
-  public partial class TWebForm_report_quarterly_activity: Page
+  public partial class TWebForm_report_quarterly_activity: ki_web_ui.page_class
     {
 
     private struct p_type
@@ -57,7 +57,8 @@ namespace report_quarterly_activity
       // Write the HTML stream into a StringBuilder.
       //
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       // //
       // writer.Write(sb.ToString());
       // //

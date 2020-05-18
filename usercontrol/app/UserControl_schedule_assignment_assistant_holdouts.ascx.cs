@@ -171,7 +171,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           (
             (k.Has(Session["privilege_array"] as string[],"edit-schedule") || p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]))
           &&
-            (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+            (p.agency_filter == own_agency || p.agency_filter.Length == 0)
           )
         ||
           p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter)

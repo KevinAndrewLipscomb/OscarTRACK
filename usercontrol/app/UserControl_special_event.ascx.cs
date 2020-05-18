@@ -326,7 +326,7 @@ namespace UserControl_special_event
             public bool be_loaded;
             public bool be_ok_to_config_special_events;
             public TClass_biz_special_events biz_special_events;
-        } // end p_type
+        }
 
     } // end TWebUserControl_special_event
 

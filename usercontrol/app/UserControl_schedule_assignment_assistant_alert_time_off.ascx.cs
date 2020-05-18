@@ -145,7 +145,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         }
       else if
         (
-          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter.Length == 0))
         ||
           p.be_ok_to_edit_schedule_for_selected_special_agency
         )

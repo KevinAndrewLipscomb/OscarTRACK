@@ -10,7 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_role_member_mapping
 {
-    public struct p_type
+    public partial class TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public string TIER_ID_DEPARTMENT;
         public string TIER_ID_SQUAD;
@@ -30,11 +32,10 @@ namespace UserControl_role_member_mapping
         public string own_tier;
         public string sort_order;
         public string tier_filter;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
@@ -303,7 +304,7 @@ namespace UserControl_role_member_mapping
             string member_limiter;
             string tier_limiter;
             p.biz_role_member_map.BindActuals(p.tier_filter, p.agency_filter, p.sort_order, p.be_sort_order_ascending, GridView_control);
-            TableCell_add_mapping.Visible = p.may_add_mappings && ((p.own_tier == p.TIER_ID_DEPARTMENT) || (((p.tier_filter == k.EMPTY) || (p.tier_filter.CompareTo(p.TIER_ID_SQUAD) >= 0)) && ((p.agency_filter == k.EMPTY) || (p.agency_filter == p.own_agency))));
+            TableCell_add_mapping.Visible = p.may_add_mappings && ((p.own_tier == p.TIER_ID_DEPARTMENT) || (((p.tier_filter.Length == 0) || (p.tier_filter.CompareTo(p.TIER_ID_SQUAD) >= 0)) && ((p.agency_filter.Length == 0) || (p.agency_filter == p.own_agency))));
             if (TableCell_add_mapping.Visible)
             {
                 // Keep in mind that TIER_ID_SECTION (3) is GREATER than TIER_ID_SQUAD (2).
@@ -316,7 +317,7 @@ namespace UserControl_role_member_mapping
                     tier_limiter = p.TIER_ID_SQUAD;
                 }
                 p.biz_roles.BindDirectToListControl(DropDownList_role, k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"), tier_limiter);
-                if (p.own_agency == k.EMPTY)
+                if (p.own_agency.Length == 0)
                 {
                     member_limiter = p.agency_filter;
                 }

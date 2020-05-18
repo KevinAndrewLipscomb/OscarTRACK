@@ -90,7 +90,7 @@ namespace Class_biz_gripes
       while (id_q.Count > 0)
         {
         vehicle_log += new string(Convert.ToChar(k.SPACE),3) + "Gripe # " + id_q.Dequeue().ToString() + ":" + k.NEW_LINE
-        + new string(Convert.ToChar(k.SPACE),6) + k.WrapText(description_q.Dequeue().ToString(),k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"]));
+        + new string(Convert.ToChar(k.SPACE),6) + k.WrapText(description_q.Dequeue().ToString(),k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"]));
         if (id_q.Count > 0)
           {
           vehicle_log += k.NEW_LINE + k.NEW_LINE;
@@ -175,7 +175,7 @@ namespace Class_biz_gripes
       )
       {
       note_to_append = biz_members.UserAttributionIndicator() + note_to_append;
-      if (description != k.EMPTY)
+      if (description.Length > 0)
         {
         note_to_append = description + Class_biz_gripes_Static.COMMENT_SEPARATOR + note_to_append;
         }

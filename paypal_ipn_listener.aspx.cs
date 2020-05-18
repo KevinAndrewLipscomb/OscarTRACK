@@ -69,7 +69,7 @@ namespace paypal_ipn_listener
       //
       var application_name = ConfigurationManager.AppSettings["application_name"];
       var be_d_or_x_instance = (application_name.EndsWith("_d") || application_name.EndsWith("_x"));
-      var http_web_request = (HttpWebRequest)WebRequest.Create("https://www" + (be_d_or_x_instance ? ".sandbox" : k.EMPTY) + ".paypal.com/cgi-bin/webscr");
+      var http_web_request = (HttpWebRequest)WebRequest.Create(new Uri("https://www" + (be_d_or_x_instance ? ".sandbox" : k.EMPTY) + ".paypal.com/cgi-bin/webscr"));
       http_web_request.Method = "POST";
       http_web_request.ContentType = "application/x-www-form-urlencoded";
       http_web_request.ContentLength = readback.Length;

@@ -1,3 +1,6 @@
+#pragma warning disable CA1031 // Do not catch general exception types
+#pragma warning disable CA2234 // Pass system uri objects instead of strings
+
 using Class_ss;
 using kix;
 using System;
@@ -7,10 +10,6 @@ namespace Class_ss_broadcastify
   {
   public class TClass_ss_broadcastify : TClass_ss
     {
-
-    private static class Static
-      {
-      }
 
     public TClass_ss_broadcastify() : base()
       {      
@@ -42,8 +41,8 @@ namespace Class_ss_broadcastify
 		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
 		    else return e.Message + k.NEW_LINE + e.StackTrace;
 	    }
-	    catch (Exception e)
-	    {
+    catch (Exception e)
+      {
 		    if(response != null) response.Close();
 		    return e.Message + k.NEW_LINE + e.StackTrace;
 	    }

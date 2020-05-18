@@ -8,8 +8,15 @@ namespace UserControl_agency
 {
     public partial class TWebUserControl_agency: ki_web_ui.usercontrol_class
     {
+        private struct p_type
+        {
+            public bool be_loaded;
+            public bool be_ok_to_config_agencies;
+            public TClass_biz_agencies biz_agencies;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         private void Clear()
         {
             TextBox_id.Text = k.EMPTY;
@@ -318,13 +325,6 @@ namespace UserControl_agency
           }
             }
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-            public bool be_ok_to_config_agencies;
-            public TClass_biz_agencies biz_agencies;
-        } // end p_type
 
     } // end TWebUserControl_agency
 

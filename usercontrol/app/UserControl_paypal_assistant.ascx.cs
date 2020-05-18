@@ -10,33 +10,33 @@ using System.Web.UI;
 namespace UserControl_paypal_assistant
   {
 
-  public struct p_type
-    {
-    public string address_name;
-    public string address_street;
-    public string address_city;
-    public string address_state;
-    public string address_zip;
-    public string address_country;
-    public string address_country_code;
-    public string agency;
-    public string amount_donated;
-    public bool be_loaded;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_members biz_members;
-    public TClass_biz_streets biz_streets;
-    public TClass_biz_user biz_user;
-    public DateTime donation_date;
-    public string donor_email_address;
-    public string donor_house_num;
-    public string donor_name;
-    public string donor_street_name;
-    public string memo;
-    public TClass_msg_protected.process_paypal_donation msg_protected_process_paypal_donation;
-    }
-
   public partial class TWebUserControl_paypal_assistant: ki_web_ui.usercontrol_class
     {
+
+    private struct p_type
+      {
+      public string address_name;
+      public string address_street;
+      public string address_city;
+      public string address_state;
+      public string address_zip;
+      public string address_country;
+      public string address_country_code;
+      public string agency;
+      public string amount_donated;
+      public bool be_loaded;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_members biz_members;
+      public TClass_biz_streets biz_streets;
+      public TClass_biz_user biz_user;
+      public DateTime donation_date;
+      public string donor_email_address;
+      public string donor_house_num;
+      public string donor_name;
+      public string donor_street_name;
+      public string memo;
+      public TClass_msg_protected.process_paypal_donation msg_protected_process_paypal_donation;
+      }
 
     private p_type p;
 
@@ -173,7 +173,7 @@ namespace UserControl_paypal_assistant
         p.msg_protected_process_paypal_donation.donation_date = UserControl_drop_down_date_donation_date.selectedvalue;
         p.msg_protected_process_paypal_donation.donor_house_num = k.Safe(TextBox_donor_house_num.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).ToUpper();
         p.msg_protected_process_paypal_donation.donor_street_id = k.Safe(DropDownList_donor_street.SelectedValue,k.safe_hint_type.NUM);
-        if (p.msg_protected_process_paypal_donation.donor_street_id != k.EMPTY)
+        if (p.msg_protected_process_paypal_donation.donor_street_id.Length > 0)
           {
           p.msg_protected_process_paypal_donation.donor_street_name = k.Safe(DropDownList_donor_street.SelectedItem.Text,k.safe_hint_type.POSTAL_CITY_CSV);
           }

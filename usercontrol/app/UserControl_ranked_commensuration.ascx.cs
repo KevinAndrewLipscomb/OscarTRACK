@@ -1,35 +1,30 @@
-using kix;
-using System;
-
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-using System.Collections;
 using Class_biz_agencies;
 using Class_biz_role_member_map;
+using kix;
+using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace UserControl_ranked_commensuration
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_ranked_commensuration: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_role_member_map biz_role_member_map;
         public uint rank;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_ranked_commensuration: ki_web_ui.usercontrol_class
-    {
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_auditor_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {
                 Label_overall.Text = p.biz_agencies.OverallCommensuration();
-                if (Label_overall.Text != k.EMPTY)
+                if (Label_overall.Text.Length > 0)
                 {
                     Label_overall.Text += " %";
                     p.biz_agencies.BindRankedCommensuration(DataGrid_detail);

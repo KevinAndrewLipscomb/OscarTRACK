@@ -36,6 +36,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
       Close();
       }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void BindLatestRankedPercentages(object target, bool be_trendable)
       {
       Open();
@@ -74,8 +75,8 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
           "replace indicator_shiftwise_vehicles_up_and_current"
           + " set date = CURDATE()"
           + " , be_for_night_shift = (HOUR(NOW()) > 12)"
-          + " , be_agency_id_applicable = " + (agency_filter != k.EMPTY).ToString()
-          + " , agency_id = '" + (agency_filter == k.EMPTY ? "0" : agency_filter) + "'"
+          + " , be_agency_id_applicable = " + (agency_filter.Length > 0).ToString()
+          + " , agency_id = '" + (agency_filter.Length == 0 ? "0" : agency_filter) + "'"
           + " , value = '" + (value*100).ToString() + "'"
           )
         ,connection

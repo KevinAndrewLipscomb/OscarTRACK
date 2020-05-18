@@ -40,7 +40,7 @@ namespace report_commanded_watchbill
         {
         Title = ConfigurationManager.AppSettings["application_name"] + " - report_commanded_watchbill";
         //
-        if (p.agency_filter == k.EMPTY)
+        if (p.agency_filter.Length == 0)
           {
           Literal_agency.Text = "ALL RESCUE SQUADS";
           }
@@ -48,7 +48,7 @@ namespace report_commanded_watchbill
           {
           Literal_agency.Text = p.biz_agencies.MediumDesignatorOf(p.agency_filter).ToUpper();
           }
-        if (p.release_filter == k.EMPTY)
+        if (p.release_filter.Length == 0)
           {
           Literal_release_filter.Text = "all assigned personnel";
           }
@@ -115,12 +115,13 @@ namespace report_commanded_watchbill
     protected override void Render(HtmlTextWriter writer)
       {
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       // //
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue((p.agency_filter == k.EMPTY ? k.EMPTY : p.biz_agencies.ShortDesignatorOf(p.agency_filter)),true);
+      var recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue((p.agency_filter.Length == 0 ? k.EMPTY : p.biz_agencies.ShortDesignatorOf(p.agency_filter)),true);
       var recipient_q_count = recipient_q.Count;
       for (var i = new k.subtype<int>(0,recipient_q_count); i.val < recipient_q_count; i.val++ )
         {

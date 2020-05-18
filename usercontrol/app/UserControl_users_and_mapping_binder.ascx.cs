@@ -3,16 +3,18 @@ using UserControl_user_member_mapping;
 
 namespace UserControl_users_and_mapping_binder
 {
-    public struct p_type
+    public partial class TWebUserControl_users_and_mapping_binder: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_loaded;
         public string content_id;
         public uint tab_index;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_users_and_mapping_binder: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

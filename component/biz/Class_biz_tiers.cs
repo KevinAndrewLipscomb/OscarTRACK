@@ -5,6 +5,7 @@ namespace Class_biz_tiers
   public class TClass_biz_tiers
     {
         private readonly TClass_db_tiers db_tiers = null;
+
         //Constructor  Create()
         public TClass_biz_tiers() : base()
         {
@@ -13,7 +14,11 @@ namespace Class_biz_tiers
         }
         
         #pragma warning disable IDE0060 // Remove unused parameter
+        #pragma warning disable CA2211 // Remove unused parameter
+        #pragma warning disable CA1801 // Remove unused parameter
         public void BindListControl(object target, string selected_id, bool be_available_option_all, string unselected_literal)
+        #pragma warning restore CA1801 // Remove unused parameter
+        #pragma warning restore CA2211 // Remove unused parameter
         #pragma warning restore IDE0060 // Remove unused parameter
         {
             db_tiers.BindListControl(target, unselected_literal, selected_id);

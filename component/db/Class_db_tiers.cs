@@ -21,7 +21,7 @@ namespace Class_db_tiers
             MySqlDataReader dr;
             Open();
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != k.EMPTY)
+            if (unselected_literal.Length > 0)
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
@@ -32,7 +32,7 @@ namespace Class_db_tiers
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            if (selected_id != k.EMPTY)
+            if (selected_id.Length > 0)
             {
                 ((target) as ListControl).SelectedValue = selected_id;
             }

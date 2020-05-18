@@ -17,7 +17,9 @@ namespace Class_db_indicator_median_length_of_service
             // TODO: Add any constructor code here
             db_trail = new TClass_db_trail();
         }
-        public void BindLatestRankedYearsOfService(object target, bool be_trendable)
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+    public void BindLatestRankedYearsOfService(object target, bool be_trendable)
         {
             MySqlTransaction transaction;
             Open();

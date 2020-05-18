@@ -21,7 +21,7 @@ namespace UserControl_driver_skill_rating
       public TClass_biz_driver_skill_ratings biz_driver_skill_ratings;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_driver_skill_ratings;
-      } // end p_type
+      }
 
     private p_type p;
 

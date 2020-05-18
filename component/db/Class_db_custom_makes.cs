@@ -86,7 +86,7 @@ namespace Class_db_custom_makes
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

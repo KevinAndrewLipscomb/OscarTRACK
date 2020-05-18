@@ -61,7 +61,7 @@ namespace UserControl_roster
             public string[] user_role_string_array;
             public string user_target_email;
             public string user_target_sms;
-        } // end p_type
+        }
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -72,7 +72,7 @@ namespace UserControl_roster
                 DropDownList_agency_filter.SelectedValue = p.agency_filter;
                 p.biz_sections.BindListControl(DropDownList_section_filter, "0*");
                 DropDownList_section_filter.SelectedValue = ((uint)(p.section_filter)).ToString();
-                TableData_section_filter.Visible = p.agency_filter != k.EMPTY;
+                TableData_section_filter.Visible = p.agency_filter.Length > 0;
                 DropDownList_med_release_filter.SelectedValue = ((Class_biz_medical_release_levels.filter_type)(p.med_release_level_filter)).ToString().ToLower();
                 DropDownList_enrollment_filter.SelectedValue = ((Class_biz_enrollment.filter_type)(p.enrollment_filter)).ToString().ToLower();
                 RadioButtonList_which_month.SelectedValue = p.relative_month.ToString();
@@ -256,7 +256,7 @@ namespace UserControl_roster
         {
             bool saved_checkbox_phone_list_enabled;
             p.agency_filter = k.Safe(DropDownList_agency_filter.SelectedValue, k.safe_hint_type.NUM);
-            TableData_section_filter.Visible = (p.agency_filter != k.EMPTY);
+            TableData_section_filter.Visible = (p.agency_filter.Length > 0);
             // Always reset section filter when agency filter changes.
             DropDownList_section_filter.SelectedIndex = 0;
             p.section_filter = 0;
@@ -431,7 +431,7 @@ namespace UserControl_roster
                     p.distribution_list_email += e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text + k.COMMA_SPACE;
                     p.distribution_list_sms += (e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text == "&nbsp;" ? k.EMPTY : e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text + k.COMMA_SPACE);
                 }
-                if (e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text != k.EMPTY)
+                if (e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text.Length > 0)
                 {
                     e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text = k.FormatAsNanpPhoneNum(e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text);
                 }
@@ -472,8 +472,8 @@ namespace UserControl_roster
         private void Bind()
         {
             bool be_raw_shifts_nonzero;
-            R.Columns[Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
-            R.Columns[Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0) && (!p.be_transferee_report);
+            R.Columns[Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter.Length == 0);
+            R.Columns[Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter.Length > 0) && (p.section_filter == 0) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
             R.Columns[Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
             R.Columns[Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;

@@ -25,7 +25,7 @@ namespace Class_ss
       public const Int32 INTERNET_COOKIE_THIRD_PARTY = 0x10;
       }
 
-    [DllImport("wininet.dll", SetLastError = true)]
+    [DllImport("wininet.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     private static extern bool InternetGetCookieEx
       (
       string url, 

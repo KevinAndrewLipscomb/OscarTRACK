@@ -1,21 +1,25 @@
-using kix;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
+// Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
 
 using Class_biz_states;
-using UserControl_drop_down_date;
+using kix;
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace UserControl_state
-{
-    // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
-    public partial class TWebUserControl_state: ki_web_ui.usercontrol_class
+  {
+  public partial class TWebUserControl_state: ki_web_ui.usercontrol_class
     {
+
+        private struct p_type
+        {
+            public bool be_loaded;
+            public bool be_ok_to_config_states;
+            public TClass_biz_states biz_states;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         private void Clear()
         {
             TextBox_id.Text = k.EMPTY;
@@ -325,13 +329,6 @@ namespace UserControl_state
           }
             }
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-            public bool be_ok_to_config_states;
-            public TClass_biz_states biz_states;
-        } // end p_type
 
     } // end TWebUserControl_state
 

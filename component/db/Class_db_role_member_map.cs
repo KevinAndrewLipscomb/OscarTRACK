@@ -55,7 +55,7 @@ namespace Class_db_role_member_map
             }
             dr.Close();
             where_clause = " where enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin'" + ",'Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee') ";
-            if (agency_filter != k.EMPTY)
+            if (agency_filter.Length > 0)
             {
                 where_clause += " and agency_id = \"" + agency_filter + "\"";
             }
@@ -82,7 +82,7 @@ namespace Class_db_role_member_map
             {
                 where_clause += " and (tier_id in (" + tier_quoted_value_list + "))";
             }
-            if (agency_filter != k.EMPTY)
+            if (agency_filter.Length > 0)
             {
                 where_clause += " and (agency_id = \"" + agency_filter + "\")";
             }
@@ -243,7 +243,7 @@ namespace Class_db_role_member_map
         }
       dr.Close();
       Close();
-      return (email_target_of != k.EMPTY ? email_target_of.Substring(0, email_target_of.Length - 1) : k.EMPTY);
+      return (email_target_of.Length > 0 ? email_target_of.Substring(0, email_target_of.Length - 1) : k.EMPTY);
       }
 
     internal string EmailTargetOfAgencyIdList

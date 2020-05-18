@@ -4,7 +4,7 @@ using System;
 namespace statement_member_status
   {
 
-  public partial class TWebForm_statement_member_status: System.Web.UI.Page
+  public partial class TWebForm_statement_member_status: ki_web_ui.page_class
     {
 
     // / <summary>

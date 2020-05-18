@@ -58,13 +58,13 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private p_type p;
 
-    protected TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
-    protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
-    protected TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro = null;
-    protected TWebUserControl_schedule_assignment_assistant_publish UserControl_schedule_assignment_assistant_publish = null;
-    protected TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
-    protected TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
-    protected TWebUserControl_strength_chart UserControl_strength_chart = null;
+    internal TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
+    internal TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
+    internal TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro = null;
+    internal TWebUserControl_schedule_assignment_assistant_publish UserControl_schedule_assignment_assistant_publish = null;
+    internal TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
+    internal TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
+    internal TWebUserControl_strength_chart UserControl_strength_chart = null;
 
     private void ManagePostPublishSubmissionDetection()
       {
@@ -287,8 +287,10 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
       if (p.tab_index == Static.TSSI_HOLDOUTS)
@@ -341,7 +343,7 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         var relative_month_target = target.Substring
           (

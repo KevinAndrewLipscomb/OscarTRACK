@@ -56,7 +56,7 @@ namespace Class_db_leaves
             bool result;
             string cmdtext;
             cmdtext = "select 1" + " from leave_of_absence" + " where" + " member_id = " + member_id + " and" + " (" + " (" + " start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " and" + " end_date >= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " )" + " or" + " (" + " start_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " and" + " end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " )" + " )";
-            if (id != k.EMPTY)
+            if (id.Length > 0)
             {
                 cmdtext += " and id <> " + id;
             }

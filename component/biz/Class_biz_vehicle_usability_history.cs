@@ -8,12 +8,14 @@ using System;
 
 namespace Class_biz_vehicle_usability_history
   {
-  public static class Class_biz_vehicle_usability_history_Static
-    {
-    public static string COMMENT_SEPARATOR = k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
-    }
   public class TClass_biz_vehicle_usability_history
     {
+
+    private static class Static
+      {
+      public static string COMMENT_SEPARATOR = k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
+      }
+
     private readonly TClass_biz_members biz_members = null;
     private readonly TClass_biz_notifications biz_notifications = null;
     private readonly TClass_db_vehicle_usability_history db_vehicle_usability_history = null;
@@ -32,7 +34,7 @@ namespace Class_biz_vehicle_usability_history
       string note_to_append
       )
       {
-      var replacement_note = old_comment + Class_biz_vehicle_usability_history_Static.COMMENT_SEPARATOR + biz_members.UserAttributionIndicator() + note_to_append;
+      var replacement_note = old_comment + Static.COMMENT_SEPARATOR + biz_members.UserAttributionIndicator() + note_to_append;
       db_vehicle_usability_history.ReplaceDownNote(vehicle_id,replacement_note);
       biz_notifications.IssueForVehicleDownNoteAppended(vehicle_id,replacement_note);
       }

@@ -290,11 +290,11 @@ namespace UserControl_tapout
         var expected_start = DateTime.MinValue;
         var actor_timestamp = DateTime.MinValue;
         //
-        if (TextBox_expected_start.Text != k.EMPTY)
+        if (TextBox_expected_start.Text.Length > 0)
           {
           expected_start = DateTime.Parse(k.Safe(TextBox_expected_start.Text,k.safe_hint_type.DATE_TIME));
           }
-        if (TextBox_actor_timestamp.Text != k.EMPTY)
+        if (TextBox_actor_timestamp.Text.Length > 0)
           {
           actor_timestamp = DateTime.Parse(k.Safe(TextBox_actor_timestamp.Text,k.safe_hint_type.DATE_TIME));
           }

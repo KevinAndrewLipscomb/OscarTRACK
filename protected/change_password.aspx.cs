@@ -7,14 +7,14 @@ using System.Web.UI;
 
 namespace change_password
 {
-    public struct p_type
+    public partial class TWebForm_change_password: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public TClass_biz_users biz_users;
         public TClass_biz_user biz_user;
-    } // end p_type
+    }
 
-    public partial class TWebForm_change_password: ki_web_ui.page_class
-    {
         private p_type p;
 
         // / <summary>

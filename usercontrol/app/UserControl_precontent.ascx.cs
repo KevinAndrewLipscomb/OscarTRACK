@@ -62,8 +62,18 @@ namespace UserControl_precontent
             EstablishFormReenablementScript();
         }
 
+        // / <summary>
+        // / Required method for Designer support -- do not modify
+        // / the contents of this method with the code editor.
+        // / </summary>
+        private void InitializeComponent()
+        {
+        }
+
         protected override void OnInit(System.EventArgs e)
         {
+            // Required for Designer support
+            InitializeComponent();
             base.OnInit(e);
             //
             p.biz_user = new TClass_biz_user();

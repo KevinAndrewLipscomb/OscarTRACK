@@ -204,7 +204,7 @@ namespace UserControl_behind_the_scenes_activity
             public uint total_messages_for_cycle;
             public uint total_events_for_lifetime;
             public uint total_messages_for_lifetime;
-        } // end p_type
+        }
 
     } // end TWebUserControl_behind_the_scenes_activity
 

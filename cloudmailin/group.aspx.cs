@@ -4,7 +4,7 @@ using System;
 namespace group
   {
 
-  public partial class TWebForm_fleetman: System.Web.UI.Page
+  public partial class TWebForm_fleetman: ki_web_ui.page_class
     {
 
     // / <summary>

@@ -24,7 +24,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       public const int TCI_TARGET_AGENCY_ID = 3;
       }
 
-    public struct p_type
+    private struct p_type
       {
       public string agency_filter;
       public bool be_interactive;

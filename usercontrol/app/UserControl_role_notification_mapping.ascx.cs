@@ -8,7 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_role_notification_mapping
 {
-    public struct p_type
+    public partial class TWebUserControl_role_notification_mapping: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public string TIER_ID_DEPARTMENT;
         public string TIER_ID_SQUAD;
@@ -25,11 +27,10 @@ namespace UserControl_role_notification_mapping
         public string own_tier;
         public string sort_order;
         public string tier_filter;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_role_notification_mapping: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);

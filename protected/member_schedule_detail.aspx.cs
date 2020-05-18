@@ -2,21 +2,19 @@
 
 using Class_biz_user;
 using Class_msg_protected;
-using kix;
 using System;
 using System.Configuration;
-using System.Web;
 
 namespace member_schedule_detail
   {
-  public struct p_type
-    {
-    public TClass_biz_user biz_user;
-    public TClass_msg_protected.member_schedule_detail incoming;
-    }
-
   public partial class TWebForm_member_schedule_detail: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.member_schedule_detail incoming;
+      }
 
     private p_type p;
 

@@ -326,7 +326,7 @@ namespace UserControl_ems_system
             public bool be_loaded;
             public bool be_ok_to_config_ems_systems;
             public TClass_biz_ems_systems biz_ems_systems;
-        } // end p_type
+        }
 
     } // end TWebUserControl_ems_system
 

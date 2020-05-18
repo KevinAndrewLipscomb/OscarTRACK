@@ -102,7 +102,7 @@ namespace Class_db_custom_models
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();
