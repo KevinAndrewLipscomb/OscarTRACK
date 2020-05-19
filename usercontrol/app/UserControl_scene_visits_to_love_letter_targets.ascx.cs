@@ -30,7 +30,7 @@ namespace UserControl_scene_visits_to_love_letter_targets
       public k.int_positive limit;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Bind()
       {

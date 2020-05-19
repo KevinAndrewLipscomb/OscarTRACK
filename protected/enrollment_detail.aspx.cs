@@ -21,7 +21,7 @@ namespace enrollment_detail
       public const int TCCI_NOTE = 3;
       }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify

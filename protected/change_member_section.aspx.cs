@@ -14,7 +14,7 @@ namespace change_member_section
         public TClass_biz_members biz_members;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify

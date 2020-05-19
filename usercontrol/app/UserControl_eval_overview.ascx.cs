@@ -17,7 +17,7 @@ namespace UserControl_eval_overview
       public TClass_biz_user biz_user;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

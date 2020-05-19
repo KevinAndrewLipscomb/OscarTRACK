@@ -15,7 +15,7 @@ namespace change_email_address
           public TClass_biz_users biz_users;
       }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify

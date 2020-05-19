@@ -48,7 +48,7 @@ namespace UserControl_uniform_object_binder
       internal uint tab_index;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void FillPlaceHolder
       (

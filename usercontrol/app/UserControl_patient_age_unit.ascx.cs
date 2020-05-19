@@ -18,7 +18,7 @@ namespace UserControl_patient_age_unit
             public TClass_biz_patient_age_units biz_patient_age_units;
         }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         private void Clear()
         {

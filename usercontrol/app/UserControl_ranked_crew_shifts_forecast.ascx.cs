@@ -14,7 +14,7 @@ namespace UserControl_ranked_crew_shifts_forecast
         public decimal total;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

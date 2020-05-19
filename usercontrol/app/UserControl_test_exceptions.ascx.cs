@@ -11,7 +11,7 @@ namespace UserControl_test_exceptions
       public bool be_loaded;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, EventArgs e)
       {

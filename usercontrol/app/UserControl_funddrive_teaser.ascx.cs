@@ -11,7 +11,7 @@ namespace UserControl_funddrive_teaser
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~std.pas
     public partial class TWebUserControl_funddrive_teaser: ki_web_ui.usercontrol_class
     {
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);

@@ -51,7 +51,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       public string biket_agency_id;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

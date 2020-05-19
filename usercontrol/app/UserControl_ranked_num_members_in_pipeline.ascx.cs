@@ -14,7 +14,7 @@ namespace UserControl_ranked_num_members_in_pipeline
         public uint total;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

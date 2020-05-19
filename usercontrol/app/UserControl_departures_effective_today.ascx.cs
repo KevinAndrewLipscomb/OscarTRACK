@@ -22,7 +22,7 @@ namespace UserControl_departures_effective_today
       public uint num_departures;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

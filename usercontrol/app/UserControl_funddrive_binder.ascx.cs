@@ -46,7 +46,7 @@ namespace UserControl_funddrive_binder
       public string user_member_agency_keyclick_enumerator;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void FillPlaceHolder
       (

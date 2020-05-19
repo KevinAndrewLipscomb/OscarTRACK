@@ -18,7 +18,7 @@ namespace UserControl_patient_encounter_level
             public TClass_biz_patient_encounter_levels biz_patient_encounter_levels;
         }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         private void Clear()
         {

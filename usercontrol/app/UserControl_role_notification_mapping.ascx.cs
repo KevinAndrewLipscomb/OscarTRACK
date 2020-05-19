@@ -29,7 +29,7 @@ namespace UserControl_role_notification_mapping
         public string tier_filter;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         private void InjectPersistentClientSideScript()
         {

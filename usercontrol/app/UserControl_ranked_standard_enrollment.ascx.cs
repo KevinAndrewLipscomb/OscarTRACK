@@ -15,7 +15,7 @@ namespace UserControl_ranked_standard_enrollment
         public decimal total_raw;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

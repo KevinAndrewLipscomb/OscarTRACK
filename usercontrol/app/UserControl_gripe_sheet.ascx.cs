@@ -66,7 +66,7 @@ namespace UserControl_gripe_sheet
       public string work_order_coordinator_title;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InjectPersistentClientSideScript()
       {

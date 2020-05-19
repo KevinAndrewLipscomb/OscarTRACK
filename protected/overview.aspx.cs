@@ -22,7 +22,7 @@ namespace overview
         public TClass_msg_protected.overview incoming;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify

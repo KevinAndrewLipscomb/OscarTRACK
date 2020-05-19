@@ -39,7 +39,7 @@ namespace UserControl_member_icalendar
       public string vevent_list;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, EventArgs e)
       {

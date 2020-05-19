@@ -16,7 +16,7 @@ namespace lineup
       public TClass_biz_agencies biz_agencies;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InitializeComponent()
       {

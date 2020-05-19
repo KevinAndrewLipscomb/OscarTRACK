@@ -34,7 +34,7 @@ namespace UserControl_ranked_vehicles_up_and_current
       public decimal total_num_vehicles_up_and_current;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

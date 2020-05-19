@@ -17,7 +17,7 @@ namespace verify_efficipay_signature
       public TClass_biz_efficipay_tokens biz_efficipay_tokens;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InitializeComponent()
       {

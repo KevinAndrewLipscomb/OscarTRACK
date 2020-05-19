@@ -33,7 +33,7 @@ namespace UserControl_schedule_assignment_assistant_publish
       public string user_id;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

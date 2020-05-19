@@ -89,7 +89,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
       public string sort_order;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, EventArgs e)
       {

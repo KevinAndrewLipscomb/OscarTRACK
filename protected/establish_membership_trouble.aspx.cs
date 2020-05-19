@@ -19,7 +19,7 @@ namespace establish_membership_trouble
 {
     public partial class TWebForm_establish_membership_trouble: ki_web_ui.page_class
     {
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

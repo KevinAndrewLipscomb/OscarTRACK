@@ -20,7 +20,7 @@ namespace report_monthly_current_phone_list
         public string member_id;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         
         // / <summary>
         // / Required method for Designer support -- do not modify

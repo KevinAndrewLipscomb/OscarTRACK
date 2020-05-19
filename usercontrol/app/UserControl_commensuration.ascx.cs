@@ -15,7 +15,7 @@ namespace UserControl_commensuration
         public TClass_biz_agencies biz_agencies;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
