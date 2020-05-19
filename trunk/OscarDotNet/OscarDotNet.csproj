@@ -33,7 +33,8 @@
     <Use64BitIISExpress />
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <LangVersion>preview</LangVersion>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,8 +76,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\MySQL\Connector NET\Assemblies\v4.5\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="NodaTime, Version=2.4.7.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <HintPath>packages\NodaTime.2.4.7\lib\net45\NodaTime.dll</HintPath>
+    <Reference Include="NodaTime, Version=2.4.8.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>packages\NodaTime.2.4.8\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
     <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
