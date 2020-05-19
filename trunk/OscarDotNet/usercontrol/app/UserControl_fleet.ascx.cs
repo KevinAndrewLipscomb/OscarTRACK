@@ -85,7 +85,7 @@ namespace UserControl_fleet
       public string vehicle_kind_filter;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InjectPersistentClientSideScript()
       {

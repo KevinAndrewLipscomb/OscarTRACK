@@ -16,7 +16,7 @@ namespace UserControl_behind_the_scenes_activity
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.pas
     public partial class TWebUserControl_behind_the_scenes_activity: ki_web_ui.usercontrol_class
     {
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);

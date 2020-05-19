@@ -56,7 +56,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       public string sort_order;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, EventArgs e)
       {

@@ -21,7 +21,7 @@ namespace UserControl_dashboard_serial_aspects_binder
       public uint tab_index;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Page_Load(object sender, System.EventArgs e)
       {

@@ -41,7 +41,7 @@ namespace UserControl_serial_indicators_per_agency
       public string width_in_months_max;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     public string agency_id
       {

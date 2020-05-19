@@ -27,7 +27,7 @@ namespace UserControl_uniform_piece_vendor
       public object summary;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Clear()
       {

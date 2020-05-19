@@ -14,7 +14,7 @@ namespace UserControl_autocalendaring_subscriptions
       public string icalendar_path_common_part;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, EventArgs e)
       {

@@ -48,7 +48,7 @@ namespace UserControl_patient_encounter
       public ListItem[] proto_skill_rating_list_item_array;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Clear()
       {

@@ -46,7 +46,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
       public string release_filter;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

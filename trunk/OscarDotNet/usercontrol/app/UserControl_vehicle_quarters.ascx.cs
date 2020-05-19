@@ -19,7 +19,7 @@ namespace UserControl_vehicle_quarters
       public bool be_ok_to_config_vehicle_quarters;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Clear()
       {

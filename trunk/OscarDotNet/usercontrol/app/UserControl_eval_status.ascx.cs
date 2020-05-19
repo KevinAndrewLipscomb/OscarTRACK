@@ -18,7 +18,7 @@ namespace UserControl_eval_status
       public TClass_biz_eval_statuses biz_eval_statuses;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Clear()
       {

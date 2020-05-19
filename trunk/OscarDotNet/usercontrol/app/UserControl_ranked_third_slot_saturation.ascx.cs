@@ -15,7 +15,7 @@ namespace UserControl_ranked_third_slot_saturation
       public decimal total_third_shifts;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

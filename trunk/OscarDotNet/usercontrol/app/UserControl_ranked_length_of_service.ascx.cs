@@ -29,7 +29,7 @@ namespace UserControl_ranked_length_of_service
         public uint rank;
     }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

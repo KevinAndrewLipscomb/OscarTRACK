@@ -41,7 +41,7 @@ namespace UserControl_efficipay_docket
       public string signer_2_member_id;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InjectPersistentClientSideScript()
       {

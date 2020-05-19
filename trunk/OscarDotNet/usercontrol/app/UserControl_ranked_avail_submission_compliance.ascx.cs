@@ -15,7 +15,7 @@ namespace UserControl_ranked_avail_submission_compliance
       public uint rank;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

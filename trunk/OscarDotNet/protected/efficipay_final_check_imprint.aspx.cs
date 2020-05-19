@@ -15,7 +15,7 @@ namespace efficipay_final_check_imprint
       public TClass_biz_efficipay_dockets biz_efficipay_dockets;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InitializeComponent()
       {

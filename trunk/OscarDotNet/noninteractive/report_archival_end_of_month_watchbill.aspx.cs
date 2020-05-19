@@ -25,7 +25,7 @@ namespace report_archival_end_of_month_watchbill
       public k.subtype<int> relative_month;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InitializeComponent()
       {

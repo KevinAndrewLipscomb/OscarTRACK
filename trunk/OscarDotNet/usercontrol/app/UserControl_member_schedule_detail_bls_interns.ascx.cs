@@ -27,7 +27,7 @@ namespace UserControl_member_schedule_detail_bls_interns
       public k.subtype<int> relative_month;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

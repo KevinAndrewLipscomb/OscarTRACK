@@ -15,7 +15,7 @@ namespace UserControl_personnel_binder
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~personnel~binder.pas
     public partial class TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class
     {
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

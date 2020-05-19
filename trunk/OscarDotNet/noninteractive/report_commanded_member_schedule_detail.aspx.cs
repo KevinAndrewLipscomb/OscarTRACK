@@ -31,7 +31,7 @@ namespace report_commanded_member_schedule_detail
       public string time_triggered;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     // / <summary>
     // / Required method for Designer support -- do not modify

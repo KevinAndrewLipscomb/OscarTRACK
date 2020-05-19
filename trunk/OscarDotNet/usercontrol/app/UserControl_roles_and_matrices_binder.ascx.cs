@@ -33,7 +33,7 @@ namespace UserControl_roles_and_matrices_binder
       public uint tab_index;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void FillPlaceHolder
       (

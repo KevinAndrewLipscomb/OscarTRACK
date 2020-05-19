@@ -24,7 +24,7 @@ namespace UserControl_serial_indicator_num_core_ops_members
       public string width_in_months_max;
       }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

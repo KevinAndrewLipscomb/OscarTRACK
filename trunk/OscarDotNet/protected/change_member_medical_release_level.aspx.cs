@@ -19,7 +19,7 @@ namespace change_member_medical_release_level
       public string saved_level;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify

@@ -16,7 +16,7 @@ namespace register_on_vb_ems_sideband
       // public TClass_msg_protected.register_on_vb_ems_sideband incoming;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     // / <summary>
     // / Required method for Designer support -- do not modify

@@ -31,7 +31,7 @@ namespace UserControl_schedule_binder
       public uint tab_index;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     internal TWebUserControl_availabilities UserControl_availabilities = null;
     internal TWebUserControl_member_schedule_detail UserControl_member_schedule_detail = null;

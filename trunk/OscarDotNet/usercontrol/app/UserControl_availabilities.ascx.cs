@@ -25,7 +25,7 @@ namespace UserControl_availabilities
       public string user_member_agency_id;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

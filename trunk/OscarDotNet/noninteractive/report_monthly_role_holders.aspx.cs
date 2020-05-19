@@ -11,7 +11,7 @@ namespace report_monthly_role_holders
 {
     public partial class TWebForm_report_monthly_role_holders: ki_web_ui.page_class
     {
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

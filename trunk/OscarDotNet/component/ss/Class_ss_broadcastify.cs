@@ -1,6 +1,3 @@
-#pragma warning disable CA1031 // Do not catch general exception types
-#pragma warning disable CA2234 // Pass system uri objects instead of strings
-
 using Class_ss;
 using kix;
 using System;
@@ -14,6 +11,15 @@ namespace Class_ss_broadcastify
     public TClass_ss_broadcastify() : base()
       {      
       }
+
+    //--
+    //
+    // BEGIN code generated initially by Fiddler extension "Request to Code"
+    //
+    #pragma warning disable CA1031 // Do not catch general exception types
+    #pragma warning disable CA2234 // Pass system uri objects instead of strings
+    //
+    //--
 
     private string Request_api_broadcastify_com_EmbedPlayer
       (
@@ -49,6 +55,15 @@ namespace Class_ss_broadcastify
 
 	    return k.EMPTY;
     }
+
+    //--
+    //
+    #pragma warning restore CA1031 // Do not catch general exception types
+    #pragma warning restore CA2234 // Pass system uri objects instead of strings
+    //
+    // END code generated initially by Fiddler extension "Request to Code"
+    //
+    //--
 
     internal string AudioSrcUrl
       (

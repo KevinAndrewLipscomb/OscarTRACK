@@ -24,7 +24,7 @@ namespace UserControl_serial_indicator_potential_crew_shifts
       public string width_in_months_max;
       }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         protected void Page_Load(object sender, System.EventArgs e)
         {

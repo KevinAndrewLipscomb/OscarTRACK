@@ -13,7 +13,7 @@ namespace UserControl_test_cloudmailin_fleetman
       public TClass_biz_fleetman biz_fleetman;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected override void OnInit(EventArgs e)
       {

@@ -23,7 +23,7 @@ namespace UserControl_sms_gateway
       public bool be_ok_to_config_sms_gateways;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void Clear()
       {

@@ -22,7 +22,7 @@ namespace report_commanded_gripe_sheet
       public TClass_biz_role_member_map biz_role_member_map;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     private void InitializeComponent()
       {

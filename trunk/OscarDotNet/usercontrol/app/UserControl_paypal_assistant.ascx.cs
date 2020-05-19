@@ -38,7 +38,7 @@ namespace UserControl_paypal_assistant
       public TClass_msg_protected.process_paypal_donation msg_protected_process_paypal_donation;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

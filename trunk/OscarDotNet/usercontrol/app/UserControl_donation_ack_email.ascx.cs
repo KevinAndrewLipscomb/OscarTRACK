@@ -23,7 +23,7 @@ namespace UserControl_donation_ack_email
       public string member_email_address;
       }
 
-    private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {

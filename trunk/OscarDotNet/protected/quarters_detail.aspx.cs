@@ -33,7 +33,7 @@ namespace quarters_detail
             public string sort_order;
         }
 
-        private p_type p;
+        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
         // / <summary>
         // / Required method for Designer support -- do not modify
