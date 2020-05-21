@@ -96,7 +96,7 @@ namespace UserControl_precontent
             //
             if
               (
-                e.Exception.ToString().Contains("Validation of viewstate MAC failed.")              
+                e.Exception.ToString().Contains("Validation of viewstate MAC failed.")
               ||
                 e.Exception.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
               ||
@@ -130,7 +130,7 @@ namespace UserControl_precontent
                 engine_innodb_status:engine_innodb_status
                 );
               }
-            ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage
+            ScriptManager_control.AsyncPostBackErrorMessage = APP_HANDLED_ASYNC_POST_BACK_ERROR_MESSAGE_MARK + AlertMessage
               (
               cause:cause,
               state:k.alert_state_type.FAILURE,
