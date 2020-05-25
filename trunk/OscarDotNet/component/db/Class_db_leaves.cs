@@ -45,6 +45,7 @@ namespace Class_db_leaves
     {
 
         private readonly TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_leaves() : base()
         {

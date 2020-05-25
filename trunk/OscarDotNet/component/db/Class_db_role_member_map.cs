@@ -11,6 +11,15 @@ using System.Web.UI.WebControls;
 namespace Class_db_role_member_map
   {
 
+  public class Class_db_role_member_map_Static
+    {
+    public const int CI_MEMBER_ID = 0;
+    public const int CI_MEMBER_NAME = 1;
+    public const int CI_FIRST_CROSSTAB = 2;
+    public const int ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
+    public const int ROLE_HOLDER_SMS_TARGET_CI = 3;
+    }
+
   public class TClass_db_role_member_map: TClass_db
     {
         private readonly TClass_db_trail db_trail = null;
@@ -344,16 +353,3 @@ namespace Class_db_role_member_map
     } // end TClass_db_role_member_map
 
 }
-
-namespace Class_db_role_member_map.Units
-  {
-  public class Class_db_role_member_map
-    {
-    public const int CI_MEMBER_ID = 0;
-    public const int CI_MEMBER_NAME = 1;
-    public const int CI_FIRST_CROSSTAB = 2;
-    public const int ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
-    public const int ROLE_HOLDER_SMS_TARGET_CI = 3;
-    }
-  }
-

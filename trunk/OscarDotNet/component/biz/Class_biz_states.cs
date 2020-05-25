@@ -6,6 +6,7 @@ namespace Class_biz_states
   public class TClass_biz_states
     {
         private readonly TClass_db_states db_states = null;
+
         //Constructor  Create()
         public TClass_biz_states() : base()
         {

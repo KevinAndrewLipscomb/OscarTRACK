@@ -13,7 +13,16 @@ namespace Class_db_role_notification_map
 {
     public class TClass_db_role_notification_map: TClass_db
     {
+
+    private static class Static
+    {
+        public const int CI_NOTIFICATION_ID = 0;
+        public const int CI_NOTIFICATION_NAME = 1;
+        public const int CI_FIRST_CROSSTAB = 2;
+    } // end Class_db_role_notification_map
+
         private readonly TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_role_notification_map() : base()
         {
@@ -110,15 +119,3 @@ namespace Class_db_role_notification_map
     } // end TClass_db_role_notification_map
 
 }
-
-namespace Class_db_role_notification_map.Units
-{
-    public class Class_db_role_notification_map
-    {
-        public const int CI_NOTIFICATION_ID = 0;
-        public const int CI_NOTIFICATION_NAME = 1;
-        public const int CI_FIRST_CROSSTAB = 2;
-    } // end Class_db_role_notification_map
-
-}
-
