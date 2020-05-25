@@ -255,11 +255,11 @@ namespace UserControl_vehicle_usability_history
       {
       if (Page.IsValid)
         {
-        if (TextBox_time_went_down.Text != k.EMPTY)
+        if (TextBox_time_went_down.Text.Length > 0)
           {
           time_went_down = DateTime.Parse(k.Safe(TextBox_time_went_down.Text,k.safe_hint_type.DATE_TIME));
           }
-        if (TextBox_time_came_up.Text != k.EMPTY)
+        if (TextBox_time_came_up.Text.Length > 0)
           {
           time_came_up = DateTime.Parse(k.Safe(TextBox_time_came_up.Text,k.safe_hint_type.DATE_TIME));
           }

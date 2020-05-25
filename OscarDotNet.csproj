@@ -1949,13 +1949,6 @@
     <Compile Include="usercontrol\app\UserControl_role_member_map_log.ascx.designer.cs">
       <DependentUpon>UserControl_role_member_map_log.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_member_matrix.ascx.cs">
-      <DependentUpon>UserControl_role_member_matrix.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_member_matrix.ascx.designer.cs">
-      <DependentUpon>UserControl_role_member_matrix.ascx</DependentUpon>
-    </Compile>
     <Compile Include="usercontrol\app\UserControl_role_notification_mapping.ascx.cs">
       <DependentUpon>UserControl_role_notification_mapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1963,26 +1956,12 @@
     <Compile Include="usercontrol\app\UserControl_role_notification_mapping.ascx.designer.cs">
       <DependentUpon>UserControl_role_notification_mapping.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_notification_matrix.ascx.cs">
-      <DependentUpon>UserControl_role_notification_matrix.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_notification_matrix.ascx.designer.cs">
-      <DependentUpon>UserControl_role_notification_matrix.ascx</DependentUpon>
-    </Compile>
     <Compile Include="usercontrol\app\UserControl_role_privilege_mapping.ascx.cs">
       <DependentUpon>UserControl_role_privilege_mapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_role_privilege_mapping.ascx.designer.cs">
       <DependentUpon>UserControl_role_privilege_mapping.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_privilege_matrix.ascx.cs">
-      <DependentUpon>UserControl_role_privilege_matrix.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_role_privilege_matrix.ascx.designer.cs">
-      <DependentUpon>UserControl_role_privilege_matrix.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_roster.ascx.cs">
       <DependentUpon>UserControl_roster.ascx</DependentUpon>
@@ -2704,11 +2683,8 @@
     <Content Include="usercontrol\app\UserControl_role_help.ascx" />
     <Content Include="usercontrol\app\UserControl_role_holders_per_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_role_member_mapping.ascx" />
-    <Content Include="usercontrol\app\UserControl_role_member_matrix.ascx" />
     <Content Include="usercontrol\app\UserControl_role_notification_mapping.ascx" />
-    <Content Include="usercontrol\app\UserControl_role_notification_matrix.ascx" />
     <Content Include="usercontrol\app\UserControl_role_privilege_mapping.ascx" />
-    <Content Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
     <Content Include="usercontrol\app\UserControl_roster.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />

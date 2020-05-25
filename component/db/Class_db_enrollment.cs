@@ -17,6 +17,7 @@ namespace Class_db_enrollment
     {
         private readonly TClass_db_agencies db_agencies = null;
         private readonly TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_enrollment() : base()
         {

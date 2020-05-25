@@ -15,7 +15,7 @@ namespace Class_db_roles
         public string natural_text;
         public string soft_hyphenation_text;
         public string tier_id;
-    } // end crosstab_metadata_rec_type
+    }
 
     public class TClass_db_roles: TClass_db
     {

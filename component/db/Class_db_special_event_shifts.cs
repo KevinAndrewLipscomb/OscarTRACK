@@ -82,7 +82,7 @@ namespace Class_db_special_event_shifts
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

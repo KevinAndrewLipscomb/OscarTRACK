@@ -254,11 +254,11 @@ namespace UserControl_vehicle_quarters_history
       {
       if (Page.IsValid)
         {
-        if (TextBox_start_datetime.Text != k.EMPTY)
+        if (TextBox_start_datetime.Text.Length > 0)
           {
           start_datetime = DateTime.Parse(k.Safe(TextBox_start_datetime.Text,k.safe_hint_type.DATE_TIME));
           }
-        if (TextBox_end_datetime.Text != k.EMPTY)
+        if (TextBox_end_datetime.Text.Length > 0)
           {
           end_datetime = DateTime.Parse(k.Safe(TextBox_end_datetime.Text,k.safe_hint_type.DATE_TIME));
           }

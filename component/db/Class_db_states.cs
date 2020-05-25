@@ -11,6 +11,7 @@ namespace Class_db_states
     public class TClass_db_states: TClass_dbkeyclick
     {
         private readonly TClass_dbkeyclick_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_states() : base()
         {
