@@ -3,6 +3,7 @@ using Class_biz_user;
 using Class_db_members;
 using Class_db_users;
 using kix;
+using System;
 using System.Configuration;
 
 namespace Class_biz_users
@@ -41,12 +42,32 @@ namespace Class_biz_users
           return accept_as_member;
           }
 
-        public bool BeAuthorized(string username, string encoded_password)
+    public bool BeAuthorized
+      (
+      string username,
+      string encoded_password
+      )
+      {
+      return db_users.BeAuthorized(username, encoded_password);
+      }
+    public bool BeAuthorized
+      (
+      string username,
+      string encoded_password,
+      out member_summary summary,
+      out string[] privilege_array
+      )
+      {
+      var be_authorized = BeAuthorized(username,encoded_password);
+      summary = null;
+      privilege_array = Array.Empty<string>();
+      if (be_authorized)
         {
-            bool result;
-            result = db_users.BeAuthorized(username, encoded_password);
-            return result;
+        summary = (member_summary)db_members.Summary(member_id:db_members.IdOfUserId(IdOf(username)));
+        privilege_array = db_users.PrivilegesOf(IdOf(username));
         }
+      return be_authorized;
+      }
 
         public bool BeAuthorizedSysAdmin(string encoded_password)
         {
