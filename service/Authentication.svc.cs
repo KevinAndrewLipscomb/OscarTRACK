@@ -15,10 +15,10 @@ namespace OscarDotNet.service
       string username,
       string encoded_password,
       out member_summary summary,
-      out string[] privilege_array
+      out string[] roles
       )
       {
-      return biz_users.BeAuthorized(username,encoded_password,out summary,out privilege_array);
+      return biz_users.BeAuthorized(username,encoded_password,out summary,out roles);
       }
     }
   }
