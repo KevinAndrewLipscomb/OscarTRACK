@@ -13,7 +13,7 @@ namespace OscarDotNet.service
       string username,
       string encoded_password,
       out member_summary member_summary,
-      out string[] privilege_array
+      out string[] roles
       );
     }
   }

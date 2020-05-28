@@ -1,6 +1,7 @@
 using Class_biz_notifications;
 using Class_biz_user;
 using Class_db_members;
+using Class_db_user;
 using Class_db_users;
 using kix;
 using System;
@@ -13,6 +14,7 @@ namespace Class_biz_users
         private readonly TClass_biz_notifications biz_notifications = null;
         private readonly TClass_biz_user biz_user = null;
         private readonly TClass_db_members db_members = null;
+        private readonly TClass_db_user db_user = null;
         private readonly TClass_db_users db_users = null;
 
         //Constructor  Create()
@@ -22,6 +24,7 @@ namespace Class_biz_users
             biz_notifications = new TClass_biz_notifications();
             biz_user = new TClass_biz_user();
             db_members = new TClass_db_members();
+            db_user = new TClass_db_user();
             db_users = new TClass_db_users();
         }
 
@@ -55,16 +58,16 @@ namespace Class_biz_users
       string username,
       string encoded_password,
       out member_summary summary,
-      out string[] privilege_array
+      out string[] roles
       )
       {
       var be_authorized = BeAuthorized(username,encoded_password);
       summary = null;
-      privilege_array = Array.Empty<string>();
+      roles = Array.Empty<string>();
       if (be_authorized)
         {
         summary = (member_summary)db_members.Summary(member_id:db_members.IdOfUserId(IdOf(username)));
-        privilege_array = db_users.PrivilegesOf(IdOf(username));
+        roles = db_user.RolesOf(id:IdOf(username));
         }
       return be_authorized;
       }
