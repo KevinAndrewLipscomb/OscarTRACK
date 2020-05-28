@@ -94,7 +94,8 @@ namespace Class_db_members
 
     }
 
-    internal class member_summary
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1051:Do not declare visible instance fields")]
+    public class member_summary
       {
       public string agency;
       public string agency_id;

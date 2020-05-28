@@ -1,4 +1,5 @@
 ﻿using Class_biz_users;
+using Class_db_members;
 
 namespace OscarDotNet.service
   {
@@ -12,10 +13,12 @@ namespace OscarDotNet.service
     public bool BeAuthorized
       (
       string username,
-      string encoded_password
+      string encoded_password,
+      out member_summary summary,
+      out string[] privilege_array
       )
       {
-      return biz_users.BeAuthorized(username,encoded_password);
+      return biz_users.BeAuthorized(username,encoded_password,out summary,out privilege_array);
       }
     }
   }

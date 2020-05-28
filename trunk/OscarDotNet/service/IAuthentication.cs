@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using Class_db_members;
+using System.ServiceModel;
 
 namespace OscarDotNet.service
   {
@@ -10,7 +11,9 @@ namespace OscarDotNet.service
     bool BeAuthorized
       (
       string username,
-      string encoded_password
+      string encoded_password,
+      out member_summary member_summary,
+      out string[] privilege_array
       );
     }
   }
