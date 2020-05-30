@@ -36,8 +36,6 @@ namespace UserControl_role
       public TClass_biz_roles biz_roles;
       public TClass_biz_tiers biz_tiers;
       public TClass_biz_user biz_user;
-      public StringBuilder distribution_list_email;
-      public StringBuilder distribution_list_sms;
       public uint num_gridview_rows;
       public string role_name;
       public string sort_order;
@@ -47,23 +45,30 @@ namespace UserControl_role
       public string user_target_sms;
       }
 
+    private struct v_type
+      {
+      public StringBuilder distribution_list_email;
+      public StringBuilder distribution_list_sms;
+      }
+
     private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+    private v_type v; // Volatile instance Variable container
 
     private void BuildDistributionListAndRegisterPostBackControls()
       {
-      p.distribution_list_email.Clear();
-      p.distribution_list_sms.Clear();
+      v.distribution_list_email.Clear();
+      v.distribution_list_sms.Clear();
       TableCellCollection tcc;
       for (var i = new k.subtype<int>(0, GridView_holders.Rows.Count); i.val < i.LAST; i.val++)
         {
         tcc = GridView_holders.Rows[i.val].Cells;
-        p.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
-        p.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+        v.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+        v.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
         //
         // Calls to ScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
         //
         }
-      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString().TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
+      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms).ToString().TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
       }
 
     private void Clear()
@@ -198,8 +203,6 @@ namespace UserControl_role
         p.be_ok_to_config_roles = k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices");
         p.be_scope_cross_agency = true;
         p.be_sort_order_ascending = true;
-        p.distribution_list_email = new StringBuilder();
-        p.distribution_list_sms = new StringBuilder();
         p.num_gridview_rows = 0;
         p.role_name = k.EMPTY;
         p.sort_order = "member_name%";
@@ -209,6 +212,8 @@ namespace UserControl_role
         p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
         p.user_target_sms = p.biz_members.SmsTargetOf(member_id:p.user_member_id);
         }
+      v.distribution_list_email = new StringBuilder();
+      v.distribution_list_sms = new StringBuilder();
       }
 
     // / <summary>
@@ -266,8 +271,7 @@ namespace UserControl_role
     protected void Button_send_Click(object sender, EventArgs e)
       {
       var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
-      var distribution_list = (be_email_mode ? p.distribution_list_email : p.distribution_list_sms);
-      if (distribution_list.Length > 0)
+      if (Label_distribution_list.Text.Length > 0)
         {
         var attribution = k.EMPTY;
         if (be_email_mode)
@@ -478,7 +482,7 @@ namespace UserControl_role
       Table_holders.Visible = true;
       TableRow_none.Visible = p.be_gridview_empty;
       GridView_holders.Visible = !p.be_gridview_empty;
-      Label_distribution_list.Text = ((RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms) + k.SPACE).TrimEnd(new char[] { Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE) });
+      Label_distribution_list.Text = ((RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms) + k.SPACE).TrimEnd(new char[] { Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE) });
       Label_num_rows.Text = p.num_gridview_rows.ToString();
       Table_quick_message.Visible = p.biz_roles.BeOkToAllowRoleCommsQuickMessaging
         (
@@ -490,8 +494,8 @@ namespace UserControl_role
       //
       // Clear aggregation vars for next bind.
       //
-      p.distribution_list_email.Clear();
-      p.distribution_list_sms.Clear();
+      v.distribution_list_email.Clear();
+      v.distribution_list_sms.Clear();
       p.num_gridview_rows = 0;
       //
       BuildDistributionListAndRegisterPostBackControls();
@@ -499,6 +503,7 @@ namespace UserControl_role
 
     protected void RadioButtonList_quick_message_mode_SelectedIndexChanged(object sender, EventArgs e)
       {
+      BuildDistributionListAndRegisterPostBackControls();
       if (RadioButtonList_quick_message_mode.SelectedValue == "email")
         {
         Literal_quick_message_kind_email.Visible = true;
@@ -508,7 +513,6 @@ namespace UserControl_role
         TableRow_subject.Visible = true;
         TextBox_quick_message_body.Columns = 72;
         TextBox_quick_message_body.Rows = 18;
-        Label_distribution_list.Text = p.distribution_list_email.ToString();
         }
       else
         {
@@ -519,9 +523,7 @@ namespace UserControl_role
         TableRow_subject.Visible = false;
         TextBox_quick_message_body.Columns = 40;
         TextBox_quick_message_body.Rows = 4;
-        Label_distribution_list.Text = p.distribution_list_sms.ToString();
         }
-      BuildDistributionListAndRegisterPostBackControls();
       }
 
     protected void RadioButtonList_scope_SelectedIndexChanged(object sender, EventArgs e)

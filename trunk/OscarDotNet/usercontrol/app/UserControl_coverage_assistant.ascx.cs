@@ -37,8 +37,6 @@ namespace UserControl_coverage_assistant
       public TClass_biz_members biz_members;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
       public TClass_biz_user biz_user;
-      public StringBuilder distribution_list_email;
-      public StringBuilder distribution_list_sms;
       public uint num_schedule_assignments;
       public object summary;
       public string sort_order;
@@ -47,7 +45,14 @@ namespace UserControl_coverage_assistant
       public string user_target_sms;
       }
 
+    private struct v_type
+      {
+      public StringBuilder distribution_list_email;
+      public StringBuilder distribution_list_sms;
+      }
+
     private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+    private v_type v; // Volatile instance Variable container
 
     private void InjectPersistentClientSideScript()
       {
@@ -201,14 +206,14 @@ namespace UserControl_coverage_assistant
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_sort_order_ascending = true;
-        p.distribution_list_email = new StringBuilder();
-        p.distribution_list_sms = new StringBuilder();
         p.sort_order = "be_same_agency desc, object_medical_release_level.pecking_order desc";
         p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
         //
         p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
         p.user_target_sms = k.EMPTY; //p.biz_members.SmsTargetOf(member_id:p.user_member_id);
         }
+      v.distribution_list_email = new StringBuilder();
+      v.distribution_list_sms = new StringBuilder();
       }
 
     // / <summary>
@@ -299,29 +304,28 @@ namespace UserControl_coverage_assistant
 
     private void BuildDistributionListAndRegisterPostBackControls()
       {
-      p.distribution_list_email.Clear();
-      p.distribution_list_sms.Clear();
+      v.distribution_list_email.Clear();
+      v.distribution_list_sms.Clear();
       TableCellCollection tcc;
       for (var i = new k.subtype<int>(0, DataGrid_control.Items.Count); i.val < i.LAST; i.val++)
         {
         tcc = DataGrid_control.Items[i.val].Cells;
         if ((tcc[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked)
           {
-          p.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
-          p.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          v.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          v.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
           }
         //
         // Calls to ScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
         //
         }
-      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString().TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
+      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms).ToString().TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
       }
 
     protected void Button_send_Click(object sender, EventArgs e)
       {
       var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
-      var distribution_list = (be_email_mode ? p.distribution_list_email : p.distribution_list_sms);
-      if (distribution_list.Length > 0)
+      if (Label_distribution_list.Text.Length > 0)
         {
         var attribution = k.EMPTY;
         if (be_email_mode)
@@ -336,7 +340,7 @@ namespace UserControl_coverage_assistant
         k.SmtpMailSend
           (
           from:ConfigurationManager.AppSettings["sender_email_address"],
-          to:distribution_list.ToString(),
+          to:Label_distribution_list.Text,
           subject:(be_email_mode ? TextBox_quick_message_subject.Text : k.EMPTY),
           message_string:attribution + k.Safe(TextBox_quick_message_body.Text,k.safe_hint_type.MEMO),
           be_html:false,
@@ -371,6 +375,7 @@ namespace UserControl_coverage_assistant
 
     protected void RadioButtonList_quick_message_mode_SelectedIndexChanged(object sender, EventArgs e)
       {
+      BuildDistributionListAndRegisterPostBackControls();
       if (RadioButtonList_quick_message_mode.SelectedValue == "email")
         {
         Literal_quick_message_kind_email.Visible = true;
@@ -380,7 +385,6 @@ namespace UserControl_coverage_assistant
         TableRow_subject.Visible = true;
         TextBox_quick_message_body.Columns = 72;
         TextBox_quick_message_body.Rows = 18;
-        Label_distribution_list.Text = p.distribution_list_email.ToString();
         }
       else
         {
@@ -391,9 +395,7 @@ namespace UserControl_coverage_assistant
         TableRow_subject.Visible = false;
         TextBox_quick_message_body.Columns = 40;
         TextBox_quick_message_body.Rows = 4;
-        Label_distribution_list.Text = p.distribution_list_sms.ToString();
         }
-      BuildDistributionListAndRegisterPostBackControls();
       }
 
     } // end TWebUserControl_coverage_assistant

@@ -17,52 +17,56 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_roster
-{
-    public partial class TWebUserControl_roster: ki_web_ui.usercontrol_class
+  {
+  public partial class TWebUserControl_roster: ki_web_ui.usercontrol_class
     {
-        private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
-        private struct p_type
-        {
-            public string agency_filter;
-            public bool be_datagrid_empty;
-            public bool be_loaded;
-            public bool be_phone_list;
-            public bool be_reporting_personnel_in_pipeline;
-            public bool be_sort_order_ascending;
-            public bool be_transferee_report;
-            public bool be_user_privileged_to_see_all_squads;
-            public TClass_biz_agencies biz_agencies;
-            public TClass_biz_enrollment biz_enrollment;
-            public TClass_biz_leave biz_leave;
-            public TClass_biz_medical_release_levels biz_medical_release_levels;
-            public TClass_biz_members biz_members;
-            public TClass_biz_sections biz_sections;
-            public TClass_biz_user biz_user;
-            public StringBuilder distribution_list_email;
-            public StringBuilder distribution_list_sms;
-            public bool do_hide_staff_filter;
-            public Class_biz_enrollment.filter_type enrollment_filter;
-            public Class_biz_leave.filter_type leave_filter;
-            public Class_biz_medical_release_levels.filter_type med_release_level_filter;
-            public uint num_cooked_shifts;
-            // takes into account leaves
-            public uint num_core_ops_members;
-            public uint num_datagrid_rows;
-            public uint num_raw_shifts;
-            // does not take into account leaves
-            public uint num_standard_commitments;
-            public string page_request_rawurl;
-            public uint relative_month;
-            public bool running_only_filter;
-            public uint section_filter;
-            public string sort_order;
-            public ArrayList years_of_service_array_list;
-            public string user_member_id;
-            public string[] user_role_string_array;
-            public string user_target_email;
-            public string user_target_sms;
-        }
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_datagrid_empty;
+      public bool be_loaded;
+      public bool be_phone_list;
+      public bool be_reporting_personnel_in_pipeline;
+      public bool be_sort_order_ascending;
+      public bool be_transferee_report;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_enrollment biz_enrollment;
+      public TClass_biz_leave biz_leave;
+      public TClass_biz_medical_release_levels biz_medical_release_levels;
+      public TClass_biz_members biz_members;
+      public TClass_biz_sections biz_sections;
+      public TClass_biz_user biz_user;
+      public bool do_hide_staff_filter;
+      public Class_biz_enrollment.filter_type enrollment_filter;
+      public Class_biz_leave.filter_type leave_filter;
+      public Class_biz_medical_release_levels.filter_type med_release_level_filter;
+      public uint num_cooked_shifts; // takes into account leaves
+      public uint num_core_ops_members;
+      public uint num_datagrid_rows;
+      public uint num_raw_shifts; // does not take into account leaves
+      public uint num_standard_commitments;
+      public string page_request_rawurl;
+      public uint relative_month;
+      public bool running_only_filter;
+      public uint section_filter;
+      public string sort_order;
+      public ArrayList years_of_service_array_list;
+      public string user_member_id;
+      public string[] user_role_string_array;
+      public string user_target_email;
+      public string user_target_sms;
+      }
+
+    private struct v_type
+      {
+      public StringBuilder distribution_list_email;
+      public StringBuilder distribution_list_sms;
+      }
+
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+    private v_type v; // Volatile instance Variable container
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -153,8 +157,6 @@ namespace UserControl_roster
                   }
                 p.be_sort_order_ascending = true;
                 p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
-                p.distribution_list_email = new StringBuilder();
-                p.distribution_list_sms = new StringBuilder();
                 p.do_hide_staff_filter = false;
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
@@ -250,7 +252,8 @@ namespace UserControl_roster
                   p.relative_month = 0;
                   }
             }
-
+            v.distribution_list_email = new StringBuilder();
+            v.distribution_list_sms = new StringBuilder();
         }
 
         protected void DropDownList_agency_filter_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -274,8 +277,7 @@ namespace UserControl_roster
         protected void Button_send_Click(object sender, System.EventArgs e)
         {
             var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
-            var distribution_list = (be_email_mode ? p.distribution_list_email : p.distribution_list_sms);
-            if (distribution_list.Length > 0)
+            if (Label_distribution_list.Text.Length > 0)
               {
               var attribution = k.EMPTY;
               if (be_email_mode)
@@ -289,7 +291,7 @@ namespace UserControl_roster
               k.SmtpMailSend
                 (
                 from:ConfigurationManager.AppSettings["sender_email_address"],
-                to:distribution_list.ToString(),
+                to:Label_distribution_list.Text,
                 subject:TextBox_quick_message_subject.Text,
                 message_string:attribution + TextBox_quick_message_body.Text,
                 be_html:false,
@@ -312,9 +314,7 @@ namespace UserControl_roster
                 be_using_scriptmanager:true
                 );
               }
-            // Apparently we must call RegisterPostBackControl on all the linkbuttons again.
             Bind();
-
         }
 
         // / <summary>
@@ -429,13 +429,13 @@ namespace UserControl_roster
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text != "&nbsp;")
                 {
-                    p.distribution_list_email.Append(k.COMMA_SPACE);
-                    p.distribution_list_email.Append(e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text);
+                    v.distribution_list_email.Append(k.COMMA_SPACE);
+                    v.distribution_list_email.Append(e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text);
                     //
                     if (e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text != "&nbsp;")
                       {
-                      p.distribution_list_sms.Append(k.COMMA_SPACE);
-                      p.distribution_list_sms.Append(e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text);
+                      v.distribution_list_sms.Append(k.COMMA_SPACE);
+                      v.distribution_list_sms.Append(e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text);
                       }
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text.Length > 0)
@@ -487,8 +487,8 @@ namespace UserControl_roster
             R.Columns[Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
-            p.distribution_list_email.Clear();
-            p.distribution_list_sms.Clear();
+            v.distribution_list_email.Clear();
+            v.distribution_list_sms.Clear();
             p.biz_members.BindRoster
               (
               sort_order:p.sort_order,
@@ -528,9 +528,9 @@ namespace UserControl_roster
             TableRow_none.Visible = p.be_datagrid_empty;
             TableRow_data.Visible = !p.be_datagrid_empty;
             Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_datagrid_empty && !p.be_phone_list;
-            if (p.distribution_list_email.Length > 0) p.distribution_list_email.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
-            if (p.distribution_list_sms.Length > 0) p.distribution_list_sms.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
-            Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString();
+            if (v.distribution_list_email.Length > 0) v.distribution_list_email.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
+            if (v.distribution_list_sms.Length > 0) v.distribution_list_sms.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
+            Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms).ToString();
             // Clear aggregation vars for next bind, if any.
             p.num_cooked_shifts = 0;
             p.num_core_ops_members = 0;
@@ -548,6 +548,7 @@ namespace UserControl_roster
 
     protected void RadioButtonList_quick_message_mode_SelectedIndexChanged(object sender, EventArgs e)
       {
+      Bind();
       if (RadioButtonList_quick_message_mode.SelectedValue == "email")
         {
         Literal_quick_message_kind_email.Visible = true;
@@ -557,7 +558,6 @@ namespace UserControl_roster
         TableRow_subject.Visible = true;
         TextBox_quick_message_body.Columns = 72;
         TextBox_quick_message_body.Rows = 18;
-        Label_distribution_list.Text = p.distribution_list_email.ToString();
         }
       else
         {
@@ -568,9 +568,7 @@ namespace UserControl_roster
         TableRow_subject.Visible = false;
         TextBox_quick_message_body.Columns = 40;
         TextBox_quick_message_body.Rows = 4;
-        Label_distribution_list.Text = p.distribution_list_sms.ToString();
         }
-      Bind();
       }
 
         public TWebUserControl_roster Fresh()
@@ -603,13 +601,14 @@ namespace UserControl_roster
 
     protected void Button_download_distribution_list_Click(object sender, EventArgs e)
       {
+      Bind();
       ExportToCsv
         (
         filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "_filtered_QuickMessage_targets_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm_ss_fffffff"),
-        csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString().Replace(k.COMMA_SPACE,k.NEW_LINE)
+        csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms).ToString().Replace(k.COMMA_SPACE,k.NEW_LINE)
         );
       }
 
     } // end TWebUserControl_roster
 
-}
+  }
