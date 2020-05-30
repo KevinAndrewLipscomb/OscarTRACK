@@ -276,6 +276,7 @@ namespace UserControl_roster
 
         protected void Button_send_Click(object sender, System.EventArgs e)
         {
+            Bind();
             var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
             if (Label_distribution_list.Text.Length > 0)
               {
@@ -314,7 +315,6 @@ namespace UserControl_roster
                 be_using_scriptmanager:true
                 );
               }
-            Bind();
         }
 
         // / <summary>
