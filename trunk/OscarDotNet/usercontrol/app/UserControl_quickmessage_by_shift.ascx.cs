@@ -1,6 +1,5 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
-using AjaxControlToolkit;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
@@ -9,6 +8,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -44,8 +44,8 @@ namespace UserControl_quickmessage_by_shift
       public TClass_biz_schedule_assignments biz_schedule_assignments;
       public TClass_biz_user biz_user;
       public string depth_filter;
-      public string distribution_list_email;
-      public string distribution_list_sms;
+      public StringBuilder distribution_list_email;
+      public StringBuilder distribution_list_sms;
       public string nominal_day_filter;
       public uint num_schedule_assignments;
       public k.subtype<int> relative_month;
@@ -206,8 +206,8 @@ namespace UserControl_quickmessage_by_shift
         p.be_interactive = (Session["mode:report"] == null);
         p.be_sort_order_ascending = true;
         p.depth_filter = k.EMPTY;
-        p.distribution_list_email = k.EMPTY;
-        p.distribution_list_sms = k.EMPTY;
+        p.distribution_list_email = new StringBuilder();
+        p.distribution_list_sms = new StringBuilder();
         p.nominal_day_filter = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -339,22 +339,22 @@ namespace UserControl_quickmessage_by_shift
 
     private void BuildDistributionListAndRegisterPostBackControls()
       {
-      p.distribution_list_email = k.EMPTY;
-      p.distribution_list_sms = k.EMPTY;
+      p.distribution_list_email.Clear();
+      p.distribution_list_sms.Clear();
       TableCellCollection tcc;
       for (var i = new k.subtype<int>(0, DataGrid_control.Items.Count); i.val < i.LAST; i.val++)
         {
         tcc = DataGrid_control.Items[i.val].Cells;
         if ((tcc[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked)
           {
-          p.distribution_list_email += (tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
-          p.distribution_list_sms += (tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          p.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          p.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
           }
         //
         // Calls to ScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
         //
         }
-      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
+      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString().TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
       }
 
     protected void Button_send_Click(object sender, EventArgs e)
@@ -376,7 +376,7 @@ namespace UserControl_quickmessage_by_shift
         k.SmtpMailSend
           (
           from:ConfigurationManager.AppSettings["sender_email_address"],
-          to:distribution_list,
+          to:distribution_list.ToString(),
           subject:(be_email_mode ? TextBox_quick_message_subject.Text : k.EMPTY),
           message_string:attribution + k.Safe(TextBox_quick_message_body.Text,k.safe_hint_type.MEMO),
           be_html:false,
@@ -420,7 +420,7 @@ namespace UserControl_quickmessage_by_shift
         TableRow_subject.Visible = true;
         TextBox_quick_message_body.Columns = 72;
         TextBox_quick_message_body.Rows = 18;
-        Label_distribution_list.Text = p.distribution_list_email;
+        Label_distribution_list.Text = p.distribution_list_email.ToString();
         }
       else
         {
@@ -431,7 +431,7 @@ namespace UserControl_quickmessage_by_shift
         TableRow_subject.Visible = false;
         TextBox_quick_message_body.Columns = 40;
         TextBox_quick_message_body.Rows = 4;
-        Label_distribution_list.Text = p.distribution_list_sms;
+        Label_distribution_list.Text = p.distribution_list_sms.ToString();
         }
       BuildDistributionListAndRegisterPostBackControls();
       }

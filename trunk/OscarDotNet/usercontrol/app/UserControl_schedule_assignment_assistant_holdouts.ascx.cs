@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -48,7 +49,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       public TClass_biz_schedule_assignments biz_schedule_assignments;
       public TClass_biz_user biz_user;
       public string compliancy_filter;
-      public string distribution_list;
+      public StringBuilder distribution_list;
       public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
       public uint num_datagrid_rows;
       public k.subtype<int> relative_month;
@@ -99,7 +100,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads")  && !p.be_ok_to_edit_schedule_tier_department_only;
         p.be_sort_order_ascending = true;
         p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : "0");
-        p.distribution_list = k.EMPTY;
+        p.distribution_list = new StringBuilder();
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
@@ -151,7 +152,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     private void Bind()
       {
-      p.distribution_list = k.EMPTY;
+      p.distribution_list.Clear();
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
       DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_filter.Length == 0) && !p.be_ok_to_edit_schedule_tier_department_only;
@@ -216,10 +217,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         var compliancy_text = e.Item.Cells[Static.TCI_BE_COMPLIANT].Text;
         if (compliancy_text == "0")
           {
-          var holdout_email_address_value = e.Item.Cells[Static.TCI_EMAIL_ADDRESS].Text;
+          var holdout_email_address_value = (e.Item.Cells[Static.TCI_EMAIL_ADDRESS].FindControl("HyperLink_email_address") as HyperLink).Text;
           if (holdout_email_address_value != "&nbsp;")
             {
-            p.distribution_list += k.Safe(holdout_email_address_value,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
+            p.distribution_list.Append(k.COMMA);
+            p.distribution_list.Append(k.Safe(holdout_email_address_value,k.safe_hint_type.EMAIL_ADDRESS));
             }
           e.Item.Cells[Static.TCI_NAME].Font.Bold = true;
           e.Item.Cells[Static.TCI_BE_RELEASED].Font.Bold = true;
@@ -278,7 +280,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
-        p.distribution_list.Trim(new char[] {Convert.ToChar(k.COMMA)}),
+        (p.distribution_list.Length > 0 ? p.distribution_list.Remove(0,1).ToString() : k.EMPTY), // .TrimStart(k.COMMA)
         TextBox_quick_message_subject.Text,
          "-- From " + p.biz_user.FullTitle() + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
         false,

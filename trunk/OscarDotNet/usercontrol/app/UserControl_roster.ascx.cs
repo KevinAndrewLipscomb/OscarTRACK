@@ -11,6 +11,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -38,8 +39,8 @@ namespace UserControl_roster
             public TClass_biz_members biz_members;
             public TClass_biz_sections biz_sections;
             public TClass_biz_user biz_user;
-            public string distribution_list_email;
-            public string distribution_list_sms;
+            public StringBuilder distribution_list_email;
+            public StringBuilder distribution_list_sms;
             public bool do_hide_staff_filter;
             public Class_biz_enrollment.filter_type enrollment_filter;
             public Class_biz_leave.filter_type leave_filter;
@@ -152,8 +153,8 @@ namespace UserControl_roster
                   }
                 p.be_sort_order_ascending = true;
                 p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
-                p.distribution_list_email = k.EMPTY;
-                p.distribution_list_sms = k.EMPTY;
+                p.distribution_list_email = new StringBuilder();
+                p.distribution_list_sms = new StringBuilder();
                 p.do_hide_staff_filter = false;
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
@@ -288,7 +289,7 @@ namespace UserControl_roster
               k.SmtpMailSend
                 (
                 from:ConfigurationManager.AppSettings["sender_email_address"],
-                to:distribution_list,
+                to:distribution_list.ToString(),
                 subject:TextBox_quick_message_subject.Text,
                 message_string:attribution + TextBox_quick_message_body.Text,
                 be_html:false,
@@ -428,8 +429,14 @@ namespace UserControl_roster
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text != "&nbsp;")
                 {
-                    p.distribution_list_email += e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text + k.COMMA_SPACE;
-                    p.distribution_list_sms += (e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text == "&nbsp;" ? k.EMPTY : e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text + k.COMMA_SPACE);
+                    p.distribution_list_email.Append(k.COMMA_SPACE);
+                    p.distribution_list_email.Append(e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text);
+                    //
+                    if (e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text != "&nbsp;")
+                      {
+                      p.distribution_list_sms.Append(k.COMMA_SPACE);
+                      p.distribution_list_sms.Append(e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text);
+                      }
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text.Length > 0)
                 {
@@ -480,8 +487,8 @@ namespace UserControl_roster
             R.Columns[Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
-            p.distribution_list_email = k.EMPTY;
-            p.distribution_list_sms = k.EMPTY;
+            p.distribution_list_email.Clear();
+            p.distribution_list_sms.Clear();
             p.biz_members.BindRoster
               (
               sort_order:p.sort_order,
@@ -521,9 +528,9 @@ namespace UserControl_roster
             TableRow_none.Visible = p.be_datagrid_empty;
             TableRow_data.Visible = !p.be_datagrid_empty;
             Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_datagrid_empty && !p.be_phone_list;
-            p.distribution_list_email = (p.distribution_list_email + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
-            p.distribution_list_sms = (p.distribution_list_sms + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
-            Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms);
+            if (p.distribution_list_email.Length > 0) p.distribution_list_email.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
+            if (p.distribution_list_sms.Length > 0) p.distribution_list_sms.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
+            Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString();
             // Clear aggregation vars for next bind, if any.
             p.num_cooked_shifts = 0;
             p.num_core_ops_members = 0;
@@ -550,7 +557,7 @@ namespace UserControl_roster
         TableRow_subject.Visible = true;
         TextBox_quick_message_body.Columns = 72;
         TextBox_quick_message_body.Rows = 18;
-        Label_distribution_list.Text = p.distribution_list_email;
+        Label_distribution_list.Text = p.distribution_list_email.ToString();
         }
       else
         {
@@ -561,7 +568,7 @@ namespace UserControl_roster
         TableRow_subject.Visible = false;
         TextBox_quick_message_body.Columns = 40;
         TextBox_quick_message_body.Rows = 4;
-        Label_distribution_list.Text = p.distribution_list_sms;
+        Label_distribution_list.Text = p.distribution_list_sms.ToString();
         }
       Bind();
       }
@@ -599,7 +606,7 @@ namespace UserControl_roster
       ExportToCsv
         (
         filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "_filtered_QuickMessage_targets_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm_ss_fffffff"),
-        csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).Replace(k.COMMA_SPACE,k.NEW_LINE)
+        csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).ToString().Replace(k.COMMA_SPACE,k.NEW_LINE)
         );
       }
 
