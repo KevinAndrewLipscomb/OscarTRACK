@@ -69,7 +69,7 @@
                         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                       </asp:DataGrid>
                     </td>
-                    <td><asp:Image ID="Image_control" runat="server" AlternateText="Static overview map" ToolTip="Static overview map" EnableViewState="False" Height="400px" Width="400px" visible="false"/></td>
+                    <td><asp:Image ID="Image_control" runat="server" AlternateText="Static overview map" ToolTip="Static overview map" EnableViewState="False" Height="400px" Width="400px"/></td>
                     <td id="TableData_supression_notice" runat="server" visible="false" width="250em">
                       <table cellpadding="10" cellspacing="0">
                         <tr>

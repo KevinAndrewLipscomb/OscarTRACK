@@ -4,8 +4,10 @@ using Class_db_field_situations;
 using kix;
 using OscarDotNet.component.os;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -80,15 +82,21 @@ namespace Class_biz_field_situations
       string tilde_path_prefix
       )
       {
-      var static_part = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("PRESIDENTIAL BL & OLD FORGE RD,23456");
-      var dynamic_part = k.EMPTY;
+      var static_part = new StringBuilder("https://maps.googleapis.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString());
+      static_part.Append("&zoom=11");
+      static_part.Append("&center=" + HttpUtility.UrlEncode("PRESIDENTIAL BL & OLD FORGE RD,23456"));
+      static_part.Append("&key=" + ConfigurationManager.AppSettings["google_static_maps_api_key"]);
+      var dynamic_part = new StringBuilder();
       var label = 'A';
       while (marker_address_q.Count > 0)
         {
-        dynamic_part += "&markers=label:" + label + "|" + MapRenditionOf(marker_address_q.Dequeue());
+        dynamic_part.Append("&markers=label:");
+        dynamic_part.Append(label);
+        dynamic_part.Append("|");
+        dynamic_part.Append(MapRenditionOf(marker_address_q.Dequeue()));
         label = (label == 'Z' ? 'A' : (char)(((int)label) + 1));
         }
-      var file_name = k.Digest(dynamic_part) + ".png";
+      var file_name = k.Digest(dynamic_part.ToString()) + ".png";
       var disk_folder_spec = tilde_path_prefix.Replace("~",server_mappath_tilde);
       var disk_file_spec = disk_folder_spec + "/" + file_name;
       if (!File.Exists(disk_file_spec))
@@ -98,7 +106,7 @@ namespace Class_biz_field_situations
           using var web_client = new WebClient();
           web_client.DownloadFile
             (
-            address:static_part + dynamic_part,
+            address:static_part.ToString() + dynamic_part.ToString(),
             fileName:disk_file_spec
             );
           }
