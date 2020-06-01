@@ -20,6 +20,7 @@ namespace UserControl_uniform_catalog
   {
   public partial class TWebUserControl_uniform_catalog: ki_web_ui.usercontrol_class
     {
+
     private struct p_type
       {
       public string agency_id;

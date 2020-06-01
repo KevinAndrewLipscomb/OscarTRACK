@@ -175,7 +175,7 @@ namespace Class_db_vehicle_down_natures
       string childless_field_assignments_clause = k.EMPTY
           + " set name = NULLIF('" + name + "','')"
           + " , pecking_order = NULLIF('" + pecking_order + "','')"
-          + " , be_failure = NULLIF('" + be_failure.ToString() + "','')"
+          + " , be_failure = "+ be_failure.ToString()
           + " , elaboration = NULLIF('" + elaboration + "','')"
       + k.EMPTY;
       Open();

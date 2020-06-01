@@ -263,10 +263,10 @@ namespace Class_db_uniform_catalogs
       {
       var childless_field_assignments_clause = k.EMPTY
       + "piece_id = NULLIF('" + piece_id + "','')"
-      + " , be_branded = NULLIF('" + be_branded.ToString() + "','')"
-      + " , be_size_dependent = NULLIF('" + be_size_dependent.ToString() + "','')"
-      + " , be_specific_rank_dependent = NULLIF('" + be_specific_rank_dependent.ToString() + "','')"
-      + " , be_extra_individualized = NULLIF('" + be_extra_individualized.ToString() + "','')"
+      + " , be_branded = " + be_branded.ToString()
+      + " , be_size_dependent = " + be_size_dependent.ToString()
+      + " , be_specific_rank_dependent = " + be_specific_rank_dependent.ToString()
+      + " , be_extra_individualized = " + be_extra_individualized.ToString()
       + " , rank_group_id = NULLIF('" + rank_group_id + "','')"
       + " , medical_release_code = NULLIF('" + medical_release_code + "','')"
       + " , option_category_id = NULLIF('" + option_category_id + "','')"
