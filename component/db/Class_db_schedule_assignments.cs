@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
@@ -3237,7 +3238,7 @@ namespace Class_db_schedule_assignments
       var convenient_datetime = DateTime.Now.AddMonths(int.Parse(relative_month));
       var month_abbreviation = convenient_datetime.ToString("MMM");
       var month_yyyy_mm = convenient_datetime.ToString("yyyy-MM");
-      string trimables;
+      var trimables = new StringBuilder();
       Open();
       var be_done = false;
       while (!be_done)
@@ -3248,81 +3249,84 @@ namespace Class_db_schedule_assignments
           //
           // Load new availabilities from avail_sheet.
           //
-          var sql = k.EMPTY;
+          var sql = new StringBuilder();
           for (var i = new k.subtype<int>(0,31); i.val < i.LAST; i.val++)
             {
-            sql += k.EMPTY
-            + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
-            + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
-            + " , shift.id as shift_id"
-            + " , @post_id := agency.id as post_id"
-            + " , odnmid as member_id"
-            + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
-            + " , @be_selected as be_new"
-            + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
-            + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) >= CAST('-06:00:00' AS TIME)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ",DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 12 HOUR)) as muster_to_logon_timespan"
-            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
-            + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
-            +   " join shift on (shift.name='DAY')"
-            +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
-            +   " join member on (member.id=avail_sheet.odnmid)"
-            +   " left join avail_comment on"
-            +     " ("
-            +       " avail_comment.month=avail_sheet.month"
-            +     " and"
-            +       " avail_comment.last_name=avail_sheet.last_name"
-            +     " and"
-            +       " avail_comment.first_name=avail_sheet.first_name"
-            +     " and"
-            +       " avail_comment.timestamp=avail_sheet.timestamp"
-            +     " and"
-            +       " avail_comment.coord_agency=avail_sheet.coord_agency"
-            +     " and"
-            +       " avail_comment.shift_designator='d'"
-            +     " and"
-            +       " avail_comment.nominal_day_of_month='" + (i.val + 1).ToString() + "'"
-            +     " )"
-            + " where avail_sheet.month = '" + month_abbreviation + "'"
-            +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
-            + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
-            + ";"
-            + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
-            + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
-            + " , shift.id as shift_id"
-            + " , @post_id := agency.id as post_id"
-            + " , odnmid as member_id"
-            + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
-            + " , @be_selected as be_new"
-            + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
-            + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) BETWEEN CAST('-18:00:00' AS TIME) AND CAST('-12:00:00' AS TIME),DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 24 HOUR)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ") as muster_to_logon_timespan"
-            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
-            + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
-            +   " join shift on (shift.name='NIGHT')"
-            +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
-            +   " join member on (member.id=avail_sheet.odnmid)"
-            +   " left join avail_comment on"
-            +     " ("
-            +       " avail_comment.month=avail_sheet.month"
-            +     " and"
-            +       " avail_comment.last_name=avail_sheet.last_name"
-            +     " and"
-            +       " avail_comment.first_name=avail_sheet.first_name"
-            +     " and"
-            +       " avail_comment.timestamp=avail_sheet.timestamp"
-            +     " and"
-            +       " avail_comment.coord_agency=avail_sheet.coord_agency"
-            +     " and"
-            +       " avail_comment.shift_designator='n'"
-            +     " and"
-            +       " avail_comment.nominal_day_of_month='" + (i.val + 1).ToString() + "'"
-            +     " )"
-            + " where avail_sheet.month = '" + month_abbreviation + "'"
-            +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
-            + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
-            + ";";
+            sql.Append
+              (
+              k.EMPTY
+              + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
+              + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
+              + " , shift.id as shift_id"
+              + " , @post_id := agency.id as post_id"
+              + " , odnmid as member_id"
+              + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
+              + " , @be_selected as be_new"
+              + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
+              + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) >= CAST('-06:00:00' AS TIME)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ",DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 12 HOUR)) as muster_to_logon_timespan"
+              +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
+              + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
+              +   " join shift on (shift.name='DAY')"
+              +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
+              +   " join member on (member.id=avail_sheet.odnmid)"
+              +   " left join avail_comment on"
+              +     " ("
+              +       " avail_comment.month=avail_sheet.month"
+              +     " and"
+              +       " avail_comment.last_name=avail_sheet.last_name"
+              +     " and"
+              +       " avail_comment.first_name=avail_sheet.first_name"
+              +     " and"
+              +       " avail_comment.timestamp=avail_sheet.timestamp"
+              +     " and"
+              +       " avail_comment.coord_agency=avail_sheet.coord_agency"
+              +     " and"
+              +       " avail_comment.shift_designator='d'"
+              +     " and"
+              +       " avail_comment.nominal_day_of_month='" + (i.val + 1).ToString() + "'"
+              +     " )"
+              + " where avail_sheet.month = '" + month_abbreviation + "'"
+              +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
+              + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+              + ";"
+              + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
+              + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
+              + " , shift.id as shift_id"
+              + " , @post_id := agency.id as post_id"
+              + " , odnmid as member_id"
+              + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
+              + " , @be_selected as be_new"
+              + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
+              + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) BETWEEN CAST('-18:00:00' AS TIME) AND CAST('-12:00:00' AS TIME),DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 24 HOUR)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ") as muster_to_logon_timespan"
+              +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
+              + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
+              +   " join shift on (shift.name='NIGHT')"
+              +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
+              +   " join member on (member.id=avail_sheet.odnmid)"
+              +   " left join avail_comment on"
+              +     " ("
+              +       " avail_comment.month=avail_sheet.month"
+              +     " and"
+              +       " avail_comment.last_name=avail_sheet.last_name"
+              +     " and"
+              +       " avail_comment.first_name=avail_sheet.first_name"
+              +     " and"
+              +       " avail_comment.timestamp=avail_sheet.timestamp"
+              +     " and"
+              +       " avail_comment.coord_agency=avail_sheet.coord_agency"
+              +     " and"
+              +       " avail_comment.shift_designator='n'"
+              +     " and"
+              +       " avail_comment.nominal_day_of_month='" + (i.val + 1).ToString() + "'"
+              +     " )"
+              + " where avail_sheet.month = '" + month_abbreviation + "'"
+              +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
+              + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+              + ";"
+              );
             }
           log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will load new availabilities from avail_sheet.");
-          using var my_sql_command_1 = new MySqlCommand(Dispositioned(sql),connection,transaction);
+          using var my_sql_command_1 = new MySqlCommand(Dispositioned(sql.ToString()),connection,transaction);
           my_sql_command_1.ExecuteNonQuery();
           //
           if (be_ok_to_work_on_next_month_assignments)
@@ -3448,7 +3452,7 @@ namespace Class_db_schedule_assignments
             // Trim assignments in excess of obligations from most flexible released members that fall on most popular shifts.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will build a trimables list for " + member_id_q.Count + " released members.");
-            trimables = k.EMPTY;
+            trimables.Clear();
             while (member_id_q.Count > 0)
               {
               using var my_sql_command_4 = new MySqlCommand
@@ -3466,14 +3470,15 @@ namespace Class_db_schedule_assignments
               dr = my_sql_command_4.ExecuteReader();
               while (dr.Read())
                 {
-                trimables += dr["id"].ToString() + k.COMMA;
+                trimables.Append(k.COMMA);
+                trimables.Append(dr["id"].ToString());
                 }
               dr.Close();
               }
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for released members.");
             if (trimables.Length > 0)
               {
-              using var my_sql_command_5 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction);
+              using var my_sql_command_5 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Remove(0,1).ToString() + "))"),connection,transaction);
               my_sql_command_5.ExecuteNonQuery();
               }
             //--
@@ -3647,7 +3652,7 @@ namespace Class_db_schedule_assignments
             // Trim assignments in excess of obligations from most flexible third members that fall on most popular shifts.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will build a trimables list for " + member_id_q.Count + " thirds.");
-            trimables = k.EMPTY;
+            trimables.Clear();
             while (member_id_q.Count > 0)
               {
               using var my_sql_command_11 = new MySqlCommand
@@ -3665,14 +3670,15 @@ namespace Class_db_schedule_assignments
               dr = my_sql_command_11.ExecuteReader();
               while (dr.Read())
                 {
-                trimables += dr["id"].ToString() + k.COMMA;
+                trimables.Append(k.COMMA);
+                trimables.Append(dr["id"].ToString());
                 }
               dr.Close();
               }
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for thirds.");
             if (trimables.Length > 0)
               {
-              using var my_sql_command_12 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction);
+              using var my_sql_command_12 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Remove(0,10).ToString() + "))"),connection,transaction);
               my_sql_command_12.ExecuteNonQuery();
               }
             //
