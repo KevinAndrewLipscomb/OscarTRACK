@@ -101,6 +101,8 @@ namespace UserControl_precontent
                 e.Exception.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
               ||
                 e.Exception.ToString().Contains("The state information is invalid for this page and might be corrupted.")
+              ||
+                e.Exception.ToString().Contains("A potentially dangerous Request.QueryString value was detected from the client")
               )
               {
               cause = k.alert_cause_type.OTHER;
