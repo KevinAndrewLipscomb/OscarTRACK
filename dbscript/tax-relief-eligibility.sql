@@ -223,6 +223,37 @@ BEGIN
   RETURN CONCAT(IFNULL(ROUND(100*the_numerator/the_denominator),0),'%');
 END
 $$
+DROP FUNCTION IF EXISTS `MONTH_LEVEL_CODE`
+$$
+CREATE FUNCTION `MONTH_LEVEL_CODE`
+  (
+  the_member_id INT UNSIGNED,
+  the_year_num SMALLINT UNSIGNED,
+  the_month_num TINYINT UNSIGNED
+  )
+RETURNS TINYINT UNSIGNED
+  READS SQL DATA
+BEGIN
+  RETURN
+    (
+    select level_code
+    from enrollment_history
+      join enrollment_level on (enrollment_level.code=enrollment_history.level_code and enrollment_level.pecking_order < 84)
+    where member_id = the_member_id
+      and CONCAT(the_year_num,'-',the_month_num,'-15') between start_date and IFNULL(end_date,'9999-12-31')
+    limit 1
+    );
+END
+$$
+DROP FUNCTION IF EXISTS `RELEVANT_LEVEL`
+$$
+CREATE FUNCTION `RELEVANT_LEVEL`(the_code TINYINT UNSIGNED)
+RETURNS TINYINT UNSIGNED
+  NO SQL
+BEGIN
+  RETURN (the_code is not null and the_code <> 23);
+END
+$$
 DELIMITER ;
 ;
 select cad_num
@@ -233,7 +264,6 @@ select cad_num
 , PERCENTAGE(YEAR_DUTY_HOURS(subquery.member_id,2020),ROUND(YEAR_BASE_OBLIGATION(jan_code,feb_code,mar_code,apr_code,may_code,jun_code,jul_code,aug_code,sep_code,oct_code,nov_code,dec_code),1)) as year_pct_of_base
 , FORMAT(YEAR_EFFECTIVE_OBLIGATION(subquery.member_id,2020,jan_code,feb_code,mar_code,apr_code,may_code,jun_code,jul_code,aug_code,sep_code,oct_code,nov_code,dec_code),1) as year_effective_obligation
 , PERCENTAGE(YEAR_DUTY_HOURS(subquery.member_id,2020),ROUND(YEAR_EFFECTIVE_OBLIGATION(subquery.member_id,2020,jan_code,feb_code,mar_code,apr_code,may_code,jun_code,jul_code,aug_code,sep_code,oct_code,nov_code,dec_code),1)) as year_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,1) as jan_duty_hours
 , ENROLLMENT(jan_code) as jan_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(jan_code)*12,0),1) as jan_base_obligation
@@ -241,7 +271,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,1) as jan_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,1,jan_code),1) as jan_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,1),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,1,jan_code)) as jan_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,2) as feb_duty_hours
 , ENROLLMENT(feb_code) as feb_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(feb_code)*12,0),1) as feb_base_obligation
@@ -249,7 +278,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,2) as feb_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,2,feb_code),1) as feb_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,2),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,2,feb_code)) as feb_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,3) as mar_duty_hours
 , ENROLLMENT(mar_code) as mar_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(mar_code)*12,0),1) as mar_base_obligation
@@ -257,7 +285,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,3) as mar_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,3,mar_code),1) as mar_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,3),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,3,mar_code)) as mar_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,4) as apr_duty_hours
 , ENROLLMENT(apr_code) as apr_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(apr_code)*12,0),1) as apr_base_obligation
@@ -265,7 +292,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,4) as apr_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,4,apr_code),1) as apr_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,4),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,4,apr_code)) as apr_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,5) as may_duty_hours
 , ENROLLMENT(may_code) as may_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(may_code)*12,0),1) as may_base_obligation
@@ -273,7 +299,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,5) as may_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,5,may_code),1) as may_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,5),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,5,may_code)) as may_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,6) as jun_duty_hours
 , ENROLLMENT(jun_code) as jun_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(jun_code)*12,0),1) as jun_base_obligation
@@ -281,7 +306,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,6) as jun_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,6,jun_code),1) as jun_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,6),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,6,jun_code)) as jun_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,7) as jul_duty_hours
 , ENROLLMENT(jul_code) as jul_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(jul_code)*12,0),1) as jul_base_obligation
@@ -289,7 +313,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,7) as jul_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,7,jul_code),1) as jul_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,7),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,7,jul_code)) as jul_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,8) as aug_duty_hours
 , ENROLLMENT(aug_code) as aug_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(aug_code)*12,0),1) as aug_base_obligation
@@ -297,7 +320,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,8) as aug_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,8,aug_code),1) as aug_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,8),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,8,aug_code)) as aug_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,9) as sep_duty_hours
 , ENROLLMENT(sep_code) as sep_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(sep_code)*12,0),1) as sep_base_obligation
@@ -305,7 +327,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,9) as sep_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,9,sep_code),1) as sep_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,9),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,9,sep_code)) as sep_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,10) as oct_duty_hours
 , ENROLLMENT(oct_code) as oct_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(oct_code)*12,0),1) as oct_base_obligation
@@ -313,7 +334,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,10) as oct_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,10,oct_code),1) as oct_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,10),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,10,oct_code)) as oct_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,11) as nov_duty_hours
 , ENROLLMENT(nov_code) as nov_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(nov_code)*12,0),1) as nov_base_obligation
@@ -321,7 +341,6 @@ select cad_num
 , KIND_OF_LEAVE(subquery.member_id,2020,11) as nov_leave
 , FORMAT(MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,11,nov_code),1) as nov_effective_obligation
 , PERCENTAGE(MONTH_DUTY_HOURS(subquery.member_id,2020,11),MONTH_EFFECTIVE_OBLIGATION(subquery.member_id,2020,11,nov_code)) as nov_pct_of_effective
-
 , MONTH_DUTY_HOURS(subquery.member_id,2020,12) as dec_duty_hours
 , ENROLLMENT(dec_code) as dec_enrollment
 , FORMAT(IFNULL(MONTH_BASE_OBLIGATION(dec_code)*12,0),1) as dec_base_obligation
@@ -335,34 +354,34 @@ from
   , cad_num
   , last_name
   , first_name
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-01-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as jan_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-02-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as feb_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-03-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as mar_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-04-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as apr_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-05-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as may_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-06-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as jun_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-07-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as jul_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-08-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as aug_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-09-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as sep_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-10-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as oct_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-11-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as nov_code
-  , (select level_code from enrollment_history h join enrollment_level l on (l.code=h.level_code and l.pecking_order < 84) where member_id = member.id and '2020-12-15' between h.start_date and IFNULL(h.end_date,'9999-12-31') limit 1) as dec_code
+  , MONTH_LEVEL_CODE(member.id,2020,1) as jan_code
+  , MONTH_LEVEL_CODE(member.id,2020,2) as feb_code
+  , MONTH_LEVEL_CODE(member.id,2020,3) as mar_code
+  , MONTH_LEVEL_CODE(member.id,2020,4) as apr_code
+  , MONTH_LEVEL_CODE(member.id,2020,5) as may_code
+  , MONTH_LEVEL_CODE(member.id,2020,6) as jun_code
+  , MONTH_LEVEL_CODE(member.id,2020,7) as jul_code
+  , MONTH_LEVEL_CODE(member.id,2020,8) as aug_code
+  , MONTH_LEVEL_CODE(member.id,2020,9) as sep_code
+  , MONTH_LEVEL_CODE(member.id,2020,10) as oct_code
+  , MONTH_LEVEL_CODE(member.id,2020,11) as nov_code
+  , MONTH_LEVEL_CODE(member.id,2020,12) as dec_code
   from member
   order by last_name, first_name, cad_num
   )
   as subquery
-where (jan_code is not null and jan_code <> 23)
-  or (feb_code is not null and feb_code <> 23)
-  or (mar_code is not null and mar_code <> 23)
-  or (apr_code is not null and apr_code <> 23)
-  or (may_code is not null and may_code <> 23)
-  or (jun_code is not null and jun_code <> 23)
-  or (jul_code is not null and jul_code <> 23)
-  or (aug_code is not null and aug_code <> 23)
-  or (sep_code is not null and sep_code <> 23)
-  or (oct_code is not null and oct_code <> 23)
-  or (nov_code is not null and nov_code <> 23)
-  or (dec_code is not null and dec_code <> 23)
+where RELEVANT_LEVEL(jan_code)
+  or RELEVANT_LEVEL(feb_code)
+  or RELEVANT_LEVEL(mar_code)
+  or RELEVANT_LEVEL(apr_code)
+  or RELEVANT_LEVEL(may_code)
+  or RELEVANT_LEVEL(jun_code)
+  or RELEVANT_LEVEL(jul_code)
+  or RELEVANT_LEVEL(aug_code)
+  or RELEVANT_LEVEL(sep_code)
+  or RELEVANT_LEVEL(oct_code)
+  or RELEVANT_LEVEL(nov_code)
+  or RELEVANT_LEVEL(dec_code)
 ;
 DROP FUNCTION IF EXISTS `MONTH_DUTY_HOURS`
 ;
@@ -381,5 +400,9 @@ DROP FUNCTION IF EXISTS `MONTH_EFFECTIVE_OBLIGATION`
 DROP FUNCTION IF EXISTS `YEAR_EFFECTIVE_OBLIGATION`
 ;
 DROP FUNCTION IF EXISTS `PERCENTAGE`
+;
+DROP FUNCTION IF EXISTS `MONTH_LEVEL_CODE`
+;
+DROP FUNCTION IF EXISTS `RELEVANT_LEVEL`
 ;
 COMMIT
