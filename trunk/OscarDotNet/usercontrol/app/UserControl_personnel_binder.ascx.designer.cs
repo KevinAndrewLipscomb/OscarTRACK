@@ -7,63 +7,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_personnel_binder {
-    
-    
-    public partial class TWebUserControl_personnel_binder {
-        
-        /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
-        /// TabContainer_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
-        
-        /// <summary>
-        /// TabPanel_roster control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_roster;
-        
-        /// <summary>
-        /// TabPanel_results control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_results;
-        
-        /// <summary>
-        /// TabPanel_provisioning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_provisioning;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+namespace UserControl_personnel_binder
+  {
+
+
+  public partial class TWebUserControl_personnel_binder
+    {
+
+    /// <summary>
+    /// UpdatePanel_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+
+    /// <summary>
+    /// TabContainer_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+
+    /// <summary>
+    /// TabPanel_roster control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_roster;
+
+    /// <summary>
+    /// TabPanel_results control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_results;
+
+    /// <summary>
+    /// TabPanel_activity_lookback control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_activity_lookback;
+
+    /// <summary>
+    /// TabPanel_provisioning control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_provisioning;
+
+    /// <summary>
+    /// PlaceHolder_content control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
     }
-}
+  }

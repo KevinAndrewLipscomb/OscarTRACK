@@ -9,6 +9,7 @@
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <cc1:TabPanel runat="server" headertext="Roster" id="TabPanel_roster"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Results" id="TabPanel_results" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Activity lookback" id="TabPanel_activity_lookback" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Provisioning" id="TabPanel_provisioning"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
