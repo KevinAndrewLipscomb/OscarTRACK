@@ -223,6 +223,16 @@ namespace Class_biz_members
             return result;
         }
 
+    internal void BindActivityLookbackBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      db_members.BindActivityLookbackBaseDataList(sort_order,be_sort_order_ascending,target);
+      }
+
         public void BindCurrentDirectToListControl(object target, string agency_filter, string unselected_literal, string selected_value)
         {
             db_members.BindCurrentDirectToListControl(target, agency_filter, unselected_literal, selected_value);

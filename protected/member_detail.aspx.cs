@@ -30,8 +30,10 @@ namespace member_detail
           public string cad_num_string;
           public string enrollment_description;
           public DateTime enrollment_effective_date;
+          public TClass_msg_protected.member_detail incoming;
           public string leave_next_month_description;
           public string leave_this_month_description;
+          public object member_summary;
           public string raw_member_email_address;
           public string raw_member_phone_num;
           public string target_member_agency_id;
@@ -61,7 +63,7 @@ namespace member_detail
                 var priv_of_interest = k.EMPTY;
                 //
                 LinkButton_schedule_detail.Visible =
-                  !p.biz_members.BePast(Session["member_summary"])
+                  !p.biz_members.BePast(p.member_summary)
                 &&
                   (
                     k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team")
@@ -91,7 +93,7 @@ namespace member_detail
                     HyperLink_email_address.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
                 //
-                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
+                Label_member_designator.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
                 priv_of_interest = "change-member-name";
                 LinkButton_change_name.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency)
                   || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);
@@ -110,11 +112,11 @@ namespace member_detail
                 Label_agency.Text = p.agency;
                 LinkButton_change_agency.Text = k.ExpandTildePath(LinkButton_change_agency.Text);
                 //
-                Label_section.Text = p.biz_members.SectionOf(Session["member_summary"]);
+                Label_section.Text = p.biz_members.SectionOf(p.member_summary);
                 LinkButton_change_section.Text = k.ExpandTildePath(LinkButton_change_section.Text);
                 //
-                Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
-                var first_release_as_an_aic_date = p.biz_members.FirstReleaseAsAnAicDateOf(Session["member_summary"]);
+                Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(p.member_summary);
+                var first_release_as_an_aic_date = p.biz_members.FirstReleaseAsAnAicDateOf(p.member_summary);
                 Literal_first_release_as_aic_phrase.Text = (first_release_as_an_aic_date.Length > 0 ? "on " + first_release_as_an_aic_date : "unrecorded");
                 //
                 Label_enrollment.Text = p.enrollment_description;
@@ -122,9 +124,9 @@ namespace member_detail
                 Label_elaboration.Text = p.biz_enrollment.ElaborationOf(p.enrollment_description);
                 LinkButton_enrollment_detail.Text = k.ExpandTildePath(LinkButton_enrollment_detail.Text);
                 //
-                if (p.biz_members.RetentionOf(Session["member_summary"]).Length > 0)
+                if (p.biz_members.RetentionOf(p.member_summary).Length > 0)
                 {
-                    Label_years_of_service.Text = p.biz_members.RetentionOf(Session["member_summary"]);
+                    Label_years_of_service.Text = p.biz_members.RetentionOf(p.member_summary);
                     priv_of_interest = "adjust-years-of-service";
                     LinkButton_adjust_years_of_service.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency)
                       || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);
@@ -135,7 +137,7 @@ namespace member_detail
                     Label_years_of_service.Text = "(See membership status detail)";
                 }
                 //
-                Label_be_driver_qualified.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(Session["member_summary"]));
+                Label_be_driver_qualified.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));
                 LinkButton_change_driver_qual.Text = k.ExpandTildePath(LinkButton_change_driver_qual.Text);
                 //
                 priv_of_interest = "change-member-phone-num";
@@ -163,9 +165,9 @@ namespace member_detail
                 LinkButton_change_section.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency)
                   || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);
                 //
-                Label_be_on_squad_truck_team.Text = k.YesNoOf(p.biz_members.BeSquadTruckTeamQualifiedOf(Session["member_summary"]));
-                Label_be_flight_medic.Text = k.YesNoOf(p.biz_members.BeFlightMedicQualifiedOf(Session["member_summary"]));
-                Label_be_marine_medic.Text = k.YesNoOf(p.biz_members.BeMarineMedicQualifiedOf(Session["member_summary"]));
+                Label_be_on_squad_truck_team.Text = k.YesNoOf(p.biz_members.BeSquadTruckTeamQualifiedOf(p.member_summary));
+                Label_be_flight_medic.Text = k.YesNoOf(p.biz_members.BeFlightMedicQualifiedOf(p.member_summary));
+                Label_be_marine_medic.Text = k.YesNoOf(p.biz_members.BeMarineMedicQualifiedOf(p.member_summary));
                 LinkButton_change_squad_truck_team_qual.Text = k.ExpandTildePath(LinkButton_change_squad_truck_team_qual.Text);
                 LinkButton_change_flight_medic_qual.Text = k.ExpandTildePath(LinkButton_change_flight_medic_qual.Text);
                 LinkButton_change_marine_medic_qual.Text = k.ExpandTildePath(LinkButton_change_marine_medic_qual.Text);
@@ -178,9 +180,9 @@ namespace member_detail
                 TableRow_tapouts.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency);
                 if (TableRow_tapouts.Visible)
                   {
-                  Label_num_tapouts_3_months_ago.Text = p.biz_members.NumTapouts3MonthsAgoOf(Session["member_summary"]).val.ToString();
-                  Label_num_tapouts_2_months_ago.Text = p.biz_members.NumTapouts2MonthsAgoOf(Session["member_summary"]).val.ToString();
-                  Label_num_tapouts_1_month_ago.Text = p.biz_members.NumTapouts1MonthAgoOf(Session["member_summary"]).val.ToString();
+                  Label_num_tapouts_3_months_ago.Text = p.biz_members.NumTapouts3MonthsAgoOf(p.member_summary).val.ToString();
+                  Label_num_tapouts_2_months_ago.Text = p.biz_members.NumTapouts2MonthsAgoOf(p.member_summary).val.ToString();
+                  Label_num_tapouts_1_month_ago.Text = p.biz_members.NumTapouts1MonthAgoOf(p.member_summary).val.ToString();
                   LinkButton_individual_tapout_detail.Text = k.ExpandTildePath(LinkButton_individual_tapout_detail.Text);
                   }
                 //
@@ -225,18 +227,25 @@ namespace member_detail
                     p.msg_protected_individual_tapout_detail = new TClass_msg_protected.individual_tapout_detail();
                     p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
                     //
-                    p.target_member_id = p.biz_members.IdOf(Session["member_summary"]);
+                    p.incoming = Message<TClass_msg_protected.member_detail>
+                      (
+                      folder_name:"protected",
+                      aspx_name:"member_detail"
+                      );
+                    p.member_summary = Session["member_summary"]?? p.incoming.summary;
+                    //
+                    p.target_member_id = p.biz_members.IdOf(p.member_summary);
                     p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.target_member_id);
                     p.raw_member_email_address = p.biz_members.EmailAddressOf(p.target_member_id);
-                    p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
+                    p.cad_num_string = p.biz_members.CadNumOf(p.member_summary);
                     if (p.cad_num_string.Length == 0)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
                     p.biz_leaves.DescribeThisAndNextMonthForMember(p.target_member_id, out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
                     p.biz_enrollment.CurrentDescriptionAndEffectiveDateForMember(p.target_member_id, out p.enrollment_description, out p.enrollment_effective_date);
-                    p.agency = p.biz_members.AgencyOf(Session["member_summary"]);
-                    p.target_member_agency_id = p.biz_members.AgencyIdOf(Session["member_summary"]);
+                    p.agency = p.biz_members.AgencyOf(p.member_summary);
+                    p.target_member_agency_id = p.biz_members.AgencyIdOf(p.member_summary);
                 }
             }
         }

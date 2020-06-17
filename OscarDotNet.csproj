@@ -275,6 +275,7 @@
     <Content Include="service\FleetStatus.svc" />
     <Content Include="service\WatchbillByShift.svc" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_activity_lookback.ascx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_app_level_announcement.ascx" />
@@ -1353,6 +1354,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_about.ascx.designer.cs">
       <DependentUpon>UserControl_about.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_activity_lookback.ascx.cs">
+      <DependentUpon>UserControl_activity_lookback.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_activity_lookback.ascx.designer.cs">
+      <DependentUpon>UserControl_activity_lookback.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_agency.ascx.cs">
       <DependentUpon>UserControl_agency.ascx</DependentUpon>
