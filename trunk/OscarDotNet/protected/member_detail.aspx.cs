@@ -12,8 +12,8 @@ using System;
 using System.Configuration;
 
 namespace member_detail
-{
-    public partial class TWebForm_member_detail: ki_web_ui.page_class
+  {
+  public partial class TWebForm_member_detail: ki_web_ui.page_class
     {
         private struct p_type
           {
@@ -30,7 +30,6 @@ namespace member_detail
           public string cad_num_string;
           public string enrollment_description;
           public DateTime enrollment_effective_date;
-          public TClass_msg_protected.member_detail incoming;
           public string leave_next_month_description;
           public string leave_this_month_description;
           public object member_summary;
@@ -227,12 +226,7 @@ namespace member_detail
                     p.msg_protected_individual_tapout_detail = new TClass_msg_protected.individual_tapout_detail();
                     p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
                     //
-                    p.incoming = Message<TClass_msg_protected.member_detail>
-                      (
-                      folder_name:"protected",
-                      aspx_name:"member_detail"
-                      );
-                    p.member_summary = Session["member_summary"]?? p.incoming.summary;
+                    p.member_summary = Session["member_summary"];
                     //
                     p.target_member_id = p.biz_members.IdOf(p.member_summary);
                     p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.target_member_id);

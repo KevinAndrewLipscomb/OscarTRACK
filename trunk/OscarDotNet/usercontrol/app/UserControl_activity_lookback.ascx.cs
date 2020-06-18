@@ -1,10 +1,8 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_members;
-using Class_msg_protected;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -118,7 +116,6 @@ namespace UserControl_activity_lookback
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_members biz_members;
-      public TClass_msg_protected.member_detail msg_protected_member_detail;
       public k.int_nonnegative num_members;
       public string sort_order;
       }
@@ -254,7 +251,6 @@ namespace UserControl_activity_lookback
       else
         {
         p.biz_members = new TClass_biz_members();
-        p.msg_protected_member_detail = new TClass_msg_protected.member_detail();
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
@@ -291,8 +287,8 @@ namespace UserControl_activity_lookback
       {
       if (e.Item.ItemType.ToString().EndsWith("Item"))
         {
-        p.msg_protected_member_detail.summary = p.biz_members.Summary(k.Safe(e.Item.Cells[Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM));
-        MessageDropCrumbAndTransferTo(p.msg_protected_member_detail,"protected","member_detail");
+        SessionSet("member_summary",p.biz_members.Summary(k.Safe(e.Item.Cells[Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM)));
+        DropCrumbAndTransferTo("member_detail.aspx");
         }
       }
 

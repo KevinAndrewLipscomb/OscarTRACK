@@ -2517,7 +2517,7 @@ namespace Class_db_schedule_assignments
     internal void Purge()
       {
       Open();
-      using var my_sql_command = new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 13 MONTH),'%Y-%m-01')",connection);
+      using var my_sql_command = new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 10 MONTH),'%Y-%m-01')",connection);
       my_sql_command.ExecuteNonQuery();
       Close();
       }

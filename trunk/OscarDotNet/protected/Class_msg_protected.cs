@@ -36,10 +36,6 @@ namespace Class_msg_protected
       {
       internal string member_id = k.EMPTY;
       }
-    internal class member_detail
-      {
-      internal object summary;
-      }
     internal class member_schedule_detail
       {
       internal string member_id = k.EMPTY;
