@@ -3,7 +3,9 @@
 using Class_biz_members;
 using Class_msg_protected;
 using kix;
+using System;
 using System.Collections;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -223,6 +225,7 @@ namespace UserControl_activity_lookback
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_export);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -300,9 +303,9 @@ namespace UserControl_activity_lookback
         {
         if (e.Item.ItemType.ToString().EndsWith("Item"))
           {
-          link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          //link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
+          //link_button.Text = k.ExpandTildePath(link_button.Text);
+          //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -344,6 +347,16 @@ namespace UserControl_activity_lookback
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_members.Text = p.num_members.val.ToString();
       p.num_members.val = 0;
+      }
+
+    protected void Button_export_Click(object sender, System.EventArgs e)
+      {
+      Bind();
+      ExportToExcel
+        (
+        filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "-activity-lookback-" + DateTime.Now.ToString("yyyyMMddHHmmssf"),
+        excel_string:StringOfControl(DataGrid_control)
+        );
       }
 
     } // end TWebUserControl_activity_lookback

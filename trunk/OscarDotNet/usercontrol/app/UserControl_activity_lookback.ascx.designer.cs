@@ -42,6 +42,15 @@ namespace UserControl_activity_lookback
     protected global::System.Web.UI.WebControls.Literal Literal_num_members;
 
     /// <summary>
+    /// Button_export control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button Button_export;
+
+    /// <summary>
     /// TableRow_none control.
     /// </summary>
     /// <remarks>
