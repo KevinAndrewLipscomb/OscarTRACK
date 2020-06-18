@@ -27,9 +27,9 @@
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
               <td>
-                <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="1" autogeneratecolumns="False" Font-Size="XX-Small">
+                <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="1" autogeneratecolumns="False" AllowSorting="true" Font-Size="XX-Small">
                   <Columns>
-                    <asp:TemplateColumn><ItemTemplate></ItemTemplate></asp:TemplateColumn>
+                    <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></asp:ButtonColumn>
                     <asp:BoundColumn datafield="member_id" visible="false"></asp:BoundColumn>
                     <asp:BoundColumn datafield="cad_num" headertext="CAD&amp;nbsp;#" sortexpression="cad_num%"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom"/></asp:BoundColumn>
                     <asp:BoundColumn datafield="last_name" headertext="Last name" sortexpression="last_name%,first_name,cad_num"><HeaderStyle VerticalAlign="Bottom"/></asp:BoundColumn>

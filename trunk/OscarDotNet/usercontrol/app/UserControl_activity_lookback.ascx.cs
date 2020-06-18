@@ -303,9 +303,9 @@ namespace UserControl_activity_lookback
         {
         if (e.Item.ItemType.ToString().EndsWith("Item"))
           {
-          //link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
-          //link_button.Text = k.ExpandTildePath(link_button.Text);
-          //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -351,12 +351,16 @@ namespace UserControl_activity_lookback
 
     protected void Button_export_Click(object sender, System.EventArgs e)
       {
+      DataGrid_control.AllowSorting = false;
+      DataGrid_control.Columns[Static.TCI_SELECT].Visible = false;
       Bind();
       ExportToExcel
         (
         filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "-activity-lookback-" + DateTime.Now.ToString("yyyyMMddHHmmssf"),
         excel_string:StringOfControl(DataGrid_control)
         );
+      DataGrid_control.AllowSorting = true;
+      DataGrid_control.Columns[Static.TCI_SELECT].Visible = true;
       }
 
     } // end TWebUserControl_activity_lookback
