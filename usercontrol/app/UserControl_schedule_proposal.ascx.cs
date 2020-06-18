@@ -1271,7 +1271,7 @@ namespace UserControl_schedule_proposal
           {
           SessionSet("member_summary",p.biz_members.Summary(n_member_id));
           }
-        MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_detail");
+        DropCrumbAndTransferTo("member_detail.aspx");
         }
       }
 
