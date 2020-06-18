@@ -368,7 +368,7 @@ namespace Class_db_members
 
         }
 
-    private string MonthDutyHours
+    private string MonthDutyHoursSubquery
       (
       string the_year_num,
       string the_month_num
@@ -385,7 +385,7 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string YearDutyHours
+    private string YearDutyHoursSubquery
       (
       string the_year_num
       )
@@ -400,7 +400,7 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string Enrollment
+    private string EnrollmentExpression
       (
       string the_enrollment_code
       )
@@ -410,7 +410,7 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string MonthBaseObligation
+    private string MonthBaseObligationSubquery
       (
       string the_enrollment_code
       )
@@ -420,34 +420,34 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string YearBaseObligation()
+    private string YearBaseObligationExpression()
       {
       return new StringBuilder()
         .Append(" (")
         .Append(  " (")
-        .Append(  "   IFNULL(" + MonthBaseObligation("jan_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("jan_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("feb_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("feb_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("mar_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("mar_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("apr_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("apr_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("may_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("may_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("jun_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("jun_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("jul_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("jul_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("aug_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("aug_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("sep_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("sep_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("oct_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("oct_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("nov_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("nov_code") + ",0)")
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligation("dec_code") + ",0)")
+        .Append(  "   IFNULL(" + MonthBaseObligationSubquery("dec_code") + ",0)")
         .Append(  " )")
         .Append(" *")
         .Append(  " 12")
@@ -455,7 +455,7 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string KindOfLeave
+    private string KindOfLeaveExpression
       (
       string the_year_num,
       string the_month_num
@@ -477,39 +477,39 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string YearEffectiveObligation
+    private string YearEffectiveObligationExpression
       (
       string the_year_num
       )
       {
       return new StringBuilder()
-        .Append(MonthEffectiveObligation(the_year_num,"01","jan_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"01","jan_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"02","feb_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"02","feb_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"03","mar_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"03","mar_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"04","apr_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"04","apr_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"05","may_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"05","may_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"06","jun_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"06","jun_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"07","jul_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"07","jul_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"08","aug_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"08","aug_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"09","sep_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"09","sep_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"10","oct_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"10","oct_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"11","nov_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"11","nov_code"))
         .Append(" + ")
-        .Append(MonthEffectiveObligation(the_year_num,"12","dec_code"))
+        .Append(MonthEffectiveObligationExpression(the_year_num,"12","dec_code"))
         .ToString();
       }
 
-    private string MonthEffectiveObligation
+    private string MonthEffectiveObligationExpression
       (
       string the_year_num,
       string the_month_num,
@@ -527,7 +527,7 @@ namespace Class_db_members
         .Append(      " and '" + the_year_num + k.HYPHEN + the_month_num + "-15' between start_date and end_date")
         .Append(    " )")
         .Append(  " ,")
-        .Append(    " IFNULL(" + MonthBaseObligation(the_enrollment_code) + ",0)")
+        .Append(    " IFNULL(" + MonthBaseObligationSubquery(the_enrollment_code) + ",0)")
         .Append(  " )")
         .Append(" *")
         .Append(  " 12")
@@ -535,18 +535,18 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string Percentage
+    private string PercentageExpression
       (
       string the_numerator,
       string the_denominator
       )
       {
       return new StringBuilder()
-        .Append("CONCAT(IFNULL(ROUND(100*" + the_numerator + "/" + the_denominator + "),0),'%')")
+        .Append("IFNULL(ROUND(100*" + the_numerator + "/" + the_denominator + "),0)")
         .ToString();
       }
 
-    private string MonthLevelCode
+    private string MonthLevelCodeSubquery
       (
       string the_year_num,
       string the_month_num
@@ -564,7 +564,7 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string RelevantLevel
+    private string RelevantLevelCondition
       (
       string the_enrollment_code
       )
@@ -587,129 +587,129 @@ namespace Class_db_members
         .Append(" , cad_num")
         .Append(" , last_name")
         .Append(" , first_name")
-        .Append(" , FORMAT(" + YearDutyHours("2020") + ",1) as year_duty_hours")
-        .Append(" , FORMAT(" + YearBaseObligation() + ",1) as year_base_obligation")
-        .Append(" , " + Percentage(YearDutyHours("2020"),"ROUND(" + YearBaseObligation() + ",1)") + " as year_pct_of_base")
-        .Append(" , FORMAT(" + YearEffectiveObligation("2020") + ",1) as year_effective_obligation")
-        .Append(" , " + Percentage(YearDutyHours("2020"),"ROUND(" + YearEffectiveObligation("2020") + ",1)") + " as year_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","1") + ",1) as jan_duty_hours")
-        .Append(" , " + Enrollment("jan_code") + " as jan_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("jan_code") + "*12,0),1) as jan_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","1"),"(" + MonthBaseObligation("jan_code") + "*12)") + " as jan_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","01") + " as jan_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","1","jan_code") + ",1) as jan_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","1"),MonthEffectiveObligation("2020","1","jan_code")) + " as jan_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","2") + ",1) as feb_duty_hours")
-        .Append(" , " + Enrollment("feb_code") + " as feb_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("feb_code") + "*12,0),1) as feb_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","2"),"(" + MonthBaseObligation("feb_code") + "*12)") + "feb_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","02") + " as feb_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","2","feb_code") + ",1) as feb_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","2"),MonthEffectiveObligation("2020","2","feb_code")) + " as feb_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","3") + ",1) as mar_duty_hours")
-        .Append(" , " + Enrollment("mar_code") + " as mar_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("mar_code") + "*12,0),1) as mar_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","3"),"(" + MonthBaseObligation("mar_code") + "*12)") + "mar_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","03") + " as mar_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","3","mar_code") + ",1) as mar_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","3"),MonthEffectiveObligation("2020","3","mar_code")) + " as mar_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","4") + ",1) as apr_duty_hours")
-        .Append(" , " + Enrollment("apr_code") + " as apr_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("apr_code") + "*12,0),1) as apr_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","4"),"(" + MonthBaseObligation("apr_code") + "*12)") + "apr_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","04") + " as apr_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","4","apr_code") + ",1) as apr_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","4"),MonthEffectiveObligation("2020","4","apr_code")) + " as apr_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","5") + ",1) as may_duty_hours")
-        .Append(" , " + Enrollment("may_code") + " as may_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("may_code") + "*12,0),1) as may_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","5"),"(" + MonthBaseObligation("may_code") + "*12)") + "may_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","05") + " as may_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","5","may_code") + ",1) as may_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","5"),MonthEffectiveObligation("2020","5","may_code")) + " as may_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","6") + ",1) as jun_duty_hours")
-        .Append(" , " + Enrollment("jun_code") + " as jun_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("jun_code") + "*12,0),1) as jun_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","6"),"(" + MonthBaseObligation("jun_code") + "*12)") + "jun_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","06") + " as jun_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","6","jun_code") + ",1) as jun_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","6"),MonthEffectiveObligation("2020","6","jun_code")) + " as jun_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","7") + ",1) as jul_duty_hours")
-        .Append(" , " + Enrollment("jul_code") + " as jul_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("jul_code") + "*12,0),1) as jul_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","7"),"(" + MonthBaseObligation("jul_code") + "*12)") + "jul_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","07") + " as jul_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","7","jul_code") + ",1) as jul_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","7"),MonthEffectiveObligation("2020","7","jul_code")) + " as jul_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","8") + ",1) as aug_duty_hours")
-        .Append(" , " + Enrollment("aug_code") + " as aug_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("aug_code") + "*12,0),1) as aug_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","8"),"(" + MonthBaseObligation("aug_code") + "*12)") + "aug_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","08") + " as aug_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","8","aug_code") + ",1) as aug_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","8"),MonthEffectiveObligation("2020","8","aug_code")) + " as aug_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","9") + ",1) as sep_duty_hours")
-        .Append(" , " + Enrollment("sep_code") + " as sep_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("sep_code") + "*12,0),1) as sep_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","9"),"(" + MonthBaseObligation("sep_code") + "*12)") + "sep_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","09") + " as sep_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","9","sep_code") + ",1) as sep_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","9"),MonthEffectiveObligation("2020","9","sep_code")) + " as sep_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","10") + ",1) as oct_duty_hours")
-        .Append(" , " + Enrollment("oct_code") + " as oct_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("oct_code") + "*12,0),1) as oct_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","10"),"(" + MonthBaseObligation("oct_code") + "*12)") + "oct_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","10") + " as oct_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","10","oct_code") + ",1) as oct_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","10"),MonthEffectiveObligation("2020","10","oct_code")) + " as oct_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","11") + ",1) as nov_duty_hours")
-        .Append(" , " + Enrollment("nov_code") + " as nov_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("nov_code") + "*12,0),1) as nov_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","11"),"(" + MonthBaseObligation("nov_code") + "*12)") + "nov_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","11") + " as nov_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","11","nov_code") + ",1) as nov_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","11"),MonthEffectiveObligation("2020","11","nov_code")) + " as nov_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHours("2020","12") + ",1) as dec_duty_hours")
-        .Append(" , " + Enrollment("dec_code") + " as dec_enrollment")
-        .Append(" , FORMAT(IFNULL(" + MonthBaseObligation("dec_code") + "*12,0),1) as dec_base_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","12"),"(" + MonthBaseObligation("dec_code") + "*12)") + "dec_pct_of_base")
-        .Append(" , " + KindOfLeave("2020","12") + " as dec_leave")
-        .Append(" , FORMAT(" + MonthEffectiveObligation("2020","12","dec_code") + ",1) as dec_effective_obligation")
-        .Append(" , " + Percentage(MonthDutyHours("2020","12"),MonthEffectiveObligation("2020","12","dec_code")) + " as dec_pct_of_effective")
+        .Append(" , FORMAT(" + YearDutyHoursSubquery("2020") + ",1) as year_duty_hours")
+        .Append(" , FORMAT(" + YearBaseObligationExpression() + ",1) as year_base_obligation")
+        .Append(" , " + PercentageExpression(YearDutyHoursSubquery("2020"),"ROUND(" + YearBaseObligationExpression() + ",1)") + " as year_pct_of_base")
+        .Append(" , FORMAT(" + YearEffectiveObligationExpression("2020") + ",1) as year_effective_obligation")
+        .Append(" , " + PercentageExpression(YearDutyHoursSubquery("2020"),"ROUND(" + YearEffectiveObligationExpression("2020") + ",1)") + " as year_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","1") + ",1) as jan_duty_hours")
+        .Append(" , " + EnrollmentExpression("jan_code") + " as jan_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("jan_code") + "*12,0),1) as jan_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","1"),"(" + MonthBaseObligationSubquery("jan_code") + "*12)") + " as jan_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","01") + " as jan_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","1","jan_code") + ",1) as jan_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","1"),MonthEffectiveObligationExpression("2020","1","jan_code")) + " as jan_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","2") + ",1) as feb_duty_hours")
+        .Append(" , " + EnrollmentExpression("feb_code") + " as feb_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("feb_code") + "*12,0),1) as feb_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","2"),"(" + MonthBaseObligationSubquery("feb_code") + "*12)") + "feb_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","02") + " as feb_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","2","feb_code") + ",1) as feb_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","2"),MonthEffectiveObligationExpression("2020","2","feb_code")) + " as feb_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","3") + ",1) as mar_duty_hours")
+        .Append(" , " + EnrollmentExpression("mar_code") + " as mar_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("mar_code") + "*12,0),1) as mar_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","3"),"(" + MonthBaseObligationSubquery("mar_code") + "*12)") + "mar_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","03") + " as mar_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","3","mar_code") + ",1) as mar_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","3"),MonthEffectiveObligationExpression("2020","3","mar_code")) + " as mar_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","4") + ",1) as apr_duty_hours")
+        .Append(" , " + EnrollmentExpression("apr_code") + " as apr_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("apr_code") + "*12,0),1) as apr_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","4"),"(" + MonthBaseObligationSubquery("apr_code") + "*12)") + "apr_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","04") + " as apr_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","4","apr_code") + ",1) as apr_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","4"),MonthEffectiveObligationExpression("2020","4","apr_code")) + " as apr_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","5") + ",1) as may_duty_hours")
+        .Append(" , " + EnrollmentExpression("may_code") + " as may_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("may_code") + "*12,0),1) as may_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","5"),"(" + MonthBaseObligationSubquery("may_code") + "*12)") + "may_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","05") + " as may_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","5","may_code") + ",1) as may_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","5"),MonthEffectiveObligationExpression("2020","5","may_code")) + " as may_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","6") + ",1) as jun_duty_hours")
+        .Append(" , " + EnrollmentExpression("jun_code") + " as jun_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("jun_code") + "*12,0),1) as jun_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","6"),"(" + MonthBaseObligationSubquery("jun_code") + "*12)") + "jun_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","06") + " as jun_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","6","jun_code") + ",1) as jun_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","6"),MonthEffectiveObligationExpression("2020","6","jun_code")) + " as jun_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","7") + ",1) as jul_duty_hours")
+        .Append(" , " + EnrollmentExpression("jul_code") + " as jul_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("jul_code") + "*12,0),1) as jul_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","7"),"(" + MonthBaseObligationSubquery("jul_code") + "*12)") + "jul_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","07") + " as jul_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","7","jul_code") + ",1) as jul_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","7"),MonthEffectiveObligationExpression("2020","7","jul_code")) + " as jul_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","8") + ",1) as aug_duty_hours")
+        .Append(" , " + EnrollmentExpression("aug_code") + " as aug_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("aug_code") + "*12,0),1) as aug_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","8"),"(" + MonthBaseObligationSubquery("aug_code") + "*12)") + "aug_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","08") + " as aug_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","8","aug_code") + ",1) as aug_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","8"),MonthEffectiveObligationExpression("2020","8","aug_code")) + " as aug_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","9") + ",1) as sep_duty_hours")
+        .Append(" , " + EnrollmentExpression("sep_code") + " as sep_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("sep_code") + "*12,0),1) as sep_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","9"),"(" + MonthBaseObligationSubquery("sep_code") + "*12)") + "sep_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","09") + " as sep_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","9","sep_code") + ",1) as sep_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","9"),MonthEffectiveObligationExpression("2020","9","sep_code")) + " as sep_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","10") + ",1) as oct_duty_hours")
+        .Append(" , " + EnrollmentExpression("oct_code") + " as oct_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("oct_code") + "*12,0),1) as oct_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","10"),"(" + MonthBaseObligationSubquery("oct_code") + "*12)") + "oct_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","10") + " as oct_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","10","oct_code") + ",1) as oct_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","10"),MonthEffectiveObligationExpression("2020","10","oct_code")) + " as oct_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","11") + ",1) as nov_duty_hours")
+        .Append(" , " + EnrollmentExpression("nov_code") + " as nov_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("nov_code") + "*12,0),1) as nov_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","11"),"(" + MonthBaseObligationSubquery("nov_code") + "*12)") + "nov_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","11") + " as nov_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","11","nov_code") + ",1) as nov_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","11"),MonthEffectiveObligationExpression("2020","11","nov_code")) + " as nov_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("2020","12") + ",1) as dec_duty_hours")
+        .Append(" , " + EnrollmentExpression("dec_code") + " as dec_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("dec_code") + "*12,0),1) as dec_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","12"),"(" + MonthBaseObligationSubquery("dec_code") + "*12)") + "dec_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("2020","12") + " as dec_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("2020","12","dec_code") + ",1) as dec_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("2020","12"),MonthEffectiveObligationExpression("2020","12","dec_code")) + " as dec_pct_of_effective")
         .Append(" from")
         .Append(  " (")
         .Append(  " select member.id as member_id")
         .Append(  " , cad_num")
         .Append(  " , last_name")
         .Append(  " , first_name")
-        .Append(  " , " + MonthLevelCode("2020","1") + " as jan_code")
-        .Append(  " , " + MonthLevelCode("2020","2") + " as feb_code")
-        .Append(  " , " + MonthLevelCode("2020","3") + " as mar_code")
-        .Append(  " , " + MonthLevelCode("2020","4") + " as apr_code")
-        .Append(  " , " + MonthLevelCode("2020","5") + " as may_code")
-        .Append(  " , " + MonthLevelCode("2020","6") + " as jun_code")
-        .Append(  " , " + MonthLevelCode("2020","7") + " as jul_code")
-        .Append(  " , " + MonthLevelCode("2020","8") + " as aug_code")
-        .Append(  " , " + MonthLevelCode("2020","9") + " as sep_code")
-        .Append(  " , " + MonthLevelCode("2020","10") + " as oct_code")
-        .Append(  " , " + MonthLevelCode("2020","11") + " as nov_code")
-        .Append(  " , " + MonthLevelCode("2020","12") + " as dec_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","1") + " as jan_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","2") + " as feb_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","3") + " as mar_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","4") + " as apr_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","5") + " as may_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","6") + " as jun_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","7") + " as jul_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","8") + " as aug_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","9") + " as sep_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","10") + " as oct_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","11") + " as nov_code")
+        .Append(  " , " + MonthLevelCodeSubquery("2020","12") + " as dec_code")
         .Append(  " from member")
         .Append(  " order by last_name, first_name, cad_num")
         .Append(  " )")
         .Append(  " as subquery")
-        .Append(" where " + RelevantLevel("jan_code"))
-        .Append(  " or " + RelevantLevel("feb_code"))
-        .Append(  " or " + RelevantLevel("mar_code"))
-        .Append(  " or " + RelevantLevel("apr_code"))
-        .Append(  " or " + RelevantLevel("may_code"))
-        .Append(  " or " + RelevantLevel("jun_code"))
-        .Append(  " or " + RelevantLevel("jul_code"))
-        .Append(  " or " + RelevantLevel("aug_code"))
-        .Append(  " or " + RelevantLevel("sep_code"))
-        .Append(  " or " + RelevantLevel("oct_code"))
-        .Append(  " or " + RelevantLevel("nov_code"))
-        .Append(  " or " + RelevantLevel("dec_code"))
+        .Append(" where " + RelevantLevelCondition("jan_code"))
+        .Append(  " or " + RelevantLevelCondition("feb_code"))
+        .Append(  " or " + RelevantLevelCondition("mar_code"))
+        .Append(  " or " + RelevantLevelCondition("apr_code"))
+        .Append(  " or " + RelevantLevelCondition("may_code"))
+        .Append(  " or " + RelevantLevelCondition("jun_code"))
+        .Append(  " or " + RelevantLevelCondition("jul_code"))
+        .Append(  " or " + RelevantLevelCondition("aug_code"))
+        .Append(  " or " + RelevantLevelCondition("sep_code"))
+        .Append(  " or " + RelevantLevelCondition("oct_code"))
+        .Append(  " or " + RelevantLevelCondition("nov_code"))
+        .Append(  " or " + RelevantLevelCondition("dec_code"))
         .Append(" order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")))
         ;
       var s = sql.ToString();
