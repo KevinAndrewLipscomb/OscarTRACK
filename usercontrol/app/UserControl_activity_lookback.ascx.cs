@@ -307,6 +307,33 @@ namespace UserControl_activity_lookback
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
+          e.Item.Cells[Static.TCI_YEAR_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_YEAR_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_JAN_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_JAN_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_FEB_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_FEB_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_MAR_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_MAR_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_APR_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_APR_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_MAY_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_MAY_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_JUN_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_JUN_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_JUL_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_JUL_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_AUG_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_AUG_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_SEP_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_SEP_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_OCT_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_OCT_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_NOV_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_NOV_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_DEC_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_DEC_PCT_OF_EFFECTIVE].Text += "%";
+          //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
           foreach (TableCell cell in e.Item.Cells)
