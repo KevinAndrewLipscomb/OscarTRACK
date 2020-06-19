@@ -24,76 +24,77 @@ namespace UserControl_activity_lookback
       public const int TCI_COMBINED_PCT_OF_BASE = 7;
       public const int TCI_COMBINED_EFFECTIVE_OBLIGATION = 8;
       public const int TCI_COMBINED_PCT_OF_EFFECTIVE = 9;
-      public const int TCI_MONTH_10_AGO_DUTY_HOURS = 10;
-      public const int TCI_MONTH_10_AGO_ENROLLMENT = 11;
-      public const int TCI_MONTH_10_AGO_BASE_OBLIGATION = 12;
-      public const int TCI_MONTH_10_AGO_PCT_OF_BASE = 13;
-      public const int TCI_MONTH_10_AGO_LEAVE = 14;
-      public const int TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION = 15;
-      public const int TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE = 16;
-      public const int TCI_MONTH_9_AGO_DUTY_HOURS = 17;
-      public const int TCI_MONTH_9_AGO_ENROLLMENT = 18;
-      public const int TCI_MONTH_9_AGO_BASE_OBLIGATION = 19;
-      public const int TCI_MONTH_9_AGO_PCT_OF_BASE = 20;
-      public const int TCI_MONTH_9_AGO_LEAVE = 21;
-      public const int TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION = 22;
-      public const int TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE = 23;
-      public const int TCI_MONTH_8_AGO_DUTY_HOURS = 24;
-      public const int TCI_MONTH_8_AGO_ENROLLMENT = 25;
-      public const int TCI_MONTH_8_AGO_BASE_OBLIGATION = 26;
-      public const int TCI_MONTH_8_AGO_PCT_OF_BASE = 27;
-      public const int TCI_MONTH_8_AGO_LEAVE = 28;
-      public const int TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION = 29;
-      public const int TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE = 30;
-      public const int TCI_MONTH_7_AGO_DUTY_HOURS = 31;
-      public const int TCI_MONTH_7_AGO_ENROLLMENT = 32;
-      public const int TCI_MONTH_7_AGO_BASE_OBLIGATION = 33;
-      public const int TCI_MONTH_7_AGO_PCT_OF_BASE = 34;
-      public const int TCI_MONTH_7_AGO_LEAVE = 35;
-      public const int TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION = 36;
-      public const int TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE = 37;
-      public const int TCI_MONTH_6_AGO_DUTY_HOURS = 38;
-      public const int TCI_MONTH_6_AGO_ENROLLMENT = 39;
-      public const int TCI_MONTH_6_AGO_BASE_OBLIGATION = 40;
-      public const int TCI_MONTH_6_AGO_PCT_OF_BASE = 41;
-      public const int TCI_MONTH_6_AGO_LEAVE = 42;
-      public const int TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION = 43;
-      public const int TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE = 44;
-      public const int TCI_MONTH_5_AGO_DUTY_HOURS = 45;
-      public const int TCI_MONTH_5_AGO_ENROLLMENT = 46;
-      public const int TCI_MONTH_5_AGO_BASE_OBLIGATION = 47;
-      public const int TCI_MONTH_5_AGO_PCT_OF_BASE = 48;
-      public const int TCI_MONTH_5_AGO_LEAVE = 49;
-      public const int TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION = 50;
-      public const int TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE = 51;
-      public const int TCI_MONTH_4_AGO_DUTY_HOURS = 52;
-      public const int TCI_MONTH_4_AGO_ENROLLMENT = 53;
-      public const int TCI_MONTH_4_AGO_BASE_OBLIGATION = 54;
-      public const int TCI_MONTH_4_AGO_PCT_OF_BASE = 55;
-      public const int TCI_MONTH_4_AGO_LEAVE = 56;
-      public const int TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION = 57;
-      public const int TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE = 58;
-      public const int TCI_MONTH_3_AGO_DUTY_HOURS = 59;
-      public const int TCI_MONTH_3_AGO_ENROLLMENT = 60;
-      public const int TCI_MONTH_3_AGO_BASE_OBLIGATION = 61;
-      public const int TCI_MONTH_3_AGO_PCT_OF_BASE = 62;
-      public const int TCI_MONTH_3_AGO_LEAVE = 63;
-      public const int TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION = 64;
-      public const int TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE = 65;
-      public const int TCI_MONTH_2_AGO_DUTY_HOURS = 66;
-      public const int TCI_MONTH_2_AGO_ENROLLMENT = 67;
-      public const int TCI_MONTH_2_AGO_BASE_OBLIGATION = 68;
-      public const int TCI_MONTH_2_AGO_PCT_OF_BASE = 69;
-      public const int TCI_MONTH_2_AGO_LEAVE = 70;
-      public const int TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION = 71;
-      public const int TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE = 72;
-      public const int TCI_MONTH_1_AGO_DUTY_HOURS = 73;
-      public const int TCI_MONTH_1_AGO_ENROLLMENT = 74;
-      public const int TCI_MONTH_1_AGO_BASE_OBLIGATION = 75;
-      public const int TCI_MONTH_1_AGO_PCT_OF_BASE = 76;
-      public const int TCI_MONTH_1_AGO_LEAVE = 77;
-      public const int TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION = 78;
-      public const int TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE = 79;
+      public const int TCI_RECOMMENDED_PPT_RELIEF = 10;
+      public const int TCI_MONTH_10_AGO_DUTY_HOURS = 11;
+      public const int TCI_MONTH_10_AGO_ENROLLMENT = 12;
+      public const int TCI_MONTH_10_AGO_BASE_OBLIGATION = 13;
+      public const int TCI_MONTH_10_AGO_PCT_OF_BASE = 14;
+      public const int TCI_MONTH_10_AGO_LEAVE = 15;
+      public const int TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION = 16;
+      public const int TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE = 17;
+      public const int TCI_MONTH_9_AGO_DUTY_HOURS = 18;
+      public const int TCI_MONTH_9_AGO_ENROLLMENT = 19;
+      public const int TCI_MONTH_9_AGO_BASE_OBLIGATION = 20;
+      public const int TCI_MONTH_9_AGO_PCT_OF_BASE = 21;
+      public const int TCI_MONTH_9_AGO_LEAVE = 22;
+      public const int TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION = 23;
+      public const int TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE = 24;
+      public const int TCI_MONTH_8_AGO_DUTY_HOURS = 25;
+      public const int TCI_MONTH_8_AGO_ENROLLMENT = 26;
+      public const int TCI_MONTH_8_AGO_BASE_OBLIGATION = 27;
+      public const int TCI_MONTH_8_AGO_PCT_OF_BASE = 28;
+      public const int TCI_MONTH_8_AGO_LEAVE = 29;
+      public const int TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION = 30;
+      public const int TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE = 31;
+      public const int TCI_MONTH_7_AGO_DUTY_HOURS = 32;
+      public const int TCI_MONTH_7_AGO_ENROLLMENT = 33;
+      public const int TCI_MONTH_7_AGO_BASE_OBLIGATION = 34;
+      public const int TCI_MONTH_7_AGO_PCT_OF_BASE = 35;
+      public const int TCI_MONTH_7_AGO_LEAVE = 36;
+      public const int TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION = 37;
+      public const int TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE = 38;
+      public const int TCI_MONTH_6_AGO_DUTY_HOURS = 39;
+      public const int TCI_MONTH_6_AGO_ENROLLMENT = 40;
+      public const int TCI_MONTH_6_AGO_BASE_OBLIGATION = 41;
+      public const int TCI_MONTH_6_AGO_PCT_OF_BASE = 42;
+      public const int TCI_MONTH_6_AGO_LEAVE = 43;
+      public const int TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION = 44;
+      public const int TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE = 45;
+      public const int TCI_MONTH_5_AGO_DUTY_HOURS = 46;
+      public const int TCI_MONTH_5_AGO_ENROLLMENT = 47;
+      public const int TCI_MONTH_5_AGO_BASE_OBLIGATION = 48;
+      public const int TCI_MONTH_5_AGO_PCT_OF_BASE = 49;
+      public const int TCI_MONTH_5_AGO_LEAVE = 50;
+      public const int TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION = 51;
+      public const int TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE = 52;
+      public const int TCI_MONTH_4_AGO_DUTY_HOURS = 53;
+      public const int TCI_MONTH_4_AGO_ENROLLMENT = 54;
+      public const int TCI_MONTH_4_AGO_BASE_OBLIGATION = 55;
+      public const int TCI_MONTH_4_AGO_PCT_OF_BASE = 56;
+      public const int TCI_MONTH_4_AGO_LEAVE = 57;
+      public const int TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION = 58;
+      public const int TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE = 59;
+      public const int TCI_MONTH_3_AGO_DUTY_HOURS = 60;
+      public const int TCI_MONTH_3_AGO_ENROLLMENT = 61;
+      public const int TCI_MONTH_3_AGO_BASE_OBLIGATION = 62;
+      public const int TCI_MONTH_3_AGO_PCT_OF_BASE = 63;
+      public const int TCI_MONTH_3_AGO_LEAVE = 64;
+      public const int TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION = 65;
+      public const int TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE = 66;
+      public const int TCI_MONTH_2_AGO_DUTY_HOURS = 67;
+      public const int TCI_MONTH_2_AGO_ENROLLMENT = 68;
+      public const int TCI_MONTH_2_AGO_BASE_OBLIGATION = 69;
+      public const int TCI_MONTH_2_AGO_PCT_OF_BASE = 70;
+      public const int TCI_MONTH_2_AGO_LEAVE = 71;
+      public const int TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION = 72;
+      public const int TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE = 73;
+      public const int TCI_MONTH_1_AGO_DUTY_HOURS = 74;
+      public const int TCI_MONTH_1_AGO_ENROLLMENT = 75;
+      public const int TCI_MONTH_1_AGO_BASE_OBLIGATION = 76;
+      public const int TCI_MONTH_1_AGO_PCT_OF_BASE = 77;
+      public const int TCI_MONTH_1_AGO_LEAVE = 78;
+      public const int TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION = 79;
+      public const int TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE = 80;
       }
 
     private struct p_type
@@ -205,6 +206,13 @@ namespace UserControl_activity_lookback
           {
           DataGrid_control.AllowSorting = false;
           }
+        RequireConfirmation
+          (
+          c:Button_export,
+          prompt:"We will send you HTML-formatted data masquerading as an XLS file so that it will open up in your spreadsheet program.  The discrepancy is intentional.  The file is not corrupt or untrustworthy." + k.NEW_LINE
+          + k.NEW_LINE
+          + "If your spreadsheet program mentions these things and asks if you want to open the file, click 'Yes'."
+          );
         Bind();
         p.be_loaded = true;
         }
@@ -293,17 +301,25 @@ namespace UserControl_activity_lookback
           var combined_pct_of_effective = new k.int_nonnegative(int.Parse(e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].Text));
           if (combined_pct_of_effective.val >= 80)
             {
+            e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "FULL";
             e.Item.Cells[Static.TCI_CAD_NUM].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_LAST_NAME].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_FIRST_NAME].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].BackColor = Color.PaleGreen;
+            e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].BackColor = Color.PaleGreen;
             }
           else if (combined_pct_of_effective.val > 0)
             {
+            e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "PRORATED";
             e.Item.Cells[Static.TCI_CAD_NUM].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_LAST_NAME].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_FIRST_NAME].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].BackColor = Color.Yellow;
+            e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].BackColor = Color.Yellow;
+            }
+          else
+            {
+            e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "none";
             }
           //
           e.Item.Cells[Static.TCI_COMBINED_PCT_OF_BASE].Text += "%";
@@ -342,85 +358,144 @@ namespace UserControl_activity_lookback
         else if (e.Item.ItemType == ListItemType.Header)
           {
           var month_10_ago_abbrev = DateTime.Now.AddMonths(-10).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
           var month_9_ago_abbrev = DateTime.Now.AddMonths(-9).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text.Replace("MMM",month_9_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text.Replace("MMM",month_9_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
           var month_8_ago_abbrev = DateTime.Now.AddMonths(-8).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text.Replace("MMM",month_8_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text.Replace("MMM",month_8_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
           var month_7_ago_abbrev = DateTime.Now.AddMonths(-7).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_7_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_ENROLLMENT].Text.Replace("MMM",month_7_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_7_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_LEAVE].Text.Replace("MMM",month_7_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
           var month_6_ago_abbrev = DateTime.Now.AddMonths(-6).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_6_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_ENROLLMENT].Text.Replace("MMM",month_6_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_6_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_LEAVE].Text.Replace("MMM",month_6_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
           var month_5_ago_abbrev = DateTime.Now.AddMonths(-5).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_5_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_ENROLLMENT].Text.Replace("MMM",month_5_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_5_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_LEAVE].Text.Replace("MMM",month_5_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
           var month_4_ago_abbrev = DateTime.Now.AddMonths(-4).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_4_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_ENROLLMENT].Text.Replace("MMM",month_4_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_4_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_LEAVE].Text.Replace("MMM",month_4_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
           var month_3_ago_abbrev = DateTime.Now.AddMonths(-3).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_3_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_ENROLLMENT].Text.Replace("MMM",month_3_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_3_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_LEAVE].Text.Replace("MMM",month_3_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
           var month_2_ago_abbrev = DateTime.Now.AddMonths(-2).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text.Replace("MMM",month_2_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_2_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_LEAVE].Text.Replace("MMM",month_2_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
           var month_1_ago_abbrev = DateTime.Now.AddMonths(-1).ToString("MMM").ToUpper();
-          (e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text.Replace("MMM",month_1_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
-          e.Item.Cells[Static.TCI_MONTH_1_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_LEAVE].Text.Replace("MMM",month_1_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
-          (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+          //
+          e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_7_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_6_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_5_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_4_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_3_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
+          //
+          e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_7_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_6_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_5_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_4_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_3_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_2_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_1_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
+          //
+          if (DataGrid_control.AllowSorting)
+            {
+            (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_9_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_8_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_7_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_6_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_5_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_4_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_3_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_2_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_1_ago_abbrev);
+            }
+          else
+            {
+            e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Text.Replace("MMM",month_10_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_10_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Text.Replace("MMM",month_10_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_10_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_10_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_DUTY_HOURS].Text.Replace("MMM",month_9_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_9_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Text.Replace("MMM",month_9_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_9_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_9_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_DUTY_HOURS].Text.Replace("MMM",month_8_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_8_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_BASE].Text.Replace("MMM",month_8_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_8_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_8_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_DUTY_HOURS].Text.Replace("MMM",month_7_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_7_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_BASE].Text.Replace("MMM",month_7_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_7_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_7_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_DUTY_HOURS].Text.Replace("MMM",month_6_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_6_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_BASE].Text.Replace("MMM",month_6_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_6_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_6_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_DUTY_HOURS].Text.Replace("MMM",month_5_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_5_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_BASE].Text.Replace("MMM",month_5_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_5_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_5_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_DUTY_HOURS].Text.Replace("MMM",month_4_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_4_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_BASE].Text.Replace("MMM",month_4_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_4_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_4_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_DUTY_HOURS].Text.Replace("MMM",month_3_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_3_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_BASE].Text.Replace("MMM",month_3_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_3_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_3_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_DUTY_HOURS].Text.Replace("MMM",month_2_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_2_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_BASE].Text.Replace("MMM",month_2_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_2_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_2_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_DUTY_HOURS].Text.Replace("MMM",month_1_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_1_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_BASE].Text.Replace("MMM",month_1_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_1_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_1_ago_abbrev);
+            }
           }
         }
       else
@@ -440,7 +515,7 @@ namespace UserControl_activity_lookback
         p.sort_order = k.Safe(e.SortExpression, k.safe_hint_type.KI_SORT_EXPRESSION);
         p.be_sort_order_ascending = true;
         }
-      DataGrid_control.EditItemIndex =  -1;
+      DataGrid_control.EditItemIndex = -1;
       Bind();
       }
 

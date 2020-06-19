@@ -528,6 +528,13 @@ namespace Class_db_members
         .ToString();
       }
 
+    private string CombinedPercentOfEffectiveExpression()
+      {
+      return new StringBuilder()
+        .Append(PercentageExpression(CombinedDutyHoursSubquery(),"ROUND(" + CombinedEffectiveObligationExpression() + ",1)"))
+        .ToString();
+      }
+
     private string MonthLevelCodeSubquery
       (
       string relative_month_num_string
@@ -572,7 +579,8 @@ namespace Class_db_members
         .Append(" , FORMAT(" + CombinedBaseObligationExpression() + ",1) as combined_base_obligation")
         .Append(" , " + PercentageExpression(CombinedDutyHoursSubquery(),"ROUND(" + CombinedBaseObligationExpression() + ",1)") + " as combined_pct_of_base")
         .Append(" , FORMAT(" + CombinedEffectiveObligationExpression() + ",1) as combined_effective_obligation")
-        .Append(" , " + PercentageExpression(CombinedDutyHoursSubquery(),"ROUND(" + CombinedEffectiveObligationExpression() + ",1)") + " as combined_pct_of_effective")
+        .Append(" , " + CombinedPercentOfEffectiveExpression() + " as combined_pct_of_effective")
+        .Append(" , IF(" + CombinedPercentOfEffectiveExpression() + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression() + "<80,0,1)) as tax_relief_level")
         .Append(" , FORMAT(" + MonthDutyHoursSubquery("-10") + ",1) as month_10_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_10_ago_code") + " as month_10_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("month_10_ago_code") + "*12,0),1) as month_10_ago_base_obligation")
