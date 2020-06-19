@@ -309,7 +309,7 @@ namespace UserControl_activity_lookback
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           var combined_pct_of_effective = new k.int_nonnegative(int.Parse(e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].Text));
-          if (combined_pct_of_effective.val >= 80)
+          if (combined_pct_of_effective.val >= int.Parse(ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"]))
             {
             e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "FULL";
             e.Item.Cells[Static.TCI_CAD_NUM].BackColor = Color.PaleGreen;

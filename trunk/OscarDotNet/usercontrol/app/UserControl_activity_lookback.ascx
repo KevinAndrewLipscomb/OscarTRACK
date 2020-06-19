@@ -48,7 +48,7 @@
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
               <td>
-                <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="1" autogeneratecolumns="False" AllowSorting="true" Font-Size="XX-Small">
+                <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="2" autogeneratecolumns="False" AllowSorting="true" Font-Size="XX-Small">
                   <Columns>
                     <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></asp:ButtonColumn>
                     <asp:BoundColumn datafield="member_id" visible="false"></asp:BoundColumn>

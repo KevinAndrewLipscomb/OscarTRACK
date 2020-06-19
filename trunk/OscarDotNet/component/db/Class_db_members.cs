@@ -9,6 +9,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Text;
 using System.Web.UI.WebControls;
 
@@ -628,7 +629,7 @@ namespace Class_db_members
         .Append(" , " + PercentageExpression(CombinedDutyHoursSubquery(extent),"ROUND(" + CombinedBaseObligationExpression() + ",1)") + " as combined_pct_of_base")
         .Append(" , FORMAT(" + CombinedEffectiveObligationExpression(extent) + ",1) as combined_effective_obligation")
         .Append(" , " + CombinedPercentOfEffectiveExpression(extent) + " as combined_pct_of_effective")
-        .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<80,0,1)) as tax_relief_level")
+        .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<" + ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"] + ",0,1)) as tax_relief_level")
         .Append(" , FORMAT(" + MonthDutyHoursSubquery("-10") + ",1) as month_10_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_10_ago_code") + " as month_10_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("month_10_ago_code") + "*12,0),1) as month_10_ago_base_obligation")
