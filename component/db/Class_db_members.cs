@@ -383,14 +383,14 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string CombinedDutyHoursSubquery()
+    private string CombinedDutyHoursSubquery(k.subtype<int> extent)
       {
       return new StringBuilder()
         .Append(" (")
         .Append(" select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
         .Append(" from schedule_assignment")
         .Append(" where member_id = subquery.member_id")
-        .Append(  " and nominal_day between DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL -10 MONTH),'%Y-%m-01') and LAST_DAY(ADDDATE(CURDATE(),INTERVAL -1 MONTH))")
+        .Append(  " and nominal_day between DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL -" + extent.val + " MONTH),'%Y-%m-01') and LAST_DAY(ADDDATE(CURDATE(),INTERVAL -1 MONTH))")
         .Append(" )")
         .ToString();
       }
@@ -467,29 +467,76 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string CombinedEffectiveObligationExpression()
+    private string CombinedEffectiveObligationExpression(k.subtype<int> extent)
       {
-      return new StringBuilder()
-        .Append(MonthEffectiveObligationExpression("-10","month_10_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-9","month_9_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-8","month_8_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-7","month_7_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-6","month_6_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-5","month_5_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-4","month_4_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-3","month_3_ago_code"))
-        .Append(" + ")
-        .Append(MonthEffectiveObligationExpression("-2","month_2_ago_code"))
-        .Append(" + ")
+      var string_builder = new StringBuilder();
+      if (extent.val >= 10)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-10","month_10_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 9)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-9","month_9_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 8)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-8","month_8_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 7)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-7","month_7_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 6)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-6","month_6_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 5)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-5","month_5_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 4)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-4","month_4_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 3)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-3","month_3_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 2)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-2","month_2_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      string_builder
         .Append(MonthEffectiveObligationExpression("-1","month_1_ago_code"))
-        .ToString();
+        ;
+      return string_builder.ToString();
       }
 
     private string MonthEffectiveObligationExpression
@@ -528,10 +575,10 @@ namespace Class_db_members
         .ToString();
       }
 
-    private string CombinedPercentOfEffectiveExpression()
+    private string CombinedPercentOfEffectiveExpression(k.subtype<int> extent)
       {
       return new StringBuilder()
-        .Append(PercentageExpression(CombinedDutyHoursSubquery(),"ROUND(" + CombinedEffectiveObligationExpression() + ",1)"))
+        .Append(PercentageExpression(CombinedDutyHoursSubquery(extent),"ROUND(" + CombinedEffectiveObligationExpression(extent) + ",1)"))
         .ToString();
       }
 
@@ -566,7 +613,8 @@ namespace Class_db_members
       (
       string sort_order,
       bool be_sort_order_ascending,
-      object target
+      object target,
+      k.subtype<int> extent
       )
       {
       Open();
@@ -575,12 +623,12 @@ namespace Class_db_members
         .Append(" , cad_num")
         .Append(" , last_name")
         .Append(" , first_name")
-        .Append(" , FORMAT(" + CombinedDutyHoursSubquery() + ",1) as combined_duty_hours")
+        .Append(" , FORMAT(" + CombinedDutyHoursSubquery(extent) + ",1) as combined_duty_hours")
         .Append(" , FORMAT(" + CombinedBaseObligationExpression() + ",1) as combined_base_obligation")
-        .Append(" , " + PercentageExpression(CombinedDutyHoursSubquery(),"ROUND(" + CombinedBaseObligationExpression() + ",1)") + " as combined_pct_of_base")
-        .Append(" , FORMAT(" + CombinedEffectiveObligationExpression() + ",1) as combined_effective_obligation")
-        .Append(" , " + CombinedPercentOfEffectiveExpression() + " as combined_pct_of_effective")
-        .Append(" , IF(" + CombinedPercentOfEffectiveExpression() + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression() + "<80,0,1)) as tax_relief_level")
+        .Append(" , " + PercentageExpression(CombinedDutyHoursSubquery(extent),"ROUND(" + CombinedBaseObligationExpression() + ",1)") + " as combined_pct_of_base")
+        .Append(" , FORMAT(" + CombinedEffectiveObligationExpression(extent) + ",1) as combined_effective_obligation")
+        .Append(" , " + CombinedPercentOfEffectiveExpression(extent) + " as combined_pct_of_effective")
+        .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<80,0,1)) as tax_relief_level")
         .Append(" , FORMAT(" + MonthDutyHoursSubquery("-10") + ",1) as month_10_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_10_ago_code") + " as month_10_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationSubquery("month_10_ago_code") + "*12,0),1) as month_10_ago_base_obligation")
@@ -657,15 +705,15 @@ namespace Class_db_members
         .Append(  " , cad_num")
         .Append(  " , last_name")
         .Append(  " , first_name")
-        .Append(  " , " + MonthLevelCodeSubquery("-10") + " as month_10_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-9") + " as month_9_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-8") + " as month_8_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-7") + " as month_7_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-6") + " as month_6_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-5") + " as month_5_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-4") + " as month_4_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-3") + " as month_3_ago_code")
-        .Append(  " , " + MonthLevelCodeSubquery("-2") + " as month_2_ago_code")
+        .Append(  " , " + (extent.val >= 10 ? MonthLevelCodeSubquery("-10") : "null") + " as month_10_ago_code")
+        .Append(  " , " + (extent.val >= 9 ? MonthLevelCodeSubquery("-9") : "null") + " as month_9_ago_code")
+        .Append(  " , " + (extent.val >= 8 ? MonthLevelCodeSubquery("-8") : "null") + " as month_8_ago_code")
+        .Append(  " , " + (extent.val >= 7 ? MonthLevelCodeSubquery("-7") : "null") + " as month_7_ago_code")
+        .Append(  " , " + (extent.val >= 6 ? MonthLevelCodeSubquery("-6") : "null") + " as month_6_ago_code")
+        .Append(  " , " + (extent.val >= 5 ? MonthLevelCodeSubquery("-5") : "null") + " as month_5_ago_code")
+        .Append(  " , " + (extent.val >= 4 ? MonthLevelCodeSubquery("-4") : "null") + " as month_4_ago_code")
+        .Append(  " , " + (extent.val >= 3 ? MonthLevelCodeSubquery("-3") : "null") + " as month_3_ago_code")
+        .Append(  " , " + (extent.val >= 2 ? MonthLevelCodeSubquery("-2") : "null") + " as month_2_ago_code")
         .Append(  " , " + MonthLevelCodeSubquery("-1") + " as month_1_ago_code")
         .Append(  " from member")
         .Append(  " order by last_name, first_name, cad_num")
