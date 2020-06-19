@@ -10,16 +10,37 @@
               <td bgcolor="#dcdcdc">
                 <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
-                    <td runat="server" visible="false">
-                      <strong>Filter:&nbsp;<asp:DropDownList id="DropDownList_filter" runat="server" autopostback="True"></asp:DropDownList></strong>
-                    </td>
-                    <td runat="server" visible="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td align="right">
-                      <asp:Literal ID="Literal_num_members" runat="server"></asp:Literal> members
+                    <td>
+                      <strong>Extent:</strong>&nbsp;
+                      <asp:DropDownList id="DropDownList_extent" runat="server" autopostback="True" OnSelectedIndexChanged="DropDownList_extent_SelectedIndexChanged">
+                        <asp:ListItem Selected="True">10</asp:ListItem>
+                        <asp:ListItem>9</asp:ListItem>
+                        <asp:ListItem>8</asp:ListItem>
+                        <asp:ListItem>7</asp:ListItem>
+                        <asp:ListItem>6</asp:ListItem>
+                        <asp:ListItem>5</asp:ListItem>
+                        <asp:ListItem>4</asp:ListItem>
+                        <asp:ListItem>3</asp:ListItem>
+                        <asp:ListItem>2</asp:ListItem>
+                        <asp:ListItem>1</asp:ListItem>
+                      </asp:DropDownList>
+                      months
                     </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>
-                      <asp:Button ID="Button_export" runat="server" Text="Export activity lookback workbook" OnClick="Button_export_Click" /></td>
+                      <strong><asp:Literal ID="Literal_num_members" runat="server"></asp:Literal>&nbsp;members</strong>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td align="center">
+                      <small><small>Recommended for PPT relief as follows:</small></small>
+                      <br />
+                      <span style="background-color:palegreen">&nbsp;<asp:Literal ID="Literal_num_full" runat="server"></asp:Literal>&nbsp;FULL&nbsp;</span>
+                      <span style="background-color:yellow">&nbsp;<asp:Literal ID="Literal_num_prorated" runat="server"></asp:Literal>&nbsp;PRORATED&nbsp;</span>
+                      <span style="background-color:white">&nbsp;<asp:Literal ID="Literal_num_none" runat="server"></asp:Literal>&nbsp;none&nbsp;</span>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                      <asp:Button ID="Button_export" runat="server" Text="Export to spreadsheet" OnClick="Button_export_Click" style="padding:5px"/></td>
                   </tr>
                 </table>
               </td>

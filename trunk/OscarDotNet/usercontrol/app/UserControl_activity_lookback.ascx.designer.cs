@@ -24,13 +24,13 @@ namespace UserControl_activity_lookback
     protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
 
     /// <summary>
-    /// DropDownList_filter control.
+    /// DropDownList_extent control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList DropDownList_filter;
+    protected global::System.Web.UI.WebControls.DropDownList DropDownList_extent;
 
     /// <summary>
     /// Literal_num_members control.
@@ -40,6 +40,33 @@ namespace UserControl_activity_lookback
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Literal Literal_num_members;
+
+    /// <summary>
+    /// Literal_num_full control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal Literal_num_full;
+
+    /// <summary>
+    /// Literal_num_prorated control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal Literal_num_prorated;
+
+    /// <summary>
+    /// Literal_num_none control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal Literal_num_none;
 
     /// <summary>
     /// Button_export control.
