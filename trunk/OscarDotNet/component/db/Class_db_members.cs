@@ -615,7 +615,8 @@ namespace Class_db_members
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      k.subtype<int> extent
+      k.subtype<int> extent,
+      string agency_filter
       )
       {
       Open();
@@ -717,6 +718,7 @@ namespace Class_db_members
         .Append(  " , " + (extent.val >= 2 ? MonthLevelCodeSubquery("-2") : "null") + " as month_2_ago_code")
         .Append(  " , " + MonthLevelCodeSubquery("-1") + " as month_1_ago_code")
         .Append(  " from member")
+        .Append(agency_filter.Length > 0 ? " where agency_id = '" + agency_filter + "'" : k.EMPTY)
         .Append(  " order by last_name, first_name, cad_num")
         .Append(  " )")
         .Append(  " as subquery")
@@ -732,8 +734,7 @@ namespace Class_db_members
         .Append(  " or " + RelevantLevelCondition("month_1_ago_code"))
         .Append(" order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")))
         ;
-      var s = sql.ToString();
-      using var mysql_command = new MySqlCommand(s,connection);
+      using var mysql_command = new MySqlCommand(sql.ToString(),connection);
       ((target) as DataGrid).DataSource = mysql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();

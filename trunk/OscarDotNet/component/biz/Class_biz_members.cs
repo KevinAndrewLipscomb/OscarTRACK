@@ -228,10 +228,11 @@ namespace Class_biz_members
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      k.subtype<int> extent
+      k.subtype<int> extent,
+      string agency_filter
       )
       {
-      db_members.BindActivityLookbackBaseDataList(sort_order,be_sort_order_ascending,target,extent);
+      db_members.BindActivityLookbackBaseDataList(sort_order,be_sort_order_ascending,target,extent,agency_filter);
       }
 
         public void BindCurrentDirectToListControl(object target, string agency_filter, string unselected_literal, string selected_value)
