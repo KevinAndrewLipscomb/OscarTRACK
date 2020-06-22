@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_members;
+using Class_biz_user;
 using kix;
 using System;
 using System.Configuration;
@@ -99,11 +100,14 @@ namespace UserControl_activity_lookback
 
     private struct p_type
       {
+      public string agency_id;
       public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
       public bool be_sort_order_ascending;
+      public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
       public k.subtype<int> extent;
       public string sort_order;
       }
@@ -250,13 +254,16 @@ namespace UserControl_activity_lookback
       else
         {
         p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
         p.extent = new k.subtype<int>(1,10);
         p.sort_order = "last_name%,first_name,cad_num";
+        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         //
+        p.agency_id = p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.extent.val = p.extent.LAST;
         }
       v.num_members = new k.int_nonnegative();
@@ -597,7 +604,14 @@ namespace UserControl_activity_lookback
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_LEAVE].Visible = (p.extent.val >= 2);
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Visible = (p.extent.val >= 2);
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Visible = (p.extent.val >= 2);
-      p.biz_members.BindActivityLookbackBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.extent);
+      p.biz_members.BindActivityLookbackBaseDataList
+        (
+        sort_order:p.sort_order,
+        be_sort_order_ascending:p.be_sort_order_ascending,
+        target:DataGrid_control,
+        extent:p.extent,
+        agency_filter:p.agency_id
+        );
       p.be_datagrid_empty = (v.num_members.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
