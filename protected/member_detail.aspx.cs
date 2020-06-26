@@ -167,13 +167,16 @@ namespace member_detail
                 Label_be_on_squad_truck_team.Text = k.YesNoOf(p.biz_members.BeSquadTruckTeamQualifiedOf(p.member_summary));
                 Label_be_flight_medic.Text = k.YesNoOf(p.biz_members.BeFlightMedicQualifiedOf(p.member_summary));
                 Label_be_marine_medic.Text = k.YesNoOf(p.biz_members.BeMarineMedicQualifiedOf(p.member_summary));
+                Label_be_bls_academy_proctor.Text = k.YesNoOf(p.biz_members.BeBlsAcademyProctorQualifiedOf(p.member_summary));
                 LinkButton_change_squad_truck_team_qual.Text = k.ExpandTildePath(LinkButton_change_squad_truck_team_qual.Text);
                 LinkButton_change_flight_medic_qual.Text = k.ExpandTildePath(LinkButton_change_flight_medic_qual.Text);
                 LinkButton_change_marine_medic_qual.Text = k.ExpandTildePath(LinkButton_change_marine_medic_qual.Text);
+                LinkButton_change_bls_academy_proctor_qual.Text = k.ExpandTildePath(LinkButton_change_bls_academy_proctor_qual.Text);
                 LinkButton_change_squad_truck_team_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-squad-truck-team-qual") && be_authorized_tier_or_same_agency)
                   || k.Has((string[])(Session["privilege_array"]), "schedule-squad-truck-team");
                 LinkButton_change_flight_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_marine_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && be_authorized_tier_or_same_agency);
+                LinkButton_change_bls_academy_proctor_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-bls-academy-proctor-qual") && be_authorized_tier_or_same_agency);
                 //
                 priv_of_interest = "see-personnel-status-notes";
                 TableRow_tapouts.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency);
@@ -319,6 +322,11 @@ namespace member_detail
     protected void LinkButton_change_marine_medic_qual_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("change_member_marine_medic_qualification.aspx");
+      }
+
+    protected void LinkButton_change_bls_academy_proctor_qual_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("change_member_bls_academy_proctor_qualification.aspx");
       }
 
     protected void LinkButton_individual_tapout_detail_Click(object sender, EventArgs e)

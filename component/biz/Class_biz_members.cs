@@ -223,6 +223,11 @@ namespace Class_biz_members
             return result;
         }
 
+    internal bool BeBlsAcademyProctorQualifiedOf(object summary)
+      {
+      return db_members.BeBlsAcademyProctorQualifiedOf(summary);
+      }
+
     internal void BindActivityLookbackBaseDataList
       (
       string sort_order,
@@ -813,6 +818,15 @@ namespace Class_biz_members
         );
       var member_id = IdOf(summary);
       biz_notifications.IssueForAgencyChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(old_agency_id), biz_agencies.MediumDesignatorOf(new_agency_id));
+      }
+
+    internal void SetBlsAcademyProctorQualification
+      (
+      bool be_bls_academy_proctor,
+      object summary)
+      {
+      db_members.SetBlsAcademyProctorQualification(be_bls_academy_proctor, summary);
+      biz_notifications.IssueForBlsAcademyProctorQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_bls_academy_proctor);
       }
 
         public bool SetCadNum(string cad_num, object summary)
