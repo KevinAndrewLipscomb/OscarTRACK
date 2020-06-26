@@ -3,7 +3,6 @@ using Class_biz_sms_gateways;
 using Class_db;
 using Class_db_agencies;
 using Class_db_medical_release_levels;
-using Class_db_tapouts;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
@@ -14,9 +13,9 @@ using System.Text;
 using System.Web.UI.WebControls;
 
 namespace Class_db_members
-{
+  {
 
-    public static class Class_db_members_Static
+  public static class Class_db_members_Static
     {
 
         public const int TCCI_DRILLDOWN_LINKBUTTON = 0;
@@ -123,6 +122,7 @@ namespace Class_db_members
       public k.int_nonnegative num_tapouts_1_month_ago;
       public k.int_nonnegative num_tapouts_2_months_ago;
       public k.int_nonnegative num_tapouts_3_months_ago;
+      public bool be_bls_academy_proctor;
       }
 
     public class TClass_db_members: TClass_db
@@ -338,6 +338,11 @@ namespace Class_db_members
             Close();
             return result;
         }
+
+    internal bool BeBlsAcademyProctorQualifiedOf(object summary)
+      {
+      return (summary as member_summary).be_bls_academy_proctor;
+      }
 
         public void BindCurrentDirectToListControl(object target, string agency_filter, string unselected_literal, string selected_value)
         {
@@ -2480,6 +2485,19 @@ namespace Class_db_members
             (summary as member_summary).agency = db_agencies.ShortDesignatorOf(agency_id);
         }
 
+    internal void SetBlsAcademyProctorQualification
+      (
+      bool be_bls_academy_proctor,
+      object summary
+      )
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET be_bls_academy_proctor = " + be_bls_academy_proctor.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
+      Close();
+      (summary as member_summary).be_bls_academy_proctor = be_bls_academy_proctor;
+      }
+
         public void SetCadNum(string cad_num, object summary)
         {
             Open();
@@ -2741,6 +2759,7 @@ namespace Class_db_members
             + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH))),0) as num_tapouts_1_month_ago"
             + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH))),0) as num_tapouts_2_months_ago"
             + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH))),0) as num_tapouts_3_months_ago"
+            + " , be_bls_academy_proctor"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
             +   " join enrollment_history on" 
@@ -2799,6 +2818,7 @@ namespace Class_db_members
               + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH)),0) as num_tapouts_1_month_ago"
               + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH)),0) as num_tapouts_2_months_ago"
               + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH)),0) as num_tapouts_3_months_ago"
+              + " , be_bls_academy_proctor"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
               +   " join enrollment_history on" 
@@ -2853,6 +2873,7 @@ namespace Class_db_members
               num_tapouts_1_month_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_1_month_ago"].ToString())),
               num_tapouts_2_months_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_2_months_ago"].ToString())),
               num_tapouts_3_months_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_3_months_ago"].ToString())),
+              be_bls_academy_proctor = (dr["be_bls_academy_proctor"].ToString() == "1")
               };
             }
           dr.Close();

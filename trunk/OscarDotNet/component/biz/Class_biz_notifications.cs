@@ -307,6 +307,54 @@ namespace Class_biz_notifications
             }
           }
 
+    private delegate string IssueForBlsAcademyProctorQualificationChange_Merge(string s);
+    public void IssueForBlsAcademyProctorQualificationChange
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      bool be_bls_academy_proctor
+      )
+      {
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+      var actor_member_id = k.EMPTY;
+
+      IssueForBlsAcademyProctorQualificationChange_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<be_bls_academy_proctor/>", k.YesNoOf(be_bls_academy_proctor));
+        };
+
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/bls_academy_proctor_qualification_change.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("bls-academy-proctor-qualification-change", member_id),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        be_html:false,
+        cc:k.EMPTY,
+        bcc:k.EMPTY,
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
+
     private delegate string IssueForCadNumChange_Merge(string s);
         public void IssueForCadNumChange(string member_id, string first_name, string last_name, string cad_num)
         {
@@ -1315,7 +1363,7 @@ namespace Class_biz_notifications
       string first_name,
       string last_name,
       string cad_num,
-      bool be_marine_medic
+      bool be_bls_academy_proctor
       )
       {
       var actor = k.EMPTY;
@@ -1332,7 +1380,7 @@ namespace Class_biz_notifications
           .Replace("<first_name/>", first_name)
           .Replace("<last_name/>", last_name)
           .Replace("<cad_num/>", cad_num)
-          .Replace("<be_marine_medic/>", k.YesNoOf(be_marine_medic));
+          .Replace("<be_bls_academy_proctor/>", k.YesNoOf(be_bls_academy_proctor));
         };
 
       var biz_members = new TClass_biz_members();
@@ -1341,7 +1389,7 @@ namespace Class_biz_notifications
       actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
       actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
       actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-      var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/marine_medic_qualification_change.txt"));
+      var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/bls_academy_proctor_qualification_change.txt"));
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],

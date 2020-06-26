@@ -121,6 +121,11 @@
                         <td><ASP:LinkButton id="LinkButton_change_marine_medic_qual" runat="server" onclick="LinkButton_change_marine_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_marine_medic" runat="server"></ASP:Label></td>
                       </tr>
+                      <tr>
+                        <td>BLS Academy proctor:</td>
+                        <td><ASP:LinkButton id="LinkButton_change_bls_academy_proctor_qual" runat="server" onclick="LinkButton_change_bls_academy_proctor_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+                        <td><ASP:Label id="Label_be_bls_academy_proctor" runat="server"></ASP:Label></td>
+                      </tr>
                       <tr id="TableRow_tapouts" runat="server" visible="false">
                         <td>Tapouts:</td>
                         <td><ASP:LinkButton id="LinkButton_individual_tapout_detail" runat="server" onclick="LinkButton_individual_tapout_detail_Click"><img src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
