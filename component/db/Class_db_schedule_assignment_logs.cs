@@ -76,7 +76,7 @@ namespace Class_db_schedule_assignment_logs
         +   " join member actor on (actor.id=schedule_assignment_log.actor_member_id)"
         +   " join member provider on (provider.id=schedule_assignment.member_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=provider.medical_release_code)"
-        + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        + " where schedule_assignment.trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   (shift_name.Length > 0 ? " and shift.name = '" + shift_name + "'" : k.EMPTY)
         +   " and timestamp > DATE_SUB(CURDATE(),INTERVAL " + days_old + " DAY)"
@@ -160,7 +160,7 @@ namespace Class_db_schedule_assignment_logs
         be_sort_order_ascending:be_sort_order_ascending,
         target:target,
         agency_filter:agency_filter,
-        period_condition:"MONTH(nominal_day) = MONTH(CURDATE())"
+        period_condition:"(trigger_managed_year_month = EXTRACT(YEAR_MONTH from CURDATE()))"
         );
       }
 

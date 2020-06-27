@@ -26,76 +26,90 @@ namespace UserControl_activity_lookback
       public const int TCI_COMBINED_EFFECTIVE_OBLIGATION = 8;
       public const int TCI_COMBINED_PCT_OF_EFFECTIVE = 9;
       public const int TCI_RECOMMENDED_PPT_RELIEF = 10;
-      public const int TCI_MONTH_10_AGO_DUTY_HOURS = 11;
-      public const int TCI_MONTH_10_AGO_ENROLLMENT = 12;
-      public const int TCI_MONTH_10_AGO_BASE_OBLIGATION = 13;
-      public const int TCI_MONTH_10_AGO_PCT_OF_BASE = 14;
-      public const int TCI_MONTH_10_AGO_LEAVE = 15;
-      public const int TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION = 16;
-      public const int TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE = 17;
-      public const int TCI_MONTH_9_AGO_DUTY_HOURS = 18;
-      public const int TCI_MONTH_9_AGO_ENROLLMENT = 19;
-      public const int TCI_MONTH_9_AGO_BASE_OBLIGATION = 20;
-      public const int TCI_MONTH_9_AGO_PCT_OF_BASE = 21;
-      public const int TCI_MONTH_9_AGO_LEAVE = 22;
-      public const int TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION = 23;
-      public const int TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE = 24;
-      public const int TCI_MONTH_8_AGO_DUTY_HOURS = 25;
-      public const int TCI_MONTH_8_AGO_ENROLLMENT = 26;
-      public const int TCI_MONTH_8_AGO_BASE_OBLIGATION = 27;
-      public const int TCI_MONTH_8_AGO_PCT_OF_BASE = 28;
-      public const int TCI_MONTH_8_AGO_LEAVE = 29;
-      public const int TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION = 30;
-      public const int TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE = 31;
-      public const int TCI_MONTH_7_AGO_DUTY_HOURS = 32;
-      public const int TCI_MONTH_7_AGO_ENROLLMENT = 33;
-      public const int TCI_MONTH_7_AGO_BASE_OBLIGATION = 34;
-      public const int TCI_MONTH_7_AGO_PCT_OF_BASE = 35;
-      public const int TCI_MONTH_7_AGO_LEAVE = 36;
-      public const int TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION = 37;
-      public const int TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE = 38;
-      public const int TCI_MONTH_6_AGO_DUTY_HOURS = 39;
-      public const int TCI_MONTH_6_AGO_ENROLLMENT = 40;
-      public const int TCI_MONTH_6_AGO_BASE_OBLIGATION = 41;
-      public const int TCI_MONTH_6_AGO_PCT_OF_BASE = 42;
-      public const int TCI_MONTH_6_AGO_LEAVE = 43;
-      public const int TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION = 44;
-      public const int TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE = 45;
-      public const int TCI_MONTH_5_AGO_DUTY_HOURS = 46;
-      public const int TCI_MONTH_5_AGO_ENROLLMENT = 47;
-      public const int TCI_MONTH_5_AGO_BASE_OBLIGATION = 48;
-      public const int TCI_MONTH_5_AGO_PCT_OF_BASE = 49;
-      public const int TCI_MONTH_5_AGO_LEAVE = 50;
-      public const int TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION = 51;
-      public const int TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE = 52;
-      public const int TCI_MONTH_4_AGO_DUTY_HOURS = 53;
-      public const int TCI_MONTH_4_AGO_ENROLLMENT = 54;
-      public const int TCI_MONTH_4_AGO_BASE_OBLIGATION = 55;
-      public const int TCI_MONTH_4_AGO_PCT_OF_BASE = 56;
-      public const int TCI_MONTH_4_AGO_LEAVE = 57;
-      public const int TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION = 58;
-      public const int TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE = 59;
-      public const int TCI_MONTH_3_AGO_DUTY_HOURS = 60;
-      public const int TCI_MONTH_3_AGO_ENROLLMENT = 61;
-      public const int TCI_MONTH_3_AGO_BASE_OBLIGATION = 62;
-      public const int TCI_MONTH_3_AGO_PCT_OF_BASE = 63;
-      public const int TCI_MONTH_3_AGO_LEAVE = 64;
-      public const int TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION = 65;
-      public const int TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE = 66;
-      public const int TCI_MONTH_2_AGO_DUTY_HOURS = 67;
-      public const int TCI_MONTH_2_AGO_ENROLLMENT = 68;
-      public const int TCI_MONTH_2_AGO_BASE_OBLIGATION = 69;
-      public const int TCI_MONTH_2_AGO_PCT_OF_BASE = 70;
-      public const int TCI_MONTH_2_AGO_LEAVE = 71;
-      public const int TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION = 72;
-      public const int TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE = 73;
-      public const int TCI_MONTH_1_AGO_DUTY_HOURS = 74;
-      public const int TCI_MONTH_1_AGO_ENROLLMENT = 75;
-      public const int TCI_MONTH_1_AGO_BASE_OBLIGATION = 76;
-      public const int TCI_MONTH_1_AGO_PCT_OF_BASE = 77;
-      public const int TCI_MONTH_1_AGO_LEAVE = 78;
-      public const int TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION = 79;
-      public const int TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE = 80;
+      public const int TCI_MONTH_12_AGO_DUTY_HOURS = 11;
+      public const int TCI_MONTH_12_AGO_ENROLLMENT = 12;
+      public const int TCI_MONTH_12_AGO_BASE_OBLIGATION = 13;
+      public const int TCI_MONTH_12_AGO_PCT_OF_BASE = 14;
+      public const int TCI_MONTH_12_AGO_LEAVE = 15;
+      public const int TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION = 16;
+      public const int TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE = 17;
+      public const int TCI_MONTH_11_AGO_DUTY_HOURS = 18;
+      public const int TCI_MONTH_11_AGO_ENROLLMENT = 19;
+      public const int TCI_MONTH_11_AGO_BASE_OBLIGATION = 20;
+      public const int TCI_MONTH_11_AGO_PCT_OF_BASE = 21;
+      public const int TCI_MONTH_11_AGO_LEAVE = 22;
+      public const int TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION = 23;
+      public const int TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE = 24;
+      public const int TCI_MONTH_10_AGO_DUTY_HOURS = 25;
+      public const int TCI_MONTH_10_AGO_ENROLLMENT = 26;
+      public const int TCI_MONTH_10_AGO_BASE_OBLIGATION = 27;
+      public const int TCI_MONTH_10_AGO_PCT_OF_BASE = 28;
+      public const int TCI_MONTH_10_AGO_LEAVE = 29;
+      public const int TCI_MONTH_10_AGO_EFFECTIVE_OBLIGATION = 30;
+      public const int TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE = 31;
+      public const int TCI_MONTH_9_AGO_DUTY_HOURS = 32;
+      public const int TCI_MONTH_9_AGO_ENROLLMENT = 33;
+      public const int TCI_MONTH_9_AGO_BASE_OBLIGATION = 34;
+      public const int TCI_MONTH_9_AGO_PCT_OF_BASE = 35;
+      public const int TCI_MONTH_9_AGO_LEAVE = 36;
+      public const int TCI_MONTH_9_AGO_EFFECTIVE_OBLIGATION = 37;
+      public const int TCI_MONTH_9_AGO_PCT_OF_EFFECTIVE = 38;
+      public const int TCI_MONTH_8_AGO_DUTY_HOURS = 39;
+      public const int TCI_MONTH_8_AGO_ENROLLMENT = 40;
+      public const int TCI_MONTH_8_AGO_BASE_OBLIGATION = 41;
+      public const int TCI_MONTH_8_AGO_PCT_OF_BASE = 42;
+      public const int TCI_MONTH_8_AGO_LEAVE = 43;
+      public const int TCI_MONTH_8_AGO_EFFECTIVE_OBLIGATION = 44;
+      public const int TCI_MONTH_8_AGO_PCT_OF_EFFECTIVE = 45;
+      public const int TCI_MONTH_7_AGO_DUTY_HOURS = 46;
+      public const int TCI_MONTH_7_AGO_ENROLLMENT = 47;
+      public const int TCI_MONTH_7_AGO_BASE_OBLIGATION = 48;
+      public const int TCI_MONTH_7_AGO_PCT_OF_BASE = 49;
+      public const int TCI_MONTH_7_AGO_LEAVE = 50;
+      public const int TCI_MONTH_7_AGO_EFFECTIVE_OBLIGATION = 51;
+      public const int TCI_MONTH_7_AGO_PCT_OF_EFFECTIVE = 52;
+      public const int TCI_MONTH_6_AGO_DUTY_HOURS = 53;
+      public const int TCI_MONTH_6_AGO_ENROLLMENT = 54;
+      public const int TCI_MONTH_6_AGO_BASE_OBLIGATION = 55;
+      public const int TCI_MONTH_6_AGO_PCT_OF_BASE = 56;
+      public const int TCI_MONTH_6_AGO_LEAVE = 57;
+      public const int TCI_MONTH_6_AGO_EFFECTIVE_OBLIGATION = 58;
+      public const int TCI_MONTH_6_AGO_PCT_OF_EFFECTIVE = 59;
+      public const int TCI_MONTH_5_AGO_DUTY_HOURS = 60;
+      public const int TCI_MONTH_5_AGO_ENROLLMENT = 61;
+      public const int TCI_MONTH_5_AGO_BASE_OBLIGATION = 62;
+      public const int TCI_MONTH_5_AGO_PCT_OF_BASE = 63;
+      public const int TCI_MONTH_5_AGO_LEAVE = 64;
+      public const int TCI_MONTH_5_AGO_EFFECTIVE_OBLIGATION = 65;
+      public const int TCI_MONTH_5_AGO_PCT_OF_EFFECTIVE = 66;
+      public const int TCI_MONTH_4_AGO_DUTY_HOURS = 67;
+      public const int TCI_MONTH_4_AGO_ENROLLMENT = 68;
+      public const int TCI_MONTH_4_AGO_BASE_OBLIGATION = 69;
+      public const int TCI_MONTH_4_AGO_PCT_OF_BASE = 70;
+      public const int TCI_MONTH_4_AGO_LEAVE = 71;
+      public const int TCI_MONTH_4_AGO_EFFECTIVE_OBLIGATION = 72;
+      public const int TCI_MONTH_4_AGO_PCT_OF_EFFECTIVE = 73;
+      public const int TCI_MONTH_3_AGO_DUTY_HOURS = 74;
+      public const int TCI_MONTH_3_AGO_ENROLLMENT = 75;
+      public const int TCI_MONTH_3_AGO_BASE_OBLIGATION = 76;
+      public const int TCI_MONTH_3_AGO_PCT_OF_BASE = 77;
+      public const int TCI_MONTH_3_AGO_LEAVE = 78;
+      public const int TCI_MONTH_3_AGO_EFFECTIVE_OBLIGATION = 79;
+      public const int TCI_MONTH_3_AGO_PCT_OF_EFFECTIVE = 80;
+      public const int TCI_MONTH_2_AGO_DUTY_HOURS = 81;
+      public const int TCI_MONTH_2_AGO_ENROLLMENT = 82;
+      public const int TCI_MONTH_2_AGO_BASE_OBLIGATION = 83;
+      public const int TCI_MONTH_2_AGO_PCT_OF_BASE = 84;
+      public const int TCI_MONTH_2_AGO_LEAVE = 85;
+      public const int TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION = 86;
+      public const int TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE = 87;
+      public const int TCI_MONTH_1_AGO_DUTY_HOURS = 88;
+      public const int TCI_MONTH_1_AGO_ENROLLMENT = 89;
+      public const int TCI_MONTH_1_AGO_BASE_OBLIGATION = 90;
+      public const int TCI_MONTH_1_AGO_PCT_OF_BASE = 91;
+      public const int TCI_MONTH_1_AGO_LEAVE = 92;
+      public const int TCI_MONTH_1_AGO_EFFECTIVE_OBLIGATION = 93;
+      public const int TCI_MONTH_1_AGO_PCT_OF_EFFECTIVE = 94;
       }
 
     private struct p_type
@@ -259,7 +273,7 @@ namespace UserControl_activity_lookback
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
-        p.extent = new k.subtype<int>(1,10);
+        p.extent = new k.subtype<int>(1,12);
         p.sort_order = "last_name%,first_name,cad_num";
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         //
@@ -344,6 +358,10 @@ namespace UserControl_activity_lookback
           //
           e.Item.Cells[Static.TCI_COMBINED_PCT_OF_BASE].Text += "%";
           e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Text += "%";
+          e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Text += "%";
+          e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Text += "%";
           e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Text += "%";
           e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_EFFECTIVE].Text += "%";
           e.Item.Cells[Static.TCI_MONTH_9_AGO_PCT_OF_BASE].Text += "%";
@@ -377,6 +395,8 @@ namespace UserControl_activity_lookback
           }
         else if (e.Item.ItemType == ListItemType.Header)
           {
+          var month_12_ago_abbrev = DateTime.Now.AddMonths(-12).ToString("MMM").ToUpper();
+          var month_11_ago_abbrev = DateTime.Now.AddMonths(-11).ToString("MMM").ToUpper();
           var month_10_ago_abbrev = DateTime.Now.AddMonths(-10).ToString("MMM").ToUpper();
           var month_9_ago_abbrev = DateTime.Now.AddMonths(-9).ToString("MMM").ToUpper();
           var month_8_ago_abbrev = DateTime.Now.AddMonths(-8).ToString("MMM").ToUpper();
@@ -388,6 +408,8 @@ namespace UserControl_activity_lookback
           var month_2_ago_abbrev = DateTime.Now.AddMonths(-2).ToString("MMM").ToUpper();
           var month_1_ago_abbrev = DateTime.Now.AddMonths(-1).ToString("MMM").ToUpper();
           //
+          e.Item.Cells[Static.TCI_MONTH_12_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_ENROLLMENT].Text.Replace("MMM",month_12_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_11_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_ENROLLMENT].Text.Replace("MMM",month_11_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_ENROLLMENT].Text.Replace("MMM",month_10_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_ENROLLMENT].Text.Replace("MMM",month_9_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_ENROLLMENT].Text.Replace("MMM",month_8_ago_abbrev);
@@ -399,6 +421,8 @@ namespace UserControl_activity_lookback
           e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_2_AGO_ENROLLMENT].Text.Replace("MMM",month_2_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text = e.Item.Cells[Static.TCI_MONTH_1_AGO_ENROLLMENT].Text.Replace("MMM",month_1_ago_abbrev);
           //
+          e.Item.Cells[Static.TCI_MONTH_12_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_LEAVE].Text.Replace("MMM",month_12_ago_abbrev);
+          e.Item.Cells[Static.TCI_MONTH_11_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_LEAVE].Text.Replace("MMM",month_11_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_LEAVE].Text.Replace("MMM",month_10_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_9_AGO_LEAVE].Text.Replace("MMM",month_9_ago_abbrev);
           e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text = e.Item.Cells[Static.TCI_MONTH_8_AGO_LEAVE].Text.Replace("MMM",month_8_ago_abbrev);
@@ -412,6 +436,16 @@ namespace UserControl_activity_lookback
           //
           if (DataGrid_control.AllowSorting)
             {
+            (e.Item.Cells[Static.TCI_MONTH_12_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_12_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_12_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_12_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_12_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_12_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_12_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_12_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_12_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_11_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_11_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_11_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_11_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_11_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_11_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_11_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_11_ago_abbrev);
+            (e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Controls[0] as LinkButton).Text.Replace("MMM",month_11_ago_abbrev);
             (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
             (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
             (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text = (e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Controls[0] as LinkButton).Text.Replace("MMM",month_10_ago_abbrev);
@@ -465,6 +499,16 @@ namespace UserControl_activity_lookback
             }
           else
             {
+            e.Item.Cells[Static.TCI_MONTH_12_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_DUTY_HOURS].Text.Replace("MMM",month_12_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_12_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_12_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Text.Replace("MMM",month_12_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_12_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_12_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_11_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_DUTY_HOURS].Text.Replace("MMM",month_11_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_11_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_11_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Text.Replace("MMM",month_11_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION].Text.Replace("MMM",month_11_ago_abbrev);
+            e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Text = e.Item.Cells[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Text.Replace("MMM",month_11_ago_abbrev);
             e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Text.Replace("MMM",month_10_ago_abbrev);
             e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Text.Replace("MMM",month_10_ago_abbrev);
             e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Text = e.Item.Cells[Static.TCI_MONTH_10_AGO_PCT_OF_BASE].Text.Replace("MMM",month_10_ago_abbrev);
@@ -541,6 +585,20 @@ namespace UserControl_activity_lookback
 
     private void Bind()
       {
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_DUTY_HOURS].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_ENROLLMENT].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_BASE_OBLIGATION].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_PCT_OF_BASE].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_LEAVE].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_EFFECTIVE_OBLIGATION].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_12_AGO_PCT_OF_EFFECTIVE].Visible = (p.extent.val >= 12);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_DUTY_HOURS].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_ENROLLMENT].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_BASE_OBLIGATION].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_PCT_OF_BASE].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_LEAVE].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_EFFECTIVE_OBLIGATION].Visible = (p.extent.val >= 11);
+      DataGrid_control.Columns[Static.TCI_MONTH_11_AGO_PCT_OF_EFFECTIVE].Visible = (p.extent.val >= 11);
       DataGrid_control.Columns[Static.TCI_MONTH_10_AGO_DUTY_HOURS].Visible = (p.extent.val >= 10);
       DataGrid_control.Columns[Static.TCI_MONTH_10_AGO_ENROLLMENT].Visible = (p.extent.val >= 10);
       DataGrid_control.Columns[Static.TCI_MONTH_10_AGO_BASE_OBLIGATION].Visible = (p.extent.val >= 10);

@@ -384,7 +384,7 @@ namespace Class_db_members
         .Append(" select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
         .Append(" from schedule_assignment")
         .Append(" where member_id = subquery.member_id")
-        .Append(  " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH))")
+        .Append(  " and trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH))")
         .Append(" )")
         .ToString();
       }
@@ -451,6 +451,10 @@ namespace Class_db_members
       return new StringBuilder()
         .Append(" (")
         .Append(  " (")
+        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_12_ago_code") + ",0)")
+        .Append(  " +")
+        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_11_ago_code") + ",0)")
+        .Append(  " +")
         .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_10_ago_code") + ",0)")
         .Append(  " +")
         .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_9_ago_code") + ",0)")
@@ -501,6 +505,20 @@ namespace Class_db_members
     private string CombinedEffectiveObligationExpression(k.subtype<int> extent)
       {
       var string_builder = new StringBuilder();
+      if (extent.val >= 12)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-12","month_12_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 11)
+        {
+        string_builder
+          .Append(MonthEffectiveObligationExpression("-11","month_11_ago_code"))
+          .Append(" + ")
+          ;
+        }
       if (extent.val >= 10)
         {
         string_builder
@@ -661,6 +679,20 @@ namespace Class_db_members
         .Append(" , FORMAT(" + CombinedEffectiveObligationExpression(extent) + ",1) as combined_effective_obligation")
         .Append(" , " + CombinedPercentOfEffectiveExpression(extent) + " as combined_pct_of_effective")
         .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<" + ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"] + ",0,1)) as tax_relief_level")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-12") + ",1) as month_12_ago_duty_hours")
+        .Append(" , " + EnrollmentExpression("month_12_ago_code") + " as month_12_ago_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_12_ago_code") + "*12,0),1) as month_12_ago_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-12"),"(" + MonthBaseObligationExpression("month_12_ago_code") + "*12)") + " as month_12_ago_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("-12") + " as month_12_ago_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-12","month_12_ago_code") + ",1) as month_12_ago_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-12"),MonthEffectiveObligationExpression("-12","month_12_ago_code")) + " as month_12_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-11") + ",1) as month_11_ago_duty_hours")
+        .Append(" , " + EnrollmentExpression("month_11_ago_code") + " as month_11_ago_enrollment")
+        .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_11_ago_code") + "*12,0),1) as month_11_ago_base_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-11"),"(" + MonthBaseObligationExpression("month_11_ago_code") + "*12)") + " as month_11_ago_pct_of_base")
+        .Append(" , " + KindOfLeaveExpression("-11") + " as month_11_ago_leave")
+        .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-11","month_11_ago_code") + ",1) as month_11_ago_effective_obligation")
+        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-11"),MonthEffectiveObligationExpression("-11","month_11_ago_code")) + " as month_11_ago_pct_of_effective")
         .Append(" , FORMAT(" + MonthDutyHoursSubquery("-10") + ",1) as month_10_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_10_ago_code") + " as month_10_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_10_ago_code") + "*12,0),1) as month_10_ago_base_obligation")
@@ -739,6 +771,8 @@ namespace Class_db_members
         .Append(  " , first_name")
         .Append(  " , agency_id")
         .Append(  " , equivalent_los_start_date")
+        .Append(  " , " + (extent.val >= 12 ? MonthLevelCodeSubquery("-12") : "null") + " as month_12_ago_code")
+        .Append(  " , " + (extent.val >= 11 ? MonthLevelCodeSubquery("-11") : "null") + " as month_11_ago_code")
         .Append(  " , " + (extent.val >= 10 ? MonthLevelCodeSubquery("-10") : "null") + " as month_10_ago_code")
         .Append(  " , " + (extent.val >= 9 ? MonthLevelCodeSubquery("-9") : "null") + " as month_9_ago_code")
         .Append(  " , " + (extent.val >= 8 ? MonthLevelCodeSubquery("-8") : "null") + " as month_8_ago_code")
@@ -754,7 +788,9 @@ namespace Class_db_members
         .Append(  " order by last_name, first_name, cad_num")
         .Append(  " )")
         .Append(  " as subquery")
-        .Append(" where " + RelevantLevelCondition("month_10_ago_code"))
+        .Append(" where " + RelevantLevelCondition("month_12_ago_code"))
+        .Append(  " or " + RelevantLevelCondition("month_11_ago_code"))
+        .Append(  " or " + RelevantLevelCondition("month_10_ago_code"))
         .Append(  " or " + RelevantLevelCondition("month_9_ago_code"))
         .Append(  " or " + RelevantLevelCondition("month_8_ago_code"))
         .Append(  " or " + RelevantLevelCondition("month_7_ago_code"))
@@ -1694,12 +1730,12 @@ namespace Class_db_members
         +         " )"
         +       " )"
         +     " left join"
-        +       " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
-        +     " left join schedule_assignment on (schedule_assignment.member_id=member.id and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)))"
+        +       " (select distinct member_id from schedule_assignment where trigger_managed_year_month = EXTRACT(YEAR_MONTH from DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        +     " left join schedule_assignment on (schedule_assignment.member_id=member.id and trigger_managed_year_month = EXTRACT(YEAR_MONTH from DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)))"
         +     " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
         +   " where"
         +     " ("
-        +       " ((MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) or (nominal_day is null))"
+        +       " ((trigger_managed_year_month = EXTRACT(YEAR_MONTH from DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) or (nominal_day is null))"
         +     " and"
         +       " ("
         +         " ("
@@ -1747,8 +1783,9 @@ namespace Class_db_members
       k.subtype<int> relative_month
       )
       {
-      var filter = " where month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
-      + " and note is not null and note <> '' and note not like '%mesg(RETRACT)...from(OSCAR)%'";
+      var filter = k.EMPTY
+      + " where EXTRACT(YEAR_MONTH from expiration) = EXTRACT(YEAR_MONTH from DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+      +   " and note is not null and note <> '' and note not like '%mesg(RETRACT)...from(OSCAR)%'";
       if (agency_filter.Length > 0)
         {
         filter += " and agency_id = '" + agency_filter + "'";
@@ -2115,7 +2152,7 @@ namespace Class_db_members
           +   " left join"
           +     " (select distinct odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(1).ToString("MMM") + "') as condensed_avail_sheet on (condensed_avail_sheet.odnmid=member.id)"
           +   " left join"
-          +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+          +     " (select distinct member_id from schedule_assignment where trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
           + " where enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,IF((enrollment_level.description = 'College' and " + be_before_deadline.ToString() + "),TRUE,num_shifts)))"
           +   " and (condensed_avail_sheet.odnmid is null)"
@@ -2756,9 +2793,9 @@ namespace Class_db_members
             + " , be_flight_medic"
             + " , be_marine_medic"
             + " , be_on_squad_truck_team"
-            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH))),0) as num_tapouts_1_month_ago"
-            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH))),0) as num_tapouts_2_months_ago"
-            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH))),0) as num_tapouts_3_months_ago"
+            + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 1 MONTH))),0) as num_tapouts_1_month_ago"
+            + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 2 MONTH))),0) as num_tapouts_2_months_ago"
+            + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 3 MONTH))),0) as num_tapouts_3_months_ago"
             + " , be_bls_academy_proctor"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
@@ -2815,9 +2852,9 @@ namespace Class_db_members
               + " , be_flight_medic"
               + " , be_marine_medic"
               + " , be_on_squad_truck_team"
-              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH)),0) as num_tapouts_1_month_ago"
-              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH)),0) as num_tapouts_2_months_ago"
-              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH)),0) as num_tapouts_3_months_ago"
+              + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 1 MONTH)),0) as num_tapouts_1_month_ago"
+              + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 2 MONTH)),0) as num_tapouts_2_months_ago"
+              + " , IFNULL(sum(EXTRACT(YEAR_MONTH from tapout.expected_start) = EXTRACT(YEAR_MONTH from SUBDATE(CURDATE(),INTERVAL 3 MONTH)),0) as num_tapouts_3_months_ago"
               + " , be_bls_academy_proctor"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 

@@ -3,6 +3,7 @@ using Class_db_agencies;
 using Class_db_agency_satellite_stations;
 using kix;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Class_biz_agencies
   {
@@ -42,13 +43,9 @@ namespace Class_biz_agencies
           return db_agencies.BeEfficipayEnabled(id);
           }
 
-        internal bool BeFullWatchbillPublishMandatory
-          (
-          string agency_filter,
-          k.subtype<int> relative_month
-          )
+        internal SortedList<string,bool> BeFullWatchbillPublishMandatory(k.subtype<int> relative_month)
           {
-          return db_agencies.BeNotificationPendingForAllInScope(agency_filter,relative_month);
+          return db_agencies.BeNotificationPendingForAllInScope(relative_month);
           }
 
         public bool BeImmediateOutTransfersAllowed(string agency)

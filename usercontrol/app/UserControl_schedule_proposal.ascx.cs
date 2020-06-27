@@ -9,6 +9,7 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Web;
@@ -183,7 +184,14 @@ namespace UserControl_schedule_proposal
       public int selected_year_num;
       }
 
+    private struct v_type
+      {
+      public bool be_ok_to_send_quickmessage_by_shift_in_context;
+      public SortedList<string,bool> be_full_watchbill_publish_mandatory;
+      }
+
     private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+    private v_type v; // Volatile instance Variable container
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
@@ -568,6 +576,14 @@ namespace UserControl_schedule_proposal
         var num_members = new k.int_nonnegative();
         var num_crew_shifts = new k.decimal_nonnegative();
         //
+        v.be_ok_to_send_quickmessage_by_shift_in_context = p.biz_schedule_assignments.BeOkToSendQuickMessageByShift
+          (
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          be_ok_to_send_quickmessage_by_shift:p.be_ok_to_send_quickmessage_by_shift
+          );
+        v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
+        //
         //========================
         //
         // Perform the major Bind.
@@ -575,6 +591,8 @@ namespace UserControl_schedule_proposal
         p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
         //
         //========================
+        //
+        v.be_full_watchbill_publish_mandatory.Clear();
         //
         Literal_num_members.Text = num_members.val.ToString();
         Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
@@ -849,14 +867,7 @@ namespace UserControl_schedule_proposal
       if (e.Item.ItemType == ListItemType.Header)
         {
         e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
-        if(
-          p.biz_schedule_assignments.BeOkToSendQuickMessageByShift
-            (
-            be_interactive:p.be_interactive,
-            be_ok_to_edit_post:p.be_ok_to_edit_post,
-            be_ok_to_send_quickmessage_by_shift:p.be_ok_to_send_quickmessage_by_shift
-            )
-          )
+        if (v.be_ok_to_send_quickmessage_by_shift_in_context)
         //then
           {
           var Label_day = new Label();
@@ -923,13 +934,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:e.Item.Cells[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           );
         var n_be_selected = (e.Item.Cells[Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
@@ -943,13 +954,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:e.Item.Cells[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
@@ -1096,6 +1107,7 @@ namespace UserControl_schedule_proposal
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
       var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
           post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM),
@@ -1106,13 +1118,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           )
         )
         {
@@ -1127,11 +1139,13 @@ namespace UserControl_schedule_proposal
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
         throw k.PRIVILEGE_VIOLATION;
         }
+      v.be_full_watchbill_publish_mandatory.Clear();
       }
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
       var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
           post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM),
@@ -1142,13 +1156,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           )
         )
         {
@@ -1163,11 +1177,13 @@ namespace UserControl_schedule_proposal
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
         throw k.PRIVILEGE_VIOLATION;
         }
+      v.be_full_watchbill_publish_mandatory.Clear();
       }
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
       var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
           post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM),
@@ -1178,13 +1194,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           )
         )
         {
@@ -1199,11 +1215,13 @@ namespace UserControl_schedule_proposal
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
         throw k.PRIVILEGE_VIOLATION;
         }
+      v.be_full_watchbill_publish_mandatory.Clear();
       }
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
       var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
           post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM),
@@ -1214,13 +1232,13 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
           medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
-          relative_month:p.relative_month,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
-          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
           )
         )
         {
@@ -1235,6 +1253,7 @@ namespace UserControl_schedule_proposal
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
         throw k.PRIVILEGE_VIOLATION;
         }
+      v.be_full_watchbill_publish_mandatory.Clear();
       }
 
     protected void Button_save_Click(object sender, EventArgs e)

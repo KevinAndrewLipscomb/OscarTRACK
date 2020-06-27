@@ -13,6 +13,7 @@ using Class_db_schedule_assignments;
 using kix;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Web;
@@ -280,13 +281,13 @@ namespace Class_biz_schedule_assignments
       bool be_ok_to_edit_schedule_tier_department_only,
       string medical_release_description,
       bool be_ok_to_edit_schedule_liberally,
-      k.subtype<int> relative_month,
       bool be_squad_exclusivity_expired,
       bool be_ok_to_schedule_squad_truck_team,
       bool be_ok_to_schedule_volunteer_field_supervisor_team,
       bool be_ok_to_schedule_mci_team,
       bool be_ok_to_schedule_bike_team,
-      bool be_ok_to_edit_schedule_for_any_special_agency
+      bool be_ok_to_edit_schedule_for_any_special_agency,
+      SortedList<string,bool> be_full_watchbill_publish_mandatory
       )
       {
       return (post_id.Length > 0)
@@ -309,7 +310,7 @@ namespace Class_biz_schedule_assignments
                 be_ok_to_edit_schedule_liberally
               &&
                 (
-                  !biz_agencies.BeFullWatchbillPublishMandatory(agency_id, relative_month)
+                  !be_full_watchbill_publish_mandatory[agency_id]
                 ||
                   be_squad_exclusivity_expired
                 )
