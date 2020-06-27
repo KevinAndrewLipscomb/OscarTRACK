@@ -5,6 +5,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Class_db_agencies
@@ -43,24 +44,26 @@ namespace Class_db_agencies
           return be_efficipay_enabled;
           }
 
-    internal bool BeNotificationPendingForAllInScope
-      (
-      string agency_filter,
-      k.subtype<int> relative_month
-      )
+    internal SortedList<string,bool> BeNotificationPendingForAllInScope(k.subtype<int> relative_month)
       {
-      var be_notification_pending_for_all_in_scope = true;
+      var be_notification_pending_for_all_in_scope = new SortedList<string,bool>();
       Open();
       using var my_sql_command = new MySqlCommand
         (
-        "select IF(sum(not be_notification_pending) = 0,1,0)"
+        "select agency_id as agency"
+        + " , sum(not be_notification_pending) as sum"
         + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
-        + " where agency_id = '" + agency_filter + "'"
-        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
+        + " where trigger_managed_year_month = EXTRACT(YEAR_MONTH from DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        + " group by agency_id"
+        + " order by agency_id",
         connection
         );
-      be_notification_pending_for_all_in_scope = "1" ==  my_sql_command.ExecuteScalar().ToString();
+      var dr = my_sql_command.ExecuteReader();
+      while (dr.Read())
+        {
+        be_notification_pending_for_all_in_scope.Add(key:dr["agency"].ToString(),value:dr["sum"].ToString() == "0");
+        }
       Close();
       return be_notification_pending_for_all_in_scope;
       }
