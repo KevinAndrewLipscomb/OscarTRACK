@@ -228,6 +228,7 @@ namespace UserControl_activity_lookback
           {
           DataGrid_control.AllowSorting = false;
           }
+        Ul_biz_rule_detail.Visible = p.be_user_privileged_to_see_all_squads;
         RequireConfirmation
           (
           c:Button_export,

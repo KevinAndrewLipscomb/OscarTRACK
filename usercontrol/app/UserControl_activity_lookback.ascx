@@ -12,7 +12,13 @@
                   <p>Best practices</p>
                   <ul>
                     <li><p>This data is provided solely to support Virginia Beach City Council's Tax Levy on Personal Property, Section 16.</p></li>
-                    <li><p>Effective obligation values are based on business rules that only apply to this specific tax relief program.</p></li>
+                    <li>
+                      <p>Duty hour and effective obligation values are based on business rules that only apply to this specific tax relief program.</p>
+                      <ul id="Ul_biz_rule_detail" runat="server" visible="false">
+                        <li><p>Recruit/student duty hours are not counted.</p></li>
+                        <li><p>A floor obligation of 24 hours per month applies during leave and off-roster months to serve as a reasonable midpoint denominator.</p></li>
+                      </ul>
+                    </li>
                   </ul>
                 </small>
               </td>

@@ -24,6 +24,15 @@ namespace UserControl_activity_lookback
     protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
 
     /// <summary>
+    /// Ul_biz_rule_detail control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl Ul_biz_rule_detail;
+
+    /// <summary>
     /// DropDownList_extent control.
     /// </summary>
     /// <remarks>
