@@ -382,7 +382,7 @@ namespace Class_db_members
       {
       return new StringBuilder()
         .Append(" (")
-        .Append(  " IF(" + the_enrollment_code + "=23") // Staff
+        .Append(  " IF(" + the_enrollment_code + " is null or " + the_enrollment_code + " = 23") // Effectively tests for Recruits and Staff members
         .Append(    " ,")
         .Append(      " 0")
         .Append(    " ,")
