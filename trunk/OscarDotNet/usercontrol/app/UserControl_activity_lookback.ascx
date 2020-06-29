@@ -7,6 +7,17 @@
         <td>
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
+              <td>
+                <small>
+                  <p>Best practices</p>
+                  <ul>
+                    <li><p>This data is provided solely to support Virginia Beach City Council's Tax Levy on Personal Property, Section 16.</p></li>
+                    <li><p>Effective obligation values are based on business rules that only apply to this specific tax relief program.</p></li>
+                  </ul>
+                </small>
+              </td>
+            </tr>
+            <tr>
               <td bgcolor="#dcdcdc">
                 <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
@@ -60,9 +71,9 @@
                     <asp:BoundColumn datafield="combined_duty_hours" headertext="COMBINED duty hours" sortexpression="CAST(combined_duty_hours as DECIMAL)%,cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /></asp:BoundColumn>
                     <asp:BoundColumn datafield="combined_base_obligation" headertext="COMBINED base obligation" sortexpression="CAST(combined_base_obligation as DECIMAL)%,CAST(combined_duty_hours as DECIMAL),cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /></asp:BoundColumn>
                     <asp:BoundColumn datafield="combined_pct_of_base" headertext="% COMBINED base obligation" sortexpression="CAST(combined_pct_of_base as DECIMAL)%,CAST(combined_duty_hours as DECIMAL),cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /></asp:BoundColumn>
-                    <asp:TemplateColumn HeaderText="Recommended PPT relief" SortExpression="tax_relief_level%,last_name,first_name,cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /><ItemTemplate></ItemTemplate></asp:TemplateColumn>
                     <asp:BoundColumn datafield="combined_effective_obligation" headertext="COMBINED effective obligation" sortexpression="CAST(combined_effective_obligation as DECIMAL)%,CAST(combined_duty_hours as DECIMAL),cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /></asp:BoundColumn>
                     <asp:BoundColumn datafield="combined_pct_of_effective" headertext="% COMBINED effective obligation" sortexpression="CAST(combined_pct_of_effective as DECIMAL)%,CAST(combined_duty_hours as DECIMAL),cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /></asp:BoundColumn>
+                    <asp:TemplateColumn HeaderText="Recommended PPT relief" SortExpression="tax_relief_level%,last_name,first_name,cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" Font-Bold="true"/><ItemStyle Font-Bold="true" HorizontalAlign="Center" /><ItemTemplate></ItemTemplate></asp:TemplateColumn>
                     <asp:BoundColumn datafield="month_12_ago_duty_hours" headertext="MMM duty hours" sortexpression="CAST(month_12_ago_duty_hours as DECIMAL)%,cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="wheat"/><ItemStyle HorizontalAlign="Center" BackColor="wheat"/></asp:BoundColumn>
                     <asp:BoundColumn datafield="month_12_ago_enrollment" headertext="MMM enrollment"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="wheat"/><ItemStyle HorizontalAlign="Right" BackColor="wheat"/></asp:BoundColumn>
                     <asp:BoundColumn datafield="month_12_ago_base_obligation" headertext="MMM base obligation" sortexpression="CAST(month_12_ago_base_obligation as DECIMAL)%,CAST(month_12_ago_duty_hours as DECIMAL),cad_num"><HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="wheat"/><ItemStyle HorizontalAlign="Center" BackColor="wheat"/></asp:BoundColumn>
