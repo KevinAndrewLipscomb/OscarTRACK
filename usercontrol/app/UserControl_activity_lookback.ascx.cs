@@ -23,9 +23,9 @@ namespace UserControl_activity_lookback
       public const int TCI_COMBINED_DUTY_HOURS = 5;
       public const int TCI_COMBINED_BASE_OBLIGATION = 6;
       public const int TCI_COMBINED_PCT_OF_BASE = 7;
-      public const int TCI_RECOMMENDED_PPT_RELIEF = 8;
-      public const int TCI_COMBINED_EFFECTIVE_OBLIGATION = 9;
-      public const int TCI_COMBINED_PCT_OF_EFFECTIVE = 10;
+      public const int TCI_COMBINED_EFFECTIVE_OBLIGATION = 8;
+      public const int TCI_COMBINED_PCT_OF_EFFECTIVE = 9;
+      public const int TCI_RECOMMENDED_PPT_RELIEF = 10;
       public const int TCI_MONTH_12_AGO_DUTY_HOURS = 11;
       public const int TCI_MONTH_12_AGO_ENROLLMENT = 12;
       public const int TCI_MONTH_12_AGO_BASE_OBLIGATION = 13;
@@ -329,24 +329,24 @@ namespace UserControl_activity_lookback
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
-          var combined_pct_of_base = new k.int_nonnegative(int.Parse(e.Item.Cells[Static.TCI_COMBINED_PCT_OF_BASE].Text));
-          if (combined_pct_of_base.val >= int.Parse(ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"]))
+          var combined_pct_of_effective = new k.int_nonnegative(int.Parse(e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].Text));
+          if (combined_pct_of_effective.val >= int.Parse(ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"]))
             {
             e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "FULL";
             e.Item.Cells[Static.TCI_CAD_NUM].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_LAST_NAME].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_FIRST_NAME].BackColor = Color.PaleGreen;
-            e.Item.Cells[Static.TCI_COMBINED_PCT_OF_BASE].BackColor = Color.PaleGreen;
+            e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].BackColor = Color.PaleGreen;
             e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].BackColor = Color.PaleGreen;
             v.num_full.val++;
             }
-          else if (combined_pct_of_base.val > 0)
+          else if (combined_pct_of_effective.val > 0)
             {
             e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].Text = "PRORATED";
             e.Item.Cells[Static.TCI_CAD_NUM].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_LAST_NAME].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_FIRST_NAME].BackColor = Color.Yellow;
-            e.Item.Cells[Static.TCI_COMBINED_PCT_OF_BASE].BackColor = Color.Yellow;
+            e.Item.Cells[Static.TCI_COMBINED_PCT_OF_EFFECTIVE].BackColor = Color.Yellow;
             e.Item.Cells[Static.TCI_RECOMMENDED_PPT_RELIEF].BackColor = Color.Yellow;
             v.num_prorated.val++;
             }
@@ -662,6 +662,7 @@ namespace UserControl_activity_lookback
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_LEAVE].Visible = (p.extent.val >= 2);
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_EFFECTIVE_OBLIGATION].Visible = (p.extent.val >= 2);
       DataGrid_control.Columns[Static.TCI_MONTH_2_AGO_PCT_OF_EFFECTIVE].Visible = (p.extent.val >= 2);
+      //
       p.biz_members.BindActivityLookbackBaseDataList
         (
         sort_order:p.sort_order,
@@ -670,6 +671,7 @@ namespace UserControl_activity_lookback
         extent:p.extent,
         agency_filter:p.agency_id
         );
+      //
       p.be_datagrid_empty = (v.num_members.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
