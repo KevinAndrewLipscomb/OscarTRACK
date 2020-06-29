@@ -374,31 +374,131 @@ namespace Class_db_members
 
         }
 
-    private string MonthDutyHoursSubquery
+    private string MonthDutyHoursExpression
       (
-      string relative_month_num_string
+      string relative_month_num_string,
+      string the_enrollment_code
       )
       {
       return new StringBuilder()
         .Append(" (")
-        .Append(" select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
-        .Append(" from schedule_assignment")
-        .Append(" where member_id = subquery.member_id")
-        .Append(  " and trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH))")
+        .Append(  " IF(" + the_enrollment_code + "=23") // Staff
+        .Append(    " ,")
+        .Append(      " 0")
+        .Append(    " ,")
+        .Append(      " (")
+        .Append(      " select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
+        .Append(      " from schedule_assignment")
+        .Append(      " where member_id = subquery.member_id")
+        .Append(        " and trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH))")
+        .Append(      " )")
+        .Append(    " )")
         .Append(" )")
         .ToString();
       }
 
     private string CombinedDutyHoursSubquery(k.subtype<int> extent)
       {
-      return new StringBuilder()
+      var string_builder = new StringBuilder()
         .Append(" (")
-        .Append(" select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
-        .Append(" from schedule_assignment")
-        .Append(" where member_id = subquery.member_id")
-        .Append(  " and nominal_day between DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL -" + extent.val + " MONTH),'%Y-%m-01') and LAST_DAY(ADDDATE(CURDATE(),INTERVAL -1 MONTH))")
+        ;
+      if (extent.val >= 12)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-12", "month_12_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 11)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-11", "month_11_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 10)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-10", "month_10_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 9)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-9", "month_9_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 8)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-8", "month_8_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 7)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-7", "month_7_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 6)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-6", "month_6_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 5)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-5", "month_5_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 4)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-4", "month_4_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 3)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-3", "month_3_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      if (extent.val >= 2)
+        {
+        string_builder
+          .Append(MonthDutyHoursExpression("-2", "month_2_ago_code"))
+          .Append(" + ")
+          ;
+        }
+      string_builder
+        .Append(MonthDutyHoursExpression("-1", "month_1_ago_code"))
         .Append(" )")
-        .ToString();
+        ;
+      return string_builder.ToString();
+    //
+    // The following alternative implementation took about 50% longer to execute.
+    //
+    //return new StringBuilder()
+    //  .Append(" (")
+    //  .Append(" select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
+    //  .Append(" from schedule_assignment")
+    //  .Append(  " join enrollment_history on (enrollment_history.member_id=schedule_assignment.member_id)")
+    //  .Append(" where schedule_assignment.member_id = subquery.member_id")
+    //  .Append(  " and nominal_day between DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL -" + extent.val + " MONTH),'%Y-%m-01') and LAST_DAY(ADDDATE(CURDATE(),INTERVAL -1 MONTH))")
+    //  .Append(  " and nominal_day between enrollment_history.start_date and IFNULL(enrollment_history.end_date,'9999-12-31')")
+    //  .Append(" and enrollment_history.level_code <> 23") // Staff
+    //  .Append(" group by subquery.member_id") // Prevents double counting hours on days when member's enrollment changed.
+    //  .Append(" )")
+    //  .ToString();
       }
 
     private string EnrollmentExpression
@@ -440,7 +540,7 @@ namespace Class_db_members
         .Append(      " ,")
         .Append(        " 1")
         .Append(      " ,")
-        .Append(        " (select num_shifts from enrollment_level where code = " + the_enrollment_code + ")")
+        .Append(        " GREATEST(IFNULL((select num_shifts from enrollment_level where code = " + the_enrollment_code + "),0),2)")
         .Append(      " )")
         .Append(  " )")
         .ToString();
@@ -451,29 +551,29 @@ namespace Class_db_members
       return new StringBuilder()
         .Append(" (")
         .Append(  " (")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_12_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_12_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_11_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_11_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_10_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_10_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_9_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_9_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_8_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_8_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_7_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_7_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_6_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_6_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_5_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_5_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_4_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_4_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_3_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_3_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_2_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_2_ago_code"))
         .Append(  " +")
-        .Append(  "   IFNULL(" + MonthBaseObligationExpression("month_1_ago_code") + ",0)")
+        .Append(      MonthBaseObligationExpression("month_1_ago_code"))
         .Append(  " )")
         .Append(" *")
         .Append(  " 12")
@@ -504,7 +604,9 @@ namespace Class_db_members
 
     private string CombinedEffectiveObligationExpression(k.subtype<int> extent)
       {
-      var string_builder = new StringBuilder();
+      var string_builder = new StringBuilder()
+        .Append(" (")
+        ;
       if (extent.val >= 12)
         {
         string_builder
@@ -584,6 +686,7 @@ namespace Class_db_members
         }
       string_builder
         .Append(MonthEffectiveObligationExpression("-1","month_1_ago_code"))
+        .Append(" )")
         ;
       return string_builder.ToString();
       }
@@ -654,7 +757,7 @@ namespace Class_db_members
       )
       {
       return new StringBuilder()
-        .Append("(" + the_enrollment_code + " is not null and " + the_enrollment_code + " <> 23)")
+        .Append("(" + the_enrollment_code + " is not null and " + the_enrollment_code + " <> 23)") // Enrollment level code 23 is Staff.
         .ToString();
       }
 
@@ -679,90 +782,90 @@ namespace Class_db_members
         .Append(" , FORMAT(" + CombinedEffectiveObligationExpression(extent) + ",1) as combined_effective_obligation")
         .Append(" , " + CombinedPercentOfEffectiveExpression(extent) + " as combined_pct_of_effective")
         .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<" + ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"] + ",0,1)) as tax_relief_level")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-12") + ",1) as month_12_ago_duty_hours")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-12","month_12_ago_code") + ",1) as month_12_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_12_ago_code") + " as month_12_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_12_ago_code") + "*12,0),1) as month_12_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-12"),"(" + MonthBaseObligationExpression("month_12_ago_code") + "*12)") + " as month_12_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-12","month_12_ago_code"),"(" + MonthBaseObligationExpression("month_12_ago_code") + "*12)") + " as month_12_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-12") + " as month_12_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-12","month_12_ago_code") + ",1) as month_12_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-12"),MonthEffectiveObligationExpression("-12","month_12_ago_code")) + " as month_12_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-11") + ",1) as month_11_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-12","month_12_ago_code"),MonthEffectiveObligationExpression("-12","month_12_ago_code")) + " as month_12_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-11","month_11_ago_code") + ",1) as month_11_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_11_ago_code") + " as month_11_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_11_ago_code") + "*12,0),1) as month_11_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-11"),"(" + MonthBaseObligationExpression("month_11_ago_code") + "*12)") + " as month_11_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-11","month_11_ago_code"),"(" + MonthBaseObligationExpression("month_11_ago_code") + "*12)") + " as month_11_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-11") + " as month_11_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-11","month_11_ago_code") + ",1) as month_11_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-11"),MonthEffectiveObligationExpression("-11","month_11_ago_code")) + " as month_11_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-10") + ",1) as month_10_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-11","month_11_ago_code"),MonthEffectiveObligationExpression("-11","month_11_ago_code")) + " as month_11_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-10","month_10_ago_code") + ",1) as month_10_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_10_ago_code") + " as month_10_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_10_ago_code") + "*12,0),1) as month_10_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-10"),"(" + MonthBaseObligationExpression("month_10_ago_code") + "*12)") + " as month_10_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-10","month_10_ago_code"),"(" + MonthBaseObligationExpression("month_10_ago_code") + "*12)") + " as month_10_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-10") + " as month_10_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-10","month_10_ago_code") + ",1) as month_10_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-10"),MonthEffectiveObligationExpression("-10","month_10_ago_code")) + " as month_10_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-9") + ",1) as month_9_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-10","month_10_ago_code"),MonthEffectiveObligationExpression("-10","month_10_ago_code")) + " as month_10_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-9","month_9_ago_code") + ",1) as month_9_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_9_ago_code") + " as month_9_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_9_ago_code") + "*12,0),1) as month_9_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-9"),"(" + MonthBaseObligationExpression("month_9_ago_code") + "*12)") + "month_9_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-9","month_9_ago_code"),"(" + MonthBaseObligationExpression("month_9_ago_code") + "*12)") + "month_9_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-9") + " as month_9_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-9","month_9_ago_code") + ",1) as month_9_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-9"),MonthEffectiveObligationExpression("-9","month_9_ago_code")) + " as month_9_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-8") + ",1) as month_8_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-9","month_9_ago_code"),MonthEffectiveObligationExpression("-9","month_9_ago_code")) + " as month_9_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-8","month_8_ago_code") + ",1) as month_8_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_8_ago_code") + " as month_8_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_8_ago_code") + "*12,0),1) as month_8_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-8"),"(" + MonthBaseObligationExpression("month_8_ago_code") + "*12)") + "month_8_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-8","month_8_ago_code"),"(" + MonthBaseObligationExpression("month_8_ago_code") + "*12)") + "month_8_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-8") + " as month_8_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-8","month_8_ago_code") + ",1) as month_8_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-8"),MonthEffectiveObligationExpression("-8","month_8_ago_code")) + " as month_8_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-7") + ",1) as month_7_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-8","month_8_ago_code"),MonthEffectiveObligationExpression("-8","month_8_ago_code")) + " as month_8_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-7","month_7_ago_code") + ",1) as month_7_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_7_ago_code") + " as month_7_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_7_ago_code") + "*12,0),1) as month_7_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-7"),"(" + MonthBaseObligationExpression("month_7_ago_code") + "*12)") + "month_7_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-7","month_7_ago_code"),"(" + MonthBaseObligationExpression("month_7_ago_code") + "*12)") + "month_7_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-7") + " as month_7_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-7","month_7_ago_code") + ",1) as month_7_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-7"),MonthEffectiveObligationExpression("-7","month_7_ago_code")) + " as month_7_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-6") + ",1) as month_6_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-7","month_7_ago_code"),MonthEffectiveObligationExpression("-7","month_7_ago_code")) + " as month_7_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-6","month_6_ago_code") + ",1) as month_6_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_6_ago_code") + " as month_6_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_6_ago_code") + "*12,0),1) as month_6_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-6"),"(" + MonthBaseObligationExpression("month_6_ago_code") + "*12)") + "month_6_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-6","month_6_ago_code"),"(" + MonthBaseObligationExpression("month_6_ago_code") + "*12)") + "month_6_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-6") + " as month_6_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-6","month_6_ago_code") + ",1) as month_6_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-6"),MonthEffectiveObligationExpression("-6","month_6_ago_code")) + " as month_6_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-5") + ",1) as month_5_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-6","month_6_ago_code"),MonthEffectiveObligationExpression("-6","month_6_ago_code")) + " as month_6_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-5","month_5_ago_code") + ",1) as month_5_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_5_ago_code") + " as month_5_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_5_ago_code") + "*12,0),1) as month_5_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-5"),"(" + MonthBaseObligationExpression("month_5_ago_code") + "*12)") + "month_5_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-5","month_5_ago_code"),"(" + MonthBaseObligationExpression("month_5_ago_code") + "*12)") + "month_5_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-5") + " as month_5_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-5","month_5_ago_code") + ",1) as month_5_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-5"),MonthEffectiveObligationExpression("-5","month_5_ago_code")) + " as month_5_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-4") + ",1) as month_4_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-5","month_5_ago_code"),MonthEffectiveObligationExpression("-5","month_5_ago_code")) + " as month_5_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-4","month_4_ago_code") + ",1) as month_4_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_4_ago_code") + " as month_4_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_4_ago_code") + "*12,0),1) as month_4_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-4"),"(" + MonthBaseObligationExpression("month_4_ago_code") + "*12)") + "month_4_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-4","month_4_ago_code"),"(" + MonthBaseObligationExpression("month_4_ago_code") + "*12)") + "month_4_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-4") + " as month_4_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-4","month_4_ago_code") + ",1) as month_4_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-4"),MonthEffectiveObligationExpression("-4","month_4_ago_code")) + " as month_4_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-3") + ",1) as month_3_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-4","month_4_ago_code"),MonthEffectiveObligationExpression("-4","month_4_ago_code")) + " as month_4_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-3","month_3_ago_code") + ",1) as month_3_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_3_ago_code") + " as month_3_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_3_ago_code") + "*12,0),1) as month_3_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-3"),"(" + MonthBaseObligationExpression("month_3_ago_code") + "*12)") + "month_3_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-3","month_3_ago_code"),"(" + MonthBaseObligationExpression("month_3_ago_code") + "*12)") + "month_3_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-3") + " as month_3_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-3","month_3_ago_code") + ",1) as month_3_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-3"),MonthEffectiveObligationExpression("-3","month_3_ago_code")) + " as month_3_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-2") + ",1) as month_2_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-3","month_3_ago_code"),MonthEffectiveObligationExpression("-3","month_3_ago_code")) + " as month_3_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-2","month_2_ago_code") + ",1) as month_2_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_2_ago_code") + " as month_2_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_2_ago_code") + "*12,0),1) as month_2_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-2"),"(" + MonthBaseObligationExpression("month_2_ago_code") + "*12)") + "month_2_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-2","month_2_ago_code"),"(" + MonthBaseObligationExpression("month_2_ago_code") + "*12)") + "month_2_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-2") + " as month_2_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-2","month_2_ago_code") + ",1) as month_2_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-2"),MonthEffectiveObligationExpression("-2","month_2_ago_code")) + " as month_2_ago_pct_of_effective")
-        .Append(" , FORMAT(" + MonthDutyHoursSubquery("-1") + ",1) as month_1_ago_duty_hours")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-2","month_2_ago_code"),MonthEffectiveObligationExpression("-2","month_2_ago_code")) + " as month_2_ago_pct_of_effective")
+        .Append(" , FORMAT(" + MonthDutyHoursExpression("-1","month_1_ago_code") + ",1) as month_1_ago_duty_hours")
         .Append(" , " + EnrollmentExpression("month_1_ago_code") + " as month_1_ago_enrollment")
         .Append(" , FORMAT(IFNULL(" + MonthBaseObligationExpression("month_1_ago_code") + "*12,0),1) as month_1_ago_base_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-1"),"(" + MonthBaseObligationExpression("month_1_ago_code") + "*12)") + "month_1_ago_pct_of_base")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-1","month_1_ago_code"),"(" + MonthBaseObligationExpression("month_1_ago_code") + "*12)") + "month_1_ago_pct_of_base")
         .Append(" , " + KindOfLeaveExpression("-1") + " as month_1_ago_leave")
         .Append(" , FORMAT(" + MonthEffectiveObligationExpression("-1","month_1_ago_code") + ",1) as month_1_ago_effective_obligation")
-        .Append(" , " + PercentageExpression(MonthDutyHoursSubquery("-1"),MonthEffectiveObligationExpression("-1","month_1_ago_code")) + " as month_1_ago_pct_of_effective")
+        .Append(" , " + PercentageExpression(MonthDutyHoursExpression("-1","month_1_ago_code"),MonthEffectiveObligationExpression("-1","month_1_ago_code")) + " as month_1_ago_pct_of_effective")
         .Append(" from")
         .Append(  " (")
         .Append(  " select member.id as member_id")
