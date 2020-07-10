@@ -668,7 +668,8 @@ namespace Class_db_members
           .Append(" select level_code")
           .Append(" from")
           .Append(  " (")
-          .Append(  " select level_code")
+          .Append(  " select member_id") // This field is required in MySQL 5.6.1 so that member.id can be referenced in this subquery's where clause.
+          .Append(  " , level_code")
           .Append(  " , start_date")
           .Append(  " , end_date")
           .Append(  " from enrollment_history")
@@ -676,6 +677,7 @@ namespace Class_db_members
           .Append(  " order by start_date desc, end_date is null desc, end_date desc")
           .Append(  " ) as engaged_level")
           .Append(  " join enrollment_level on (enrollment_level.code=engaged_level.level_code)")
+          .Append(  " join member on (member.id=engaged_level.member_id)") // This join is required in MySQL 5.6.1 so that member.id can be referenced in the engaged_level subquery's where clause.
           .Append(" where enrollment_level.pecking_order < 84 and description <> 'Transferring'")
           .Append(  " and LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH)) >= start_date")
           .Append(" order by start_date desc, end_date is null desc, end_date desc")
