@@ -639,9 +639,10 @@ namespace Class_db_members
           .ToString();
         }
 
-      static string MonthActualLevelCodeSubquery
+      static string MonthLevelCodeSubquery
         (
-        string relative_month_num_string
+        string relative_month_num_string,
+        bool use_tax_relief_rules = false
         )
         {
         return new StringBuilder()
@@ -650,36 +651,8 @@ namespace Class_db_members
           .Append(" from enrollment_history")
           .Append(  " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)")
           .Append(" where member_id = member.id")
-          .Append(  " and enrollment_level.pecking_order < 84")
-          .Append(  " and LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH)) between start_date and IFNULL(end_date,'9999-12-31')")
-          .Append(" order by start_date desc, end_date is null desc, end_date desc")
-          .Append(" limit 1")
-          .Append(" )")
-          .ToString();
-        }
-
-      static string MonthEffectiveLevelCodeSubquery
-        (
-        string relative_month_num_string
-        )
-        {
-        return new StringBuilder()
-          .Append(" (")
-          .Append(" select level_code")
-          .Append(" from")
-          .Append(  " (")
-          .Append(  " select member_id") // This field is required in MySQL 5.6.1 so that member.id can be referenced in this subquery's where clause.
-          .Append(  " , level_code")
-          .Append(  " , start_date")
-          .Append(  " , end_date")
-          .Append(  " from enrollment_history")
-          .Append(  " where member_id = member.id")
-          .Append(  " order by start_date desc, end_date is null desc, end_date desc")
-          .Append(  " ) as engaged_level")
-          .Append(  " join enrollment_level on (enrollment_level.code=engaged_level.level_code)")
-          .Append(  " join member on (member.id=engaged_level.member_id)") // This join is required in MySQL 5.6.1 so that member.id can be referenced in the engaged_level subquery's where clause.
-          .Append(" where enrollment_level.pecking_order < 84 and description <> 'Transferring'")
-          .Append(  " and LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH)) >= start_date")
+          .Append(  " and enrollment_level.pecking_order < 84" + (use_tax_relief_rules ? " and description <> 'Transferring'" : k.EMPTY))
+          .Append(  " and LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH)) " + (use_tax_relief_rules ? ">= start_date" : "between start_date and IFNULL(end_date,'9999-12-31')"))
           .Append(" order by start_date desc, end_date is null desc, end_date desc")
           .Append(" limit 1")
           .Append(" )")
@@ -762,30 +735,30 @@ namespace Class_db_members
         .Append(  " , first_name")
         .Append(  " , agency_id")
         .Append(  " , equivalent_los_start_date")
-        .Append(  " , " + (extent.val >= 12 ? MonthActualLevelCodeSubquery("-12") : "null") + " as month_12_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-12") + " as month_12_ago_effective_code")
-        .Append(  " , " + (extent.val >= 11 ? MonthActualLevelCodeSubquery("-11") : "null") + " as month_11_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-11") + " as month_11_ago_effective_code")
-        .Append(  " , " + (extent.val >= 10 ? MonthActualLevelCodeSubquery("-10") : "null") + " as month_10_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-10") + " as month_10_ago_effective_code")
-        .Append(  " , " + (extent.val >= 9 ? MonthActualLevelCodeSubquery("-9") : "null") + " as month_9_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-9") + " as month_9_ago_effective_code")
-        .Append(  " , " + (extent.val >= 8 ? MonthActualLevelCodeSubquery("-8") : "null") + " as month_8_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-8") + " as month_8_ago_effective_code")
-        .Append(  " , " + (extent.val >= 7 ? MonthActualLevelCodeSubquery("-7") : "null") + " as month_7_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-7") + " as month_7_ago_effective_code")
-        .Append(  " , " + (extent.val >= 6 ? MonthActualLevelCodeSubquery("-6") : "null") + " as month_6_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-6") + " as month_6_ago_effective_code")
-        .Append(  " , " + (extent.val >= 5 ? MonthActualLevelCodeSubquery("-5") : "null") + " as month_5_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-5") + " as month_5_ago_effective_code")
-        .Append(  " , " + (extent.val >= 4 ? MonthActualLevelCodeSubquery("-4") : "null") + " as month_4_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-4") + " as month_4_ago_effective_code")
-        .Append(  " , " + (extent.val >= 3 ? MonthActualLevelCodeSubquery("-3") : "null") + " as month_3_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-3") + " as month_3_ago_effective_code")
-        .Append(  " , " + (extent.val >= 2 ? MonthActualLevelCodeSubquery("-2") : "null") + " as month_2_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-2") + " as month_2_ago_effective_code")
-        .Append(  " , " + (extent.val >= 1 ? MonthActualLevelCodeSubquery("-1") : "null") + " as month_1_ago_actual_code")
-        .Append(  " , " + MonthEffectiveLevelCodeSubquery("-1") + " as month_1_ago_effective_code")
+        .Append(  " , " + (extent.val >= 12 ? MonthLevelCodeSubquery("-12") : "null") + " as month_12_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-12",use_tax_relief_rules:true) + " as month_12_ago_effective_code")
+        .Append(  " , " + (extent.val >= 11 ? MonthLevelCodeSubquery("-11") : "null") + " as month_11_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-11",use_tax_relief_rules:true) + " as month_11_ago_effective_code")
+        .Append(  " , " + (extent.val >= 10 ? MonthLevelCodeSubquery("-10") : "null") + " as month_10_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-10",use_tax_relief_rules:true) + " as month_10_ago_effective_code")
+        .Append(  " , " + (extent.val >= 9 ? MonthLevelCodeSubquery("-9") : "null") + " as month_9_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-9",use_tax_relief_rules:true) + " as month_9_ago_effective_code")
+        .Append(  " , " + (extent.val >= 8 ? MonthLevelCodeSubquery("-8") : "null") + " as month_8_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-8",use_tax_relief_rules:true) + " as month_8_ago_effective_code")
+        .Append(  " , " + (extent.val >= 7 ? MonthLevelCodeSubquery("-7") : "null") + " as month_7_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-7",use_tax_relief_rules:true) + " as month_7_ago_effective_code")
+        .Append(  " , " + (extent.val >= 6 ? MonthLevelCodeSubquery("-6") : "null") + " as month_6_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-6",use_tax_relief_rules:true) + " as month_6_ago_effective_code")
+        .Append(  " , " + (extent.val >= 5 ? MonthLevelCodeSubquery("-5") : "null") + " as month_5_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-5",use_tax_relief_rules:true) + " as month_5_ago_effective_code")
+        .Append(  " , " + (extent.val >= 4 ? MonthLevelCodeSubquery("-4") : "null") + " as month_4_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-4",use_tax_relief_rules:true) + " as month_4_ago_effective_code")
+        .Append(  " , " + (extent.val >= 3 ? MonthLevelCodeSubquery("-3") : "null") + " as month_3_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-3",use_tax_relief_rules:true) + " as month_3_ago_effective_code")
+        .Append(  " , " + (extent.val >= 2 ? MonthLevelCodeSubquery("-2") : "null") + " as month_2_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-2",use_tax_relief_rules:true) + " as month_2_ago_effective_code")
+        .Append(  " , " + (extent.val >= 1 ? MonthLevelCodeSubquery("-1") : "null") + " as month_1_ago_actual_code")
+        .Append(  " , " + MonthLevelCodeSubquery("-1",use_tax_relief_rules:true) + " as month_1_ago_effective_code")
         .Append(  " from member")
         .Append(agency_filter.Length > 0 ? " where agency_id = '" + agency_filter + "'" : k.EMPTY)
         .Append(  " order by last_name, first_name, cad_num")
