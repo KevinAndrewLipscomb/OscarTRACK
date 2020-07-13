@@ -35,7 +35,15 @@ namespace exception
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
         var last_error = Server.GetLastError();
         var base_exception = last_error.GetBaseException();
-        if (Regex.IsMatch(base_exception.Message, "Connection.*to MySQL server", RegexOptions.IgnoreCase) || (base_exception.Message == "Connection open failed. Too many connections"))
+        if(
+            Regex.IsMatch(base_exception.Message, "Connection.*to MySQL server", RegexOptions.IgnoreCase)
+          ||
+            base_exception.Message.Contains("Connection open failed. Too many connections")
+          ||
+            last_error.ToString().Contains("Unable to connect to any of the specified MySQL hosts.")
+          ||
+            last_error.ToString().Contains("No connection could be made because the target machine actively refused it 127.0.0.1:3306")
+          )
           {
           Table_db_down.Visible = true;
           Table_oops.Visible = false;
