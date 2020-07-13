@@ -4,6 +4,7 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Security;
 
@@ -123,6 +124,25 @@ namespace UserControl_precontent
                 + "You and another user (or process) tried to access the same server data at the same time in an incompatible way." + k.NEW_LINE
                 + k.NEW_LINE
                 + "Please close and re-open your browser, log back in, and try again.";
+                }
+              else if
+                (
+                  Regex.IsMatch(e.Exception.ToString(), "Connection.*to MySQL server", RegexOptions.IgnoreCase)
+                ||
+                  e.Exception.ToString().Contains("Connection open failed. Too many connections")
+                ||
+                  e.Exception.ToString().Contains("Unable to connect to any of the specified MySQL hosts.")
+                ||
+                  e.Exception.ToString().Contains("No connection could be made because the target machine actively refused it 127.0.0.1:3306")
+                )
+                {
+                cause = k.alert_cause_type.DBMS;
+                key = "dbmsdown";
+                alert_message_value = "SORRY!" + k.NEW_LINE
+                + k.NEW_LINE
+                + "The application's database subsystem is unavailable." + k.NEW_LINE
+                + k.NEW_LINE
+                + "This is a temporary condition.  Please try again later.";
                 }
               k.EscalatedException
                 (
