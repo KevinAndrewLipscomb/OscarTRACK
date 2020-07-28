@@ -752,7 +752,7 @@ namespace Class_db_members
         .Append(" , cad_num")
         .Append(" , last_name")
         .Append(" , first_name")
-        .Append(" , FORMAT(" + CombinedDutyHoursSubquery(extent) + ",1) as combined_duty_hours")
+        .Append(" , " + CombinedDutyHoursSubquery(extent) + " as combined_duty_hours")
         .Append(" , FORMAT(" + CombinedEffectiveObligationExpression(extent) + ",1) as combined_effective_obligation")
         .Append(" , " + CombinedPercentOfEffectiveExpression(extent) + " as combined_pct_of_effective")
         .Append(" , IF(" + CombinedPercentOfEffectiveExpression(extent) + "=0,-1,IF(" + CombinedPercentOfEffectiveExpression(extent) + "<" + ConfigurationManager.AppSettings["full_personal_property_tax_qualifying_percent"] + ",0,1)) as tax_relief_level")
