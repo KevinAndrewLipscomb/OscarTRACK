@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 
 namespace UserControl_test_exceptions
   {
@@ -87,7 +86,7 @@ namespace UserControl_test_exceptions
         {
         Source = "MySql"
         };
-    throw x;
+      throw x;
       }
 
     protected void Button_other_mysql_Click(object sender, EventArgs e)
@@ -96,12 +95,17 @@ namespace UserControl_test_exceptions
         {
         Source = "MySql"
         };
-    throw x;
+      throw x;
       }
 
     protected void Button_other_Click(object sender, EventArgs e)
       {
       throw new Exception("Other exception");
+      }
+
+    protected void Button_dangerous_request_Click(object sender, EventArgs e)
+      {
+      throw new Exception("A potentially dangerous Request.~ value was detected from the client");
       }
 
     }

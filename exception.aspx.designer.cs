@@ -58,6 +58,15 @@ namespace exception {
         protected global::System.Web.UI.HtmlControls.HtmlTable Table_oops;
         
         /// <summary>
+        /// Table_dangerous_input control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_dangerous_input;
+        
+        /// <summary>
         /// TextArea_user_comment control.
         /// </summary>
         /// <remarks>
