@@ -48,6 +48,11 @@ namespace exception
           Table_db_down.Visible = true;
           Table_oops.Visible = false;
           }
+        else if (Regex.IsMatch(last_error.ToString(),"A potentially dangerous Request.* value was detected from the client", RegexOptions.IgnoreCase))
+          {
+          Table_dangerous_input.Visible = true;
+          Table_oops.Visible = false;
+          }
         else if
           (
             last_error.ToString().Contains("Validation of viewstate MAC failed.")

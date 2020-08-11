@@ -110,6 +110,18 @@ namespace UserControl_precontent
               key = "ppbvwsterr";
               alert_message_value = "To continue, please use your browser's Page Refresh/Reload feature after dismissing this message.";
               }
+            else if (Regex.IsMatch(e.Exception.ToString(),"A potentially dangerous Request.* value was detected from the client", RegexOptions.IgnoreCase))
+              {
+              cause = k.alert_cause_type.USER;
+              key = "pdangreqval";
+              alert_message_value = "You entered something that resembles a hacking attempt." + k.NEW_LINE
+              + k.NEW_LINE
+              + "For security reasons, you are not allowed to input the following special character combinations into this system:" + k.NEW_LINE
+              + k.NEW_LINE
+              + k.SPACE + k.SPACE + " <       (XML/HTML tag start token)" + k.NEW_LINE
+              + k.NEW_LINE
+              + k.SPACE + k.SPACE + "&#       (XML/HTML numeric character reference)" + k.NEW_LINE;
+              }
             else if (!e.Exception.ToString().Contains("The client disconnected."))
               {
               if (e.Exception.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))

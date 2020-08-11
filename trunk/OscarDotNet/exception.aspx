@@ -46,6 +46,37 @@
           </td>
         </tr>
       </table>
+      <table id="Table_dangerous_input" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="false">
+        <tr>
+          <td>
+            <table cellspacing="0" cellpadding="10" border="0">
+              <tr><td bgcolor="#f5f5f5"><h1><em>Sorry...</em></h1></td></tr>
+              <tr>
+                <td>
+                  <h3>You entered something that resembles a hacking attempt.</h3>
+                  <p>For security reasons, you are not allowed to input the following special character combinations into this system:</p>
+                  <blockquote>
+                    <table cellpadding="10" cellspacing="0" border="1">
+                      <tr style="background-color:gainsboro">
+                        <td>Bad input</td>
+                        <td>Description</td>
+                      </tr>
+                      <tr>
+                        <td align="center"><big><big><b>&lt;</b></big></big></td>
+                        <td><i>XML/HTML tag start token</i></td>
+                      </tr>
+                      <tr>
+                        <td align="center"><big><big><b>&amp;#</b></big></big></td>
+                        <td><i>XML/HTML numeric character reference</i></td>
+                      </tr>
+                    </table>
+                  </blockquote>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
       <table id="Table_oops" runat="server" bordercolor="#e00000" cellspacing="0" cellpadding="0" border="2">
         <tr>
           <td>
