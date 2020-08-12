@@ -1,4 +1,3 @@
-using Class_biz_members;
 using kix;
 using System;
 using System.Configuration;
@@ -38,7 +37,7 @@ namespace fleet_status
       Session.Add("mode:report/pub-fleet-status", k.EMPTY);
       var c = ((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx")));
       PlaceHolder_fleet_status.Controls.Add(c);
-      c.SetP(agency_short_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM));
+      c.SetP(agency_short_designator:k.Safe(Request["agency"] ?? "911",k.safe_hint_type.ALPHANUM)); // If no agency is specified in the request, use one that is valid but that will never own any vehicles.
 //
 // Uncomment the following line to disable partial page rendering.
 //
