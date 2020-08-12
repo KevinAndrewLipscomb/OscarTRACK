@@ -114,7 +114,9 @@ namespace UserControl_precontent
               {
               cause = k.alert_cause_type.USER;
               key = "pdangreqval";
-              alert_message_value = "You entered something that resembles a hacking attempt." + k.NEW_LINE
+              alert_message_value = "HOLD ON..." + k.NEW_LINE
+              + k.NEW_LINE
+              + "You entered something that resembles a hacking attempt." + k.NEW_LINE
               + k.NEW_LINE
               + "For security reasons, you are not allowed to input the following special character combinations into this system:" + k.NEW_LINE
               + k.NEW_LINE

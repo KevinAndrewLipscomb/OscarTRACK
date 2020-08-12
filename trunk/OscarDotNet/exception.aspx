@@ -50,7 +50,7 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
-              <tr><td bgcolor="#f5f5f5"><h1><em>Sorry...</em></h1></td></tr>
+              <tr><td bgcolor="#f5f5f5"><h1><em>Hold on...</em></h1></td></tr>
               <tr>
                 <td>
                   <h3>You entered something that resembles a hacking attempt.</h3>
