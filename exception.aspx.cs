@@ -60,8 +60,6 @@ namespace exception
             last_error.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
           ||
             last_error.ToString().Contains("The state information is invalid for this page and might be corrupted.")
-          ||
-            last_error.ToString().Contains("A potentially dangerous Request.QueryString value was detected from the client")
           )
           {
           Server.ClearError();
