@@ -749,6 +749,7 @@ namespace Class_db_members
       Open();
       var sql = new StringBuilder()
         .Append("select member_id")
+        .Append(" , agency.short_designator as agency")
         .Append(" , cad_num")
         .Append(" , last_name")
         .Append(" , first_name")
@@ -841,6 +842,7 @@ namespace Class_db_members
         .Append(  " order by last_name, first_name, cad_num")
         .Append(  " )")
         .Append(  " as subquery")
+        .Append(  " join agency on (agency.id=subquery.agency_id)")
         .Append(" where " + RelevantLevelCondition("month_1_ago_actual_code"))
         .Append(  " or " + RelevantLevelCondition("month_2_ago_actual_code"))
         .Append(  " or " + RelevantLevelCondition("month_3_ago_actual_code"))
