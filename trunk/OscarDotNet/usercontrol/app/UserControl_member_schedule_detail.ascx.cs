@@ -12,6 +12,7 @@ using System.Collections;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -361,7 +362,7 @@ namespace UserControl_member_schedule_detail
           &&
             be_selected
           &&
-            (e.Item.ItemType != ListItemType.EditItem) && (new ArrayList() {'R','Z'}.Contains((e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text[0]))
+            (e.Item.ItemType != ListItemType.EditItem) && Regex.IsMatch(input:(e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text,pattern:"^(R[0-9]|Z)")
           )
         // then
           {
