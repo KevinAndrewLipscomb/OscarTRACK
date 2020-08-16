@@ -546,7 +546,7 @@ namespace Class_db_members
           .Append(          " )")
           .Append(      " )")
           .Append(  " ,")
-          .Append(    " IF(" + the_enrollment_code + " = 25") // College
+          .Append(    " IF(" + the_enrollment_code + " in (25,28)") // College,EDP
           .Append(      " ,")
           .Append(        " 1")
           .Append(      " ,")
