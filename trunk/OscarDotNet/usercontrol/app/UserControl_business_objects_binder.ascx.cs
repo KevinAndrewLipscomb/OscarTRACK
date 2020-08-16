@@ -7,6 +7,7 @@ using UserControl_cad_object_binder;
 using UserControl_eval_object_binder;
 using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
+using UserControl_post;
 using UserControl_shift;
 using UserControl_sms_gateway;
 using UserControl_uniform_object_binder;
@@ -18,14 +19,15 @@ namespace UserControl_business_objects_binder
     private static class Static
       {
       public const int TSSI_AGENCIES = 0;
-      public const int TSSI_SATELLITE_STATIONS = 1;
-      public const int TSSI_FLEET_OBJECTS = 2;
-      public const int TSSI_FUND_DRIVE_OBJECTS = 3;
-      public const int TSSI_UNIFORM_OBJECTS = 4;
-      public const int TSSI_SHIFTS = 5;
-      public const int TSSI_EVAL_OBJECTS = 6;
-      public const int TSSI_SMS_GATEWAYS = 7;
-      public const int TSSI_CAD_OBJECTS = 8;
+      public const int TSSI_POSTS = 1;
+      public const int TSSI_SATELLITE_STATIONS = 2;
+      public const int TSSI_FLEET_OBJECTS = 3;
+      public const int TSSI_FUND_DRIVE_OBJECTS = 4;
+      public const int TSSI_UNIFORM_OBJECTS = 5;
+      public const int TSSI_SHIFTS = 6;
+      public const int TSSI_EVAL_OBJECTS = 7;
+      public const int TSSI_SMS_GATEWAYS = 8;
+      public const int TSSI_CAD_OBJECTS = 9;
       }
 
     private struct p_type
@@ -44,6 +46,10 @@ namespace UserControl_business_objects_binder
         if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
           {
           TabPanel_agencies.Enabled = true;
+          }
+        if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
+          {
+          TabPanel_posts.Enabled = true;
           }
         if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
           {
@@ -97,6 +103,10 @@ namespace UserControl_business_objects_binder
         if (p.tab_index == Static.TSSI_AGENCIES)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))), "UserControl_agency", PlaceHolder_content);
+          }
+        else if (p.tab_index == Static.TSSI_POSTS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_post)(LoadControl("~/usercontrol/app/UserControl_post.ascx"))), "UserControl_post", PlaceHolder_content);
           }
         else if (p.tab_index == Static.TSSI_SATELLITE_STATIONS)
           {
@@ -172,6 +182,10 @@ namespace UserControl_business_objects_binder
       if (p.tab_index == Static.TSSI_AGENCIES)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))),"UserControl_agency",PlaceHolder_content,InstanceId());
+        }
+      else if (p.tab_index == Static.TSSI_POSTS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_post)(LoadControl("~/usercontrol/app/UserControl_post.ascx"))),"UserControl_post",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == Static.TSSI_SATELLITE_STATIONS)
         {

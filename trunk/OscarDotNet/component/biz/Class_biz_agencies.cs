@@ -176,6 +176,11 @@ namespace Class_biz_agencies
             db_agencies.BindForControlCharts(indicator, target);
         }
 
+    public bool BindPostForConfigBusinessObjects(string partial_spec, object target)
+      {
+      return db_agencies.BindPostForConfigBusinessObjects(partial_spec,target);
+      }
+
         public void BindRankedCommensuration(object target)
         {
             db_agencies.BindRankedCommensuration(target);

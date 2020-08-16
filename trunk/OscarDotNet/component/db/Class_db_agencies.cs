@@ -88,7 +88,7 @@ namespace Class_db_agencies
             + " , CONVERT(" + concat_clause + " USING utf8) as spec"
             + " from agency"
             + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
-            + " order by spec",
+            + " order by id",
             connection
             );
           var dr = my_sql_command.ExecuteReader();
@@ -319,6 +319,31 @@ namespace Class_db_agencies
               }
             Close();
         }
+
+        public bool BindPostForConfigBusinessObjects(string partial_spec, object target)
+          {
+          var concat_clause = "concat(id,'|',short_designator,'|',long_designator)";
+          Open();
+          ((target) as ListControl).Items.Clear();
+          using var my_sql_command = new MySqlCommand
+            (
+            "select id"
+            + " , CONVERT(" + concat_clause + " USING utf8) as spec"
+            + " from agency"
+            + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+            +   " and be_ems_post"
+            +   " and keyclick_enumerator is null"
+            + " order by id",
+            connection
+            );
+          var dr = my_sql_command.ExecuteReader();
+          while (dr.Read())
+            {
+            ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
+            }
+          dr.Close();
+          return ((target) as ListControl).Items.Count > 0;
+          }
 
         public void BindRankedCommensuration(object target)
           {

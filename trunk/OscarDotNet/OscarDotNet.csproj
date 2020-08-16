@@ -322,6 +322,7 @@
     <Content Include="usercontrol\app\UserControl_patient_encounter.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_encounter_level.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
+    <Content Include="usercontrol\app\UserControl_post.ascx" />
     <Content Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_rank.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
@@ -1828,6 +1829,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.designer.cs">
       <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_post.ascx.cs">
+      <DependentUpon>UserControl_post.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_post.ascx.designer.cs">
+      <DependentUpon>UserControl_post.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_postcontent.ascx.cs">
       <DependentUpon>UserControl_postcontent.ascx</DependentUpon>
