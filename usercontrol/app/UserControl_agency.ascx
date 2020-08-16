@@ -108,7 +108,7 @@
   <tr>
 	<td>Door code:</td>
 	<td>
-	  <ASP:TextBox id="TextBox_door_code" runat="server" columns="15" maxlength="15" enabled="False"/>
+	  <ASP:TextBox id="TextBox_door_code" runat="server" columns="63" maxlength="63" enabled="False"/>
 	</td>
 	<td>
 	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_door_code" runat="server" ControlToValidate="TextBox_door_code" 
