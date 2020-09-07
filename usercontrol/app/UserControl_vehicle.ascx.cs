@@ -621,7 +621,10 @@ namespace UserControl_vehicle
 
     protected void CustomValidator_be_target_pm_mileage_meaningful_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeGoodCombinationKindTargetPmMileage(k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
+      args.IsValid =
+          (k.Safe(DropDownList_agency.SelectedValue,k.safe_hint_type.NUM) == "0")
+        ||
+          (p.biz_vehicles.BeGoodCombinationKindTargetPmMileage(k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)));
       }
 
     protected void DropDownList_agency_SelectedIndexChanged(object sender, EventArgs e)
