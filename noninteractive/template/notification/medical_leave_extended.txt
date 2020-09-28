@@ -5,4 +5,6 @@ This is an automatic notification from <application_name/>.
 
 This action prevents <first_name/> from being inadvertently scheduled for any duties until EMS Headquarters has cleared <first_name/> to return to duty.
 
+To get off medical leave, you or your medical provider must submit a Return To Work note to occhealth@vbgov.com.  The note must specify the date you may return to activity.  The note must include the words "May return to work without restriction" unless you only intend to participate in admin/support activities.
+
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)

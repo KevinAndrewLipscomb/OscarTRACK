@@ -10,7 +10,9 @@ This is an automatic notification from <application_name/>.
    Number of shifts that <first_name/> must run each month in this period:
       <num_obligated_shifts/>
    Note:
-      <note/>      
+      <note/>
+
+If this is a Medical Leave, it will stay in effect until you or your medical provider submit a Return To Work note to occhealth@vbgov.com.  The note must specify the date you may return to activity.  The note must include the words "May return to work without restriction" unless you only intend to participate in admin/support activities.
 
 You can reach <actor/> at:
 
