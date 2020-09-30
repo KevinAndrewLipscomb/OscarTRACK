@@ -62,14 +62,14 @@
     <td>Door code:</td>
     <td><asp:TextBox ID="TextBox_door_code" runat="server" Columns="63" MaxLength="63" Enabled="False" /></td>
     <td>
-      <asp:RegularExpressionValidator ID="RegularExpressionValidator_door_code" runat="server" ControlToValidate="TextBox_door_code" ErrorMessage="Please enter a valid Door code using only numbers, letters, stars (&quot;*&quot;), pound (&quot;#&quot;), commas, and plus (&quot;+&quot;) signs." Font-Bold="True" Display="Dynamic" ValidationExpression="[0-9a-zA-Z#*+,]+">!ERR!</asp:RegularExpressionValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_door_code" runat="server" ControlToValidate="TextBox_door_code" ErrorMessage="Please enter a valid Door code." Font-Bold="True" Display="Dynamic" ValidationExpression="[0-9a-zA-Z@#*+,()-+; ]+">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
   <tr>
     <td>Address:</td>
     <td><asp:TextBox ID="TextBox_address" runat="server" Columns="63" MaxLength="63" Enabled="False"></asp:TextBox>, Virginia Beach, VA</td>
     <td>
-      <asp:RegularExpressionValidator ID="RegularExpressionValidator_address" runat="server" ErrorMessage="Please enter a valid Address." ControlToValidate="TextBox_address" Font-Bold="True" Display="Dynamic" ValidationExpression="[0-9a-zA-Z ]+">!ERR!</asp:RegularExpressionValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_address" runat="server" ErrorMessage="Please enter a valid Address." ControlToValidate="TextBox_address" Font-Bold="True" Display="Dynamic" ValidationExpression="[0-9a-zA-Z*()-{} ]+">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </table>
