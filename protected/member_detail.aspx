@@ -122,7 +122,7 @@
                         <td><ASP:Label id="Label_be_marine_medic" runat="server"></ASP:Label></td>
                       </tr>
                       <tr>
-                        <td>BLS Academy proctor:</td>
+                        <td>BLS Academy proctor team:</td>
                         <td><ASP:LinkButton id="LinkButton_change_bls_academy_proctor_qual" runat="server" onclick="LinkButton_change_bls_academy_proctor_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_bls_academy_proctor" runat="server"></ASP:Label></td>
                       </tr>
