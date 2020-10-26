@@ -20,7 +20,7 @@
 					</tr>
 					<tr>
 					  <td>
-						<p>Is <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;fully qualified as a BLS Academy Proctor in Virginia Beach?</p>
+						<p>Is <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;active on the BLS Academy Proctor team?</p>
 						<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
 						  <p>
 							<ASP:RadioButtonList id="RadioButtonList_bls_academy_proctor_qualified_yes_no" runat="server" repeatdirection="Horizontal">
