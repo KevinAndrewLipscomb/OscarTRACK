@@ -33,6 +33,10 @@
                                   <td valign="top">&bull;</td>
                                   <td><small><a href="https://www.vbems.com/download/policies/operations/OPS-EMS-Duty-Policy.pdf" target="_blank">EMS Duty Policy</a></small></td>
                                 </tr>
+                                <tr>
+                                  <td valign="top">&bull;</td>
+                                  <td><small><a href="https://vbems-fuel.glideapp.io" target="_blank">Smartphone GlideApp: <i>CoVB Fuel Facilities for EMS</i></a></small></td>
+                                </tr>
                               </table>
                             </td>
                           </tr>

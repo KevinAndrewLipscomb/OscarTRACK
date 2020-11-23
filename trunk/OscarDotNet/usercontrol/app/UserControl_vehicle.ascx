@@ -60,7 +60,10 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Name:</font></td>
+    <td>
+      <font class="">Name:</font><br />
+      <small><small><i><align="right">(as externally displayed to public)</align></i></small></small>
+    </td>
     <td></td>
     <td>
       <font class="">
@@ -70,6 +73,20 @@
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_name" runat="server" errormessage="Please enter Name." font-bold="True" controltovalidate="TextBox_name">!ERR!</ASP:RequiredFieldValidator>
       <asp:CustomValidator ID="CustomValidator_name" runat="server" ErrorMessage="A vehicle with this name is already active in the system." Font-Bold="True" onservervalidate="CustomValidator_name_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <font class="">Deployment&nbsp;guidance:</font><br />
+      <small><small><i><align="right">(the way the vehicle is to be used)</align></i></small></small>
+    </td>
+    <td></td>
+    <td>
+      <font class="">
+        <ASP:TextBox id="TextBox_deployment_guidance" runat="server"  cssclass="" enabled="False" Columns="63" MaxLength="63"></ASP:TextBox>
+      </font>
+    </td>
+    <td nowrap="nowrap">
     </td>
   </tr>
   <tr>
@@ -229,17 +246,6 @@
     </td>
     <td nowrap="nowrap">
       <asp:CustomValidator ID="CustomValidator_dmv_inspection_due" runat="server" Display="Dynamic" ErrorMessage="You cannot move the DMV inspection due date backwards." Font-Bold="True" onservervalidate="CustomValidator_dmv_inspection_due_ServerValidate">!ERR!</asp:CustomValidator>
-    </td>
-  </tr>
-  <tr>
-    <td><font class="">Deployment&nbsp;guidance:</font></td>
-    <td></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_deployment_guidance" runat="server"  cssclass="" enabled="False" Columns="63" MaxLength="63"></ASP:TextBox>
-      </font>
-    </td>
-    <td nowrap="nowrap">
     </td>
   </tr>
   <tr>
