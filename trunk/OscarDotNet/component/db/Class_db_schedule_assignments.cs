@@ -644,7 +644,8 @@ namespace Class_db_schedule_assignments
       + " , be_selected desc"
       + " , post_cardinality"
       + " , medical_release_code_description_map.pecking_order desc"
-      + " , equivalent_los_start_date";
+      + " , equivalent_los_start_date"
+      + " , first_release_as_aic_date";
       var common_subsequent_field_list = k.EMPTY
       + " , num_units_from_agency"
       + " , num_units_citywide"
