@@ -2538,7 +2538,19 @@ namespace Class_db_schedule_assignments
     internal void Purge()
       {
       Open();
-      using var my_sql_command = new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 13 MONTH),'%Y-%m-01')",connection);
+      using var my_sql_command = new MySqlCommand
+        (
+        "START TRANSACTION"
+        + ";"
+        + " delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 37 MONTH),'%Y-%m-01')"
+              // It appears that 3 years may be the maximum time allowed for an employee to claim back pay under FLSA.
+        + ";"
+        + " delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 13 MONTH),'%Y-%m-01') and (select agency_id from member where id = member_id) <> 0"
+              // We only need to analyze the last year of a volunteer's activity for peronal property tax relief purposes.
+        + ";"
+        + "COMMIT",
+        connection
+        );
       my_sql_command.ExecuteNonQuery();
       Close();
       }
