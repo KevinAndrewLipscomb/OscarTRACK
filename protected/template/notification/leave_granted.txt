@@ -12,7 +12,17 @@ This is an automatic notification from <application_name/>.
    Note:
       <note/>
 
-If this is a Medical Leave, it will stay in effect until you or your medical provider submit a Return To Work note to occhealth@vbgov.com.  The note must specify the date you may return to activity.  The note must include the words "May return to work without restriction" unless you only intend to participate in admin/support activities.
+If this is a Medical Leave:
+
+-  If it is COVID-19-related, Division Chief Kevin Lipscomb will send
+   you the criteria for returning to activity.  Let Chief Lipscomb know
+   when you are confident that you have met those criteria.
+
+-  Otherwise, it will stay in effect until you or your medical provider
+   submit a Return To Work note to occhealth@vbgov.com.  The note must
+   specify the date you may return to activity.  The note must include
+   the words "May return to work without restriction" unless you only
+   intend to participate in admin/support activities.
 
 You can reach <actor/> at:
 
