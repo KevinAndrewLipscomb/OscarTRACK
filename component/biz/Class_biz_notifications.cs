@@ -1363,7 +1363,7 @@ namespace Class_biz_notifications
       string first_name,
       string last_name,
       string cad_num,
-      bool be_bls_academy_proctor
+      bool be_marine_medic
       )
       {
       var actor = k.EMPTY;
@@ -1380,7 +1380,7 @@ namespace Class_biz_notifications
           .Replace("<first_name/>", first_name)
           .Replace("<last_name/>", last_name)
           .Replace("<cad_num/>", cad_num)
-          .Replace("<be_bls_academy_proctor/>", k.YesNoOf(be_bls_academy_proctor));
+          .Replace("<be_marine_medic/>", k.YesNoOf(be_marine_medic));
         };
 
       var biz_members = new TClass_biz_members();
@@ -1389,7 +1389,7 @@ namespace Class_biz_notifications
       actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
       actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
       actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-      var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/bls_academy_proctor_qualification_change.txt"));
+      var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/marine_medic_qualification_change.txt"));
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],

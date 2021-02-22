@@ -75,7 +75,11 @@ namespace change_member_marine_medic_qualification
             be_marine_medic_qualified = k.BooleanOfYesNo(RadioButtonList_marine_medic_qualified_yes_no.SelectedValue);
             if (be_marine_medic_qualified != p.be_marine_medic_initially_qualified)
             {
-                p.biz_members.SetMarineMedicQualification(be_marine_medic_qualified, Session["member_summary"]);
+                p.biz_members.SetMarineMedicQualification
+                  (
+                  be_marine_medic:be_marine_medic_qualified,
+                  summary:Session["member_summary"]
+                  );
             }
             BackTrack();
         }

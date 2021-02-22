@@ -919,8 +919,19 @@ namespace Class_biz_members
       object summary
       )
       {
-      db_members.SetMarineMedicQualification(be_marine_medic, summary);
-      biz_notifications.IssueForMarineMedicQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_marine_medic);
+      db_members.SetMarineMedicQualification
+        (
+        be_marine_medic:be_marine_medic,
+        summary:summary
+        );
+      biz_notifications.IssueForMarineMedicQualificationChange
+        (
+        member_id:IdOf(summary),
+        first_name:FirstNameOf(summary),
+        last_name:LastNameOf(summary),
+        cad_num:CadNumOf(summary),
+        be_marine_medic:be_marine_medic
+        );
       }
 
         public void SetName(string old_first, string old_last, string new_first, string new_last, object summary)
