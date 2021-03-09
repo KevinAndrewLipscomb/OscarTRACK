@@ -107,13 +107,15 @@ namespace change_leave
                       use_select:false
                       );
                     //
-                    var saved_kind_of_leave_mapped_to_currently_valid_equivalent = Label_saved_kind_of_leave.Text.Replace("Maternity","Medical");
-                    i = 0;
-                    while (DropDownList_kind_of_leave.Items[(int)i].Text != saved_kind_of_leave_mapped_to_currently_valid_equivalent)
+                    var saved_kind_of_leave_mapped_to_currently_valid_equivalent = Label_saved_kind_of_leave.Text
+                      .Replace("Maternity","Medical")
+                      .Replace("Educational","Personal");
+                    var kind_of_leave_index = new k.subtype<int>(the_first:0,the_last:DropDownList_kind_of_leave.Items.Count);
+                    while (DropDownList_kind_of_leave.Items[kind_of_leave_index.val].Text != saved_kind_of_leave_mapped_to_currently_valid_equivalent)
                       {
-                      i++;
+                      kind_of_leave_index.val++;
                       }
-                    DropDownList_kind_of_leave.SelectedIndex = (int)i;
+                    DropDownList_kind_of_leave.SelectedIndex = kind_of_leave_index.val;
                     //
                     // Num obligated shifts
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
