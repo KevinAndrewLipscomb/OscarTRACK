@@ -397,7 +397,10 @@ namespace Class_db_members
           .Append(      " 0")
           .Append(    " ,")
           .Append(      " (")
-          .Append(      " select IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0)")
+                          //
+                          // The use of GREATEST in the select value accounts for impossible comments like "0600-1800" on a NIGHT shift.  The member is effectively punished for this mistake by getting 0 hours credit.
+                          //
+          .Append(      " select IFNULL(sum(TIME_TO_SEC(GREATEST(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan),TIME(0)))/3600*be_selected),0)")
           .Append(      " from schedule_assignment")
           .Append(      " where member_id = subquery.member_id")
           .Append(        " and trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH))")
