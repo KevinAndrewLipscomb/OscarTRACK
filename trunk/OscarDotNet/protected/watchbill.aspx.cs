@@ -43,13 +43,21 @@ namespace watchbill
           {
           Literal_release_filter.Text = "all assigned personnel";
           }
-        else if (p.release_filter == "1")
+        else if (p.release_filter == "released")
           {
           Literal_release_filter.Text = "only personnel who are released";
           }
-        else if (p.release_filter == "0")
+        else if (p.release_filter == "not_released")
           {
           Literal_release_filter.Text = "only personnel who are not released";
+          }
+        else if (p.release_filter == "student")
+          {
+          Literal_release_filter.Text = "only Students";
+          }
+        else if (p.release_filter == "bls_intern")
+          {
+          Literal_release_filter.Text = "only BLS Interns";
           }
         }
       }
@@ -69,7 +77,7 @@ namespace watchbill
         p.biz_agencies = new TClass_biz_agencies();
         //
         p.agency_filter = k.Safe(Request["agency_id"],k.safe_hint_type.NUM);
-        p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.NUM);
+        p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
         //

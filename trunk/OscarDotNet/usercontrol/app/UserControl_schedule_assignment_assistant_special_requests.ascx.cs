@@ -126,7 +126,7 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
       Q.Columns[Static.TCI_BE_RELEASED].Visible = p.release_filter.Length == 0;
-      Q.Columns[Static.TCI_LEVEL].Visible = p.release_filter == "0";
+      Q.Columns[Static.TCI_LEVEL].Visible = p.release_filter == "not_released";
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;

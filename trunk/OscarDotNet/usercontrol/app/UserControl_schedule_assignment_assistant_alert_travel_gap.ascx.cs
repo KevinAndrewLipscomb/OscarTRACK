@@ -170,7 +170,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         posts:out post_footprint,
         max_post_cardinality:out dummy_string
         );
-      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "0");
+      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "not_released");
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;

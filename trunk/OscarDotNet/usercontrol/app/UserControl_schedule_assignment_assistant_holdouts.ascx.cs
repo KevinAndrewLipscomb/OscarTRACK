@@ -108,7 +108,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
-        p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "1" : k.EMPTY);
+        p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "released" : k.EMPTY);
         p.sort_order = "member.last_name,member.first_name";
         }
       v.distribution_list = new StringBuilder();
@@ -143,7 +143,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       )
       {
       p.agency_filter = agency_filter;
-      p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "1" : release_filter);
+      p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "released" : release_filter);
       p.relative_month = relative_month;
       p.be_post_publish_submissions_detected = be_post_publish_submissions_detected;
       Bind();

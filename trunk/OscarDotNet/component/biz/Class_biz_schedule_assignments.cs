@@ -771,7 +771,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"1",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -783,7 +783,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"2",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -795,7 +795,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"4",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -807,7 +807,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"5",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -819,7 +819,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"6",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -831,7 +831,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"9",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -843,7 +843,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"13",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -855,7 +855,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"14",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -867,7 +867,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"16",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -879,7 +879,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"17",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -891,7 +891,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:"0",
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,
@@ -903,7 +903,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList
         (
         agency_filter:k.EMPTY,
-        release_filter:"1",
+        release_filter:"released",
         depth_filter:"1",
         relative_month:new k.subtype<int>(1,1),
         nominal_day_filter:k.EMPTY,

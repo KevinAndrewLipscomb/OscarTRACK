@@ -1,17 +1,8 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
 using Class_msg_protected;
-using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using UserControl_quickmessage_by_shift;
 
 namespace quickmessage_by_shift
   {

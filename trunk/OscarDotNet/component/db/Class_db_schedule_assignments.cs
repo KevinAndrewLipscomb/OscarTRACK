@@ -557,13 +557,21 @@ namespace Class_db_schedule_assignments
         + " )";
         }
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       var depth_condition_clause = k.EMPTY;
       if (depth_filter == "1")
@@ -1039,13 +1047,21 @@ namespace Class_db_schedule_assignments
       )
       {
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       Open();
       using var my_sql_command = new MySqlCommand
@@ -1472,13 +1488,21 @@ namespace Class_db_schedule_assignments
         filter += " and agency_id = '" + agency_filter + "'";
         }
       //
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         filter += " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         filter += " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        filter += " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        filter += " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       //
       if (compliancy_filter == "0") // holdouts
@@ -1576,13 +1600,21 @@ namespace Class_db_schedule_assignments
         agency_condition_clause = " and agency_id = '" + agency_filter + "'";
         }
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       Open();
       var transaction = connection.BeginTransaction();
@@ -1679,13 +1711,21 @@ namespace Class_db_schedule_assignments
         agency_condition_clause = " and agency_id = '" + agency_filter + "'";
         }
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       Open();
       var transaction = connection.BeginTransaction();
@@ -1774,13 +1814,21 @@ namespace Class_db_schedule_assignments
         agency_condition_clause = " and (agency_id = '" + agency_filter + "'" + (post_footprint.Length > 0 ? " or a_from.post_id in (" + post_footprint + ") or a_to.post_id in (" + post_footprint + ")" : k.EMPTY ) + ")";
         }
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       Open();
       var transaction = connection.BeginTransaction();
@@ -1880,13 +1928,21 @@ namespace Class_db_schedule_assignments
         agency_condition_clause = " and agency.id = '" + agency_filter + "'";
         }
       var release_condition_clause = k.EMPTY;
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        release_condition_clause = " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       Open();
       //

@@ -44,8 +44,10 @@
                       <small>Release level</small><br/>
                       <ASP:DropDownList id="DropDownList_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_release_filter_SelectedIndexChanged">
                         <ASP:ListItem value="" selected="True">All</ASP:ListItem>
-                        <ASP:ListItem value="1">Released</ASP:ListItem>
-                        <ASP:ListItem value="0">Not released</ASP:ListItem>
+                        <ASP:ListItem value="released">Released</ASP:ListItem>
+                        <ASP:ListItem value="not_released">Not released</ASP:ListItem>
+                        <ASP:ListItem value="student">- Student</ASP:ListItem>
+                        <ASP:ListItem value="bls_intern">- BLS Intern</ASP:ListItem>
                       </ASP:DropDownList>
    							    </td>
                     <td width="48%">&nbsp;</td>
