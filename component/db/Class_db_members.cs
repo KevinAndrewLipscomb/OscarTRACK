@@ -1848,13 +1848,21 @@ namespace Class_db_members
         {
         filter += " and agency_id = '" + agency_filter + "'";
         }
-      if (release_filter == "1")
+      if (release_filter == "released")
         {
         filter += " and medical_release_code_description_map.pecking_order >= 20";
         }
-      else if (release_filter == "0")
+      else if (release_filter == "not_released")
         {
         filter += " and medical_release_code_description_map.pecking_order < 20";
+        }
+      else if (release_filter == "student")
+        {
+        filter += " and medical_release_code_description_map.description = 'Student'";
+        }
+      else if (release_filter == "bls_intern")
+        {
+        filter += " and medical_release_code_description_map.description = 'BLS Intern'";
         }
       if (be_sort_order_ascending)
         {

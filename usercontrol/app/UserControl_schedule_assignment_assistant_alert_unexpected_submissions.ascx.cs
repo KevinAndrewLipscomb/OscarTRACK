@@ -137,7 +137,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
 
     private void Bind()
       {
-      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "0");
+      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "not_released");
       p.biz_schedule_assignments.BindUnexpectedSubmissionsAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W);
       p.be_unexpected_submissions_alert_datagrid_empty = (p.num_unexpected_submissions_alert_datagrid_rows == 0);
       TableRow_none.Visible = p.be_unexpected_submissions_alert_datagrid_empty;

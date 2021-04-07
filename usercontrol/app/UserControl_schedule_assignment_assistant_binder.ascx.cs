@@ -214,7 +214,7 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     protected void DropDownList_release_filter_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.release_filter = k.Safe(DropDownList_release_filter.SelectedValue,k.safe_hint_type.NUM);
+      p.release_filter = k.Safe(DropDownList_release_filter.SelectedValue,k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
       Bind();
       }
 
