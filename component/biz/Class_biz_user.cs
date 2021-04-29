@@ -76,6 +76,11 @@ namespace Class_biz_user
       return db_users.IdOf(HttpContext.Current.User.Identity.Name);
       }
 
+    internal DateTime LastLoginTime()
+      {
+      return db_user.LastLoginTime(IdNum());
+      }
+
     public string[] Privileges()
       {
       return db_users.PrivilegesOf(IdNum());
