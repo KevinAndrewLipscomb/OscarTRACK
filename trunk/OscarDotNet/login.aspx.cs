@@ -136,7 +136,6 @@ namespace login
                   client_timezone_offset = 270;
                   }
                 SessionSet("client_timezone_offset",client_timezone_offset);
-                p.biz_users.RecordSuccessfulLogin(Session["user_id"].ToString());
                 FormsAuthentication.SetAuthCookie(username, CheckBox_keep_me_logged_in.Checked);
                 var redirect_url = FormsAuthentication.GetRedirectUrl(userName:username,createPersistentCookie:CheckBox_keep_me_logged_in.Checked);
                 if (redirect_url.Contains(value:"/protected/paypal_assistant.aspx?q="))

@@ -1,6 +1,7 @@
 using Class_db;
 using kix;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Specialized;
 using System.Web.UI.WebControls;
 
@@ -98,6 +99,15 @@ namespace Class_db_user
       ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
+      }
+
+    internal DateTime LastLoginTime(string id)
+      {
+      Open();
+      using var mysql_command = new MySqlCommand("select last_login from user where id = '" + id + "'",connection);
+      var last_login_time_obj = mysql_command.ExecuteScalar();
+      Close();
+      return (last_login_time_obj == DBNull.Value ? DateTime.MaxValue : DateTime.Parse(last_login_time_obj.ToString()));
       }
 
     public string[] RolesOf

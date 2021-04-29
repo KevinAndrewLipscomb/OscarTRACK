@@ -1,4 +1,5 @@
 using Class_biz_members;
+using Class_biz_subjoined_attributes;
 using Class_biz_user;
 using Class_biz_users;
 using Class_msg_protected;
@@ -6,21 +7,23 @@ using kix;
 using System;
 using System.Configuration;
 using System.Web.UI;
+using UserControl_capture_subjoined_attributes;
 using UserControl_establish_membership;
 using UserControl_member_binder;
 
 namespace overview
-{
-    public partial class TWebForm_overview: ki_web_ui.page_class
+  {
+  public partial class TWebForm_overview: ki_web_ui.page_class
     {
 
     private struct p_type
-    {
-        public TClass_biz_user biz_user;
-        public TClass_biz_users biz_users;
-        public TClass_biz_members biz_members;
-        public TClass_msg_protected.overview incoming;
-    }
+      {
+      public TClass_biz_members biz_members;
+      public TClass_biz_subjoined_attributes biz_subjoined_attributes;
+      public TClass_biz_user biz_user;
+      public TClass_biz_users biz_users;
+      public TClass_msg_protected.overview incoming;
+      }
 
         private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
 
@@ -65,9 +68,10 @@ namespace overview
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
+                p.biz_members = new TClass_biz_members();
+                p.biz_subjoined_attributes = new TClass_biz_subjoined_attributes();
                 p.biz_user = new TClass_biz_user();
                 p.biz_users = new TClass_biz_users();
-                p.biz_members = new TClass_biz_members();
                 BeginBreadCrumbTrail();
                 if (p.biz_users.BeStalePassword(p.biz_user.IdNum()))
                 {
@@ -79,8 +83,12 @@ namespace overview
             if (p.biz_members.IdOfUserId(p.biz_user.IdNum()).Length == 0)
             {
                 // Display controls appropriate ONLY to nonmembers.
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_establish_membership)(LoadControl("~/usercontrol/app/UserControl_establish_membership.ascx"))), "UserControl_establish_membership", PlaceHolder_establish_membership);
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_establish_membership)(LoadControl("~/usercontrol/app/UserControl_establish_membership.ascx"))), "UserControl_establish_membership", PlaceHolder_control);
             }
+            else if(p.biz_subjoined_attributes.BeAnyImplementedSince(p.biz_user.LastLoginTime()))
+              {
+              AddIdentifiedControlToPlaceHolder(((TWebUserControl_capture_subjoined_attributes)(LoadControl("~/usercontrol/app/UserControl_capture_subjoined_attributes.ascx"))), "UserControl_capture_subjoined_attributes", PlaceHolder_control);
+              }
             else
             {
                 var member_id = p.biz_members.IdOfUserId(Session["user_id"].ToString());
@@ -94,7 +102,7 @@ namespace overview
                 else
                   {
                   var UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
-                  AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_member_binder);
+                  AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_control);
                   if (p.incoming != null)
                     {
                     UserControl_member_binder.SetTarget(p.incoming.target);
@@ -117,4 +125,4 @@ namespace overview
 
     } // end TWebForm_overview
 
-}
+  }

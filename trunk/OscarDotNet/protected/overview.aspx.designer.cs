@@ -7,63 +7,56 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace overview {
-    
-    
-    public partial class TWebForm_overview {
-        
-        /// <summary>
-        /// Meta_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlMeta Meta_control;
-        
-        /// <summary>
-        /// UserControl_precontent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
-        
-        /// <summary>
-        /// PlaceHolder_establish_membership control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_establish_membership;
-        
-        /// <summary>
-        /// PlaceHolder_member_binder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_member_binder;
-        
-        /// <summary>
-        /// UserControl_postcontent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
-        
-        /// <summary>
-        /// UserControl_update_progress_blocker_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
+namespace overview
+  {
+
+
+  public partial class TWebForm_overview
+    {
+
+    /// <summary>
+    /// Meta_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlMeta Meta_control;
+
+    /// <summary>
+    /// UserControl_precontent control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
+
+    /// <summary>
+    /// PlaceHolder_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_control;
+
+    /// <summary>
+    /// UserControl_postcontent control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
+
+    /// <summary>
+    /// UserControl_update_progress_blocker_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
     }
-}
+  }
