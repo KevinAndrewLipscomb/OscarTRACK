@@ -346,7 +346,15 @@ namespace UserControl_fleet
             fore_color:Color.LightGray
             );
           }
-        if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R") || e.Item.Cells[Static.TCI_AGENCY].Text == "MRT" || e.Item.Cells[Static.TCI_KIND].Text.EndsWith("trailer"))
+        if
+          (
+            e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R")
+          ||
+            e.Item.Cells[Static.TCI_AGENCY].Text == "MRT"
+          ||
+            (e.Item.Cells[Static.TCI_KIND].Text.StartsWith("Heavy") && e.Item.Cells[Static.TCI_KIND].Text.EndsWith("trailer"))
+          )
+        //then
           {
           var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
           var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
