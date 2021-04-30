@@ -346,23 +346,33 @@ namespace UserControl_fleet
             fore_color:Color.LightGray
             );
           }
-        if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R") || e.Item.Cells[Static.TCI_AGENCY].Text == "MRT")
+        if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R") || e.Item.Cells[Static.TCI_AGENCY].Text == "MRT" || e.Item.Cells[Static.TCI_KIND].Text.EndsWith("trailer"))
           {
           var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
           var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
-          if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM).Length > 0)
+          if (be_target_pm_mileage_meaningful)
             {
-            if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
+            if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM).Length > 0)
               {
-              e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+              if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
+                {
+                e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+                }
+              var miles_from_pm = int.Parse(miles_from_pm_text);
+              if (miles_from_pm >= (be_target_pm_mileage_meaningful ? p.miles_from_pm_alert_threshold : p.alternative_pm_alert_threshold.val))
+                {
+                e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightYellow;
+                e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightYellow;
+                }
+              if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
+                {
+                e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightPink;
+                e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.Blue;
+                e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightPink;
+                be_up_and_current = false;
+                }
               }
-            var miles_from_pm = int.Parse(miles_from_pm_text);
-            if (miles_from_pm >= (be_target_pm_mileage_meaningful ? p.miles_from_pm_alert_threshold : p.alternative_pm_alert_threshold.val))
-              {
-              e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightYellow;
-              e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightYellow;
-              }
-            if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
+            else
               {
               e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightPink;
               e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.Blue;
@@ -370,12 +380,10 @@ namespace UserControl_fleet
               be_up_and_current = false;
               }
             }
-          else if (be_target_pm_mileage_meaningful)
+          else
             {
-            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightPink;
-            e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.Blue;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightPink;
-            be_up_and_current = false;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].Text = k.NO_BREAK_SPACE;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = k.NO_BREAK_SPACE;
             }
           var dmv_inspection_due_text = k.Safe(e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
           if (dmv_inspection_due_text.Length > 0)
