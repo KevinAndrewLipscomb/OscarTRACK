@@ -444,27 +444,21 @@ namespace Class_biz_vehicles
       )
       {
       var agency_id_int = new k.int_nonnegative(val:int.Parse(agency_id));
-      var effective_dmv_inspection_due = DateTime.MinValue;
+      var effective_dmv_inspection_due = (dmv_inspection_due == DateTime.MinValue ? DateTime.MinValue : new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1));
       if(
-          (
-            (agency_id_int.val > 0)
-          &&
-            (agency_id_int.val < 200)
-          )
-        ||
-          (agency_id_int.val == 203) // MRT
+          ((agency_id_int.val == 0) || (agency_id_int.val >= 200))
+        &&
+          (agency_id_int.val != 203) // MRT
         )
       //then
         {
-        if (dmv_inspection_due != DateTime.MinValue)
-          {
-          effective_dmv_inspection_due = new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1);
-          }
-        }
-      else
-        {
         target_pm_mileage = 0xFFFFFFFF.ToString("d");
-        effective_dmv_inspection_due = DateTime.MaxValue; // max MySQL date
+        //
+        var kind = db_vehicle_kinds.DescriptionOf(kind_id);
+        if (!(kind.StartsWith("Heavy") && kind.EndsWith("trailer"))) // does not match Heavy*trailer
+          {
+          effective_dmv_inspection_due = DateTime.MaxValue; // max MySQL date
+          }
         }
       db_vehicles.Set
         (
@@ -490,7 +484,7 @@ namespace Class_biz_vehicles
         );
       if (saved_kind_id.Length == 0)
         {
-        biz_notifications.IssueForNewVehicle(agency_id,name,kind_id,bumper_number,model_year,chassis_model_id,custom_model_id,vin,fuel_id,license_plate,purchase_price,target_pm_mileage,dmv_inspection_due,be_four_or_all_wheel_drive);
+        biz_notifications.IssueForNewVehicle(agency_id,name,kind_id,bumper_number,model_year,chassis_model_id,custom_model_id,vin,fuel_id,license_plate,purchase_price,target_pm_mileage,effective_dmv_inspection_due,be_four_or_all_wheel_drive);
         }
       else if (kind_id != saved_kind_id)
         {
