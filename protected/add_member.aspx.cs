@@ -102,27 +102,17 @@ namespace add_member
             }
         }
 
-        protected void Button_check_for_similarities_Click(object sender, System.EventArgs e)
-        {
-            string first_name;
-            string last_name;
-            string similars;
-            first_name = k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME);
-            last_name = k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME);
-            similars = p.biz_members.NamesSimilarTo(first_name, last_name, "<br>");
-            if (similars.Length > 0)
-            {
-                Label_similars.Text = similars;
-            }
-            else
-            {
-                Label_similars.Text = "(None)";
-            }
-            Label_first_name.Text = first_name;
-            Label_last_name.Text = last_name;
-            Button_add_and_repeat.Enabled = true;
-            Button_add_and_stop.Enabled = true;
-        }
+    protected void Button_check_for_similarities_Click(object sender, System.EventArgs e)
+      {
+      var first_name = k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME);
+      var last_name = k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME);
+      var similars = p.biz_members.NamesSimilarTo(first_name, last_name, "<br>");
+      Label_similars.Text = (similars.Length > 0 ? similars : "(None)");
+      Label_first_name.Text = first_name.ToUpper();
+      Label_last_name.Text = last_name.ToUpper();
+      Button_add_and_repeat.Enabled = true;
+      Button_add_and_stop.Enabled = true;
+      }
 
         protected void CustomValidator_phone_num_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {

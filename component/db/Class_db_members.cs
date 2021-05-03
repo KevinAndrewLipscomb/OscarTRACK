@@ -2465,24 +2465,42 @@ namespace Class_db_members
             return result;
         }
 
-        public string NamesSimilarTo(string first_name, string last_name, string separator)
+    public string NamesSimilarTo
+      (
+      string first_name,
+      string last_name,
+      string separator
+      )
+      {
+      var names_similar_to = k.EMPTY;
+      Open();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select concat(first_name,' ',last_name,' (',IFNULL(cad_num,''),')') as hit"
+        + " from member"
+        + " where SUBSTRING_INDEX(trigger_managed_last_name_double_metaphone,';',1) in"
+        +     " ("
+        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + last_name + "'),';',1)"
+        +     " ,"
+        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + last_name + "'),';',-1)"
+        +     " )"
+        +   " or SUBSTRING_INDEX(trigger_managed_last_name_double_metaphone,';',-1) in"
+        +     " ("
+        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + first_name + "'),';',1)"
+        +     " ,"
+        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + first_name + "'),';',-1)"
+        +     " )",
+        connection
+        );
+      using var dr = my_sql_command.ExecuteReader();
+      while (dr.Read())
         {
-            string result;
-            MySqlDataReader dr;
-            string names_similar_to;
-            names_similar_to = k.EMPTY;
-            Open();
-            using var my_sql_command = new MySqlCommand("select concat(first_name,\" \",last_name,\" (\",IFNULL(cad_num,\"\"),\")\") as hit" + " from member" + " where SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",-1)" + " )" + " or SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",-1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",-1)" + " )", connection);
-            dr = my_sql_command.ExecuteReader();
-            while (dr.Read())
-            {
-                names_similar_to = names_similar_to + dr["hit"].ToString() + separator;
-            }
-            dr.Close();
-            Close();
-            result = names_similar_to;
-            return result;
+        names_similar_to += dr["hit"].ToString() + separator;
         }
+      dr.Close();
+      Close();
+      return names_similar_to;
+      }
 
         public k.int_nonnegative NumTapouts1MonthAgoOf(object summary)
           {
