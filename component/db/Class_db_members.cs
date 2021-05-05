@@ -2476,20 +2476,26 @@ namespace Class_db_members
       Open();
       using var my_sql_command = new MySqlCommand
         (
-        "select concat(first_name,' ',last_name,' (',IFNULL(cad_num,''),')') as hit"
+        "START TRANSACTION"
+        + ";"
+        + " set @subject_last_name_double_metaphone := DOUBLE_METAPHONE('" + last_name + "')"
+        + ";"
+        + " set @subject_first_name_double_metaphone := DOUBLE_METAPHONE('" + first_name + "')"
+        + ";"
+        + " set @subject_last_name_double_metaphone_1 := SUBSTRING_INDEX(@subject_last_name_double_metaphone,';',1)"
+        + ";"
+        + " set @subject_last_name_double_metaphone_2 := SUBSTRING_INDEX(@subject_last_name_double_metaphone,';',-1)"
+        + ";"
+        + " set @subject_first_name_double_metaphone_1 := SUBSTRING_INDEX(@subject_first_name_double_metaphone,';',1)"
+        + ";"
+        + " set @subject_first_name_double_metaphone_2 := SUBSTRING_INDEX(@subject_first_name_double_metaphone,';',-1)"
+        + ";"
+        + " select concat(first_name,' ',last_name,' (',IFNULL(cad_num,''),')') as hit"
         + " from member"
-        + " where trigger_managed_last_name_double_metaphone_1 in"
-        +     " ("
-        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + last_name + "'),';',1)"
-        +     " ,"
-        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + last_name + "'),';',-1)"
-        +     " )"
-        +   " or trigger_managed_last_name_double_metaphone_2 in"
-        +     " ("
-        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + first_name + "'),';',1)"
-        +     " ,"
-        +       " SUBSTRING_INDEX(DOUBLE_METAPHONE('" + first_name + "'),';',-1)"
-        +     " )",
+        + " where trigger_managed_last_name_double_metaphone_1 in (@subject_last_name_double_metaphone_1,@subject_last_name_double_metaphone_2)"
+        +   " or trigger_managed_last_name_double_metaphone_2 in (@subject_first_name_double_metaphone_1,@subject_first_name_double_metaphone_2)"
+        + ";"
+        + " COMMIT",
         connection
         );
       using var dr = my_sql_command.ExecuteReader();
