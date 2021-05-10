@@ -34,7 +34,6 @@ namespace UserControl_ranked_commensuration
                 else
                 {
                     Label_overall.Text = "?";
-                    Label_no_data.Text = Label_no_data.Text + k.SPACE + p.biz_role_member_map.HolderOf("Department Schedule Auditor").ToUpper();
                     Label_no_data.Visible = true;
                     DataGrid_detail.Visible = false;
                 }
