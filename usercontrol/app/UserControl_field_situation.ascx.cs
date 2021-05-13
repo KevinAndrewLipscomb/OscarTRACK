@@ -204,7 +204,7 @@ namespace UserControl_field_situation
 
     private void Bind()
       {
-      //DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature_and_address;
+      DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature_and_address;
       DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
       DataGrid_control.Columns[Static.TCI_ADDRESS].Visible = p.be_ok_to_show_nature_and_address;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
