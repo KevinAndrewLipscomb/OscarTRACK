@@ -49,7 +49,7 @@
                             <HeaderStyle horizontalalign="Center"></HeaderStyle>
                             <ItemStyle VerticalAlign="Top" Font-Size="Small"/>
                           </asp:BoundColumn>
-                          <asp:BoundColumn DataField="nature" HeaderText="Nature" Visible="false">
+                          <asp:BoundColumn DataField="nature" HeaderText="Nature">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle horizontalalign="Center" VerticalAlign="Top"></ItemStyle>
                           </asp:BoundColumn>
