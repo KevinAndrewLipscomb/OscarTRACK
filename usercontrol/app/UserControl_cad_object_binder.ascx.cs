@@ -4,6 +4,7 @@ using kix;
 using UserControl_incident_nature;
 using UserControl_ephemeral_dispatch;
 using UserControl_incident_nature_translation;
+using UserControl_capcode_unit_map;
 
 namespace UserControl_cad_object_binder
   {
@@ -22,6 +23,7 @@ namespace UserControl_cad_object_binder
       public const int TSSI_INCIDENT_NATURES = 0;
       public const int TSSI_EPHEMERAL_DISPATCHES = 1;
       public const int TSSI_INCIDENT_NATURE_TRANSLATIONS = 2;
+      public const int TSSI_UNIT_CAPCODES = 3;
       }
 
     private struct p_type
@@ -57,6 +59,12 @@ namespace UserControl_cad_object_binder
         {
         var c = ((TWebUserControl_incident_nature_translation)(LoadControl("~/usercontrol/app/UserControl_incident_nature_translation.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_incident_nature_translation",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        //c.SetTarget(target);
+        }
+      else if (p.tab_index == Static.TSSI_UNIT_CAPCODES)
+        {
+        var c = ((TWebUserControl_capcode_unit_map)(LoadControl("~/usercontrol/app/UserControl_capcode_unit_map.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_capcode_unit_map",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
       }
@@ -163,6 +171,10 @@ namespace UserControl_cad_object_binder
           {
           p.tab_index = Static.TSSI_INCIDENT_NATURE_TRANSLATIONS;
           }
+        else if (target.ToLower().Contains("/unit-capcodes/"))
+          {
+          p.tab_index = Static.TSSI_UNIT_CAPCODES;
+          }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
@@ -174,4 +186,3 @@ namespace UserControl_cad_object_binder
     } // end TWebUserControl_cad_object_binder
 
   }
-

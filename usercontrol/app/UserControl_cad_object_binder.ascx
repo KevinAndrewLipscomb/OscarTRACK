@@ -10,6 +10,7 @@
             <cc1:TabPanel runat="server" headertext="Incident natures" id="TabPanel_incident_natures"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Ephemeral dispatches" id="TabPanel_ephemeral_dispatches"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Incident nature translations" id="TabPanel_incident_nature_translations"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Unit capcodes" id="TabPanel_unit_capcodes"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

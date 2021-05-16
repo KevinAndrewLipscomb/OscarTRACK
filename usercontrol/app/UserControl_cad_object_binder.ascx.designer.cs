@@ -7,63 +7,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_cad_object_binder {
-    
-    
-    public partial class TWebUserControl_cad_object_binder {
-        
-        /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
-        /// TabContainer_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
-        
-        /// <summary>
-        /// TabPanel_incident_natures control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_incident_natures;
-        
-        /// <summary>
-        /// TabPanel_ephemeral_dispatches control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_ephemeral_dispatches;
-        
-        /// <summary>
-        /// TabPanel_incident_nature_translations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_incident_nature_translations;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+namespace UserControl_cad_object_binder
+  {
+
+
+  public partial class TWebUserControl_cad_object_binder
+    {
+
+    /// <summary>
+    /// UpdatePanel_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+
+    /// <summary>
+    /// TabContainer_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+
+    /// <summary>
+    /// TabPanel_incident_natures control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_incident_natures;
+
+    /// <summary>
+    /// TabPanel_ephemeral_dispatches control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_ephemeral_dispatches;
+
+    /// <summary>
+    /// TabPanel_incident_nature_translations control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_incident_nature_translations;
+
+    /// <summary>
+    /// TabPanel_unit_capcodes control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.TabPanel TabPanel_unit_capcodes;
+
+    /// <summary>
+    /// PlaceHolder_content control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
     }
-}
+  }
