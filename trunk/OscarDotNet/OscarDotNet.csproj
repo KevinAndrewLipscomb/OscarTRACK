@@ -282,6 +282,7 @@
     <Content Include="usercontrol\app\UserControl_autocalendaring_subscriptions.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_cad_object_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_capcode_unit_map.ascx" />
     <Content Include="usercontrol\app\UserControl_capture_subjoined_attributes.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
@@ -442,6 +443,7 @@
     </Compile>
     <Compile Include="component\biz\Class_biz_agency_satellite_stations.cs" />
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
+    <Compile Include="component\biz\Class_biz_capcode_unit_maps.cs" />
     <Compile Include="component\biz\Class_biz_care_skills.cs" />
     <Compile Include="component\biz\Class_biz_care_skill_ratings.cs" />
     <Compile Include="component\biz\Class_biz_cities.cs" />
@@ -530,6 +532,7 @@
     <Compile Include="component\db\Class_db_accounts.cs" />
     <Compile Include="component\db\Class_db_agencies.cs" />
     <Compile Include="component\db\Class_db_agency_satellite_stations.cs" />
+    <Compile Include="component\db\Class_db_capcode_unit_maps.cs" />
     <Compile Include="component\db\Class_db_care_skills.cs" />
     <Compile Include="component\db\Class_db_care_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_chassis_makes.cs" />
@@ -1435,6 +1438,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_cad_object_binder.ascx.designer.cs">
       <DependentUpon>UserControl_cad_object_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_capcode_unit_map.ascx.cs">
+      <DependentUpon>UserControl_capcode_unit_map.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_capcode_unit_map.ascx.designer.cs">
+      <DependentUpon>UserControl_capcode_unit_map.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_capture_subjoined_attributes.ascx.cs">
       <DependentUpon>UserControl_capture_subjoined_attributes.ascx</DependentUpon>
