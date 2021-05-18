@@ -271,7 +271,7 @@ namespace UserControl_capcode_unit_map
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           k.Safe(TextBox_capcode.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_unit.Text,k.safe_hint_type.ALPHANUM).Trim()
+          k.Safe(TextBox_unit.Text,k.safe_hint_type.ALPHANUM).Trim().ToUpper()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
