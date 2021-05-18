@@ -155,7 +155,8 @@ namespace Class_db_capcode_unit_maps
         target_table_name:"capcode_unit_map",
         key_field_name:"id",
         key_field_value:id,
-        childless_field_assignments_clause:childless_field_assignments_clause
+        childless_field_assignments_clause:childless_field_assignments_clause,
+        additional_match_condition:" or capcode = '" + capcode + "' or unit = '" + unit + "'"
         );
       }
 
