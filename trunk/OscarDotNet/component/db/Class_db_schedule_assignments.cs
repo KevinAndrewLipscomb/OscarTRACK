@@ -3309,15 +3309,17 @@ namespace Class_db_schedule_assignments
         + ", be_ok_to_work_on_next_month_assignments = " + be_ok_to_work_on_next_month_assignments.ToString()
         );
       //
-      const string BE_WHOLE_COMMENT_HH_RANGE = "comment rlike '^" + HH_RANGE_PATTERN + "$'";
-      const string BE_WHOLE_COMMENT_HHMM_RANGE = "comment rlike '^" + HHMM_RANGE_PATTERN + "$'";
+      const string BE_WHOLE_COMMENT_HH_RANGE = "avail_comment.comment rlike '^" + HH_RANGE_PATTERN + "$'";
+      const string BE_WHOLE_COMMENT_HHMM_RANGE = "avail_comment.comment rlike '^" + HHMM_RANGE_PATTERN + "$'";
       //
-      const string LOGON_TIME = "CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(LEFT(comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(LEFT(comment,2),'24','00'),'0000'),shift.start)) AS TIME)";
+      const string LOGON_TIME = "CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(LEFT(avail_comment.comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(LEFT(avail_comment.comment,2),'24','00'),'0000'),shift.start)) AS TIME)";
       //
       const string MUSTER_TO_LOGON_TIMESPAN_RAW = "TIMEDIFF(" + LOGON_TIME + ",shift.start)";
-      const string MUSTER_TO_LOGOFF_TIMESPAN_RAW = "TIMEDIFF(CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(RIGHT(comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(RIGHT(comment,2),'24','00'),'0000'),shift.end)) AS TIME),shift.start)";
+      const string MUSTER_TO_LOGOFF_TIMESPAN_RAW = "TIMEDIFF(CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(RIGHT(avail_comment.comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(RIGHT(avail_comment.comment,2),'24','00'),'0000'),shift.end)) AS TIME),shift.start)";
       //
-      const string MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER = " , IF(CAST(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  " AS TIME) >= CAST(0 AS TIME)," + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",DATE_ADD(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",INTERVAL 24 HOUR)) as muster_to_logoff_timespan";
+      const string MUSTER_TO_LOGON_TIMESPAN_COOKED_DAY = " IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) >= CAST('-06:00:00' AS TIME)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ",DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 12 HOUR))";
+      const string MUSTER_TO_LOGON_TIMESPAN_COOKED_NIGHT = " IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) BETWEEN CAST('-18:00:00' AS TIME) AND CAST('-12:00:00' AS TIME),DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 24 HOUR)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ")";
+      const string MUSTER_TO_LOGOFF_TIMESPAN_COOKED = " IF(CAST(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  " AS TIME) >= CAST(0 AS TIME)," + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",DATE_ADD(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",INTERVAL 24 HOUR))";
       //
       Update_Dispositioned Dispositioned = delegate (string sql)
         {
@@ -3352,8 +3354,8 @@ namespace Class_db_schedule_assignments
               + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
               + " , @be_selected as be_new"
               + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
-              + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) >= CAST('-06:00:00' AS TIME)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ",DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 12 HOUR)) as muster_to_logon_timespan"
-              +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
+              + " , " + MUSTER_TO_LOGON_TIMESPAN_COOKED_DAY + " as muster_to_logon_timespan"
+              + " , " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED + "  as muster_to_logoff_timespan"
               + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
               +   " join shift on (shift.name='DAY')"
               +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
@@ -3377,6 +3379,8 @@ namespace Class_db_schedule_assignments
               + " where avail_sheet.month = '" + month_abbreviation + "'"
               +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
               + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+              +   " , schedule_assignment.muster_to_logon_timespan = " + MUSTER_TO_LOGON_TIMESPAN_COOKED_DAY
+              +   " , schedule_assignment.muster_to_logoff_timespan = " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED
               + ";"
               + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
               + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
@@ -3386,8 +3390,8 @@ namespace Class_db_schedule_assignments
               + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
               + " , @be_selected as be_new"
               + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
-              + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) BETWEEN CAST('-18:00:00' AS TIME) AND CAST('-12:00:00' AS TIME),DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 24 HOUR)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ") as muster_to_logon_timespan"
-              +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
+              + " , " + MUSTER_TO_LOGON_TIMESPAN_COOKED_NIGHT + " as muster_to_logon_timespan"
+              + " , " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED + " as muster_to_logoff_timespan"
               + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
               +   " join shift on (shift.name='NIGHT')"
               +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
@@ -3411,6 +3415,8 @@ namespace Class_db_schedule_assignments
               + " where avail_sheet.month = '" + month_abbreviation + "'"
               +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
               + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+              +   " , schedule_assignment.muster_to_logon_timespan = " + MUSTER_TO_LOGON_TIMESPAN_COOKED_NIGHT
+              +   " , schedule_assignment.muster_to_logoff_timespan = " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED
               + ";"
               );
             }
