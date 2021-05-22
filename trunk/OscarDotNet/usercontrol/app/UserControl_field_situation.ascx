@@ -113,7 +113,7 @@
               </tr>
               <tr>
                 <td valign="top">&bull;</td>
-                <td>It only forms a rough &quot;Impression&quot; of the nature of the case (for OSCALERT purposes) because the external data source does not reveal specific natures.</td>
+                <td>The external data source does not reveal specific natures for all cases.</td>
               </tr>
             </table>
           </td>
@@ -148,12 +148,12 @@
                             <td>Field supervisor</td>
                           </tr>
                           <tr>
-                            <td>LG</td>
-                            <td>Lifeguard supervisor</td>
+                            <td>RLG</td>
+                            <td>Resort lifeguard supervisor</td>
                           </tr>
                           <tr>
-                            <td>MBOAT</td>
-                            <td>EMS Boat</td>
+                            <td>SLG</td>
+                            <td>Sandbridge lifeguard supervisor</td>
                           </tr>
                           <tr>
                             <td>MD</td>
