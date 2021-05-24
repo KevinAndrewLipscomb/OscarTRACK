@@ -61,6 +61,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_capcode" runat="server" errormessage="Please enter Capcode." font-bold="True" controltovalidate="TextBox_capcode">!ERR!</ASP:RequiredFieldValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_capcode" runat="server" ErrorMessage="Please enter a valid Capcode." ControlToValidate="TextBox_capcode" Font-Bold="True" ValidationExpression="\d{1,7}">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
   <tr>
@@ -72,6 +73,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_unit" runat="server" errormessage="Please enter Unit." font-bold="True" controltovalidate="TextBox_unit">!ERR!</ASP:RequiredFieldValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_unit" runat="server" ErrorMessage="Please enter a valid Unit designator." ControlToValidate="TextBox_unit" Font-Bold="True" ValidationExpression="[A-Za-z][A-Za-z0-9]+">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
       </table>

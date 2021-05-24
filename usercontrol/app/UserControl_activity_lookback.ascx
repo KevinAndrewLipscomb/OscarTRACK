@@ -11,7 +11,13 @@
                 <small>
                   <p>Best practices</p>
                   <ul>
-                    <li><p>This data is provided solely to support Virginia Beach City Council's Tax Levy on Personal Property, Section 16.</p></li>
+                    <li>
+                      <p>
+                        This data is provided solely to support Virginia Beach City Council&#39;s annual Tax Levy on Personal Property ordinance, which is associated with each year&#39;s
+                        <a href="https://www.vbgov.com/government/departments/budget-office-management-services/budget-archives/Pages/default.aspx">Operating Budget</a>.&nbsp; See the section titled, &quot;Amount of Levy on EMS Volunteer Motor
+                        Vehicles&quot;.
+                      </p>
+                    </li>
                     <li><p>Duty hour and obligation values are based on business rules that only apply to this specific tax relief program.</p></li>
                   </ul>
                 </small>
