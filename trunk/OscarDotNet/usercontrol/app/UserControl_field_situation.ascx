@@ -156,12 +156,20 @@
                             <td>Sandbridge lifeguard supervisor</td>
                           </tr>
                           <tr>
+                            <td>MATV</td>
+                            <td>Medical All-Terrain Vehicle</td>
+                          </tr>
+                          <tr>
                             <td>MD</td>
                             <td>Physician</td>
                           </tr>
                           <tr>
                             <td>MMTK</td>
                             <td>Marine rescue truck</td>
+                          </tr>
+                          <tr>
+                            <td>MUTK</td>
+                            <td>Medical utility truck</td>
                           </tr>
                           <tr>
                             <td>NGALE</td>
