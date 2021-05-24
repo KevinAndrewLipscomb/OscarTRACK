@@ -14,7 +14,7 @@
                     <li>
                       <p>
                         This data is provided solely to support Virginia Beach City Council&#39;s annual Tax Levy on Personal Property ordinance, which is associated with each year&#39;s
-                        <a href="https://www.vbgov.com/government/departments/budget-office-management-services/budget-archives/Pages/default.aspx">Operating Budget</a>.&nbsp; See the section titled, &quot;Amount of Levy on EMS Volunteer Motor
+                        <a href="https://www.vbgov.com/government/departments/budget-office-management-services/budget-archives/Pages/default.aspx" target="_blank">Operating Budget</a>.&nbsp; See the section titled, &quot;Amount of Levy on EMS Volunteer Motor
                         Vehicles&quot;.
                       </p>
                     </li>
