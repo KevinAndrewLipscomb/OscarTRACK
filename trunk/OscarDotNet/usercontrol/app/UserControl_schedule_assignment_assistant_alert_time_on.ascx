@@ -31,7 +31,7 @@
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:ButtonColumn DataTextField="name" HeaderText="..this member...">
-                        <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
+                        <HeaderStyle Font-Bold="True" HorizontalAlign="Center" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>

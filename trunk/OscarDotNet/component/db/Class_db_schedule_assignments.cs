@@ -1675,7 +1675,7 @@ namespace Class_db_schedule_assignments
           +   " join avail_sheet on (avail_sheet.odnmid=member.id)"
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where ADDTIME(SUBTIME(first_schedule_assignment.muster_to_logoff_timespan,first_schedule_assignment.muster_to_logon_timespan),SUBTIME(second_schedule_assignment.muster_to_logoff_timespan,second_schedule_assignment.muster_to_logon_timespan)) > '18:00:00'"
-          +   " and time_off < 36"
+          +   " and time_off between 0 and 36"
           +   " and month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
           + " order by time_off,second_schedule_assignment.nominal_day,second_shift.start",
           connection,
@@ -1753,7 +1753,8 @@ namespace Class_db_schedule_assignments
           + " , @time_on := IF((member_id = @member_id) and (on_duty = @off_duty),@time_on + TIMESTAMPDIFF(HOUR,on_duty,off_duty),TIMESTAMPDIFF(HOUR,on_duty,off_duty)) as time_on"
           + " , @off_duty := off_duty as off_duty"
           + " , @member_id := member_id as member_id"
-          + " from (select @time_on := '', @off_duty := '', @member_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id",
+          + " from (select @time_on := '', @off_duty := '', @member_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id"
+          + " where post_id <> '450'", // CDO
           connection,
           transaction
           );
@@ -1955,7 +1956,7 @@ namespace Class_db_schedule_assignments
         // Select members who submitted despite their status indicating they didn't have to or shouldn't have.
         //
         + " ("
-        + " select distinct concat(first_name,' ',last_name) as name"
+        + " select distinct concat(last_name,', ',first_name) as name"
         + " , last_name"
         + " , first_name"
         + " , member.id as member_id"
@@ -2021,13 +2022,14 @@ namespace Class_db_schedule_assignments
         +       " ,"
         +         " 0"
         +       " )"
+        +   " and enrollment_level.description <> 'Staff'"
         + " )"
         + " UNION"
         //
         // Select members who belong to one agency but submitted to another, regardless of the member's status.
         //
         + " ("
-        + " select distinct concat(member.first_name,' ',member.last_name) as name"
+        + " select distinct concat(member.last_name,', ',member.first_name) as name"
         + " , member.last_name"
         + " , member.first_name"
         + " , member.id as member_id"
