@@ -1875,7 +1875,7 @@ namespace Class_db_members
       Open();
       using var my_sql_command = new MySqlCommand
         (
-        "select concat(member.first_name,' ',member.last_name) as name"
+        "select distinct concat(member.last_name,', ',member.first_name) as name"
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
         + " , medical_release_code_description_map.watchbill_rendition as level"
