@@ -73,7 +73,7 @@
                           <asp:Image ID="Image_compliant" runat="server" ImageUrl="~/protected/image/dialog-clean.png" Visible="False" />
                           <asp:Image ID="Image_noncompliant" runat="server" ImageUrl="~/protected/image/appointment-missed.png" Visible="False" />
                         </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Right" />
+                        <ItemStyle HorizontalAlign="Center" />
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="be_notification_pending" HeaderText="**" SortExpression="be_notification_pending%,member.last_name,member.first_name">
                         <ItemStyle Font-Bold="True" Wrap="False" />

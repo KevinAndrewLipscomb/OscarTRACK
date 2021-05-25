@@ -1525,7 +1525,7 @@ namespace Class_db_schedule_assignments
       Open();
       using var my_sql_command = new MySqlCommand
         (
-        "select distinct concat(member.first_name,' ',member.last_name) as name"
+        "select distinct concat(member.last_name,', ',member.first_name) as name"
         + " , member.id as member_id"
         + " , agency.short_designator as agency"
         + " , section_num"
