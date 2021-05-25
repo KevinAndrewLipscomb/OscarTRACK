@@ -140,6 +140,10 @@
                             <td>Ambulance</td>
                           </tr>
                           <tr>
+                            <td>CART</td>
+                            <td>Multipurpose off-highway utility vehicle (ambulette)</td>
+                          </tr>
+                          <tr>
                             <td>ECH</td>
                             <td>EMS Chief</td>
                           </tr>
@@ -178,10 +182,6 @@
                           <tr>
                             <td>NR</td>
                             <td>Navy rescue (ambulance)</td>
-                          </tr>
-                          <tr>
-                            <td>U</td>
-                            <td>Utility</td>
                           </tr>
                           <tr>
                             <td>ZM</td>
