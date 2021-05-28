@@ -56,7 +56,7 @@
     <td><font class="">Designator:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_designator" runat="server" columns="4" maxlength="4" cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:TextBox id="TextBox_designator" runat="server" columns="6" maxlength="6" cssclass="" enabled="False"></ASP:TextBox>
       </font>
     </td>
     <td nowrap="nowrap">
