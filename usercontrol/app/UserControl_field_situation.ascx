@@ -168,6 +168,10 @@
                             <td>Physician</td>
                           </tr>
                           <tr>
+                            <td>MM</td>
+                            <td>Marine medic</td>
+                          </tr>
+                          <tr>
                             <td>MMTK</td>
                             <td>Marine rescue truck</td>
                           </tr>
