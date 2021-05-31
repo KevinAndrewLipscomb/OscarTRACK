@@ -41,7 +41,7 @@ namespace Class_db_field_situations
         +     " or"
         +       " assignment like '%,%'"
         +     " )"
-        + " order by case_num desc, field_situation.id desc",
+        + " order by time_initialized desc, case_num desc, field_situation.id desc",
         connection
         );
       ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
