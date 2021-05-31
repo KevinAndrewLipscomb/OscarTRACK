@@ -128,13 +128,14 @@
               <tr>
                 <td>
                   <table>
+                    <tr>
+                      <td style="text-decoration: underline">EMS Department</td>
+                      <td>&nbsp;</td>
+                      <td style="text-decoration: underline">Fire Department</td>
+                    </tr>
                     <tr valign="top">
                       <td>
                         <table>
-                          <tr>
-                            <td style="text-decoration: underline">Prefix</td>
-                            <td style="text-decoration: underline">Meaning</td>
-                          </tr>
                           <tr>
                             <td>A</td>
                             <td>Ambulance</td>
@@ -150,14 +151,6 @@
                           <tr>
                             <td>EMS</td>
                             <td>Field supervisor</td>
-                          </tr>
-                          <tr>
-                            <td>RLG</td>
-                            <td>Resort lifeguard supervisor</td>
-                          </tr>
-                          <tr>
-                            <td>SLG</td>
-                            <td>Sandbridge lifeguard supervisor</td>
                           </tr>
                           <tr>
                             <td>MATV</td>
@@ -188,8 +181,53 @@
                             <td>Navy rescue (ambulance)</td>
                           </tr>
                           <tr>
+                            <td>RLG</td>
+                            <td>Resort lifeguard supervisor</td>
+                          </tr>
+                          <tr>
+                            <td>SLG</td>
+                            <td>Sandbridge lifeguard supervisor</td>
+                          </tr>
+                          <tr>
                             <td>ZM</td>
                             <td>Zone medic ALS car</td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td>&nbsp;</td>
+                      <td>
+                        <table>
+                          <tr>
+                            <td>BAT</td>
+                            <td>Battalion chief</td>
+                          </tr>
+                          <tr>
+                            <td>CAR</td>
+                            <td>Division chief or higher command officer</td>
+                          </tr>
+                          <tr>
+                            <td>E</td>
+                            <td>Engine</td>
+                          </tr>
+                          <tr>
+                            <td>FR</td>
+                            <td>Fire rescue (crash/technical)</td>
+                          </tr>
+                          <tr>
+                            <td>HAZ</td>
+                            <td>Hazmat</td>
+                          </tr>
+                          <tr>
+                            <td>L</td>
+                            <td>Ladder</td>
+                          </tr>
+                          <tr>
+                            <td>SAFE</td>
+                            <td>Safety</td>
+                          </tr>
+                          <tr>
+                            <td>T</td>
+                            <td>Tanker (water tender)</td>
                           </tr>
                         </table>
                       </td>
@@ -280,7 +318,7 @@
                           </tr>
                           <tr>
                             <td>15</td>
-                            <td>Thalia</td>
+                            <td>Thalia (EMS) / Fort Story (Fire)</td>
                           </tr>
                           <tr>
                             <td>16</td>
