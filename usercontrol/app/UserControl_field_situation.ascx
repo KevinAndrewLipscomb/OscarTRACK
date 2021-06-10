@@ -145,6 +145,10 @@
                             <td>Multipurpose off-highway utility vehicle (ambulette)</td>
                           </tr>
                           <tr>
+                            <td>CSM</td>
+                            <td>Community (proactive) Service Medic</td>
+                          </tr>
+                          <tr>
                             <td>ECH</td>
                             <td>EMS Chief</td>
                           </tr>
