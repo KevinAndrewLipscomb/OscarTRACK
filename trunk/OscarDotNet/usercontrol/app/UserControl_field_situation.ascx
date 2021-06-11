@@ -226,8 +226,16 @@
                             <td>Ladder</td>
                           </tr>
                           <tr>
+                            <td>NE</td>
+                            <td>Navy Engine</td>
+                          </tr>
+                          <tr>
                             <td>SAFE</td>
                             <td>Safety</td>
+                          </tr>
+                          <tr>
+                            <td>SUP</td>
+                            <td>Support</td>
                           </tr>
                           <tr>
                             <td>T</td>
