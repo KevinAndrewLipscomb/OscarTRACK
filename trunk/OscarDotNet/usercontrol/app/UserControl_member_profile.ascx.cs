@@ -91,7 +91,6 @@ namespace UserControl_member_profile
           p.oscalert_threshold_als = oscalert_threshold_als;
           (FindControl(id:"RadioButton_" + (p.oscalert_threshold_general.Length > 0 ? p.oscalert_threshold_general : "no_general")) as RadioButton).Checked = true;
           (FindControl(id:"RadioButton_" + (p.oscalert_threshold_als.Length > 0 ? p.oscalert_threshold_als : "no_als")) as RadioButton).Checked = true;
-          CheckBox_trap.Checked = do_oscalert_for_trap;
           CheckBox_airport_alert.Checked = do_oscalert_for_airport_alert;
           CheckBox_mrt_call.Checked = do_oscalert_for_mrt;
           CheckBox_sar_call.Checked = do_oscalert_for_sart;
@@ -258,7 +257,7 @@ namespace UserControl_member_profile
           phone_service_id:k.Safe(DropDownList_phone_service.SelectedValue,k.safe_hint_type.NUM),
           oscalert_threshold_general:p.oscalert_threshold_general,
           oscalert_threshold_als:p.oscalert_threshold_als,
-          do_oscalert_for_trap:CheckBox_trap.Checked,
+          do_oscalert_for_trap:false,
           do_oscalert_for_airport_alert:CheckBox_airport_alert.Checked,
           do_oscalert_for_mrt:CheckBox_mrt_call.Checked,
           do_oscalert_for_sart:CheckBox_sar_call.Checked,

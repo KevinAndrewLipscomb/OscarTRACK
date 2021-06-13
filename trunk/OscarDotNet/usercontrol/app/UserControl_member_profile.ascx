@@ -225,15 +225,10 @@
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                     <tr>
                       <td nowrap="nowrap" rowspan="4" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">Specific subscriptions:</font></td>
-                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_trap" runat="server" TextAlign="Left"/></td>
-                      <td align="center" valign="middle"><b>Trap</b></td>
-                      <td align="center" nowrap="nowrap" valign="middle"><small>When the Squad Truck Team is called out</small></td>
-                      <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
-                    </tr>
-                    <tr>
                       <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_airport_alert" runat="server" TextAlign="Left"/></td>
                       <td align="center" valign="middle"><b>AirportAlert</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small>When an airport field alert has been declared</small></td>
+                      <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
                     </tr>
                     <tr>
                       <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_mrt_call" runat="server" TextAlign="Left"/></td>
