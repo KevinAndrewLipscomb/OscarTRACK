@@ -218,10 +218,6 @@
                             <td>Fire rescue (crash/technical)</td>
                           </tr>
                           <tr>
-                            <td>HAZ</td>
-                            <td>Hazmat</td>
-                          </tr>
-                          <tr>
                             <td>L</td>
                             <td>Ladder</td>
                           </tr>
