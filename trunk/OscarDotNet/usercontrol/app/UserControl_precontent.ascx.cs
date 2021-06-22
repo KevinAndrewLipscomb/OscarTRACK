@@ -195,7 +195,7 @@ namespace UserControl_precontent
 
     protected void LinkButton_role_comms_Click(object sender, System.EventArgs e)
       {
-      p.msg_protected_overview.target = "/config/role-and-mappings/roles/";
+      p.msg_protected_overview.target = "/config/roles-and-mappings/roles/";
       MessageDropCrumbAndTransferTo
         (
         msg:p.msg_protected_overview,
