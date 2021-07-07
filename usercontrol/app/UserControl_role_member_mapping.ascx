@@ -20,7 +20,7 @@
             <table cellspacing="0" cellpadding="10" border="0">
               <tr>
                 <td nowrap="nowrap" valign="top">
-                  <asp:GridView id="GridView_control" runat="server" gridlines="Horizontal" cellpadding="5" allowsorting="True" emptydatatext="No mappings" bordercolor="Gainsboro" borderstyle="Solid" borderwidth="1px" autogeneratecolumns="False">
+                  <asp:GridView id="GridView_control" runat="server" gridlines="Horizontal" cellpadding="5" allowsorting="True" emptydatatext="No mappings" bordercolor="Gainsboro" borderstyle="Solid" borderwidth="1px" autogeneratecolumns="False" OnSelectedIndexChanging="GridView_control_SelectedIndexChanging">
                     <RowStyle font-size="Small"></RowStyle>
                     <Columns>
                       <asp:CommandField causesvalidation="False" deleteimageurl="~/protected/image/delete_x16_h.png" deletetext="Unmap" showdeletebutton="True" buttontype="Image">
@@ -33,10 +33,13 @@
                         <HeaderStyle horizontalalign="Left"></HeaderStyle>
                         <ItemStyle horizontalalign="Left"></ItemStyle>
                       </asp:BoundField>
-                      <asp:BoundField datafield="member_designator" headertext="Member" sortexpression="member_designator%,role_pecking_order">
-                        <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                        <ItemStyle horizontalalign="Left"></ItemStyle>
-                      </asp:BoundField>
+                      <asp:TemplateField HeaderText="Member" ShowHeader="False" SortExpression="member_designator%,role_pecking_order">
+                        <ItemTemplate>
+                          <asp:LinkButton ID="LinkButton_member" runat="server" CausesValidation="false" CommandName="Select" Text='<%# Eval("member_designator") %>'></asp:LinkButton>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" />
+                        <ItemStyle HorizontalAlign="Left" />
+                      </asp:TemplateField>
                       <asp:BoundField datafield="member_id"></asp:BoundField>
                       <asp:BoundField datafield="cad_num"></asp:BoundField>
                       <asp:BoundField datafield="agency_id"></asp:BoundField>
