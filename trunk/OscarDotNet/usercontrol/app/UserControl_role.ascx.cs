@@ -18,10 +18,11 @@ namespace UserControl_role
     {
     private static class Static
       {
-      public const int TCI_NAME = 0;
-      public const int TCI_AGENCY = 1;
-      public const int TCI_EMAIL_TARGET = 2;
-      public const int TCI_SMS_TARGET = 3;
+      public const int TCI_SELECT_FOR_QUICKMESSAGE = 0;
+      public const int TCI_NAME = 1;
+      public const int TCI_AGENCY = 2;
+      public const int TCI_EMAIL_TARGET = 3;
+      public const int TCI_SMS_TARGET = 4;
       }
 
     private struct p_type
@@ -62,8 +63,11 @@ namespace UserControl_role
       for (var i = new k.subtype<int>(0, GridView_holders.Rows.Count); i.val < i.LAST; i.val++)
         {
         tcc = GridView_holders.Rows[i.val].Cells;
-        v.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
-        v.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+        if ((tcc[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked)
+          {
+          v.distribution_list_email.Append(tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          v.distribution_list_sms.Append(tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          }
         //
         // Calls to ScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
         //
@@ -530,6 +534,20 @@ namespace UserControl_role
       {
       p.be_scope_cross_agency = (k.Safe(RadioButtonList_scope.SelectedValue,k.safe_hint_type.HYPHENATED_ALPHA) == "cross-agency");
       BindHolders();
+      }
+
+    protected void CheckBox_force_all_CheckedChanged(object sender, EventArgs e)
+      {
+      for (var i = new k.subtype<int>(0,GridView_holders.Rows.Count); i.val < i.LAST; i.val++)
+        {
+        (GridView_holders.Rows[i.val].Cells[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked = (sender as CheckBox).Checked;
+        }
+      BuildDistributionListAndRegisterPostBackControls();
+      }
+
+    protected void CheckBox_selected_CheckedChanged(object sender, EventArgs e)
+      {
+      BuildDistributionListAndRegisterPostBackControls();
       }
 
     } // end TWebUserControl_role

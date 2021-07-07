@@ -4,14 +4,32 @@ using Class_biz_role_member_map;
 using Class_biz_roles;
 using Class_biz_tiers;
 using Class_biz_user;
+using Class_db_role_member_map;
 using kix;
 using System.Configuration;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_role_member_mapping
-{
-    public partial class TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class
+  {
+
+  public partial class TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class
     {
+
+    public static class Static
+      {
+      public const int CI_UNMAP = 0;
+      public const int CI_ROLE_ID = 1;
+      public const int CI_ROLE_TIER_ID = 2;
+      public const int CI_ROLE_PECKING_ORDER = 3;
+      public const int CI_ROLE_NAME = 4;
+      public const int CI_MEMBER_DESIGNATOR = 5;
+      public const int CI_MEMBER_ID = 6;
+      public const int CI_MEMBER_CAD_NUM = 7;
+      public const int CI_MEMBER_AGENCY_ID = 8;
+      public const string INITIAL_SORT_ORDER = "role_pecking_order%,cad_num,member_designator";
+      }
+
     private struct p_type
     {
         public string TIER_ID_DEPARTMENT;
@@ -182,7 +200,7 @@ namespace UserControl_role_member_mapping
                 p.be_loaded = false;
                 p.be_sort_order_ascending = true;
                 p.may_add_mappings = k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices") || k.Has((string[])(Session["privilege_array"]), "assign-department-roles-to-members") || k.Has((string[])(Session["privilege_array"]), "assign-squad-roles-to-members");
-                p.sort_order = Units.UserControl_role_member_mapping.INITIAL_SORT_ORDER;
+                p.sort_order = Static.INITIAL_SORT_ORDER;
                 p.tier_filter = p.own_tier;
             }
 
@@ -215,52 +233,67 @@ namespace UserControl_role_member_mapping
 
         private void GridView_control_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
-            p.biz_role_member_map.Save(k.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].Text, k.safe_hint_type.NUM), k.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].Text, k.safe_hint_type.NUM), false);
+            p.biz_role_member_map.Save(k.Safe(GridView_control.Rows[e.RowIndex].Cells[Static.CI_MEMBER_ID].Text, k.safe_hint_type.NUM), k.Safe(GridView_control.Rows[e.RowIndex].Cells[Static.CI_ROLE_ID].Text, k.safe_hint_type.NUM), false);
             Bind();
         }
 
-        private void GridView_control_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+    private void GridView_control_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+      {
+        if (e.Row.RowType != DataControlRowType.EmptyDataRow)
         {
-            bool be_ok_to_delete;
-            if (e.Row.RowType != DataControlRowType.EmptyDataRow)
-            {
-                be_ok_to_delete = p.be_interactive && p.biz_role_member_map.BePrivilegedToModifyTuple(k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"), k.Has((string[])(Session["privilege_array"]), "assign-department-roles-to-members"), k.Has((string[])(Session["privilege_array"]), "assign-squad-roles-to-members"), e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_TIER_ID].Text, e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_NAME].Text, e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_AGENCY_ID].Text);
-                if (be_ok_to_delete)
-                {
-                // Appears to clobber a necessary ASP.NET onclick event.  Should probably use AJAX instead.
-                // RequireConfirmation
-                // (
-                // ImageButton(e.row.Cells[CI_UNMAP].Controls[0]),
-                // 'Are you sure you want to unmap the ' + e.row.Cells[CI_ROLE_NAME].Text + ' role from member '
-                // + e.row.Cells[CI_MEMBER_DESIGNATOR].Text + '?' + k.NEW_LINE
-                // + k.NEW_LINE
-                // + 'Clicking Ok may prevent the member from using certain ' + ConfigurationManager.AppSettings['application_name']
-                // + ' features and receiving certain notifications and reports.'
-                // );
-                }
-                else
-                {
-                    e.Row.Cells[Units.UserControl_role_member_mapping.CI_UNMAP].Enabled = false;
-                    e.Row.Cells[Units.UserControl_role_member_mapping.CI_UNMAP].Text = k.EMPTY;
-                }
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].Visible = false;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_TIER_ID].Visible = false;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_PECKING_ORDER].Visible = false;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].Visible = false;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_CAD_NUM].Visible = false;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_AGENCY_ID].Visible = false;
-                //
-                // Remove all cell controls from viewstate except for the ones at ID fields.
-                //
-                foreach (TableCell cell in e.Row.Cells)
-                  {
-                  cell.EnableViewState = false;
-                  }
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].EnableViewState = true;
-                e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].EnableViewState = true;
-                //
-            }
+        if (e.Row.RowType == DataControlRowType.DataRow)
+          {
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(control:e.Row.Cells[Static.CI_MEMBER_DESIGNATOR].FindControl("LinkButton_member") as LinkButton);
+          }
+        //
+        if( // be ok to delete
+            p.be_interactive
+          &&
+            p.biz_role_member_map.BePrivilegedToModifyTuple
+              (
+              has_config_roles_and_matrices:k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"),
+              has_assign_department_roles_to_members:k.Has((string[])(Session["privilege_array"]), "assign-department-roles-to-members"),
+              has_assign_squad_roles_to_members:k.Has((string[])(Session["privilege_array"]), "assign-squad-roles-to-members"),
+              role_tier_id:e.Row.Cells[Static.CI_ROLE_TIER_ID].Text,
+              role_natural_text:e.Row.Cells[Static.CI_ROLE_NAME].Text,
+              subject_member_agency_id:e.Row.Cells[Static.CI_MEMBER_AGENCY_ID].Text
+              )
+          )
+          {
+          // Appears to clobber a necessary ASP.NET onclick event.  Should probably use AJAX instead.
+          // RequireConfirmation
+          // (
+          // ImageButton(e.row.Cells[CI_UNMAP].Controls[0]),
+          // 'Are you sure you want to unmap the ' + e.row.Cells[CI_ROLE_NAME].Text + ' role from member '
+          // + e.row.Cells[CI_MEMBER_DESIGNATOR].Text + '?' + k.NEW_LINE
+          // + k.NEW_LINE
+          // + 'Clicking Ok may prevent the member from using certain ' + ConfigurationManager.AppSettings['application_name']
+          // + ' features and receiving certain notifications and reports.'
+          // );
+          }
+        else
+          {
+          e.Row.Cells[Static.CI_UNMAP].Enabled = false;
+          e.Row.Cells[Static.CI_UNMAP].Text = k.EMPTY;
+          }
+        e.Row.Cells[Static.CI_ROLE_ID].Visible = false;
+        e.Row.Cells[Static.CI_ROLE_TIER_ID].Visible = false;
+        e.Row.Cells[Static.CI_ROLE_PECKING_ORDER].Visible = false;
+        e.Row.Cells[Static.CI_MEMBER_ID].Visible = false;
+        e.Row.Cells[Static.CI_MEMBER_CAD_NUM].Visible = false;
+        e.Row.Cells[Static.CI_MEMBER_AGENCY_ID].Visible = false;
+        //
+        // Remove all cell controls from viewstate except for the ones at ID fields.
+        //
+        foreach (TableCell cell in e.Row.Cells)
+          {
+          cell.EnableViewState = false;
+          }
+        e.Row.Cells[Static.CI_ROLE_ID].EnableViewState = true;
+        e.Row.Cells[Static.CI_MEMBER_ID].EnableViewState = true;
+        //
         }
+      }
 
         protected void Button_add_Click(object sender, System.EventArgs e)
         {
@@ -271,7 +304,7 @@ namespace UserControl_role_member_mapping
         protected void DropDownList_tier_filter_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             p.tier_filter = k.Safe(DropDownList_tier_filter.SelectedValue, k.safe_hint_type.NUM);
-            p.sort_order = Units.UserControl_role_member_mapping.INITIAL_SORT_ORDER;
+            p.sort_order = Static.INITIAL_SORT_ORDER;
             p.be_sort_order_ascending = true;
             Bind();
         }
@@ -294,7 +327,7 @@ namespace UserControl_role_member_mapping
         protected void DropDownList_agency_filter_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             p.agency_filter = k.Safe(DropDownList_agency_filter.SelectedValue, k.safe_hint_type.NUM);
-            p.sort_order = Units.UserControl_role_member_mapping.INITIAL_SORT_ORDER;
+            p.sort_order = Static.INITIAL_SORT_ORDER;
             p.be_sort_order_ascending = true;
             Bind();
         }
@@ -330,25 +363,12 @@ namespace UserControl_role_member_mapping
 
         }
 
+    protected void GridView_control_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+      {
+      SessionSet("member_summary",p.biz_members.Summary(k.Safe(GridView_control.Rows[e.NewSelectedIndex].Cells[Static.CI_MEMBER_ID].Text,k.safe_hint_type.NUM)));
+      DropCrumbAndTransferTo("member_detail.aspx");
+      }
+
     } // end TWebUserControl_role_member_mapping
 
-}
-
-namespace UserControl_role_member_mapping.Units
-{
-    public class UserControl_role_member_mapping
-    {
-        public const int CI_UNMAP = 0;
-        public const int CI_ROLE_ID = 1;
-        public const int CI_ROLE_TIER_ID = 2;
-        public const int CI_ROLE_PECKING_ORDER = 3;
-        public const int CI_ROLE_NAME = 4;
-        public const int CI_MEMBER_DESIGNATOR = 5;
-        public const int CI_MEMBER_ID = 6;
-        public const int CI_MEMBER_CAD_NUM = 7;
-        public const int CI_MEMBER_AGENCY_ID = 8;
-        public const string INITIAL_SORT_ORDER = "role_pecking_order%,cad_num,member_designator";
-    } // end UserControl_role_member_mapping
-
-}
-
+  }
