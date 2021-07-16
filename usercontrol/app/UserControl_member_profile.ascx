@@ -231,20 +231,15 @@
                       <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
                     </tr>
                     <tr>
-                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_mrt_call" runat="server" TextAlign="Left"/></td>
-                      <td align="center" valign="middle"><b>MrtCall</b></td>
-                      <td align="center" nowrap="nowrap" valign="middle"><small>When the Marine Rescue Team is called out</small></td>
-                    </tr>
-                    <tr>
                       <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_sar_call" runat="server" TextAlign="Left"/></td>
                       <td align="center" valign="middle"><b>SarCall</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small>When the Search And Rescue Team is called out</small></td>
                     </tr>
-                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr><td colspan="5">&nbsp;</td></tr>
                     <tr>
-                      <td nowrap="nowrap" style="border-left: thin solid Gainsboro"><font class="">&nbsp;</font></td>
+                      <td nowrap="nowrap"><font class="">&nbsp;</font></td>
                       <td colspan="3"><asp:Button ID="Button_save_oscalert_settings_2" runat="server" Text="Save OSCALERT settings" ValidationGroup="oscalert_settings" onclick="Button_save_oscalert_settings_Click" UseSubmitBehavior="False"/></td>
-                      <td nowrap="nowrap" style="border-right: thin solid Gainsboro">&nbsp;</td>
+                      <td nowrap="nowrap">&nbsp;</td>
                     </tr>
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                   </table>

@@ -92,7 +92,6 @@ namespace UserControl_member_profile
           (FindControl(id:"RadioButton_" + (p.oscalert_threshold_general.Length > 0 ? p.oscalert_threshold_general : "no_general")) as RadioButton).Checked = true;
           (FindControl(id:"RadioButton_" + (p.oscalert_threshold_als.Length > 0 ? p.oscalert_threshold_als : "no_als")) as RadioButton).Checked = true;
           CheckBox_airport_alert.Checked = do_oscalert_for_airport_alert;
-          CheckBox_mrt_call.Checked = do_oscalert_for_mrt;
           CheckBox_sar_call.Checked = do_oscalert_for_sart;
           }
         //
@@ -259,7 +258,7 @@ namespace UserControl_member_profile
           oscalert_threshold_als:p.oscalert_threshold_als,
           do_oscalert_for_trap:false,
           do_oscalert_for_airport_alert:CheckBox_airport_alert.Checked,
-          do_oscalert_for_mrt:CheckBox_mrt_call.Checked,
+          do_oscalert_for_mrt:false,
           do_oscalert_for_sart:CheckBox_sar_call.Checked,
           summary:p.summary
           );
