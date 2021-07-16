@@ -447,15 +447,6 @@ namespace UserControl_member_profile
     protected global::System.Web.UI.WebControls.CheckBox CheckBox_airport_alert;
 
     /// <summary>
-    /// CheckBox_mrt_call control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.CheckBox CheckBox_mrt_call;
-
-    /// <summary>
     /// CheckBox_sar_call control.
     /// </summary>
     /// <remarks>
