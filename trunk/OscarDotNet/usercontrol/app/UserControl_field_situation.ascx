@@ -145,6 +145,10 @@
                             <td>Multipurpose off-highway utility vehicle (ambulette)</td>
                           </tr>
                           <tr>
+                            <td>CHA</td>
+                            <td>Chesapeake Ambulance</td>
+                          </tr>
+                          <tr>
                             <td>CSM</td>
                             <td>Community (proactive) Service Medic</td>
                           </tr>
