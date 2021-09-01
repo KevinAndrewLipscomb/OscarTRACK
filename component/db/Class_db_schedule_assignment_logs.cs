@@ -117,7 +117,7 @@ namespace Class_db_schedule_assignment_logs
           + " , month = MONTH(CURDATE())"
           + " , be_agency_id_applicable = " + be_agency_id_applicable.ToString()
           + " , agency_id = '" + (be_agency_id_applicable ? agency_id : "0") + "'"
-          + " , value = 100.0*(" + forecast_slots.ToString() + " - " + num_released_core_ops_tapouts.val.ToString() + ")/" + forecast_slots.ToString()
+          + " , value = IFNULL(100.0*(" + forecast_slots.ToString() + " - " + num_released_core_ops_tapouts.val.ToString() + ")/" + forecast_slots.ToString() + ",0)"
           ),
         connection
         );
