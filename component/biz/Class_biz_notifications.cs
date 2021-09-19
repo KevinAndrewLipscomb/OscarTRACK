@@ -77,6 +77,11 @@ namespace Class_biz_notifications
             db_notifications.CycleTallies();
         }
 
+    internal void IncrementEventTallyOnly(string name)
+      {
+      db_notifications.IncrementTallies(name);
+      }
+
     private delegate string IssueExternalForGeneralDeparture_Merge(string s);
     public void IssueExternalForNonFutureGeneralDeparture // *Future* general departures are reported as part of daily_tasks.aspx.cs.
       (
@@ -776,7 +781,7 @@ namespace Class_biz_notifications
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
             to:biz_members.EmailAddressOf(evaluator_member_id) + k.COMMA + db_notifications.TargetOf("eval-archived",evaluator_member_id),
-              // Provide evaluatEE_member_id to above TargetOf when dept returns to tracking Students and BLS Interns via the agency attribute rather than the section attribute.
+              // Provide evaluatEE_member_id to above TargetOf when dept returns to tracking Students, Oriented Students, and BLS Interns via the agency attribute rather than the section attribute.
             subject:Merge(template_reader.ReadLine()),
             message_string:Merge(template_reader.ReadToEnd()),
             be_html:false,

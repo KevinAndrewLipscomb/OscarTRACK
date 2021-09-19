@@ -23,9 +23,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <p>Indicate the level at which
-                        <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>
-                        &nbsp;is approved <u>to function in Virginia Beach</u>.</p>
+                      <p>Indicate the level at which <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label> is approved <u>to function in Virginia Beach</u>.</p>
                       <table  id="HtmlTable_proper_release_reminder" runat="server" bordercolor="#ffff00" cellspacing="0" cellpadding="5" bgcolor="#ffff00" border="1">
                         <tr>
                           <td>
@@ -45,9 +43,28 @@
                               <asp:RequiredFieldValidator id="RequiredFieldValidator_medical_release_level" runat="server" errormessage="Please select a new released certification level." font-bold="True" controltovalidate="DropDownList_medical_release_level" display="Dynamic">!ERR!</asp:RequiredFieldValidator>
                               <asp:CustomValidator id="CustomValidator_control" runat="server" display="Dynamic" font-bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
                             </blockquote>
+                            <asp:Panel  id="Panel_will_force_no_choice_enrollment" runat="server" visible="false">
+                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to Regular for you.</p>
+                            </asp:Panel>
+                            <asp:Panel  id="Panel_will_force_physician_choice_enrollment" runat="server" visible="false">
+                              <p>
+                                Select the appropriate new Membership Status for this physician:
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator_physician_choice" runat="server" ErrorMessage="Please select the appropriate Membership Status." Enabled="False" ControlToValidate="RadioButtonList_disposition" Font-Bold="True" Display="Dynamic">!ERR!</asp:RequiredFieldValidator>
+                              </p>
+                              <blockquote>
+                                <ASP:RadioButtonList id="RadioButtonList_disposition" runat="server" AutoPostBack="True">
+                                  <asp:ListItem Value="EDP">
+                                    <b>EDP</b>
+                                    <table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><small><i>Participates in the EMS Duty Physician Program</i></small></td></tr></table>
+                                  </asp:ListItem>
+                                  <asp:ListItem Value="ResDoc">
+                                    <b>ResDoc</b>
+                                    <table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><small><i>Use for resident physicians who only have duty obligations during their EMS rotations</i></small></td></tr></table>
+                                  </asp:ListItem>
+                                </ASP:RadioButtonList>
+                              </blockquote>
+                            </asp:Panel>
                             <asp:Panel  id="Panel_effective_date" runat="server" visible="false">
-                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to
-                              <asp:Literal ID="Literal_enrollment_level_description" runat="server"></asp:Literal> for you.</p>
                               <p>When does the new Membership Status become effective?</p>
                               <blockquote><uc2:UserControl_drop_down_date ID="UserControl_drop_down_date_effective_date" runat="server" /></blockquote>
                             </asp:Panel>

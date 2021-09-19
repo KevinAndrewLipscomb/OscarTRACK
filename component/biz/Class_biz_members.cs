@@ -765,7 +765,7 @@ namespace Class_biz_members
           //
           if (group_selector.ToUpper() == "MD2")
             {
-            primary_target += CurrentMemberEmailAddressesString(enrollment_level:"EDP");
+            primary_target += CurrentMemberEmailAddressesString(enrollment_level:"EDP") + CurrentMemberEmailAddressesString(enrollment_level:"ResDoc");
             }
           }
         else

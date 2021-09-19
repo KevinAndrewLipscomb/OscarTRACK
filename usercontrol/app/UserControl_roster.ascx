@@ -30,7 +30,7 @@
                                     <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
                                     <ASP:ListItem value="not_released"         >- Not released</ASP:ListItem>
                                     <ASP:ListItem value="none"                 >- - None</ASP:ListItem>
-                                    <ASP:ListItem value="in_class"             >- - Student</ASP:ListItem>
+                                    <ASP:ListItem value="in_class"             >- - Student (inclusive)</ASP:ListItem>
                                     <ASP:ListItem value="test_candidate"       >- - Test Candidate</ASP:ListItem>
                                     <ASP:ListItem value="trainee"              >- - BLS Intern</ASP:ListItem>
                                     <ASP:ListItem value="facilitated_physician">- - Facilitated Physician</ASP:ListItem>
@@ -65,6 +65,7 @@
                                     <ASP:ListItem value="liberal"                >- - - - Liberal</ASP:ListItem>
                                     <ASP:ListItem value="reduced"                >- - - - - Reduced</ASP:ListItem>
                                     <ASP:ListItem value="associate"              >- - - - - Associate</ASP:ListItem>
+                                    <ASP:ListItem value="resdoc"                 >- - - - - ResDoc</ASP:ListItem>
                                     <ASP:ListItem value="edp"                    >- - - - - EDP</ASP:ListItem>
                                     <ASP:ListItem value="staff"                  >- - - - - Staff</ASP:ListItem>
                                     <ASP:ListItem value="als_intern"             >- - - - - ALS Intern</ASP:ListItem>
@@ -114,7 +115,7 @@
                             <tr>
                               <td align="center" valign="middle"><small><asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label><br>members</small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
-                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS, EDP"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Senior">standard enrollment</ASP:Label></small></td>
+                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS">standard enrollment</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
                               <td align="center" valign="middle"><small><ASP:Label id="Label_utilization" runat="server" font-bold="True"></ASP:Label><br><ASP:Label id="Label_utilization_caption" runat="server"> utilization</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
