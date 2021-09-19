@@ -46,7 +46,7 @@
                         <ASP:ListItem value="" selected="True">All</ASP:ListItem>
                         <ASP:ListItem value="released">Released</ASP:ListItem>
                         <ASP:ListItem value="not_released">Not released</ASP:ListItem>
-                        <ASP:ListItem value="student">- Student</ASP:ListItem>
+                        <ASP:ListItem value="student">- Student (inclusive)</ASP:ListItem>
                         <ASP:ListItem value="bls_intern">- BLS Intern</ASP:ListItem>
                       </ASP:DropDownList>
    							    </td>

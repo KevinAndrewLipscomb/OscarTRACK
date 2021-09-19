@@ -63,7 +63,7 @@ namespace Class_db_role_member_map
                 crosstab_metadata_rec_arraylist.Add(crosstab_metadata_rec);
             }
             dr.Close();
-            where_clause = " where enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin'" + ",'Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee') ";
+            where_clause = " where enrollment_level.description in ('Applicant','Associate','EDP','ResDoc','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin'" + ",'Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee') ";
             if (agency_filter.Length > 0)
             {
                 where_clause += " and agency_id = \"" + agency_filter + "\"";

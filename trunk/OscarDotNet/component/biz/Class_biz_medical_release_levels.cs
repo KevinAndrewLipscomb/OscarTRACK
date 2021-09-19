@@ -4,6 +4,30 @@ using System.Collections;
 
 namespace Class_biz_medical_release_levels
 {
+  public enum filter_type
+    {
+    ALL,
+    NOT_RELEASED,
+    NONE,
+    IN_CLASS,
+    TEST_CANDIDATE,
+    TRAINEE,
+    FACILITATED_PHYSICIAN,
+    RELEASED,
+    RELEASED_BLS,
+    EMT_B,
+    EMT_ST,
+    EMT_E,
+    AEMT,
+    RELEASED_ALS,
+    EMT_CT,
+    EMT_I,
+    EMT_P_ANY,
+    EMT_P,
+    EMT_P_RSI,
+    PHYSICIAN
+    }
+
     public class TClass_biz_medical_release_levels
     {
         private readonly TClass_db_enrollment db_enrollment = null;
@@ -24,18 +48,18 @@ namespace Class_biz_medical_release_levels
 
     public bool BeLeaf(filter_type filter)
       {
-      return !(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.NOT_RELEASED, filter_type.RELEASED, filter_type.RELEASED_BLS, filter_type.RELEASED_ALS, filter_type.EMT_P_ANY}).Contains(filter));
+      return !(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.NOT_RELEASED, filter_type.IN_CLASS, filter_type.RELEASED, filter_type.RELEASED_BLS, filter_type.RELEASED_ALS, filter_type.EMT_P_ANY}).Contains(filter));
       }
 
     public bool BeRecruitAdminOrSpecOpsBoundByCode(string level_code)
       {
-      return new ArrayList() {"1","9","11"}.Contains(level_code);
-        // none, Student, Test Candidate
+      return new ArrayList() {"1","9","15","11"}.Contains(level_code);
+        // none, Student, Oriented Student, Test Candidate
       }
 
     public bool BeRecruitAdminOrSpecOpsBoundByDescription(string level_description)
       {
-      return new ArrayList() {"none","student","test candidate"}.Contains(level_description.ToLower());
+      return new ArrayList() {"none","student","oriented student","test candidate"}.Contains(level_description.ToLower());
       }
 
         public bool BeReleased(string peck_code)
@@ -87,7 +111,7 @@ namespace Class_biz_medical_release_levels
               {
               be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-CT") >= 0);
               }
-            else if (enrollment_description == "EDP")
+            else if ((enrollment_description == "EDP") || (enrollment_description == "ResDoc"))
               {
               be_valid_enrollment_level_for_current = description.Contains("Physician");
               }
@@ -134,29 +158,5 @@ namespace Class_biz_medical_release_levels
           }
 
     } // end TClass_biz_medical_release_levels
-
-    public enum filter_type
-    {
-        ALL,
-        NOT_RELEASED,
-        NONE,
-        IN_CLASS,
-        TEST_CANDIDATE,
-        TRAINEE,
-        FACILITATED_PHYSICIAN,
-        RELEASED,
-        RELEASED_BLS,
-        EMT_B,
-        EMT_ST,
-        EMT_E,
-        AEMT,
-        RELEASED_ALS,
-        EMT_CT,
-        EMT_I,
-        EMT_P_ANY,
-        EMT_P,
-        EMT_P_RSI,
-        PHYSICIAN
-    } // end filter_type
 
 }

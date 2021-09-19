@@ -210,42 +210,39 @@ namespace Class_biz_leaves
       {
       const string AFFIRMATIVE_CHANGE_INDICATOR = "  <==";
       db_leaves.Change(id,new_relative_start_month,new_relative_end_month,new_kind_of_leave_code,new_num_obligated_shifts,new_note);
-      if (biz_members.EnrollmentOfMemberId(member_id) != "EDP")
-        {
-        var new_start_month = DateTime.Today.AddMonths(int.Parse(new_relative_start_month)).ToString("MMM yyyy");
-          // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
-        var new_end_month = DateTime.Today.AddMonths(int.Parse(new_relative_end_month)).ToString("MMM yyyy");
-          // new_relative_end_month may be negative if we are changing the end month to last month
-        var new_kind_of_leave = DescriptionOf(new_kind_of_leave_code);
-        var change_indicator_end_month = (old_end_month != new_end_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
-        var change_indicator_kind_of_leave = (old_kind_of_leave != new_kind_of_leave ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
-        var change_indicator_num_obliged_shifts = (old_num_obliged_shifts != new_num_obligated_shifts ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
-        var change_indicator_note = (old_note != new_note ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
-        var change_indicator_start_month = (old_start_month != new_start_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
-        biz_notifications.IssueForLeaveChanged
-          (
-          member_id:member_id,
-          first_name:biz_members.FirstNameOfMemberId(member_id),
-          last_name:biz_members.LastNameOfMemberId(member_id),
-          cad_num:biz_members.CadNumOfMemberId(member_id),
-          old_start_month:old_start_month,
-          old_end_month:old_end_month,
-          old_kind_of_leave:old_kind_of_leave,
-          old_num_obligated_shifts:old_num_obliged_shifts,
-          old_note:old_note,
-          new_start_month:new_start_month,
-          new_end_month:new_end_month,
-          new_kind_of_leave:new_kind_of_leave,
-          new_num_obligated_shifts:new_num_obligated_shifts,
-          new_note:new_note,
-          change_indicator_start_month:change_indicator_start_month,
-          change_indicator_end_month:change_indicator_end_month,
-          change_indicator_kind_of_leave:change_indicator_kind_of_leave,
-          change_indicator_num_obliged_shifts:change_indicator_num_obliged_shifts,
-          change_indicator_note:change_indicator_note,
-          be_interactive:be_interactive
-          );
-        }
+      var new_start_month = DateTime.Today.AddMonths(int.Parse(new_relative_start_month)).ToString("MMM yyyy");
+        // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
+      var new_end_month = DateTime.Today.AddMonths(int.Parse(new_relative_end_month)).ToString("MMM yyyy");
+        // new_relative_end_month may be negative if we are changing the end month to last month
+      var new_kind_of_leave = DescriptionOf(new_kind_of_leave_code);
+      var change_indicator_end_month = (old_end_month != new_end_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_kind_of_leave = (old_kind_of_leave != new_kind_of_leave ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_num_obliged_shifts = (old_num_obliged_shifts != new_num_obligated_shifts ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_note = (old_note != new_note ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_start_month = (old_start_month != new_start_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      biz_notifications.IssueForLeaveChanged
+        (
+        member_id:member_id,
+        first_name:biz_members.FirstNameOfMemberId(member_id),
+        last_name:biz_members.LastNameOfMemberId(member_id),
+        cad_num:biz_members.CadNumOfMemberId(member_id),
+        old_start_month:old_start_month,
+        old_end_month:old_end_month,
+        old_kind_of_leave:old_kind_of_leave,
+        old_num_obligated_shifts:old_num_obliged_shifts,
+        old_note:old_note,
+        new_start_month:new_start_month,
+        new_end_month:new_end_month,
+        new_kind_of_leave:new_kind_of_leave,
+        new_num_obligated_shifts:new_num_obligated_shifts,
+        new_note:new_note,
+        change_indicator_start_month:change_indicator_start_month,
+        change_indicator_end_month:change_indicator_end_month,
+        change_indicator_kind_of_leave:change_indicator_kind_of_leave,
+        change_indicator_num_obliged_shifts:change_indicator_num_obliged_shifts,
+        change_indicator_note:change_indicator_note,
+        be_interactive:be_interactive
+        );
       }
 
     internal bool BeOkToClearImmediately
@@ -277,26 +274,14 @@ namespace Class_biz_leaves
         );
       }
 
-    public void Delete(string id)
-      {
-      var member_id = MemberIdOf(id);
-      if (biz_members.EnrollmentOfMemberId(member_id) != "EDP")
+        public void Delete(string id)
         {
-        biz_notifications.IssueForLeaveDeleted
-          (
-          member_id:member_id,
-          first_name:biz_members.FirstNameOfMemberId(member_id),
-          last_name:biz_members.LastNameOfMemberId(member_id),
-          cad_num:biz_members.CadNumOfMemberId(member_id),
-          start_month:StartDateOf(id).ToString("MMM yyyy"),
-          end_month:EndDateOf(id).ToString("MMM yyyy"),
-          kind_of_leave:DescriptionOf(KindOfLeaveCodeOf(id)),
-          num_obligated_shifts:NumObligedShiftsOf(id).ToString(),
-          note:NoteOf(id)
-          );
+            string member_id;
+            member_id = MemberIdOf(id);
+            biz_notifications.IssueForLeaveDeleted(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), StartDateOf(id).ToString("MMM yyyy"), EndDateOf(id).ToString("MMM yyyy"), DescriptionOf(KindOfLeaveCodeOf(id)), NumObligedShiftsOf(id).ToString(), NoteOf(id));
+            db_leaves.Delete(id);
+
         }
-      db_leaves.Delete(id);
-      }
 
         public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
         {
@@ -324,25 +309,12 @@ namespace Class_biz_leaves
             return result;
         }
 
-    public void Grant(string member_id, string relative_start_month, string relative_end_month, string kind_of_leave_code, string num_obligated_shifts, string note)
-      {
-      db_leaves.Grant(member_id, relative_start_month, relative_end_month, kind_of_leave_code, num_obligated_shifts, note);
-      if (biz_members.EnrollmentOfMemberId(member_id) != "EDP")
+        public void Grant(string member_id, string relative_start_month, string relative_end_month, string kind_of_leave_code, string num_obligated_shifts, string note)
         {
-        biz_notifications.IssueForLeaveGranted
-          (
-          member_id:member_id,
-          first_name:biz_members.FirstNameOfMemberId(member_id),
-          last_name:biz_members.LastNameOfMemberId(member_id),
-          cad_num:biz_members.CadNumOfMemberId(member_id),
-          start_month:DateTime.Today.AddMonths(int.Parse(relative_start_month)).ToString("MMM yyyy"),
-          end_month:DateTime.Today.AddMonths(int.Parse(relative_end_month)).ToString("MMM yyyy"),
-          kind_of_leave:DescriptionOf(kind_of_leave_code),
-          num_obligated_shifts:num_obligated_shifts,
-          note:note
-          );
+            db_leaves.Grant(member_id, relative_start_month, relative_end_month, kind_of_leave_code, num_obligated_shifts, note);
+            biz_notifications.IssueForLeaveGranted(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), DateTime.Today.AddMonths(int.Parse(relative_start_month)).ToString("MMM yyyy"), DateTime.Today.AddMonths(int.Parse(relative_end_month)).ToString("MMM yyyy"), DescriptionOf(kind_of_leave_code), num_obligated_shifts, note);
+
         }
-      }
 
         public string IdOf(object leave_item)
         {

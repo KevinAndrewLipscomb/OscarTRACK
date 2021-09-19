@@ -776,11 +776,7 @@ namespace UserControl_member_schedule_detail
       var shift_name = "DAY";
       if (p.be_ok_to_one_step_avail_force_post)
         {
-        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010")
-          {
-          shift_name = "DAY/7TO7";
-          }
-        else if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
           {
           shift_name = "DAY/8TO5";
           }
@@ -799,11 +795,7 @@ namespace UserControl_member_schedule_detail
       var shift_name = "NIGHT";
       if (p.be_ok_to_one_step_avail_force_post)
         {
-        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010")
-          {
-          shift_name = "NIGHT/7TO7";
-          }
-        else if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
           {
           shift_name = "NIGHT/AFTERHOURS";
           }

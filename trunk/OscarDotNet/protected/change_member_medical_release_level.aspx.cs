@@ -92,7 +92,7 @@ namespace change_member_medical_release_level
             }
             else
             {
-                CustomValidator_control.ErrorMessage = first_name + " is currently a(n) " + current_enrollment_level + " member, and " + current_enrollment_level + " members must remain certified.  If " + first_name + " is no longer certified, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and give " + first_name + " a Membership status that does not require " + "certification.  Then perform your current action again.";
+                CustomValidator_control.ErrorMessage = first_name + " is currently a(n) " + current_enrollment_level + " member, and " + current_enrollment_level + " members must remain certified.  If " + first_name + " is no longer certified, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and give " + first_name + " a Membership Status that does not require " + "certification.  Then perform your current action again.";
             }
         }
 
@@ -110,7 +110,8 @@ namespace change_member_medical_release_level
                   (
                   new_code:k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
                   summary:Session["member_summary"],
-                  enrollment_level_to_force_description:p.enrollment_level_to_force_description,
+                  enrollment_level_to_force_description:
+                    (Panel_effective_date.Visible && Panel_will_force_physician_choice_enrollment.Visible ? k.Safe(RadioButtonList_disposition.SelectedValue,k.safe_hint_type.ALPHA_WORDS) : p.enrollment_level_to_force_description),
                   effective_date:UserControl_drop_down_date_effective_date.selectedvalue
                   )
                 )
@@ -131,10 +132,14 @@ namespace change_member_medical_release_level
 
         protected void DropDownList_medical_release_level_SelectedIndexChanged(object sender, EventArgs e)
           {
+          p.enrollment_level_to_force_description = k.EMPTY;
+          //
           var new_level_code = k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM);
           Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level) && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_level_code));
-          p.enrollment_level_to_force_description = (Panel_effective_date.Visible ? (p.biz_medical_release_levels.DescriptionOf(new_level_code).Contains("Physician") ? "EDP" : "Regular") : k.EMPTY);
-          Literal_enrollment_level_description.Text = p.enrollment_level_to_force_description;
+          Panel_will_force_physician_choice_enrollment.Visible = Panel_effective_date.Visible && p.biz_medical_release_levels.DescriptionOf(new_level_code).Contains("Physician");
+          RequiredFieldValidator_physician_choice.Enabled = Panel_will_force_physician_choice_enrollment.Visible;
+          Panel_will_force_no_choice_enrollment.Visible = Panel_effective_date.Visible && !Panel_will_force_physician_choice_enrollment.Visible;
+          p.enrollment_level_to_force_description = (Panel_will_force_no_choice_enrollment.Visible ? "Regular" : k.EMPTY);
           }
 
     } // end TWebForm_change_member_medical_release_level

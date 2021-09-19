@@ -567,7 +567,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {
@@ -1057,7 +1057,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {
@@ -1610,7 +1610,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {
@@ -1721,7 +1721,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {
@@ -1825,7 +1825,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {
@@ -1939,7 +1939,7 @@ namespace Class_db_schedule_assignments
         }
       else if (release_filter == "student")
         {
-        release_condition_clause = " and medical_release_code_description_map.description = 'Student'";
+        release_condition_clause = " and medical_release_code_description_map.description in ('Student','Oriented Student')";
         }
       else if (release_filter == "bls_intern")
         {

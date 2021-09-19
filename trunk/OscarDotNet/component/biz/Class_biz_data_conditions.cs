@@ -12,7 +12,7 @@ namespace Class_biz_data_conditions
 
     public bool BeMemberTrainee(string member_id)
       {
-      return (new ArrayList() {"Student","Test Candidate","BLS Intern"}).Contains(new Class_biz_members.TClass_biz_members().MedicalReleaseLevelOfMemberId(member_id));
+      return (new ArrayList() {"Student","Oriented Student","Test Candidate","BLS Intern"}).Contains(new Class_biz_members.TClass_biz_members().MedicalReleaseLevelOfMemberId(member_id));
       }
 
     public bool BeRolePersonnelRelated(string role_name)
