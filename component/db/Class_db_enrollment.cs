@@ -484,7 +484,7 @@ namespace Class_db_enrollment
                 if (effective_date >= latest_start_date)
                 {
                     using var my_sql_command_2 = new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction);
-                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 23, 24, 25, 28}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == my_sql_command_2.ExecuteScalar()))
+                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 23, 24, 25, 28, 29}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == my_sql_command_2.ExecuteScalar()))
                     {
                         // This member's new status counts toward length-of-service, and the member has never had such a status before.
                         using var my_sql_command_3 = new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), connection, transaction);
