@@ -619,6 +619,8 @@ namespace Class_db_members
           .Append(      " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)")
           .Append(    " where member_id = subquery.member_id")
           .Append(      " and DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH),'%Y-%m-15') between start_date and end_date")
+          .Append(    " order by num_obliged_shifts") // for fault tolerance, return the least number of obliged shifts the member could've gotten away with
+          .Append(    " limit 1")                     // for fault tolerance
           .Append(    " )")
           .Append(  " ,")
           .Append(    " '(none)'")
@@ -729,6 +731,8 @@ namespace Class_db_members
           .Append(          " from leave_of_absence")
           .Append(          " where member_id = subquery.member_id")
           .Append(            " and DATE_FORMAT(ADDDATE(CURDATE(),INTERVAL " + relative_month_num_string + " MONTH),'%Y-%m-15') between start_date and end_date")
+          .Append(          " order by num_obliged_shifts") // for fault tolerance, return the least number of obliged shifts the member could've gotten away with
+          .Append(          " limit 1")                     // for fault tolerance
           .Append(          " )")
           .Append(        " ,")
           .Append(          " 2") // Enforce an effective floor of 2 shifts on this person's leave.
