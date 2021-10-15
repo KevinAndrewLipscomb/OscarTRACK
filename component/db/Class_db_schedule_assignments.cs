@@ -3381,8 +3381,8 @@ namespace Class_db_schedule_assignments
               + " where avail_sheet.month = '" + month_abbreviation + "'"
               +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
               + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
-              +   " , schedule_assignment.muster_to_logon_timespan = " + MUSTER_TO_LOGON_TIMESPAN_COOKED_DAY
-              +   " , schedule_assignment.muster_to_logoff_timespan = " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED
+              +   " , schedule_assignment.muster_to_logon_timespan = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null," + MUSTER_TO_LOGON_TIMESPAN_COOKED_DAY + ",schedule_assignment.muster_to_logon_timespan)"
+              +   " , schedule_assignment.muster_to_logoff_timespan = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null," + MUSTER_TO_LOGOFF_TIMESPAN_COOKED + ",schedule_assignment.muster_to_logoff_timespan)"
               + ";"
               + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment,muster_to_logon_timespan,muster_to_logoff_timespan)"
               + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
@@ -3417,8 +3417,8 @@ namespace Class_db_schedule_assignments
               + " where avail_sheet.month = '" + month_abbreviation + "'"
               +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
               + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
-              +   " , schedule_assignment.muster_to_logon_timespan = " + MUSTER_TO_LOGON_TIMESPAN_COOKED_NIGHT
-              +   " , schedule_assignment.muster_to_logoff_timespan = " + MUSTER_TO_LOGOFF_TIMESPAN_COOKED
+              +   " , schedule_assignment.muster_to_logon_timespan = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null," + MUSTER_TO_LOGON_TIMESPAN_COOKED_NIGHT + ",schedule_assignment.muster_to_logon_timespan)"
+              +   " , schedule_assignment.muster_to_logoff_timespan = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null," + MUSTER_TO_LOGOFF_TIMESPAN_COOKED + ",schedule_assignment.muster_to_logoff_timespan)"
               + ";"
               );
             }

@@ -2753,6 +2753,7 @@ namespace Class_db_members
           (
           "UPDATE member SET medical_release_code = '" + code + "'"
           + " , first_release_as_aic_date = IF(first_release_as_aic_date is null and (select pecking_order from medical_release_code_description_map where code = '" + code + "') >= 20,CURDATE(),first_release_as_aic_date)"
+          + (code == "11" ? " , became_test_candidate_date = CURDATE()" : k.EMPTY) // code 11 is Test Candidate
           + " WHERE id = '" + (summary as member_summary).id + "'"
           ),
         connection
@@ -2760,7 +2761,6 @@ namespace Class_db_members
       my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
-      (summary as member_summary).first_release_as_aic_date = DateTime.Today.ToString("yyyy-MM-dd");
       }
 
     internal void SetOscalertSettings
