@@ -116,6 +116,7 @@ namespace change_member_medical_release_level
                   )
                 )
                 {
+                SessionSet("member_summary",p.biz_members.Summary(p.biz_members.IdOf(Session["member_summary"]))); // Update the summary session variable to make sure it holds the latest first_release_as_aic_date.
                 BackTrack();
                 }
               else

@@ -241,7 +241,7 @@ namespace UserControl_activity_lookback
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         //
         p.agency_id = p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-        p.extent.val = p.extent.LAST;
+        p.extent.val = (ConfigurationManager.AppSettings["do_minimize_initial_activity_lookback_extent_for_debugging"] == null ? p.extent.LAST : p.extent.FIRST);
         }
       v.num_members = new k.int_nonnegative();
       v.num_full = new k.int_nonnegative();

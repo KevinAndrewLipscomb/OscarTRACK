@@ -41,38 +41,70 @@ namespace Class_db_leaves
     internal string note = k.EMPTY;
     }
 
-    public class TClass_db_leaves: TClass_db
+  public class TClass_db_leaves: TClass_db
     {
 
-        private readonly TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
-        //Constructor  Create()
-        public TClass_db_leaves() : base()
-        {
-            // TODO: Add any constructor code here
-            db_trail = new TClass_db_trail();
-        }
-        public bool BeOverlap(string member_id, string relative_start_month, string relative_end_month, string id)
-        {
-            bool result;
-            string cmdtext;
-            cmdtext = "select 1" + " from leave_of_absence" + " where" + " member_id = " + member_id + " and" + " (" + " (" + " start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " and" + " end_date >= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " )" + " or" + " (" + " start_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " and" + " end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " )" + " )";
-            if (id.Length > 0)
-            {
-                cmdtext += " and id <> " + id;
-            }
-            cmdtext += " limit 1";
-            Open();
-            using var my_sql_command = new MySqlCommand(cmdtext, connection);
-            result = (my_sql_command.ExecuteScalar() != null);
-            Close();
-            return result;
-        }
+    public TClass_db_leaves() : base()
+      {
+      db_trail = new TClass_db_trail();
+      }
 
-        public bool BeOverlap(string member_id, string relative_start_month, string relative_end_month)
-        {
-            return BeOverlap(member_id, relative_start_month, relative_end_month, "");
-        }
+    public bool BeOverlap
+      (
+      string member_id,
+      string relative_start_month,
+      string relative_end_month,
+      string id = k.EMPTY
+      )
+      {
+      //
+      // Let () be any established leave the member may have.
+      // Let [] be the member's proposed leave.
+      // The only allowed situations are ()[] and []().
+      //
+      var cmdtext = "select 1"
+      + " from leave_of_absence"
+      + " where member_id = '" + member_id + "'"
+      +   " and"
+      +     " ("
+                // There is a [(]) situation
+      +       " ("
+      +         " start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-01'),INTERVAL " + relative_start_month + " MONTH)"
+      +       " and"
+      +         " end_date >= DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-01'),INTERVAL " + relative_start_month + " MONTH)"
+      +       " )"
+      +     " or"
+                // There is a ([)] situation
+      +       " ("
+      +         " start_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))"
+      +       " and"
+      +         " end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))"
+      +       " )"
+      +     " or"
+                // There is a [()] situation
+      +       " ("
+      +         " start_date >= DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-01'),INTERVAL " + relative_start_month + " MONTH)"
+      +       " and"
+      +         " end_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))"
+      +       " )"
+      +     " or"
+                // There is a ([]) situation
+      +       " ("
+      +         " start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-01'),INTERVAL " + relative_start_month + " MONTH)"
+      +       " and"
+      +         " end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))"
+      +       " )"
+      +     " )";
+      cmdtext += (id.Length > 0 ? " and id <> '" + id + "'": k.EMPTY);
+      cmdtext += " limit 1";
+      Open();
+      using var my_sql_command = new MySqlCommand(cmdtext, connection);
+      var be_overlap = (my_sql_command.ExecuteScalar() != null);
+      Close();
+      return be_overlap;
+      }
 
     public void BindKindDropDownList
       (

@@ -9,33 +9,32 @@ using System.Web.UI.WebControls;
 
 namespace Class_biz_leaves
 {
-    public class TClass_biz_leaves
+  public class TClass_biz_leaves
     {
-        private readonly TClass_db_enrollment db_enrollment = null;
-        private readonly TClass_db_leaves db_leaves = null;
-        private readonly TClass_biz_members biz_members = null;
-        private readonly TClass_biz_notifications biz_notifications = null;
 
-    //Constructor  Create()
+    private readonly TClass_db_enrollment db_enrollment = null;
+    private readonly TClass_db_leaves db_leaves = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+
     public TClass_biz_leaves() : base()
-        {
-            // TODO: Add any constructor code here
-            db_enrollment = new TClass_db_enrollment();
-            db_leaves = new TClass_db_leaves();
-            biz_members = new TClass_biz_members();
-            biz_notifications = new TClass_biz_notifications();
-        }
-        public bool BeOverlap(string member_id, string relative_start_month, string relative_end_month, string id)
-        {
-            bool result;
-            result = db_leaves.BeOverlap(member_id, relative_start_month, relative_end_month, id);
-            return result;
-        }
+      {
+      db_enrollment = new TClass_db_enrollment();
+      db_leaves = new TClass_db_leaves();
+      biz_members = new TClass_biz_members();
+      biz_notifications = new TClass_biz_notifications();
+      }
 
-        public bool BeOverlap(string member_id, string relative_start_month, string relative_end_month)
-        {
-            return BeOverlap(member_id, relative_start_month, relative_end_month, "");
-        }
+    public bool BeOverlap
+      (
+      string member_id,
+      string relative_start_month,
+      string relative_end_month,
+      string id = k.EMPTY
+      )
+      {
+      return db_leaves.BeOverlap(member_id, relative_start_month, relative_end_month, id);
+      }
 
         public bool BeValid(string start_month, string end_month)
         {
