@@ -216,39 +216,96 @@ namespace Class_db_enrollment
             return result;
         }
 
-        public Queue FailureToThriveDemotionsSince(string watermark)
+    public Queue FailureToThriveDemotionsSince(string watermark)
+      {
+      var member_id_q = new Queue();
+      Open();
+      using var my_sql_command = new MySqlCommand("select member_id from enrollment_history where id > " + watermark + " and level_code in (14,16) and end_date is null",connection); // 14 is Dismissed, 16 is Unknown
+      var dr = my_sql_command.ExecuteReader();
+      while (dr.Read())
         {
-            Queue result;
-            MySqlDataReader dr;
-            Queue member_id_q;
-            member_id_q = new Queue();
-            Open();
-            using var my_sql_command = new MySqlCommand("select member_id" + " from enrollment_history" + " where id > " + watermark + " and level_code = 16" + " and end_date is null", connection);
-            dr = my_sql_command.ExecuteReader();
-            while (dr.Read())
-            {
-                member_id_q.Enqueue(dr["member_id"]);
-            }
-            dr.Close();
-            Close();
-            result = member_id_q;
-            return result;
+        member_id_q.Enqueue(dr["member_id"]);
         }
+      dr.Close();
+      Close();
+      return member_id_q;
+      }
 
-        public string MakeFailureToThriveDemotions()
-        {
-            string result;
-            string watermark;
-            Open();
-            using var my_sql_command_1 = new MySqlCommand("select max(id) from enrollment_history", connection);
-            watermark = my_sql_command_1.ExecuteScalar().ToString();
-            // Deliberately not db_trail.Saved.
-            using var my_sql_command_2 = new MySqlCommand("START TRANSACTION;" + " insert into enrollment_history (member_id,level_code,start_date,end_date)" + " SELECT member_id,16,curdate(),NULL" + " FROM enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " update enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " set end_date = curdate()" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " COMMIT", connection);
-            my_sql_command_2.ExecuteNonQuery();
-            Close();
-            result = watermark;
-            return result;
-        }
+    public string MakeFailureToThriveDemotions()
+      {
+      Open();
+      using var my_sql_command_1 = new MySqlCommand("select max(id) from enrollment_history", connection);
+      var watermark = my_sql_command_1.ExecuteScalar().ToString();
+      //--
+      //
+      // Deliberately not db_trail.Saved.
+      //
+      //--
+      //
+      // Make Unknown anyone who has stayed an Applicant for a year.
+      //
+      using var my_sql_command_2 = new MySqlCommand
+        (
+        "START TRANSACTION"
+        + " ;"
+        + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+        + " SELECT member_id,16,curdate(),NULL"
+        + " FROM enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        + " where level_code = 17"
+        +   " and end_date is null"
+        +   " and start_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_applicant"] + ")"
+        +   " and enrollment_history.id <= " + watermark
+        + " ;"
+        + " update enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        + " set end_date = curdate()"
+        + " where level_code = 17"
+        +   " and end_date is null"
+        +   " and start_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_applicant"] + ")"
+        +   " and enrollment_history.id <= " + watermark
+        + " ;"
+        + " COMMIT",
+        connection
+        );
+      my_sql_command_2.ExecuteNonQuery();
+      //
+      // Dismiss any Recruit who has been a Test Candidate for 2 years.
+      //
+      using var my_sql_command_3 = new MySqlCommand
+        (
+        "START TRANSACTION"
+        + " ;"
+        + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+        + " SELECT member_id,14,curdate(),NULL"
+        + " FROM enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        + " where level_code = 10"
+        +   " and description = 'Test Candidate'"
+        +   " and became_test_candidate_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_test_candidate"] + ")"
+        +   " and end_date is null"
+        +   " and start_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_test_candidate"] + ")"
+        +   " and enrollment_history.id <= " + watermark
+        + " ;"
+        + " update enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        + " set end_date = curdate()"
+        + " where level_code = 10"
+        +   " and description = 'Test Candidate'"
+        +   " and became_test_candidate_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_test_candidate"] + ")"
+        +   " and end_date is null"
+        +   " and start_date <= date_sub(curdate(),interval " + ConfigurationManager.AppSettings["max_allowable_interval_as_test_candidate"] + ")"
+        +   " and enrollment_history.id <= " + watermark
+        + " ;"
+        + " COMMIT",
+        connection
+        );
+      my_sql_command_3.ExecuteNonQuery();
+      Close();
+      return watermark;
+      }
 
         public string MakeSeniorityPromotions()
         {

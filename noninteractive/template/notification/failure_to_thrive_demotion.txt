@@ -1,9 +1,10 @@
-<cad_num/> <last_name/>, <first_name/> => Unknown
+Demoted membership status: <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from the Virginia Beach EMS <application_name/> system.
 
-<application_name/> has detected that <first_name/> <last_name/> (<cad_num/>) has lingered in the Applicant membership status for one full year.  Consequently, <application_name/> has automatically changed <first_name/>'s membership status to:
+<application_name/> has detected that <first_name/> <last_name/> (<cad_num/>) has met at least one of the following "failure to thrive" conditions:
 
-   Unknown
+-  Has lingered in the Applicant membership status for one full year
+-  Has lingered in the Test Candidate status for two full years
 
 This moves <first_name/> from the Current roster to the Past roster.
 
