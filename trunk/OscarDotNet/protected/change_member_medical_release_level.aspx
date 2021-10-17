@@ -28,7 +28,7 @@
                         <tr>
                           <td>
                             <p>
-                              Make changes only <strong>after</strong>&nbsp;the member has received the appropriate ID card from the department.&nbsp; Do <strong>not</strong>&nbsp;set a member to EMT-B unless you are <strong>positive</strong>&nbsp;that the training center has issued the member a White ID Card <strong>with no red stripe</strong>.</p>
+                              Make changes only <strong>after</strong>&nbsp;the member has received the appropriate ID card from the department.&nbsp; Do <strong>not</strong>&nbsp;set a member to EMT unless you are <strong>positive</strong>&nbsp;that the training center has issued the member a White ID Card <strong>with no red stripe</strong>.</p>
                           </td>
                         </tr>
                       </table>
