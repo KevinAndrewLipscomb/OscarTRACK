@@ -15,7 +15,7 @@ namespace Class_biz_medical_release_levels
     FACILITATED_PHYSICIAN,
     RELEASED,
     RELEASED_BLS,
-    EMT_B,
+    EMT,
     EMT_ST,
     EMT_E,
     AEMT,
@@ -99,9 +99,9 @@ namespace Class_biz_medical_release_levels
             if (enrollment_description == "Associate")
               {
               //
-              // An Associate must be EMT-B or higher.
+              // An Associate must be EMT or higher.
               //
-              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-B") >= 0);
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT") >= 0);
               }
             else if (enrollment_description == "Tenured BLS")
               {

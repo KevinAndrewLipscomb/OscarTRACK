@@ -918,7 +918,7 @@ namespace Class_db_members
             +       " ("
             +         " medical_release_code_description_map.pecking_order > 0"
             +       " and"
-            +         " medical_release_code_description_map.pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            +         " medical_release_code_description_map.pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT')"
             +       " )"
             +     " or"
             +       " not be_driver_qualified"
@@ -975,7 +975,7 @@ namespace Class_db_members
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
             + " where enrollment_level.description in ('Associate','EDP','ResDoc','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
-            +   " and medical_release_code_description_map.pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            +   " and medical_release_code_description_map.pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT')"
             + " order by member_designator",
             connection
             );
@@ -1615,15 +1615,15 @@ namespace Class_db_members
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED)
           {
-          filter += " in ('EMT-B','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI','Physician') ";
+          filter += " in ('EMT','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI','Physician') ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED_BLS)
           {
-          filter += " in ('EMT-B','EMT-ST','EMT-E','AEMT') ";
+          filter += " in ('EMT','EMT-ST','EMT-E','AEMT') ";
           }
-        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_B)
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT)
           {
-          filter += " = 'EMT-B' ";
+          filter += " = 'EMT' ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_ST)
           {
