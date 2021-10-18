@@ -158,17 +158,17 @@
                         <td><asp:TextBox ID="TextBox_main_reason_for_visit" runat="server" Columns="60" Rows="10" TextMode="MultiLine"></asp:TextBox></td>
                         <td valign="top"><asp:RequiredFieldValidator ID="RequiredFieldValidator_main_reason_for_visit" runat="server" ErrorMessage="Please enter a Main reason for visit" ControlToValidate="TextBox_main_reason_for_visit" Font-Bold="True">!ERR!</asp:RequiredFieldValidator></td>
                         <td align="center" valign="top">
+                          <!--
                           <asp:Button ID="Button_send_to_liaison" runat="server" Text="Email to EMS - City Garage Liaison" onclick="Button_send_to_liaison_Click" Width="100%" />
                           <br />
                           (<asp:Literal ID="Literal_liaison_name" runat="server"></asp:Literal>)
-                          <!--
+                          -->
                           <br /><br />
                           <asp:Button ID="Button_send_to_city_garage" runat="server" Text="Email to City Garage" onclick="Button_send_to_city_garage_Click" Width="100%" />
                           <br /><br />
                           <asp:Button ID="Button_send_to_comit" runat="server" Text="Email to ComIT" onclick="Button_send_to_comit_Click" Width="100%" />
                           <br /><br />
                           <asp:Button ID="Button_send_to_boat_shop" runat="server" Text="Email to Boat Shop" OnClick="Button_send_to_boat_shop_Click"  Width="100%" />
-                          -->
                         </td>
                       </tr>
                       <tr id="TableRow_main_reason_for_visit_noninteractive" runat="server">
