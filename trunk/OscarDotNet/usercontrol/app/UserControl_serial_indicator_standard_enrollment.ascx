@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_standard_enrollment.ascx.cs" Inherits="UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment"%>
-<p>These control charts show the percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS).&nbsp; The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Staff, ALS Intern, College, Atypical, EDP, ResDoc).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</p>
+<p>These control charts show the percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS).&nbsp; The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Field staff, ALS Intern, College, Atypical, EDP, ResDoc).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</p>
 <table>
   <tr>
     <td nowrap="nowrap">

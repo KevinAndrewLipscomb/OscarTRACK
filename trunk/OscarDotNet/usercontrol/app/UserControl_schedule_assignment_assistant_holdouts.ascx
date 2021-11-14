@@ -22,7 +22,7 @@
                           <ASP:ListItem value="">All</ASP:ListItem>
                           <ASP:ListItem value="0" selected="True">Holdouts</ASP:ListItem>
                           <ASP:ListItem value="1">Submitters</ASP:ListItem>
-                          <ASP:ListItem value="A">Staff, College, Atypical</ASP:ListItem>
+                          <ASP:ListItem value="A">Field staff, College, Atypical</ASP:ListItem>
                         </ASP:DropDownList>
    							      </td>
                       <td width="48%">&nbsp;</td>
@@ -45,7 +45,7 @@
               </tr>
               <tr id="TableRow_restriction" runat="server" bgcolor="#f5f5f5" visible="false">
                 <td bgcolor="Khaki">
-                  In this context, only Released Staff members are shown below, regardless of the above <i>Release level</i> and <i>Compliancy</i> filters.</td>
+                  In this context, only Released Field staff members are shown below, regardless of the above <i>Release level</i> and <i>Compliancy</i> filters.</td>
               </tr>
               <tr>
                 <td>
