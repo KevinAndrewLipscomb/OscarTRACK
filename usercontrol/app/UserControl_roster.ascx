@@ -7,6 +7,7 @@
           <td>
             <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
               <tr>
+                <td>&nbsp;</td>
                 <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False" onclick="LinkButton_add_member_Click">Add member(s)</ASP:LinkButton></td>
               </tr>
               <tr>
@@ -36,7 +37,7 @@
                                     <ASP:ListItem value="facilitated_physician">- - Facilitated Physician</ASP:ListItem>
                                     <ASP:ListItem value="released"             >- Released</ASP:ListItem>
                                     <ASP:ListItem value="released_bls"         >- - Released BLS</ASP:ListItem>
-                                    <ASP:ListItem value="emt"                >- - - EMT</ASP:ListItem>
+                                    <ASP:ListItem value="emt"                  >- - - EMT</ASP:ListItem>
                                     <ASP:ListItem value="emt_st"               >- - - EMT-ST</ASP:ListItem>
                                     <ASP:ListItem value="emt_e"                >- - - EMT-E</ASP:ListItem>
                                     <ASP:ListItem value="aemt"                 >- - - AEMT</ASP:ListItem>
@@ -134,6 +135,9 @@
                         </td>
                             </tr>
                         </table>
+                </td>
+                <td align="right" valign="middle">
+                  <asp:Button ID="Button_emergency_broadcast" runat="server" visible="false" BackColor="Red" CausesValidation="False" Font-Bold="True" ForeColor="White" OnClick="Button_emergency_broadcast_Click" UseSubmitBehavior="False" style="padding:10px" />
                 </td>
               </tr>
             </table>

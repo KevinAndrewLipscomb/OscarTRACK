@@ -31,6 +31,7 @@ namespace UserControl_roster
       public bool be_sort_order_ascending;
       public bool be_transferee_report;
       public bool be_user_privileged_to_see_all_squads;
+      public bool be_user_privileged_to_send_quickmessages;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_enrollment biz_enrollment;
       public TClass_biz_leave biz_leave;
@@ -86,6 +87,11 @@ namespace UserControl_roster
                 CheckBox_phone_list.Checked = p.be_phone_list;
                 if (Session["mode:report"] == null)
                 {
+                    if (p.be_user_privileged_to_send_quickmessages && p.be_user_privileged_to_see_all_squads && (p.biz_members.AgencyIdOfId(p.user_member_id) == "0"))
+                      {
+                      Button_emergency_broadcast.Text = "EMERGENCY\nBROADCAST";
+                      Button_emergency_broadcast.Visible = true;
+                      }
                     Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
                     ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_member);
                     ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_download_distribution_list);
@@ -112,8 +118,8 @@ namespace UserControl_roster
                 }
                 Bind();
                 Anchor_quick_message_shortcut.HRef = p.page_request_rawurl + "#QuickMessage";
-                Anchor_quick_message_shortcut.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages");
-                Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages");
+                Anchor_quick_message_shortcut.Visible = p.be_user_privileged_to_send_quickmessages;
+                Table_quick_message.Visible = p.be_user_privileged_to_send_quickmessages;
                 p.be_loaded = true;
             }
 
@@ -142,6 +148,7 @@ namespace UserControl_roster
                 p.biz_user = new TClass_biz_user();
                 //
                 p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
+                p.be_user_privileged_to_send_quickmessages = k.Has((string[])(Session["privilege_array"]), "send-quickmessages");
                 //p.agency_filter = ((Session["mode:report"] == null) && p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
                 if (Session["mode:report"] == null)
                   {
@@ -527,7 +534,7 @@ namespace UserControl_roster
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
             TableRow_none.Visible = p.be_datagrid_empty;
             TableRow_data.Visible = !p.be_datagrid_empty;
-            Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_datagrid_empty && !p.be_phone_list;
+            Table_quick_message.Visible = p.be_user_privileged_to_send_quickmessages && !p.be_datagrid_empty && !p.be_phone_list;
             if (v.distribution_list_email.Length > 0) v.distribution_list_email.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
             if (v.distribution_list_sms.Length > 0) v.distribution_list_sms.Remove(0,2); // .TrimStart(k.COMMA_SPACE)
             Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? v.distribution_list_email : v.distribution_list_sms).ToString();
@@ -609,6 +616,52 @@ namespace UserControl_roster
         );
       }
 
+    protected void Button_emergency_broadcast_Click(object sender, EventArgs e)
+      {
+      DropDownList_agency_filter.SelectedValue = k.EMPTY;
+      p.agency_filter = k.EMPTY;
+      TableData_section_filter.Visible = false;
+      DropDownList_section_filter.SelectedIndex = 0;
+      p.section_filter = 0;
+      //
+      DropDownList_med_release_filter.SelectedValue = "released";
+      p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.RELEASED;
+      //
+      DropDownList_enrollment_filter.SelectedValue = "core_ops";
+      p.enrollment_filter = Class_biz_enrollment.filter_type.CORE_OPS;
+      //
+      DropDownList_leave_filter.SelectedValue = "both";
+      p.leave_filter = Class_biz_leave.filter_type.BOTH;
+      //
+      CheckBox_running_only.Checked = true;
+      p.running_only_filter = true;
+      //
+      RadioButtonList_which_month.SelectedValue = "0";
+      p.relative_month = 0;
+      //
+      RadioButtonList_quick_message_mode.SelectedValue = "sms";
+      Literal_quick_message_kind_email.Visible = false;
+      Literal_quick_message_kind_sms.Visible = true;
+      Literal_author_target.Text = p.user_target_sms;
+      RadioButtonList_reply_to.SelectedValue = "phone";
+      TableRow_subject.Visible = false;
+      TextBox_quick_message_body.Columns = 40;
+      TextBox_quick_message_body.Rows = 4;
+      //
+      RadioButtonList_reply_to.SelectedValue = "bouncer";
+      //
+      TextBox_quick_message_body.Text = "A mass casualty incident is active.  Released AIC-drivers, please report to the closest station with an ambulance and log into the CAD.  The VB EMS SIDEBAND channel is active on Zello.";
+      TextBox_quick_message_body.Focus();
+      Alert
+        (
+        cause:k.alert_cause_type.USER,
+        state:k.alert_state_type.NORMAL,
+        key:"EBMODESET",
+        value:"Filters and other controls have now been set for EMERGENCY BROADCAST.  Edit/enter and Send your message(s) in the QuickMessage area.",
+        be_using_scriptmanager:true
+        );
+      Bind();
+      }
     } // end TWebUserControl_roster
 
   }
