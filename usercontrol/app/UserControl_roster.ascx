@@ -67,7 +67,7 @@
                                     <ASP:ListItem value="associate"              >- - - - - Associate</ASP:ListItem>
                                     <ASP:ListItem value="resdoc"                 >- - - - - ResDoc</ASP:ListItem>
                                     <ASP:ListItem value="edp"                    >- - - - - EDP</ASP:ListItem>
-                                    <ASP:ListItem value="staff"                  >- - - - - Staff</ASP:ListItem>
+                                    <ASP:ListItem value="field_staff"            >- - - - - Field staff</ASP:ListItem>
                                     <ASP:ListItem value="als_intern"             >- - - - - ALS Intern</ASP:ListItem>
                                     <ASP:ListItem value="college"                >- - - - - College</ASP:ListItem>
                                     <ASP:ListItem value="atypical"               >- - - - - Atypical</ASP:ListItem>
@@ -101,7 +101,7 @@
                       <td>
                         <asp:CheckBox id="CheckBox_running_only" runat="server" autopostback="True" oncheckedchanged="CheckBox_running_only_CheckedChanged" Text="Hide 0 duties" font-size="Smaller"></asp:CheckBox>
                         <br />
-                        <asp:CheckBox id="CheckBox_hide_staff" runat="server" autopostback="True" oncheckedchanged="CheckBox_hide_staff_CheckedChanged" Text="Hide Staff" font-size="Smaller"></asp:CheckBox>
+                        <asp:CheckBox id="CheckBox_hide_staff" runat="server" autopostback="True" oncheckedchanged="CheckBox_hide_staff_CheckedChanged" Text="Hide Field staff" font-size="Smaller"></asp:CheckBox>
                       </td>
                       <td nowrap="true" align="left" colspan="2">
                         <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True" onselectedindexchanged="RadioButtonList_which_month_SelectedIndexChanged">

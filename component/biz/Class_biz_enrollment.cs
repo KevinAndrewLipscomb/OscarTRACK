@@ -30,7 +30,7 @@ namespace Class_biz_enrollment
     ASSOCIATE,
     RESDOC,
     EDP,
-    STAFF,
+    FIELD_STAFF,
     ALS_INTERN,
     COLLEGE,
     ATYPICAL,

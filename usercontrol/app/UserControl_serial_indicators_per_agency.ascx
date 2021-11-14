@@ -28,7 +28,7 @@
 <p><b>4. Median length of service of released core operations personnel, in years. For each data point, half of such members have given fewer years of service than indicated, half more: </b></p>
 <p><img id="Img_median_length_of_service" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=median_length_of_service" alt="median_length_of_service" /></p>
 <p>&nbsp;</p>
-<p><b>5. Percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS). The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Staff, ALS Intern, College, Atypical, EDP, ResDoc). Standard enrollees commit more duty shifts per month than liberal enrollees: </b></p>
+<p><b>5. Percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS). The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Field staff, ALS Intern, College, Atypical, EDP, ResDoc). Standard enrollees commit more duty shifts per month than liberal enrollees: </b></p>
 <p><img id="Img_standard_enrollment" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=standard_enrollment" alt="standard_enrollment" /></p>
 <p>&nbsp;</p>
 <p><b>6. Percentage of released core operations personnel who were meeting their baseline duty requirements. The lower the data point, the more personnel were granted leaves or reductions: </b></p>
