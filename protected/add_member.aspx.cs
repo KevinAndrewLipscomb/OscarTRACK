@@ -9,6 +9,7 @@ using kix;
 using System;
 using System.Configuration;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace add_member
   {
@@ -44,6 +45,8 @@ namespace add_member
                 Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_member";
                 if (k.Has((string[])(Session["privilege_array"]), "see-all-squads"))
                 {
+                    RadioButtonList_member_or_observer.Enabled = true;
+                    RequireConfirmation(c:RadioButtonList_member_or_observer,prompt:"If you put this form in Observer mode, it will stay that way until you exit the form and re-enter it.  Are you sure you want to add an Observer?");
                     TableRow_agency.Visible = true;
                     p.biz_agencies.BindListControlShortDashLong(DropDownList_agency);
                 }
@@ -188,18 +191,18 @@ namespace add_member
                     if(
                       p.biz_members.Add
                         (
-                        k.Safe(TextBox_first_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
-                        k.Safe(TextBox_last_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
-                        k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM),
-                        k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
-                        k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)),
-                        agency_id,
-                        k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS),
-                        UserControl_enrollment_date.selectedvalue,
-                        k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM),
-                        k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM),
-                        k.Safe(DropDownList_phone_service.SelectedValue,k.safe_hint_type.NUM),
-                        k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM)
+                        first_name:k.Safe(TextBox_first_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
+                        last_name:k.Safe(TextBox_last_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
+                        cad_num:k.Safe(TextBox_cad_num.Text, k.safe_hint_type.ALPHANUM),
+                        medical_release_code:k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
+                        be_driver_qualified:k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)),
+                        agency_id:agency_id,
+                        email_address:k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS),
+                        enrollment_date:UserControl_enrollment_date.selectedvalue,
+                        enrollment_level:k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM),
+                        phone_num:k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM),
+                        phone_service_id:k.Safe(DropDownList_phone_service.SelectedValue,k.safe_hint_type.NUM),
+                        section_num:k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM)
                         )
                       )
                       {
@@ -222,6 +225,33 @@ namespace add_member
             }
             return result;
         }
+
+    protected void RadioButtonList_member_or_observer_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      RequiredFieldValidator_phone_num.Enabled = true;
+      RequiredFieldValidator_email_address.Enabled = true;
+      TextBox_cad_num.Text = p.biz_members.NextObserverDesignator();
+      TextBox_cad_num.Enabled = false;
+      RegularExpressionValidator_cad_num.Enabled = false;
+      DropDownList_medical_release_level.ClearSelection();
+      DropDownList_medical_release_level.Items.FindByValue("1").Selected = true;
+      DropDownList_medical_release_level.Enabled = false;
+      RadioButtonList_driver_qualified_yes_no.ClearSelection();
+      RadioButtonList_driver_qualified_yes_no.Items.FindByValue("No").Selected = true;
+      RadioButtonList_driver_qualified_yes_no.Enabled = false;
+      DropDownList_agency.ClearSelection();
+      DropDownList_agency.Items.FindByValue("0").Selected = true;
+      DropDownList_agency.Enabled = false;
+      UserControl_enrollment_date.selectedvalue = DateTime.Today;
+      UserControl_enrollment_date.enabled = false;
+      DropDownList_enrollment_level.ClearSelection();
+      DropDownList_enrollment_level.Items.Insert(index:0,item:new ListItem(text:"Observer",value:p.biz_enrollment.CodeOf("Observer")));
+      DropDownList_enrollment_level.Items[0].Selected = true;
+      DropDownList_enrollment_level.Enabled = false;
+      RequiredFieldValidator_enrollment_level.Enabled = false;
+      //
+      RadioButtonList_member_or_observer.Enabled = false;
+      }
 
     } // end TWebForm_add_member
 

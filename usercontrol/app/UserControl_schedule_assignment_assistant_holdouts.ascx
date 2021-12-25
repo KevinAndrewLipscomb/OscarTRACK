@@ -23,6 +23,7 @@
                           <ASP:ListItem value="0" selected="True">Holdouts</ASP:ListItem>
                           <ASP:ListItem value="1">Submitters</ASP:ListItem>
                           <ASP:ListItem value="A">Field staff, College, Atypical, ResDoc</ASP:ListItem>
+                          <ASP:ListItem value="Z">Observers</ASP:ListItem>
                         </ASP:DropDownList>
    							      </td>
                       <td width="48%">&nbsp;</td>

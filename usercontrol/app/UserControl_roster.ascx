@@ -137,7 +137,7 @@
                         </table>
                 </td>
                 <td align="right" valign="middle">
-                  <asp:Button ID="Button_emergency_broadcast" runat="server" visible="false" BackColor="Red" CausesValidation="False" Font-Bold="True" ForeColor="White" OnClick="Button_emergency_broadcast_Click" UseSubmitBehavior="False" style="padding:10px" />
+                  <asp:Button ID="Button_emergency_broadcast" runat="server" visible="false" CausesValidation="False" Font-Bold="True" ForeColor="Red" OnClick="Button_emergency_broadcast_Click" UseSubmitBehavior="False" style="padding:10px" BorderColor="Red" />
                 </td>
               </tr>
             </table>

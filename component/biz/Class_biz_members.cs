@@ -30,6 +30,8 @@ namespace Class_biz_members
         private readonly TClass_db_sms_gateways db_sms_gateways = null;
         private readonly TClass_db_users db_users = null;
 
+        public static readonly Exception OBSERVER_OVERFLOW = new Exception("Cannot exceed observer designator Z9Z9Z9.");
+
         public TClass_biz_members() : base()
         {
             db_leaves = new TClass_db_leaves();
@@ -83,22 +85,26 @@ namespace Class_biz_members
                   phone_service_id,
                   section_num
                   );
-                biz_notifications.IssueForMemberAdded
-                  (
-                  db_members.IdOfFirstnameLastnameCadnum(first_name, last_name, cad_num),
-                  first_name,
-                  last_name,
-                  cad_num,
-                  biz_medical_release_levels.DescriptionOf(medical_release_code),
-                  be_driver_qualified,
-                  biz_agencies.MediumDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id),
-                  email_address,
-                  enrollment_date.ToString("dd MMMM yyyy"),
-                  biz_enrollment.DescriptionOf(enrollment_level),
-                  phone_num,
-                  db_sms_gateways.CarrierNameOfId(id:phone_service_id),
-                  section_num
-                  );
+                var enrollment_description = biz_enrollment.DescriptionOf(enrollment_level);
+                if (enrollment_description != "Observer")
+                  {
+                  biz_notifications.IssueForMemberAdded
+                    (
+                    db_members.IdOfFirstnameLastnameCadnum(first_name, last_name, cad_num),
+                    first_name,
+                    last_name,
+                    cad_num,
+                    biz_medical_release_levels.DescriptionOf(medical_release_code),
+                    be_driver_qualified,
+                    biz_agencies.MediumDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id),
+                    email_address,
+                    enrollment_date.ToString("dd MMMM yyyy"),
+                    enrollment_description,
+                    phone_num,
+                    db_sms_gateways.CarrierNameOfId(id:phone_service_id),
+                    section_num
+                    );
+                  }
                 result = true;
             }
             return result;
@@ -269,7 +275,35 @@ namespace Class_biz_members
           {
           db_members.BindEvaluateesDirectToListControl(target,unselected_literal,selected_value);
           }
-        internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
+
+    internal string NextObserverDesignator()
+      {
+      var next_observer_designator = "A0A0A0";
+      var last_assigned_observer_designator = db_members.LastAssignedObserverDesignator();
+      if (last_assigned_observer_designator == "Z9Z9Z9")
+        {
+        throw OBSERVER_OVERFLOW;
+        }
+      if (last_assigned_observer_designator.Length > 0)
+        {
+        var be_done = false;
+        for (var i = new k.int_nonnegative(next_observer_designator.Length); i.val > 0 && !be_done; i.val--)
+          {
+          if (new ArrayList {'9','Z'}.Contains(last_assigned_observer_designator[i.val - 1]))
+            {
+            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + (i.val % 2 == 0 ? '0' : 'A');
+            }
+          else
+            {
+            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + Convert.ToChar(last_assigned_observer_designator[i.val - 1] + 1);
+            be_done = true;
+            }
+          }
+        }
+      return next_observer_designator;
+      }
+
+    internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
           {
           BindEvaluateesDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
           }

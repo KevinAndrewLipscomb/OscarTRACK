@@ -68,7 +68,7 @@ namespace Class_db_schedule_assignment_logs
         "SELECT DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as at"
         + " , concat(actor.first_name,' ',actor.last_name) as scheduler"
         + " , action"
-        + " , concat('(',medical_release_code_description_map.watchbill_rendition,') ',provider.first_name,' ',provider.last_name) as provider"
+        + " , concat('(',IF(provider.cad_num between 'A' and 'Z','o',medical_release_code_description_map.watchbill_rendition),') ',provider.first_name,' ',provider.last_name) as provider"
         + " , " + (shift_name.Length > 0 ? "''" : "shift.name") + " as shift"
         + " FROM schedule_assignment_log"
         +   " join schedule_assignment on (schedule_assignment.id=schedule_assignment_log.assignment_id)"

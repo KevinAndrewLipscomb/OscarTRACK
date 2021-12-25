@@ -523,6 +523,14 @@ namespace UserControl_member_schedule_detail
       if (p.biz_schedule_assignments.ForceSelection(schedule_assignment_id, true))
         {
         force_on = true;
+        if (p.biz_members.EnrollmentOf(p.member_summary) == "Observer")
+          {
+          p.biz_schedule_assignments.SetPost
+            (
+            id:schedule_assignment_id,
+            post_id:p.biz_agencies.IdOfShortDesignator("010")
+            );
+          }
         }
       else
         {
@@ -630,7 +638,7 @@ namespace UserControl_member_schedule_detail
           {
           if (the_calendar.SelectedDates[i.val].Month == DateTime.Now.AddMonths(p.relative_month.val).Month)
             {
-            if (new ArrayList() {"9TO9"}.Contains(shift_name))
+            if (new ArrayList() {"9TO9","15TO23"}.Contains(shift_name))
               {
               if (!p.biz_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,the_calendar.SelectedDates[i.val]))
                 {
@@ -687,7 +695,7 @@ namespace UserControl_member_schedule_detail
               // This availability is for a "canonical" shift or should be represented as such.
               //
               var representative_shift_name = shift_name;
-              if (new ArrayList() {"MORNING","1ST POWER","2ND POWER","AFTERNOON","DAY/7TO7","DAY/8TO5"}.Contains(shift_name))
+              if (new ArrayList() {"MORNING","1ST POWER","2ND POWER","AFTERNOON","DAY/7TO7","DAY/8TO4","DAY/8TO5"}.Contains(shift_name))
                 {
                 representative_shift_name = "DAY";
                 }
@@ -774,6 +782,10 @@ namespace UserControl_member_schedule_detail
     protected void Calendar_day_SelectionChanged(object sender, EventArgs e)
       {
       var shift_name = "DAY";
+      if (p.biz_members.EnrollmentOf(p.member_summary) == "Observer")
+        {
+        shift_name = "DAY/8TO4";
+        }
       if (p.be_ok_to_one_step_avail_force_post)
         {
         if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
@@ -793,6 +805,10 @@ namespace UserControl_member_schedule_detail
     protected void Calendar_night_SelectionChanged(object sender, EventArgs e)
       {
       var shift_name = "NIGHT";
+      if (p.biz_members.EnrollmentOf(p.member_summary) == "Observer")
+        {
+        shift_name = "15TO23";
+        }
       if (p.be_ok_to_one_step_avail_force_post)
         {
         if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")

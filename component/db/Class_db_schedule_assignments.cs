@@ -597,7 +597,7 @@ namespace Class_db_schedule_assignments
       + " , member.agency_id as member_agency_id"
       + " , short_designator as agency_short_designator"
       + " , member_id"
-      + " , watchbill_rendition as medical_release_description"
+      + " , IF(LEFT(cad_num,1) BETWEEN 'A' and 'Z','o',watchbill_rendition) as medical_release_description"
       + " , concat(last_name,', ',first_name) as name"
       + " , IF(medical_release_code_description_map.pecking_order >= 20,IF(be_driver_qualified,'','Ð'),'') as be_driver_qualified"
       + " , be_selected"
@@ -1521,6 +1521,10 @@ namespace Class_db_schedule_assignments
         {
         filter += " and (enrollment_level.description in ('Field staff'))";
         }
+      else if (compliancy_filter == "Z") // Observers
+        {
+        filter = " where enrollment_level.description = 'Observer'";
+        }
       //
       Open();
       using var my_sql_command = new MySqlCommand
@@ -2022,7 +2026,7 @@ namespace Class_db_schedule_assignments
         +       " ,"
         +         " 0"
         +       " )"
-        +   " and enrollment_level.description <> 'Field staff'"
+        +   " and enrollment_level.description not in ('Field staff','Observer')"
         + " )"
         + " UNION"
         //

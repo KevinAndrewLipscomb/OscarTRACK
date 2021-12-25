@@ -24,6 +24,15 @@ namespace add_member
     protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
 
     /// <summary>
+    /// RadioButtonList_member_or_observer control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_member_or_observer;
+
+    /// <summary>
     /// TextBox_first_name control.
     /// </summary>
     /// <remarks>
@@ -69,6 +78,15 @@ namespace add_member
     protected global::System.Web.UI.WebControls.TextBox TextBox_phone_num;
 
     /// <summary>
+    /// RequiredFieldValidator_phone_num control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_phone_num;
+
+    /// <summary>
     /// CustomValidator_phone_num control.
     /// </summary>
     /// <remarks>
@@ -94,6 +112,15 @@ namespace add_member
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.TextBox TextBox_email_address;
+
+    /// <summary>
+    /// RequiredFieldValidator_email_address control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_email_address;
 
     /// <summary>
     /// RegularExpressionValidator_email_address control.

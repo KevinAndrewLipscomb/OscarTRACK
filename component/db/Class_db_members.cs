@@ -231,6 +231,15 @@ namespace Class_db_members
             return (summary as member_summary).be_driver_qualified;
         }
 
+    internal string LastAssignedObserverDesignator()
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand("select IFNULL(max(cad_num),'') from member where left(cad_num,1) between 'A' and 'Z'",connection);
+      var last_assigned_observer_designator = my_sql_command.ExecuteScalar().ToString();
+      Close();
+      return last_assigned_observer_designator;
+      }
+
     public bool BeFlightMedicQualifiedOf(object summary)
       {
       return (summary as member_summary).be_flight_medic;
