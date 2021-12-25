@@ -18,7 +18,22 @@
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr>
-                <td bgcolor="#f5f5f5"><strong>Add member to roster</strong></td>
+                <td bgcolor="#f5f5f5">
+                  <table>
+                    <tr>
+                      <td><strong>Add</strong></td>
+                      <td>
+                        <strong>
+                          <asp:RadioButtonList ID="RadioButtonList_member_or_observer" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList_member_or_observer_SelectedIndexChanged" enabled="false">
+                            <asp:ListItem Selected="True">member</asp:ListItem>
+                            <asp:ListItem>observer</asp:ListItem>
+                          </asp:RadioButtonList>
+                        </strong>
+                      </td>
+                      <td><strong>to roster</strong></td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
               <tr>
                 <td>
@@ -36,7 +51,10 @@
                     <tr>
                       <td>Phone # (cellular preferred):</td>
                       <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14"></ASP:TextBox></td>
-                      <td nowrap="nowrap"><ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." font-bold="True" controltovalidate="TextBox_phone_num" onservervalidate="CustomValidator_phone_num_ServerValidate">!ERR!</ASP:CustomValidator></td>
+                      <td nowrap="nowrap">
+                        <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" errormessage="Please enter a phone number." font-bold="True" controltovalidate="TextBox_phone_num" enabled="false" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
+                        <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." font-bold="True" controltovalidate="TextBox_phone_num" onservervalidate="CustomValidator_phone_num_ServerValidate" Display="Dynamic">!ERR!</ASP:CustomValidator>
+                      </td>
                     </tr>
                     <tr>
                       <td><font class="">Cellular provider:</font></td>
@@ -46,7 +64,10 @@
                     <tr>
                       <td>Email address:</td>
                       <td><ASP:TextBox id="TextBox_email_address" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
-                      <td nowrap="nowrap"><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a syntactically valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_ServerValidate">!ERR!</ASP:CustomValidator></td>
+                      <td nowrap="nowrap">
+                        <ASP:RequiredFieldValidator id="RequiredFieldValidator_email_address" runat="server" errormessage="Please enter an email adress." font-bold="True" controltovalidate="TextBox_email_address" enabled="false" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
+                        <ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a syntactically valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_ServerValidate" Display="Dynamic">!ERR!</ASP:CustomValidator>
+                      </td>
                     </tr>
                     <tr>
                       <td>CAD#:</td>

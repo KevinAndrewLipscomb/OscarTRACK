@@ -144,21 +144,20 @@ namespace Class_db_enrollment
       Close();
       }
 
-        public void BindUncontrolledListControl(object target)
+    public void BindUncontrolledListControl(object target)
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
+      using var my_sql_command = new MySqlCommand("SELECT code, description from enrollment_level where description <> 'Observer' and be_hereafter_valid order by pecking_order", connection);
+      var dr = my_sql_command.ExecuteReader();
+      while (dr.Read())
         {
-            MySqlDataReader dr;
-            Open();
-            ((target) as ListControl).Items.Clear();
-            ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-            using var my_sql_command = new MySqlCommand("SELECT code, description from enrollment_level where be_hereafter_valid order by pecking_order", connection);
-            dr = my_sql_command.ExecuteReader();
-            while (dr.Read())
-            {
-                ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
-            }
-            dr.Close();
-            Close();
+        ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
         }
+      dr.Close();
+      Close();
+      }
 
         public string ElaborationOf(string description)
         {
