@@ -2,6 +2,7 @@ using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_notifications;
+using Class_biz_role_member_map;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_db_leaves;
@@ -737,6 +738,46 @@ namespace Class_biz_members
           {
           return db_members.NumTapouts3MonthsAgoOf(summary);
           }
+
+    internal string OfficerTargetForReportCommandedMemberScheduleDetail
+      (
+      bool be_virgin_watchbill,
+      bool do_send_member_sched_details_to_dept_chief_scheduler,
+      string member_agency_id,
+      string other_agency_ids,
+      string squad_scheduler_target,
+      string member_id
+      )
+      {
+      var biz_role_member_map = new TClass_biz_role_member_map(); // kept local to avoid a stack overflow due to circular dependency
+      //
+      var officer_target_for_report_commanded_member_schedule_detail = k.EMPTY;
+      //
+      var squad_schedule_monitor_target = biz_role_member_map.EmailTargetOf("Squad Schedule Monitor",biz_agencies.ShortDesignatorOf(member_agency_id));
+      if (squad_schedule_monitor_target.Length > 0)
+        {
+        squad_schedule_monitor_target = k.COMMA + squad_schedule_monitor_target;
+        }
+      var other_squad_schedule_coordinator_target = biz_role_member_map.EmailTargetOfAgencyIdList("Squad Scheduler",other_agency_ids);
+      if (other_squad_schedule_coordinator_target.Length > 0)
+        {
+        other_squad_schedule_coordinator_target = k.COMMA + other_squad_schedule_coordinator_target;
+        }
+      var other_squad_schedule_monitor_target = biz_role_member_map.EmailTargetOfAgencyIdList("Squad Schedule Monitor",other_agency_ids);
+      if (other_squad_schedule_monitor_target.Length > 0)
+        {
+        other_squad_schedule_monitor_target = k.COMMA + other_squad_schedule_monitor_target;
+        }
+      if (!be_virgin_watchbill)
+        {
+        officer_target_for_report_commanded_member_schedule_detail = (do_send_member_sched_details_to_dept_chief_scheduler || (member_agency_id != "0") ? squad_scheduler_target : k.EMPTY)
+        + squad_schedule_monitor_target
+        + other_squad_schedule_coordinator_target
+        + other_squad_schedule_monitor_target
+        + k.COMMA + biz_role_member_map.EmailTargetOf((BeReleased(member_id) ? (do_send_member_sched_details_to_dept_chief_scheduler ? "Department Chief Scheduler" : k.EMPTY) : "Department Jump Seat Scheduler"), "EMS");
+        }
+      return officer_target_for_report_commanded_member_schedule_detail;
+      }
 
         public string OverallFleetTrackingParticipation()
           {

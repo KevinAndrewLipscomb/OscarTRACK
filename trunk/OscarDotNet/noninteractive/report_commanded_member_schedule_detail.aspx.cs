@@ -121,33 +121,17 @@ namespace report_commanded_member_schedule_detail
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var squad_scheduler_target = p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.member_agency_id);
-      var squad_schedule_monitor_target = p.biz_role_member_map.EmailTargetOf("Squad Schedule Monitor",p.biz_agencies.ShortDesignatorOf(p.member_agency_id));
-      if (squad_schedule_monitor_target.Length > 0)
-        {
-        squad_schedule_monitor_target = k.COMMA + squad_schedule_monitor_target;
-        }
-      var other_squad_schedule_coordinator_target = p.biz_role_member_map.EmailTargetOfAgencyIdList("Squad Scheduler",p.other_agency_ids);
-      if (other_squad_schedule_coordinator_target.Length > 0)
-        {
-        other_squad_schedule_coordinator_target = k.COMMA + other_squad_schedule_coordinator_target;
-        }
-      var other_squad_schedule_monitor_target = p.biz_role_member_map.EmailTargetOfAgencyIdList("Squad Schedule Monitor",p.other_agency_ids);
-      if (other_squad_schedule_monitor_target.Length > 0)
-        {
-        other_squad_schedule_monitor_target = k.COMMA + other_squad_schedule_monitor_target;
-        }
       var member_email_address = (p.be_limited_preview ? k.EMPTY : p.biz_members.EmailAddressOf(p.member_id).Trim());
-      var officer_target = k.EMPTY;
-      if (!p.be_virgin_watchbill)
-        {
-        officer_target = squad_scheduler_target
-        + squad_schedule_monitor_target
-        + other_squad_schedule_coordinator_target
-        + other_squad_schedule_monitor_target
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf((p.biz_members.BeReleased(p.member_id) ? "Department Chief Scheduler" : "Department Jump Seat Scheduler"),"EMS");
-        }
+      var squad_scheduler_target = p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.member_agency_id);
+      var officer_target = p.biz_members.OfficerTargetForReportCommandedMemberScheduleDetail
+        (
+        be_virgin_watchbill:p.be_virgin_watchbill,
+        do_send_member_sched_details_to_dept_chief_scheduler:bool.Parse(ConfigurationManager.AppSettings["do_send_member_sched_details_to_dept_chief_scheduler"]),
+        member_agency_id:p.member_agency_id,
+        other_agency_ids:p.other_agency_ids,
+        squad_scheduler_target:squad_scheduler_target,
+        member_id:p.member_id
+        );
       if (p.be_limited_preview)
         {
         k.SmtpMailSend
