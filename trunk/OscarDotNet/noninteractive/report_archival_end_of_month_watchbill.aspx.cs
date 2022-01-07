@@ -93,37 +93,17 @@ namespace report_archival_end_of_month_watchbill
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var email_target = k.EMPTY;
-      if (p.agency_short_designator == "EMS")
-        {
-        email_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler", "EMS")
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Department Scheduler", "EMS")
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler", "EMS")
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Department Schedule Auditor", "EMS");
-        }
-      else
-        {
-        email_target = p.biz_role_member_map.EmailTargetOf("Squad Scheduler",p.agency_short_designator)
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Assistant Squad Commander",p.agency_short_designator)
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)",p.agency_short_designator)
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Squad Commander",p.agency_short_designator);
-        }
+      var email_target = p.biz_role_member_map.EmailTargetForArchivalEndOfMonthWatchbill(p.agency_short_designator);
       k.SmtpMailSend
         (
-        ConfigurationManager.AppSettings["sender_email_address"],
-        email_target,
-        "*Archival* " + DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM yyyy").ToUpper() + " Ambulance Watchbill, " + (p.agency_short_designator == "EMS" ? "SYSTEM-WIDE" : p.agency_short_designator) + " (scalable)",
-        body,
-        true,
-        k.EMPTY,
-        k.EMPTY,
-        email_target
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:email_target,
+        subject:"*Archival* " + DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM yyyy").ToUpper() + " Ambulance Watchbill, " + (p.agency_short_designator == "EMS" ? "SYSTEM-WIDE" : p.agency_short_designator) + " (scalable)",
+        message_string:body,
+        be_html:true,
+        cc:k.EMPTY,
+        bcc:k.EMPTY,
+        reply_to:email_target
         );
       Session.Abandon();
       }
