@@ -4,7 +4,9 @@ using Class_biz_user;
 using Class_db_role_member_map;
 using Class_db_role_member_map_logs;
 using kix;
+using System;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_role_member_map
   {
@@ -92,7 +94,35 @@ namespace Class_biz_role_member_map
             return result;
         }
 
-        internal string EmailTargetOfAgencyIdList
+    internal string EmailTargetForArchivalEndOfMonthWatchbill(string agency_short_designator)
+      {
+      var email_target_for_archival_end_of_month_watchbill = k.EMPTY;
+      if (agency_short_designator == "EMS")
+        {
+        email_target_for_archival_end_of_month_watchbill = ConfigurationManager.AppSettings["sender_email_address"]
+        + k.COMMA
+        + EmailTargetOf("Department Chief Scheduler", "EMS")
+        + k.COMMA
+        + EmailTargetOf("Department Scheduler", "EMS")
+        + k.COMMA
+        + EmailTargetOf("Department Jump Seat Scheduler", "EMS")
+        + k.COMMA
+        + EmailTargetOf("Department Schedule Auditor", "EMS");
+        }
+      else
+        {
+        email_target_for_archival_end_of_month_watchbill = EmailTargetOf("Squad Scheduler",agency_short_designator)
+        + k.COMMA
+        + EmailTargetOf("Assistant Squad Commander",agency_short_designator)
+        + k.COMMA
+        + EmailTargetOf("Squad Manager (possibly paid)",agency_short_designator)
+        + k.COMMA
+        + EmailTargetOf("Squad Commander",agency_short_designator);
+        }
+      return email_target_for_archival_end_of_month_watchbill;
+      }
+
+    internal string EmailTargetOfAgencyIdList
           (
           string role_name,
           string agency_id_list
