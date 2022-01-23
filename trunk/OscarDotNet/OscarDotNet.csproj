@@ -485,6 +485,7 @@
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounter_levels.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
+    <Compile Include="component\biz\Class_biz_quick_messages.cs" />
     <Compile Include="component\biz\Class_biz_ranks.cs" />
     <Compile Include="component\biz\Class_biz_rank_groups.cs" />
     <Compile Include="component\biz\Class_biz_residents.cs" />
