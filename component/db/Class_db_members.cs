@@ -1236,7 +1236,7 @@ namespace Class_db_members
 
         public void BindRankedThirdSlotSaturation(object target, bool do_log)
           {
-          var metric_phrase = k.EMPTY          
+          var metric_phrase = k.EMPTY
           + " sum("
           +   " if"
           +     " ("
@@ -1257,7 +1257,7 @@ namespace Class_db_members
           +     " if"
           +       " ("
           +         " ("
-          +           " enrollment_level.description in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // EDPs deliberately excluded
+          +           " enrollment_level.description in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // ALS Interns and EDPs deliberately excluded
           +         " and"
           +           " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
           +         " ),"
@@ -1309,7 +1309,7 @@ namespace Class_db_members
           +       " )"
           +   " join agency on (agency.id=member.agency_id)"
           + " where"
-          +     " enrollment_level.description in ('Associate','Recruit','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // EDPs deliberately excluded
+          +     " enrollment_level.description in ('Associate','Recruit','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // ALS Interns and EDPs deliberately excluded
           +   " and"
           +     " ("
           +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
@@ -1372,7 +1372,7 @@ namespace Class_db_members
             +     " if"
             +       " ("
             +         " ("
-            +           " enrollment_level.description in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // EDPs deliberately excluded
+            +           " enrollment_level.description in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" // ALS Interns and EDPs deliberately excluded
             +         " and"
             +           " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
             +         " ),"
@@ -1825,17 +1825,17 @@ namespace Class_db_members
         +     " and"
         +       " ("
         +         " ("
-        +           " enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee','ALS Intern')"
+        +           " enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
         +         " and"
         +           " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,num_shifts)) > 0"
         +         " )"
         +       " or"
-        +         " (enrollment_level.description in ('Field staff','College','Atypical','SpecOps'))"
+        +         " (enrollment_level.description in ('Field staff','College','Atypical','SpecOps','ALS Intern'))"
         +       " )"
         +     " and"
         +       " (agency.id " + (agency_filter.Length == 0 ? "<> 0" : "= '" + agency_filter + "'") + ")"
         +       (release_filter.Length > 0 ? " and (medical_release_code_description_map.pecking_order " + (release_filter == "1" ? ">=" : "<") + " 20)" : k.EMPTY)
-        +       (do_limit_to_compliant ? " and ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Field staff','College','Atypical'),FALSE,NULL))" : k.EMPTY)
+        +       (do_limit_to_compliant ? " and ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Field staff','College','Atypical','ALS Intern'),FALSE,NULL))" : k.EMPTY)
         +     " )"
         +   " group by member.id"
         +   " ) as inner_query"
@@ -2247,7 +2247,7 @@ namespace Class_db_members
           +     " (select distinct odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(1).ToString("MMM") + "') as condensed_avail_sheet on (condensed_avail_sheet.odnmid=member.id)"
           +   " left join"
           +     " (select distinct member_id from schedule_assignment where trigger_managed_year_month = EXTRACT(YEAR_MONTH from ADDDATE(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
-          + " where enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          + " where enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Field staff','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,IF((enrollment_level.description = 'College' and " + be_before_deadline.ToString() + "),TRUE,num_shifts)))"
           +   " and (condensed_avail_sheet.odnmid is null)"
           +   " and (condensed_schedule_assignment.member_id is null)"
