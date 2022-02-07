@@ -1475,12 +1475,12 @@ namespace Class_db_schedule_assignments
       var filter = " where"
       + " ("
       +   " ("
-      +     " enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee','ALS Intern')"
+      +     " enrollment_level.description in ('Recruit','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
       +   " and"
       +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,num_shifts)) > 0"
       +   " )"
       + " or"
-      +   " (enrollment_level.description in ('Field staff','College','Atypical','ResDoc','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
+      +   " (enrollment_level.description in ('Field staff','College','Atypical','ResDoc','SpecOps','ALS Intern'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
       + " )";
       //
       if (agency_filter.Length > 0)
@@ -1507,7 +1507,7 @@ namespace Class_db_schedule_assignments
       //
       if (compliancy_filter == "0") // holdouts
         {
-        filter += " and (enrollment_level.description not in ('Field staff','College','Atypical','ResDoc','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description not in ('Field staff','College','Atypical','ResDoc','SpecOps','ALS Intern'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "1") // submitters
         {
@@ -1515,7 +1515,7 @@ namespace Class_db_schedule_assignments
         }
       else if (compliancy_filter == "A") // atypicals
         {
-        filter += " and (enrollment_level.description in ('Field staff','College','Atypical','ResDoc'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description in ('Field staff','College','Atypical','ResDoc','ALS Intern'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "S") // field staff
         {
@@ -1535,7 +1535,7 @@ namespace Class_db_schedule_assignments
         + " , section_num"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
         + " , medical_release_code_description_map.watchbill_rendition as level"
-        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Field staff','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
+        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Field staff','College','Atypical','ALS Intern'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"
         + " , member.phone_num"
