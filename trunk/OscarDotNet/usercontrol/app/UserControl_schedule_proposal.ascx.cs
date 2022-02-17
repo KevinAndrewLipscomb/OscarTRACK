@@ -297,7 +297,11 @@ namespace UserControl_schedule_proposal
         p.saved_d_unit_spec = k.EMPTY;
         p.saved_n_unit_spec = k.EMPTY;
         //
-        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
+        p.be_ok_to_edit_post = p.biz_schedule_assignments.BeOkToEditPost
+          (
+          has_edit_schedule_priv:k.Has((string[])(Session["privilege_array"]), "edit-schedule"),
+          has_edit_schedule_tier_department_only_priv:k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only")
+          );
         p.individual_work_timelines_mode = new k.int_sign_range(0);
         p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
@@ -940,8 +944,9 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
-          );
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:nominal_day_datetime.AddHours(6)
+          );;
         var n_be_selected = (e.Item.Cells[Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
         var n_be_ok_to_enable_controls = p.biz_schedule_assignments.BeOkToEnableControls
@@ -960,7 +965,8 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:nominal_day_datetime.AddHours(18)
           );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
@@ -1124,7 +1130,8 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:DateTime.MaxValue // should stay absurdly large for privilege violation detection
           )
         )
         {
@@ -1162,7 +1169,8 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:DateTime.MaxValue // should stay absurdly large for privilege violation detection
           )
         )
         {
@@ -1200,7 +1208,8 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:DateTime.MaxValue // should stay absurdly large for privilege violation detection
           )
         )
         {
@@ -1238,7 +1247,8 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
           be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
-          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory
+          be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
+          fundamental_shift_start:DateTime.MaxValue // should stay absurdly large for privilege violation detection
           )
         )
         {

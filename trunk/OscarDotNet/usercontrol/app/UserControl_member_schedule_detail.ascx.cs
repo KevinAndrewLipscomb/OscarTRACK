@@ -68,6 +68,7 @@ namespace UserControl_member_schedule_detail
       public bool be_limited_preview;
       public bool be_loaded;
       public bool be_my_watchbill_mode;
+      public bool be_ok_to_edit_schedule_liberally;
       public bool be_ok_to_one_step_avail_force_post;
       public bool be_partially_editable;
       public bool be_virgin_watchbill;
@@ -232,6 +233,7 @@ namespace UserControl_member_schedule_detail
           );
         p.be_limited_preview = false;
         p.be_my_watchbill_mode = InstanceId().Contains("ASP.protected_overview_aspx");
+        p.be_ok_to_edit_schedule_liberally = k.Has((Session["privilege_array"] as string[]),"edit-schedule-liberally");
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
         p.member_summary = null;
@@ -282,12 +284,15 @@ namespace UserControl_member_schedule_detail
     protected void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
+      DateTime nominal_day;
+      var be_today_or_later = false;
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       var be_selected = (e.Item.Cells[Static.TCI_BE_SELECTED].Text == "1");
       if (be_any_kind_of_item)
         {
         link_button = (e.Item.Cells[Static.TCI_NOMINAL_DAY].Controls[0] as LinkButton);
-        var nominal_day = DateTime.Parse(link_button.Text);
+        nominal_day = DateTime.Parse(link_button.Text);
+        be_today_or_later = nominal_day >= DateTime.Today;
         link_button.Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
         link_button.Enabled = false;
         if (p.be_interactive)
@@ -363,6 +368,8 @@ namespace UserControl_member_schedule_detail
             be_selected
           &&
             (e.Item.ItemType != ListItemType.EditItem) && Regex.IsMatch(input:(e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text,pattern:"^(R[0-9]|Z)")
+          &&
+            be_today_or_later
           )
         // then
           {
@@ -394,12 +401,19 @@ namespace UserControl_member_schedule_detail
         }
       if (p.be_fully_editable && be_any_kind_of_item)
         {
+        var be_guarded = p.biz_schedule_assignments.BeSelectedAndGuardedOnMemberScheduleDetail
+          (
+          be_selected:be_selected,
+          on_duty:e.Item.Cells[Static.TCI_ON_DUTY].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally
+          );
         var comment_edit_update_cancel_controls = e.Item.Cells[Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls;
         if (comment_edit_update_cancel_controls.Count == 1)
           {
           link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Edit comment";
+          link_button.Visible = be_today_or_later && !be_guarded;
           }
         else
           {
@@ -446,15 +460,19 @@ namespace UserControl_member_schedule_detail
         link_button = ((e.Item.Cells[Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
         link_button.Text = k.ExpandTildePath(link_button.Text);
         link_button.ToolTip = "Swap with earlier availability";
+        link_button.Visible = be_today_or_later && !be_guarded;
         link_button = ((e.Item.Cells[Static.TCI_SWAP_LATER].Controls[0]) as LinkButton);
         link_button.Text = k.ExpandTildePath(link_button.Text);
         link_button.ToolTip = "Swap with later availability";
+        link_button.Visible = be_today_or_later && !be_guarded;
         link_button = ((e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0]) as LinkButton);
         link_button.Text = k.ExpandTildePath(link_button.Text);
         link_button.ToolTip = "Force off";
+        link_button.Visible = be_today_or_later && !be_guarded;
         link_button = ((e.Item.Cells[Static.TCI_FORCE_ON].Controls[0]) as LinkButton);
         link_button.Text = k.ExpandTildePath(link_button.Text);
         link_button.ToolTip = "Force on";
+        link_button.Visible = be_today_or_later && !be_guarded;
         //
         //
         // Remove all cell controls from viewstate except for the one at TCI_ID -- and except for the editable dropdownlists and the clickable nominal day.
