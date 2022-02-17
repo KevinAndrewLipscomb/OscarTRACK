@@ -266,6 +266,15 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal bool BeOkToEditPost
+      (
+      bool has_edit_schedule_priv,
+      bool has_edit_schedule_tier_department_only_priv
+      )
+      {
+      return has_edit_schedule_priv || has_edit_schedule_tier_department_only_priv;
+      }
+
     internal bool BeOkToEditScheduleTierDepartmentOnly(string[] privilege_array)
       {
       return (k.Has(privilege_array,"edit-schedule-tier-department-only") && !k.Has(privilege_array,"edit-schedule-liberally"));
@@ -287,9 +296,11 @@ namespace Class_biz_schedule_assignments
       bool be_ok_to_schedule_mci_team,
       bool be_ok_to_schedule_bike_team,
       bool be_ok_to_edit_schedule_for_any_special_agency,
-      SortedList<string,bool> be_full_watchbill_publish_mandatory
+      SortedList<string,bool> be_full_watchbill_publish_mandatory,
+      DateTime fundamental_shift_start
       )
       {
+      var be_before_guard_hours = fundamental_shift_start >= DateTime.Now.AddHours((new k.int_nonnegative(val:int.Parse(s:ConfigurationManager.AppSettings["num_pre_shift_guard_hours"] ?? "0"))).val);
       return (post_id.Length > 0)
       && be_interactive
       &&
@@ -299,12 +310,12 @@ namespace Class_biz_schedule_assignments
           &&
             (
               (
-                (agency_id == own_agency)
+                ((agency_id == own_agency) && be_before_guard_hours)
               &&
                 (!be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(medical_release_description[0])) // assumes non-released is always lowercase
               )
             ||
-              biz_agencies.BeAgencyResponsibleForPost(own_agency, post_id)
+              (biz_agencies.BeAgencyResponsibleForPost(own_agency, post_id) && be_before_guard_hours)
             ||
               (
                 be_ok_to_edit_schedule_liberally
@@ -375,6 +386,23 @@ namespace Class_biz_schedule_assignments
     internal bool BeProposalGeneratedForNextMonth()
       {
       return db_schedule_assignments.BeProposalGeneratedForNextMonth();
+      }
+
+    internal bool BeSelectedAndGuardedOnMemberScheduleDetail
+      (
+      bool be_selected,
+      string on_duty,
+      bool be_ok_to_edit_schedule_liberally
+      )
+      //
+      // This logic assumes conditions that are only guaranteed on the member schedule detail control.
+      //
+      {
+      return be_selected
+        &&
+          (DateTime.Parse(on_duty) < DateTime.Now.AddHours((new k.int_nonnegative(val:int.Parse(s:ConfigurationManager.AppSettings["num_pre_shift_guard_hours"] ?? "0"))).val))
+        &&
+          !be_ok_to_edit_schedule_liberally;
       }
 
     public bool Bind(string partial_spec, object target)
