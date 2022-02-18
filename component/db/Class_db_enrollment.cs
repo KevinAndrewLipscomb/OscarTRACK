@@ -15,6 +15,9 @@ namespace Class_db_enrollment
 
     public class TClass_db_enrollment: TClass_db
     {
+
+    internal const string MIN_PAST_PECKING_ORDER = "100";
+
         private readonly TClass_db_agencies db_agencies = null;
         private readonly TClass_db_trail db_trail = null;
 
