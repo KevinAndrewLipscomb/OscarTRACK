@@ -16,6 +16,11 @@
             <HeaderStyle horizontalalign="Left"></HeaderStyle>
             <ItemStyle horizontalalign="Left"></ItemStyle>
           </asp:BoundField>
+          <asp:TemplateField Visible="false">
+            <ItemTemplate>
+              <asp:ImageButton ID="ImageButton_imitate" runat="server" CommandName="Select" CommandArgument='<%# Eval("user_name") %>' ImageUrl="~/protected/image/mask-16-16.png" OnClick="ImageButton_imitate_Click"></asp:ImageButton>
+            </ItemTemplate>
+          </asp:TemplateField>
         </Columns>
         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
       </asp:GridView>

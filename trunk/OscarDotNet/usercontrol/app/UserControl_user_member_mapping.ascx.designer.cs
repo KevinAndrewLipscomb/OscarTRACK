@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_user_member_mapping {
-    
-    
-    public partial class TWebUserControl_user_member_mapping {
-        
-        /// <summary>
-        /// GridView_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView_control;
+namespace UserControl_user_member_mapping
+  {
+
+
+  public partial class TWebUserControl_user_member_mapping
+    {
+
+    /// <summary>
+    /// GridView_control control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.GridView GridView_control;
     }
-}
+  }
