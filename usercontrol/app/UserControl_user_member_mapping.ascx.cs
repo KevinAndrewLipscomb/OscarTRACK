@@ -43,7 +43,7 @@ namespace UserControl_user_member_mapping
       }
 
     private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
-    private v_type v; // Volatile instance Variable container
+    //private v_type v; // Volatile instance Variable container
 
 
     protected void Page_Load(object sender, System.EventArgs e)
