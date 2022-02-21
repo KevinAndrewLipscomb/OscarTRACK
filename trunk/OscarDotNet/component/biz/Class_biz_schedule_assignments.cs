@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
@@ -359,6 +360,26 @@ namespace Class_biz_schedule_assignments
       )
       {
       return be_interactive && (be_ok_to_edit_post || be_ok_to_send_quickmessage_by_shift);
+      }
+
+    internal bool BeOkToShowCoverageAssistantLink
+      (
+      bool be_interactive,
+      bool be_selected,
+      string post_short_designator,
+      bool be_today_or_later
+      )
+      {
+      return
+        (
+          be_interactive
+        &&
+          be_selected
+        &&
+          Regex.IsMatch(input:post_short_designator,pattern:"^(R[0-9]|Z)")
+        &&
+          be_today_or_later
+        );
       }
 
     internal bool BeOkToWorkOnNextMonthAssignments()

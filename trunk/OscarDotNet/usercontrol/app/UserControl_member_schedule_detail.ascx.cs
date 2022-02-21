@@ -12,7 +12,6 @@ using System.Collections;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -292,7 +291,7 @@ namespace UserControl_member_schedule_detail
         {
         link_button = (e.Item.Cells[Static.TCI_NOMINAL_DAY].Controls[0] as LinkButton);
         nominal_day = DateTime.Parse(link_button.Text);
-        be_today_or_later = nominal_day >= DateTime.Today;
+        be_today_or_later = nominal_day >= DateTime.Today.AddHours(value:-6); // Today will render 0000h. Back up 6 hours (to 1800) to account for crossing midnight on nominal night shift.
         link_button.Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
         link_button.Enabled = false;
         if (p.be_interactive)
@@ -363,13 +362,15 @@ namespace UserControl_member_schedule_detail
           (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         if(
-            p.be_interactive
+            (e.Item.ItemType != ListItemType.EditItem)
           &&
-            be_selected
-          &&
-            (e.Item.ItemType != ListItemType.EditItem) && Regex.IsMatch(input:(e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text,pattern:"^(R[0-9]|Z)")
-          &&
-            be_today_or_later
+            p.biz_schedule_assignments.BeOkToShowCoverageAssistantLink
+              (
+              be_interactive:p.be_interactive,
+              be_selected:be_selected,
+              post_short_designator:(e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text,
+              be_today_or_later:be_today_or_later
+              )
           )
         // then
           {
