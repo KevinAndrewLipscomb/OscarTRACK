@@ -63,26 +63,21 @@ namespace Class_db_privileges
             BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
-        public bool Get(string name, out string soft_hyphenation_text)
+    public bool Get(string name)
+      {
+      var result = false;
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = '" + name + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
+      if (dr.Read())
         {
-            bool result;
-            MySqlDataReader dr;
-
-            soft_hyphenation_text = k.EMPTY;
-            result = false;
-            Open();
-            using var my_sql_command = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", connection);
-            dr = my_sql_command.ExecuteReader();
-            if (dr.Read())
-            {
-                name = dr["name"].ToString();
-                soft_hyphenation_text = dr["soft_hyphenation_text"].ToString();
-                result = true;
-            }
-            dr.Close();
-            Close();
-            return result;
+        name = dr["name"].ToString();
+        result = true;
         }
+      dr.Close();
+      Close();
+      return result;
+      }
 
     internal bool HasForAnySpecialAgency
       (

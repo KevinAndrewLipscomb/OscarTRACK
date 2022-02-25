@@ -1,5 +1,7 @@
 using kix;
 using UserControl_my_roles_and_mappings;
+using UserControl_notification;
+using UserControl_privilege;
 using UserControl_role;
 using UserControl_role_member_mapping;
 using UserControl_role_notification_mapping;
@@ -22,8 +24,10 @@ namespace UserControl_roles_and_matrices_binder
       public const int TSSI_MINE = 0;
       public const int TSSI_ROLES = 1;
       public const int TSSI_ROLE_MEMBER_MAPPING = 2;
-      public const int TSSI_ROLE_PRIVILEGE_MAPPING = 3;
-      public const int TSSI_ROLE_NOTIFICATION_MAPPING = 4;
+      public const int TSSI_PRIVILEGES = 3;
+      public const int TSSI_ROLE_PRIVILEGE_MAPPING = 4;
+      public const int TSSI_NOTIFICATIONS = 5;
+      public const int TSSI_ROLE_NOTIFICATION_MAPPING = 6;
       }
 
     private struct p_type
@@ -61,10 +65,22 @@ namespace UserControl_roles_and_matrices_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_role_member_mapping",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
+      else if (p.tab_index == Static.TSSI_PRIVILEGES)
+        {
+        var c = ((TWebUserControl_privilege)(LoadControl("~/usercontrol/app/UserControl_privilege.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_privilege",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        //c.SetTarget(target);
+        }
       else if (p.tab_index == Static.TSSI_ROLE_PRIVILEGE_MAPPING)
         {
         var c = ((TWebUserControl_role_privilege_mapping)(LoadControl("~/usercontrol/app/UserControl_role_privilege_mapping.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_role_privilege_mapping",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        //c.SetTarget(target);
+        }
+      else if (p.tab_index == Static.TSSI_NOTIFICATIONS)
+        {
+        var c = ((TWebUserControl_notification)(LoadControl("~/usercontrol/app/UserControl_notification.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_notification",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
       else if (p.tab_index == Static.TSSI_ROLE_NOTIFICATION_MAPPING)
@@ -174,9 +190,17 @@ namespace UserControl_roles_and_matrices_binder
           {
           p.tab_index = Static.TSSI_ROLE_MEMBER_MAPPING;
           }
+        else if (target.ToLower().Contains("/privileges/"))
+          {
+          p.tab_index = Static.TSSI_PRIVILEGES;
+          }
         else if (target.ToLower().Contains("/role-privilege-mappings/"))
           {
           p.tab_index = Static.TSSI_ROLE_PRIVILEGE_MAPPING;
+          }
+        else if (target.ToLower().Contains("/notifications/"))
+          {
+          p.tab_index = Static.TSSI_NOTIFICATIONS;
           }
         else if (target.ToLower().Contains("/role-notification-mappings/"))
           {

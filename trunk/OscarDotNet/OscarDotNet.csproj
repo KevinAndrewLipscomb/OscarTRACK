@@ -318,11 +318,13 @@
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail_bls_interns.ascx" />
     <Content Include="usercontrol\app\UserControl_my_roles_and_mappings.ascx" />
+    <Content Include="usercontrol\app\UserControl_notification.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_age_unit.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_encounter.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_encounter_level.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_post.ascx" />
+    <Content Include="usercontrol\app\UserControl_privilege.ascx" />
     <Content Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_rank.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
@@ -1815,6 +1817,13 @@
     <Compile Include="usercontrol\app\UserControl_my_roles_and_mappings.ascx.designer.cs">
       <DependentUpon>UserControl_my_roles_and_mappings.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_notification.ascx.cs">
+      <DependentUpon>UserControl_notification.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_notification.ascx.designer.cs">
+      <DependentUpon>UserControl_notification.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_patient_age_unit.ascx.cs">
       <DependentUpon>UserControl_patient_age_unit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1869,6 +1878,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_precontent.ascx.designer.cs">
       <DependentUpon>UserControl_precontent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_privilege.ascx.cs">
+      <DependentUpon>UserControl_privilege.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_privilege.ascx.designer.cs">
+      <DependentUpon>UserControl_privilege.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx.cs">
       <DependentUpon>UserControl_quickmessage_by_shift.ascx</DependentUpon>

@@ -1,5 +1,6 @@
 using Class_db_privileges;
 using kix;
+using System;
 
 namespace Class_biz_privileges
   {
@@ -13,6 +14,40 @@ namespace Class_biz_privileges
             // TODO: Add any constructor code here
             db_privileges = new TClass_db_privileges();
         }
+
+    internal void AnalyzeForPrivilegeComms
+      (
+      string[] user_privilege_string_array,
+      string selected_privilege_name,
+      ref bool be_scope_cross_agency,
+      out bool be_privilege_held_by_user,
+      out bool be_scope_change_allowable
+      )
+      {
+      be_privilege_held_by_user = Array.IndexOf(user_privilege_string_array,selected_privilege_name) > -1;
+      be_scope_cross_agency = (be_privilege_held_by_user) && be_scope_cross_agency;
+      be_scope_change_allowable = be_privilege_held_by_user;
+      }
+
+    internal bool BeOkToAllowPrivilegeCommsQuickMessaging
+      (
+      bool has_user_quickmessage_priv,
+      bool be_privilege_held_by_user,
+      bool be_any_privilege_holders
+      )
+      {
+      return
+        (
+          (
+            has_user_quickmessage_priv
+          ||
+            be_privilege_held_by_user
+          )
+        &&
+          be_any_privilege_holders
+        );
+      }
+
         public bool Bind(string partial_name, object target)
         {
             bool result;
@@ -35,13 +70,10 @@ namespace Class_biz_privileges
             BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
-        public bool Get(string name, out string soft_hyphenation_text)
-        {
-            bool result;
-            result = db_privileges.Get(name, out soft_hyphenation_text);
-
-            return result;
-        }
+    public bool Get(string name)
+      {
+      return db_privileges.Get(name);
+      }
 
     internal bool HasForAnySpecialAgency
       (

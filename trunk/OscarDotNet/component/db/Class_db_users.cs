@@ -176,6 +176,24 @@ namespace Class_db_users
       return result;
       }
 
+        public string[] NotificationsOf(string id)
+        {
+            MySqlDataReader dr;
+            StringCollection notifications_of_string_collection = new StringCollection();
+            Open();
+            using var my_sql_command = new MySqlCommand("select distinct name from user_member_map join role_member_map using (member_id) join role_notification_map using (role_id) join notification on (notification.id=role_notification_map.notification_id) where user_id = '" + id + "' order by name",connection);
+            dr = my_sql_command.ExecuteReader();
+            while (dr.Read())
+            {
+                notifications_of_string_collection.Add(dr["name"].ToString());
+            }
+            dr.Close();
+            Close();
+            string[] notifications_of = new string[notifications_of_string_collection.Count];
+            notifications_of_string_collection.CopyTo(notifications_of,0);
+            return notifications_of;
+        }
+
         public uint NumUnsuccessfulLoginAttemptsOf(string username)
         {
             uint result;

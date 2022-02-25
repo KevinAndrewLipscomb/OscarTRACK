@@ -52,6 +52,46 @@ namespace Class_biz_notifications
         }
 
 
+    internal void AnalyzeForNotificationComms
+      (
+      string[] user_notification_string_array,
+      string selected_notification_name,
+      ref bool be_scope_cross_agency,
+      out bool be_notification_held_by_user,
+      out bool be_scope_change_allowable
+      )
+      {
+      be_notification_held_by_user = Array.IndexOf(user_notification_string_array,selected_notification_name) > -1;
+      be_scope_cross_agency = (be_notification_held_by_user) && be_scope_cross_agency;
+      be_scope_change_allowable = be_notification_held_by_user;
+      }
+
+    internal bool BeOkToAllowNotificationCommsQuickMessaging
+      (
+      bool has_user_quickmessage_priv,
+      bool be_notification_held_by_user,
+      bool be_any_notification_holders
+      )
+      {
+      return
+        (
+          (
+            has_user_quickmessage_priv
+          ||
+            be_notification_held_by_user
+          )
+        &&
+          be_any_notification_holders
+        );
+      }
+
+        public bool Bind(string partial_name, object target)
+        {
+            bool result;
+            result = db_notifications.Bind(partial_name, target);
+            return result;
+        }
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             db_notifications.BindDirectToListControl(target, unselected_literal, selected_value);
@@ -76,6 +116,11 @@ namespace Class_biz_notifications
         {
             db_notifications.CycleTallies();
         }
+
+    public bool Get(string name)
+      {
+      return db_notifications.Get(name);
+      }
 
     internal void IncrementEventTallyOnly(string name)
       {

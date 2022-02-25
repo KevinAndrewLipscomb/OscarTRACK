@@ -167,6 +167,70 @@ namespace Class_db_role_member_map
 
         }
 
+    public void BindNotificationHolders
+      (
+      string notification_name,
+      object target,
+      string sort_order,
+      bool be_sort_order_ascending,
+      string agency_filter
+      )
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select DISTINCT concat(last_name,', ',first_name) as member_name"
+        + " , short_designator as agency_designator"
+        + " , email_address"
+        + " , IFNULL(concat(phone_num,'@',sms_gateway.hostname),'') as sms_target"
+        + " from role_member_map"
+        +   " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)"
+        +   " join member on (member.id=role_member_map.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join notification on (notification.id=role_notification_map.notification_id)"
+        +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where notification.name = '" + notification_name + "'"
+        +   (agency_filter.Length > 0 ? " and agency.id = '" + agency_filter + "'" : k.EMPTY)
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ?  " asc" : " desc")),
+        connection
+        );
+      ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
+      ((target) as GridView).DataBind();
+      Close();
+      }
+
+    public void BindPrivilegeHolders
+      (
+      string privilege_name,
+      object target,
+      string sort_order,
+      bool be_sort_order_ascending,
+      string agency_filter
+      )
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select DISTINCT concat(last_name,', ',first_name) as member_name"
+        + " , short_designator as agency_designator"
+        + " , email_address"
+        + " , IFNULL(concat(phone_num,'@',sms_gateway.hostname),'') as sms_target"
+        + " from role_member_map"
+        +   " join role_privilege_map on (role_privilege_map.role_id=role_member_map.role_id)"
+        +   " join member on (member.id=role_member_map.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join privilege on (privilege.id=role_privilege_map.privilege_id)"
+        +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where privilege.name = '" + privilege_name + "'"
+        +   (agency_filter.Length > 0 ? " and agency.id = '" + agency_filter + "'" : k.EMPTY)
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ?  " asc" : " desc")),
+        connection
+        );
+      ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
+      ((target) as GridView).DataBind();
+      Close();
+      }
+
         public void BindUnassignedPerAgency(string agency_id, object target)
         {
             string sql;

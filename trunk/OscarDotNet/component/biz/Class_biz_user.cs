@@ -81,6 +81,11 @@ namespace Class_biz_user
       return db_user.LastLoginTime(IdNum());
       }
 
+    public string[] Notifications()
+      {
+      return db_users.NotificationsOf(IdNum());
+      }
+
     public string[] Privileges()
       {
       return db_users.PrivilegesOf(IdNum());

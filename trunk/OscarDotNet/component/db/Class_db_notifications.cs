@@ -28,6 +28,24 @@ namespace Class_db_notifications
             tier_3_match_field = ConfigurationManager.AppSettings["tier_3_match_field"];
         }
 
+        public bool Bind(string partial_name, object target)
+        {
+            bool result;
+            MySqlDataReader dr;
+            Open();
+            ((target) as ListControl).Items.Clear();
+            using var my_sql_command = new MySqlCommand("SELECT name FROM notification WHERE name like \"" + partial_name + "%\" order by name", connection);
+            dr = my_sql_command.ExecuteReader();
+            while (dr.Read())
+            {
+                ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
+            }
+            dr.Close();
+            Close();
+            result = ((target) as ListControl).Items.Count > 0;
+            return result;
+        }
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             MySqlDataReader dr;
@@ -83,6 +101,22 @@ namespace Class_db_notifications
             my_sql_command.ExecuteNonQuery();
             Close();
         }
+
+    public bool Get(string name)
+      {
+      var result = false;
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from notification where CAST(name AS CHAR) = '" + name + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
+      if (dr.Read())
+        {
+        name = dr["name"].ToString();
+        result = true;
+        }
+      dr.Close();
+      Close();
+      return result;
+      }
 
         public void IncrementTallies(string name, uint num_addressees)
         {

@@ -19,5 +19,6 @@
 <br />
 <br />
 <uc2:UserControl_efficipay_intro_signatures ID="UserControl_efficipay_intro_signatures_control" runat="server" />
+<p align="center"><tt>This module is free for Virginia Beach's volunteer rescue squads.</tt></p>
 <p align="center"><tt>If you are not currently privileged to use all the features of this module, and you'd like to be, please contact your Squad President.</tt></p>
 <p align="center"><tt>This module is also available as an independent product for other organizations.</tt></p>
