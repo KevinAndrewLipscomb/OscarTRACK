@@ -53,9 +53,9 @@ namespace member_detail
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_detail";
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_detail";
                 //
                 var user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
                 var be_authorized_tier_or_same_agency = p.biz_members.BeAuthorizedTierOrSameAgency(user_member_id,p.target_member_id);

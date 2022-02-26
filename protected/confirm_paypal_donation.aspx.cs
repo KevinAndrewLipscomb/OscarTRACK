@@ -31,9 +31,9 @@ namespace confirm_paypal_donation
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - confirm_paypal_donation";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - confirm_paypal_donation";
         Literal_amount_donated.Text = p.incoming.from_process_paypal_donation.amount_donated;
         Literal_donor_name.Text = p.incoming.from_process_paypal_donation.donor_name;
         Literal_donation_date.Text = p.incoming.from_process_paypal_donation.donation_date.ToString("yyyy-MM-dd");

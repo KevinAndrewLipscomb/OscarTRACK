@@ -34,9 +34,8 @@ namespace login
           LinkButton_new_user.Attributes.Add("onclick","SetClientTimezoneOffset();");
           EstablishClientSideFunction
             (
-            "SecurePassword()",
-            k.EMPTY
-            + "if (El('" + TextBox_password.ClientID + "').value != '') El('" + TextBox_password.ClientID + "').value = new jsSHA(El('" + TextBox_password.ClientID + "').value,'ASCII').getHash('HEX')"
+            profile:"SecurePassword()",
+            body:"if (El('" + TextBox_password.ClientID + "').value != '') El('" + TextBox_password.ClientID + "').value = new jsSHA(El('" + TextBox_password.ClientID + "').value,'ASCII').getHash('HEX')"
             );
           //
           Form_control.Attributes.Add("onsubmit","SecurePassword()");
@@ -44,6 +43,7 @@ namespace login
 
         protected void Page_Load(object sender, System.EventArgs e)
           {
+          Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - login";
           if (IsPostBack)
             {
             if ((Session[InstanceId() + ".p"] != null))
@@ -57,7 +57,6 @@ namespace login
             }
           else
             {
-              Title = ConfigurationManager.AppSettings["application_name"] + " - login";
               Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
               p.biz_users = new TClass_biz_users();
                 RequireConfirmation(LinkButton_forgot_password,"Are you sure you want a new password?");

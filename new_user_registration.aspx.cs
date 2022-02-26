@@ -42,6 +42,7 @@ namespace new_user_registration
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - new_user_registration";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -63,7 +64,6 @@ namespace new_user_registration
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - new_user_registration";
                     p.biz_users = new TClass_biz_users();
                     Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
                     Focus(TextBox_username, true);

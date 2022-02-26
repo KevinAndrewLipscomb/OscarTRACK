@@ -36,9 +36,9 @@ namespace enrollment_detail
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
                 var priv_of_interest = "edit-enrollments";
                 LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["member_summary"], k.Has((string[])(Session["privilege_array"]),priv_of_interest), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"))

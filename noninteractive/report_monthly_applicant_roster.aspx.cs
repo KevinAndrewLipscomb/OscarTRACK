@@ -36,7 +36,7 @@ namespace report_monthly_applicant_roster
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_applicant_roster";
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_monthly_applicant_roster";
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];

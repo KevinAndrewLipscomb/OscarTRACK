@@ -26,6 +26,7 @@ namespace change_member_marine_medic_qualification
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_marine_medic_qualification";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -47,7 +48,6 @@ namespace change_member_marine_medic_qualification
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_marine_medic_qualification";
                     p.biz_members = new TClass_biz_members();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;

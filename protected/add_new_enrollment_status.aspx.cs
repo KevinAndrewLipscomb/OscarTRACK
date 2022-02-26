@@ -42,6 +42,7 @@ namespace add_new_enrollment_status
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_new_enrollment_status";
             string cad_num_string;
             if (IsPostBack)
             {
@@ -64,7 +65,6 @@ namespace add_new_enrollment_status
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_new_enrollment_status";
                     p.biz_agencies = new TClass_biz_agencies();
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_medical_release_levels = new TClass_biz_medical_release_levels();

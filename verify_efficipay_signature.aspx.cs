@@ -26,10 +26,10 @@ namespace verify_efficipay_signature
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - verify_efficipay_signature";
       var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - verify_efficipay_signature";
         p.biz_efficipay_tokens.BindTimePeriodsToListControl(DropDownList_time_period);
         TextBox_check_num.Focus();
         }

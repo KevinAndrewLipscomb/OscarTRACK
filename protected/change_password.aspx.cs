@@ -42,6 +42,7 @@ namespace change_password
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_password";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -60,7 +61,6 @@ namespace change_password
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
-                Title = ConfigurationManager.AppSettings["application_name"] + " - change_password";
                 p.biz_users = new TClass_biz_users();
                 p.biz_user = new TClass_biz_user();
                 Focus(TextBox_nominal_password, true);

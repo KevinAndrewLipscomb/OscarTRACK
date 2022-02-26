@@ -45,10 +45,9 @@ namespace adjust_length_of_service
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - adjust_length_of_service";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - adjust_length_of_service";
-        //
         Label_member_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.biz_members.CadNumOf(Session["member_summary"]) + ")";
         //
         p.biz_leaves.BindMemberRecords

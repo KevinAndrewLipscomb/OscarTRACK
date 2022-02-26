@@ -36,10 +36,9 @@ namespace report_commanded_watchbill
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_watchbill";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_commanded_watchbill";
-        //
         if (p.agency_filter.Length == 0)
           {
           Literal_agency.Text = "ALL RESCUE SQUADS";

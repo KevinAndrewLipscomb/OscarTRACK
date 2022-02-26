@@ -28,6 +28,7 @@ namespace change_email_address
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_email_address";
             string email_address;
             if (IsPostBack)
             {
@@ -47,7 +48,6 @@ namespace change_email_address
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
-                Page.Title = ConfigurationManager.AppSettings["application_name"] + " - change_email_address";
                 p.biz_user = new TClass_biz_user();
                 p.biz_users = new TClass_biz_users();
                 // Preload email address fields

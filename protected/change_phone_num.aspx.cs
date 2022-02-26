@@ -27,6 +27,7 @@ namespace change_phone_num
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_phone_num";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -45,7 +46,6 @@ namespace change_phone_num
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
-                Page.Title = ConfigurationManager.AppSettings["application_name"] + " - change_phone_num";
                 p.biz_members = new TClass_biz_members();
                 Label_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 TextBox_phone_num.Text = k.FormatAsNanpPhoneNum(Session["member_phone_num"].ToString());

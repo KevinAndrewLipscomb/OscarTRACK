@@ -25,6 +25,7 @@ namespace remind_username
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - remind_username";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -46,7 +47,6 @@ namespace remind_username
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - remind_username";
                     p.biz_users = new TClass_biz_users();
                     Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
                     Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];

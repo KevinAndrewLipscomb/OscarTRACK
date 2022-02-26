@@ -26,9 +26,9 @@ namespace efficipay_tutorial
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - efficipay_tutorial";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - efficipay_tutorial";
         }
       }
 

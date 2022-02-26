@@ -32,6 +32,7 @@ namespace grant_leave
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - grant_leave";
             string cad_num_string;
             if (IsPostBack)
             {
@@ -54,7 +55,6 @@ namespace grant_leave
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - grant_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     p.biz_schedule_assignments = new TClass_biz_schedule_assignments();

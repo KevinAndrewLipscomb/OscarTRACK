@@ -30,7 +30,7 @@ namespace report_monthly_bls_intern_assignments
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_bls_intern_assignments";
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_monthly_bls_intern_assignments";
       Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
       var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
       HyperLink_web_site.Text = url;

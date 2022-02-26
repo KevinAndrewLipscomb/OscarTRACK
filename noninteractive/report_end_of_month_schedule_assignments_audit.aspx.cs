@@ -34,9 +34,9 @@ namespace report_end_of_month_schedule_assignments_audit
 
     protected void Page_Load(object sender, EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_end_of_month_schedule_assignments_audit";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_end_of_month_schedule_assignments_audit";
         //
         var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
         Literal_scope.Text = p.biz_agencies.MediumDesignatorOf(p.agency_id).ToUpper();
