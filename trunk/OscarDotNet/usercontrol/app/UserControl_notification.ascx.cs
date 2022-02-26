@@ -5,6 +5,7 @@ using Class_biz_role_member_map;
 using Class_biz_user;
 using kix;
 using System;
+using System.Collections;
 using System.Text;
 using System.Web.UI.WebControls;
 
@@ -398,7 +399,7 @@ namespace UserControl_notification
           (
           partial_name:saved_name,
           target:DropDownList_name,
-          member_id:p.user_member_id
+          member_id:(new ArrayList(p.biz_user.Roles()).Contains("Application Administrator") ? k.EMPTY : p.user_member_id)
           );
         num_matches = (uint)(DropDownList_name.Items.Count);
         if (num_matches > 0)
