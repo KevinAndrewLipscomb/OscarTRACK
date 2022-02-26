@@ -9,9 +9,9 @@
             <cc1:TabPanel runat="server" headertext="Mine" id="TabPanel_my_roles_and_mappings"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Roles" id="TabPanel_roles"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Role-Member mappings" id="TabPanel_role_member_mappings"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Privileges" id="TabPanel_privileges"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Privileges" id="TabPanel_privileges" enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Role-Privilege mappings" id="TabPanel_role_privilege_mappings"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Notifications" id="TabPanel_notifications"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Notifications" id="TabPanel_notifications" enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Role-Notification mappings" id="TabPanel_role_notification_mappings"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
