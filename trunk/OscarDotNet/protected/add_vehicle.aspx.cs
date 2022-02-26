@@ -24,9 +24,9 @@ namespace add_vehicle
 
         protected void Page_Load(object sender, System.EventArgs e)
           {
+          Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_vehicle";
           if (!IsPostBack)
             {
-            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_vehicle";
             UserControl_vehicle_control.be_mode_add = true;
             }
           }

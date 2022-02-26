@@ -24,9 +24,9 @@ namespace vehicle_detail
 
         protected void Page_Load(object sender, System.EventArgs e)
           {
+          Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - vehicle_detail";
           if (!IsPostBack)
             {
-            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - vehicle_detail";
             UserControl_vehicle_control.be_mode_add = false;
             }
           }

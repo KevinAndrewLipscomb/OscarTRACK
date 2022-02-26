@@ -34,9 +34,9 @@ namespace report_archival_end_of_month_watchbill
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_archival_end_of_month_watchbill";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_archival_end_of_month_watchbill";
         //
         var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
         Literal_scope.Text = (p.agency_short_designator == "EMS" ? "SYSTEM-WIDE" : p.biz_agencies.MediumDesignatorOf(p.agency_id).ToUpper());

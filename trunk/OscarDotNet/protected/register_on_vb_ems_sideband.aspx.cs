@@ -29,9 +29,9 @@ namespace register_on_vb_ems_sideband
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - register_on_vb_ems_sideband";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - register_on_vb_ems_sideband";
         }
       }
 

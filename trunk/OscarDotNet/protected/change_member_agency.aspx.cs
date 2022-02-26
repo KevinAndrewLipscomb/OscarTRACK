@@ -30,6 +30,7 @@ namespace change_member_agency
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_agency";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -51,7 +52,6 @@ namespace change_member_agency
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_agency";
                     p.biz_members = new TClass_biz_members();
                     p.biz_agencies = new TClass_biz_agencies();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);

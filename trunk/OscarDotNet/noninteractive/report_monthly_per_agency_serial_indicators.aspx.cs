@@ -31,7 +31,7 @@ namespace report_monthly_per_agency_serial_indicators
     protected void Page_Load(object sender, System.EventArgs e)
       {
       string url;
-      Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_per_agency_serial_indicators";
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_monthly_per_agency_serial_indicators";
       Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
       url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
       HyperLink_web_site.Text = url;

@@ -40,9 +40,9 @@ namespace add_member
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_member";
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_member";
                 if (k.Has((string[])(Session["privilege_array"]), "see-all-squads"))
                 {
                     RadioButtonList_member_or_observer.Enabled = true;

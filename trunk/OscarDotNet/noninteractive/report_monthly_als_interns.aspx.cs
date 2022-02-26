@@ -36,7 +36,7 @@ namespace report_monthly_als_interns
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_als_interns";
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_monthly_als_interns";
       Literal_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
       Literal_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
       var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];

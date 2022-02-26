@@ -34,7 +34,7 @@ namespace report_shift_fleet_status
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      Title = ConfigurationManager.AppSettings["application_name"] + " - report_shift_fleet_status";
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_shift_fleet_status";
       Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
       Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
       var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];

@@ -57,9 +57,9 @@ namespace leave_detail
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - leave_detail";
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - leave_detail";
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
                 LinkButton_new.Visible = (p.be_user_privileged_to_grant_leave && !p.biz_members.BeTransferring(Session["member_summary"]));
                 Bind();

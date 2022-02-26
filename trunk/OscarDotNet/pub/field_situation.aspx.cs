@@ -16,9 +16,9 @@ namespace field_situation
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - field_situation";
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - field_situation";
                 Meta_control.Content = ((Session.Timeout - 2)*60).ToString();
             }
         }

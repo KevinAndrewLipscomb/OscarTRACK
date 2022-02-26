@@ -40,9 +40,9 @@ namespace change_vehicle_quarters
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_vehicle_quarters";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_vehicle_quarters";
         p.vehicle_summary = Session["vehicle_summary"];
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);

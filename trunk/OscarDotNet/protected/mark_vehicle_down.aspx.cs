@@ -34,9 +34,9 @@ namespace mark_vehicle_down
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - mark_vehicle_down";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - mark_vehicle_down";
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
         UserControl_drop_down_datetime_control.minute_intervals = 5;
         UserControl_drop_down_datetime_control.selectedvalue = DateTime.Now.ToUniversalTime().AddMinutes(-((Double)(Session["client_timezone_offset"])));

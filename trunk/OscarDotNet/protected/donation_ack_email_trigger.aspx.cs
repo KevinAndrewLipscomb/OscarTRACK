@@ -30,9 +30,9 @@ namespace donation_ack_email_trigger
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - donation_ack_email_trigger";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - donation_ack_email_trigger";
         p.biz_donations.SendAck
           (
           working_directory:Server.MapPath("scratch"),

@@ -31,9 +31,9 @@ namespace report_commanded_gripe_sheet
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_gripe_sheet";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_commanded_gripe_sheet";
         }
       }
 

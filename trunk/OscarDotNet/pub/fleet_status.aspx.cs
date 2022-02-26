@@ -18,9 +18,9 @@ namespace fleet_status
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - fleet_status";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - fleet_status";
         Meta_control.Content = ((Session.Timeout - 2)*60).ToString();
         LinkButton_log_in.Text += ConfigurationManager.AppSettings["application_name"];
         //

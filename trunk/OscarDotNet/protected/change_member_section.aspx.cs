@@ -27,6 +27,7 @@ namespace change_member_section
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_section";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -48,7 +49,6 @@ namespace change_member_section
                 }
                 else
                 {
-                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_section";
                     p.biz_members = new TClass_biz_members();
                     p.biz_sections = new TClass_biz_sections();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);

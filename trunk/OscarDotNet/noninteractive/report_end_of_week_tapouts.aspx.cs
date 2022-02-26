@@ -34,10 +34,9 @@ namespace report_end_of_week_tapouts
 
     protected void Page_Load(object sender, EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_end_of_week_tapouts";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_end_of_week_tapouts";
-        //
         var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
         Literal_scope.Text = (p.agency_id.Length > 0 ? p.biz_agencies.MediumDesignatorOf(p.agency_id).ToUpper() : "CITYWIDE");
         HyperLink_web_site.Text = url;

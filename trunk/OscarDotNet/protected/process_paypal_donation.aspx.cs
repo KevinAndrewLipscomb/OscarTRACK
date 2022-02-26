@@ -48,9 +48,9 @@ namespace process_paypal_donation
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - process_paypal_donation";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - process_paypal_donation";
         Literal_amount_donated.Text = p.incoming.amount_donated;
         Literal_donor_email_address.Text = p.incoming.donor_email_address;
         Literal_donor_name.Text = p.incoming.donor_name;

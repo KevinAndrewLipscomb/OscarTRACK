@@ -31,9 +31,9 @@ namespace update_vehicle_mileage
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - update_vehicle_mileage";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - update_vehicle_mileage";
         p.vehicle_summary = Session["vehicle_summary"];
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);

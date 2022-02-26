@@ -26,9 +26,9 @@ namespace efficipay_docket_detail
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - efficipay_docket_detail";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - efficipay_docket_detail";
         UserControl_efficipay_docket_control.SetFilter(p.incoming.agency_id,p.incoming.summary);
         }
       }

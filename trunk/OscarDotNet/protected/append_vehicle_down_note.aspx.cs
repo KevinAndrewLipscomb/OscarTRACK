@@ -31,9 +31,9 @@ namespace append_vehicle_down_note
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - append_vehicle_down_note";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - append_vehicle_down_note";
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
         TextBox_prior_note.Text = p.down_comment + k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
         Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];

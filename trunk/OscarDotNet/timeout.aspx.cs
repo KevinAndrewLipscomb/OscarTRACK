@@ -15,6 +15,7 @@ namespace timeout
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - timeout";
             if (!IsPostBack)
             {
                 if (Request.ServerVariables["URL"] == Request.CurrentExecutionFilePath)
@@ -24,7 +25,6 @@ namespace timeout
                     // sequence of login -> timeout -> login may have been allowing IsPostBack to stay TRUE through, which I had not anticipated.
                     Response.Redirect("~/login.aspx");
                 }
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - timeout";
             }
         }
 

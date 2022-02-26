@@ -35,9 +35,9 @@ namespace report_commanded_watchbill_maag
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_watchbill_maag";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - report_commanded_watchbill_maag";
         Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         Literal_publisher.Text = p.publisher;
         Literal_time_triggered.Text = p.time_triggered;

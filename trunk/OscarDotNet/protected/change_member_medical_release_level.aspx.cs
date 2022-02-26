@@ -32,6 +32,7 @@ namespace change_member_medical_release_level
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_medical_release_level";
             if (IsPostBack)
             {
                 if ((Session[InstanceId() + ".p"] != null))
@@ -53,7 +54,6 @@ namespace change_member_medical_release_level
                 }
                 else
                 {
-                    Page.Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_medical_release_level";
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
                     Label_member_name_3.Text = Label_member_name_2.Text;

@@ -24,9 +24,9 @@ namespace efficipay_final_check_imprint
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - efficipay_final_check_imprint";
       if (!IsPostBack)
         {
-        Title = ConfigurationManager.AppSettings["application_name"] + " - efficipay_final_check_imprint";
         var check_num = k.EMPTY;
         var first_signer = k.EMPTY;
         var second_signer = k.EMPTY;

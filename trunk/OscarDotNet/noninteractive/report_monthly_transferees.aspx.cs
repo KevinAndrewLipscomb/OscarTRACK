@@ -35,7 +35,7 @@ namespace report_monthly_transferees
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_transferees";
+            Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_monthly_transferees";
             Literal_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Literal_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             Literal_application_name_3.Text = ConfigurationManager.AppSettings["application_name"];

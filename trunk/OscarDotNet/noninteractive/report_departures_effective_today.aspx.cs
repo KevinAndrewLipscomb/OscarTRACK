@@ -28,7 +28,7 @@ namespace report_departures_effective_today
 
     protected void Page_Load(object sender, EventArgs e)
       {
-      Title = ConfigurationManager.AppSettings["application_name"] + " - report_departures_effective_today";
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_departures_effective_today";
       }
 
     protected override void OnInit(EventArgs e)

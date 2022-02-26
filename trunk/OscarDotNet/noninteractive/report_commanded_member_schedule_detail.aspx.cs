@@ -44,9 +44,9 @@ namespace report_commanded_member_schedule_detail
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
+      Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_member_schedule_detail";
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_member_schedule_detail";
         Literal_member_name.Text = p.biz_members.FirstNameOfMemberId(p.member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(p.member_id);
         if (p.relative_month.val == 0)
           {
