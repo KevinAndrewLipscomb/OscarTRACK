@@ -48,12 +48,15 @@ namespace Class_biz_privileges
         );
       }
 
-        public bool Bind(string partial_name, object target)
-        {
-            bool result;
-            result = db_privileges.Bind(partial_name, target);
-            return result;
-        }
+    public bool Bind
+      (
+      string partial_name,
+      object target,
+      string member_id = k.EMPTY
+      )
+      {
+      return db_privileges.Bind(partial_name,target,member_id);
+      }
 
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {

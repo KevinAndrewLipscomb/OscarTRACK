@@ -394,7 +394,12 @@ namespace UserControl_privilege
       if (!PresentRecord(saved_name))
         {
         TextBox_name.Text = saved_name;
-        p.biz_privileges.Bind(saved_name, DropDownList_name);
+        p.biz_privileges.Bind
+          (
+          partial_name:saved_name,
+          target:DropDownList_name,
+          member_id:p.user_member_id
+          );
         num_matches = (uint)(DropDownList_name.Items.Count);
         if (num_matches > 0)
           {

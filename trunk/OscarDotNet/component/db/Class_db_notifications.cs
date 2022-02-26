@@ -4,14 +4,14 @@ using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Configuration;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace Class_db_notifications
   {
 
-    public class TClass_db_notifications: TClass_db
+  public class TClass_db_notifications: TClass_db
     {
 
         private readonly TClass_biz_data_conditions biz_data_conditions = null;
@@ -28,23 +28,32 @@ namespace Class_db_notifications
             tier_3_match_field = ConfigurationManager.AppSettings["tier_3_match_field"];
         }
 
-        public bool Bind(string partial_name, object target)
+    public bool Bind
+      (
+      string partial_name,
+      object target,
+      string member_id = k.EMPTY
+      )
+      {
+      var sql = new StringBuilder("SELECT DISTINCT name FROM notification");
+      if (member_id.Length > 0)
         {
-            bool result;
-            MySqlDataReader dr;
-            Open();
-            ((target) as ListControl).Items.Clear();
-            using var my_sql_command = new MySqlCommand("SELECT name FROM notification WHERE name like \"" + partial_name + "%\" order by name", connection);
-            dr = my_sql_command.ExecuteReader();
-            while (dr.Read())
-            {
-                ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
-            }
-            dr.Close();
-            Close();
-            result = ((target) as ListControl).Items.Count > 0;
-            return result;
+        sql.Append(" join role_notification_map on (role_notification_map.notification_id=notification.id) join role_member_map on (role_member_map.role_id=role_notification_map.role_id and role_member_map.member_id = '" + member_id + "')");
         }
+      sql.Append(" WHERE name like '" + partial_name + "%' order by name");
+      //
+      Open();
+      ((target) as ListControl).Items.Clear();
+      using var my_sql_command = new MySqlCommand(sql.ToString(),connection);
+      using var dr = my_sql_command.ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
+        }
+      dr.Close();
+      Close();
+      return ((target) as ListControl).Items.Count > 0;
+      }
 
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
