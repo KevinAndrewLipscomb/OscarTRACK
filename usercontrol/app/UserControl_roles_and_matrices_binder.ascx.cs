@@ -1,3 +1,4 @@
+using Class_biz_user;
 using kix;
 using UserControl_my_roles_and_mappings;
 using UserControl_notification;
@@ -33,6 +34,7 @@ namespace UserControl_roles_and_matrices_binder
     private struct p_type
       {
       public bool be_loaded;
+      public TClass_biz_user biz_user;
       public string content_id;
       public uint tab_index;
       }
@@ -105,6 +107,14 @@ namespace UserControl_roles_and_matrices_binder
       {
       if (!p.be_loaded)
         {
+        if (p.biz_user.Privileges().Length > 0)
+          {
+          TabPanel_privileges.Enabled = true;
+          }
+        if (p.biz_user.Notifications().Length > 0)
+          {
+          TabPanel_notifications.Enabled = true;
+          }
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -156,6 +166,8 @@ namespace UserControl_roles_and_matrices_binder
         }
       else
         {
+        p.biz_user = new TClass_biz_user();
+        //
         p.be_loaded = false;
         p.tab_index = Static.TSSI_ROLE_MEMBER_MAPPING;
         FillPlaceHolder(true);
