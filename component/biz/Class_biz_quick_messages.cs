@@ -52,7 +52,7 @@ namespace Class_biz_quick_messages
         subject: subject,
         message_string: attribution
         + body
-        + (be_email_mode ? k.EMPTY : (reply_mode == reply_mode_enum.BOUNCER ? " [Replies will bounce]" : " [Reply to " + (reply_mode == reply_mode_enum.PHONE ? k.FormatAsNanpPhoneNum(author_target_sms.Substring(0,10)) : author_target_email ) + "]")),
+        + (be_email_mode ? k.EMPTY : (reply_mode == reply_mode_enum.BOUNCER ? " [Replies will bounce]" : " [Reply to " + (reply_mode == reply_mode_enum.PHONE ? (author_target_sms.Length > 0 ? k.FormatAsNanpPhoneNum(author_target_sms.Substring(0,10)) : "unavailable") : author_target_email ) + "]")),
         be_html: false,
         cc: k.EMPTY,
         bcc: author_target_email,
