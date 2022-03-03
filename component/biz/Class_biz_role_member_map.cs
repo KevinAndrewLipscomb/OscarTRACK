@@ -123,7 +123,8 @@ namespace Class_biz_role_member_map
       var email_target_for_archival_end_of_month_watchbill = k.EMPTY;
       if (agency_short_designator == "EMS")
         {
-        email_target_for_archival_end_of_month_watchbill = ConfigurationManager.AppSettings["sender_email_address"]
+        var ems_appadmin_email_target = EmailTargetOf("Application Administrator", "EMS"); // will be k.EMPTY if the ApppAdmin is not a member of EMS (404)
+        email_target_for_archival_end_of_month_watchbill = (ems_appadmin_email_target.Length > 0 ? ems_appadmin_email_target : ConfigurationManager.AppSettings["sender_email_address"])
         + k.COMMA
         + EmailTargetOf("Department Chief Scheduler", "EMS")
         + k.COMMA
