@@ -585,9 +585,7 @@
     <Compile Include="component\db\Class_db_role_member_map_logs.cs" />
     <Compile Include="component\db\Class_db_role_notification_map.cs" />
     <Compile Include="component\db\Class_db_role_privilege_map.cs" />
-    <Compile Include="component\db\Class_db_schedule_assignments.cs" />
     <Compile Include="component\db\Class_db_schedule_assignment_logs.cs" />
-    <Compile Include="component\db\Class_db_shifts.cs" />
     <Compile Include="component\db\Class_db_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_sms_gateways.cs" />
     <Compile Include="component\db\Class_db_states.cs" />
