@@ -291,7 +291,7 @@ namespace UserControl_member_schedule_detail
         {
         link_button = (e.Item.Cells[Static.TCI_NOMINAL_DAY].Controls[0] as LinkButton);
         nominal_day = DateTime.Parse(link_button.Text);
-        be_today_or_later = nominal_day >= DateTime.Today.AddHours(value:-6); // Today will render 0000h. Back up 6 hours (to 1800) to account for crossing midnight on nominal night shift.
+        be_today_or_later = nominal_day >= DateTime.Now.AddHours(value:-30); // nominal_day will render 0000h. Back up 30 hours (to yesterday's 0000) to account for crossing midnight on nominal night shift.
         link_button.Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
         link_button.Enabled = false;
         if (p.be_interactive)
