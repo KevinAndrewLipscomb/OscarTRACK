@@ -140,10 +140,10 @@ namespace UserControl_member_schedule_detail
           HtmlTableRow_instruction_for_calendars.Visible = p.be_fully_editable;
           }
         //
-        TableData_9to9.Visible = p.be_ok_to_one_step_avail_force_post;
+        TableData_cross_dusk.Visible = p.be_ok_to_one_step_avail_force_post || (p.biz_members.EnrollmentOf(p.member_summary) == "Observer");
         //
         Calendar_day.VisibleDate = month_of_interest;
-        Calendar_9to9.VisibleDate = month_of_interest;
+        Calendar_cross_dusk.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
         Panel_one_step_avail_force_post.Visible = p.be_interactive && p.be_ok_to_one_step_avail_force_post;
@@ -718,7 +718,7 @@ namespace UserControl_member_schedule_detail
                 {
                 representative_shift_name = "DAY";
                 }
-              else if (new ArrayList() {"EVENING","GRAVEYARD","NIGHT/7TO7","NIGHT/AFTERHOURS"}.Contains(shift_name))
+              else if (new ArrayList() {"EVENING","GRAVEYARD","NIGHT/19TO23","NIGHT/7TO7","NIGHT/AFTERHOURS"}.Contains(shift_name))
                 {
                 representative_shift_name = "NIGHT";
                 }
@@ -815,10 +815,15 @@ namespace UserControl_member_schedule_detail
       CalendarSelectionChanged(Calendar_day,shift_name);
       }
 
-    protected void Calendar_9to9_SelectionChanged(object sender, EventArgs e)
+    protected void Calendar_cross_dusk_SelectionChanged(object sender, EventArgs e)
       {
-      CalendarSelectionChanged(Calendar_9to9,"9TO9");
-      Calendar_9to9.SelectedDate = DateTime.MinValue;
+      var shift_name = "9TO9";
+      if (p.biz_members.EnrollmentOf(p.member_summary) == "Observer")
+        {
+        shift_name = "15TO23";
+        }
+      CalendarSelectionChanged(Calendar_cross_dusk,shift_name);
+      Calendar_cross_dusk.SelectedDate = DateTime.MinValue;
       }
 
     protected void Calendar_night_SelectionChanged(object sender, EventArgs e)
@@ -826,7 +831,7 @@ namespace UserControl_member_schedule_detail
       var shift_name = "NIGHT";
       if (p.biz_members.EnrollmentOf(p.member_summary) == "Observer")
         {
-        shift_name = "15TO23";
+        shift_name = "NIGHT/19TO23";
         }
       if (p.be_ok_to_one_step_avail_force_post)
         {
@@ -897,7 +902,7 @@ namespace UserControl_member_schedule_detail
       proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
       //
       Calendar_day.SelectedDates.Clear();
-      Calendar_9to9.SelectedDates.Clear();
+      Calendar_cross_dusk.SelectedDates.Clear();
       Calendar_night.SelectedDates.Clear();
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
@@ -957,7 +962,7 @@ namespace UserControl_member_schedule_detail
       CalendarDayRender(p.arraylist_revised_day_avail,p.arraylist_selected_day_avail,p.arraylist_unselected_day_avail,e);
       }
 
-    protected void Calendar_9to9_DayRender(object sender, DayRenderEventArgs e)
+    protected void Calendar_cross_dusk_DayRender(object sender, DayRenderEventArgs e)
       {
       var dummy_arraylist = new ArrayList();
       CalendarDayRender(dummy_arraylist,dummy_arraylist,dummy_arraylist,e);
@@ -1021,7 +1026,7 @@ namespace UserControl_member_schedule_detail
       var month_of_interest = DateTime.Now.AddMonths(p.relative_month.val);
       Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
       Calendar_day.VisibleDate = month_of_interest;
-      Calendar_9to9.VisibleDate = month_of_interest;
+      Calendar_cross_dusk.VisibleDate = month_of_interest;
       Calendar_night.VisibleDate = month_of_interest;
       Bind();
       }
