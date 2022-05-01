@@ -296,7 +296,7 @@ namespace Class_biz_members
             }
           else
             {
-            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + Convert.ToChar(last_assigned_observer_designator[i.val - 1] + 1);
+            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + Convert.ToChar(last_assigned_observer_designator[i.val - 1] + 1) + next_observer_designator.Substring(i.val);
             be_done = true;
             }
           }
