@@ -53,7 +53,8 @@ namespace Class_biz_donations
     internal void Process
       (
       TClass_msg_protected.confirm_paypal_donation incoming,
-      string city
+      string city,
+      bool do_force_donor_name_into_rod_record = false
       )
       {
       if (incoming.resident_id.Length == 0) // unknown
@@ -100,6 +101,7 @@ namespace Class_biz_donations
         }
       else
         {
+        var effective_resident_name = (do_force_donor_name_into_rod_record ? incoming.from_process_paypal_donation.donor_name : incoming.resident_name);
         db_donations.Log
           (
           id:incoming.resident_id,
@@ -108,7 +110,8 @@ namespace Class_biz_donations
           in_mem_of:k.EMPTY,
           note:k.EMPTY,
           user_email_address:biz_user.EmailAddress(),
-          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address,
+          donor_name:effective_resident_name
           );
         biz_notifications.IssuePayPalDonationAcknowledgmentToDonorRecognized
           (
@@ -117,7 +120,7 @@ namespace Class_biz_donations
           donor_name:incoming.from_process_paypal_donation.donor_name,
           donation_date:incoming.from_process_paypal_donation.donation_date,
           donor_email_address:incoming.from_process_paypal_donation.donor_email_address,
-          resident_name:incoming.resident_name,
+          resident_name:effective_resident_name,
           resident_house_num_and_street:incoming.resident_house_num_and_street,
           resident_city:city,
           resident_state:incoming.resident_state

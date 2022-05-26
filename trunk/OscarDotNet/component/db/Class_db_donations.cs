@@ -112,7 +112,8 @@ namespace Class_db_donations
       string in_mem_of,
       string note,
       string user_email_address,
-      string donor_email_address
+      string donor_email_address,
+      string donor_name = k.EMPTY
       )
       {
       Open();
@@ -151,7 +152,8 @@ namespace Class_db_donations
           transaction
           );
         my_sql_command_3.ExecuteNonQuery();
-        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction);
+        using var my_sql_command = new MySqlCommand
+          (dbkeyclick_trail.Saved("update resident_base set " + (donor_name.Length > 0 ? "name = '" + donor_name + "', " : k.EMPTY) + "year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction);
         my_sql_command.ExecuteNonQuery();
         transaction.Commit();
         }

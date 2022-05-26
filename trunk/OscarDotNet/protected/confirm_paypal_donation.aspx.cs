@@ -49,6 +49,8 @@ namespace confirm_paypal_donation
           }
         else if (p.incoming.resident_id.Length > 0) // the donor has been matched to a ROD record
           {
+          CheckBox_do_force_donor_name_into_rod_record.Visible = true;
+          CheckBox_do_force_donor_name_into_rod_record.Checked = (p.incoming.resident_name.Length == 0);
           Panel_selected.Visible = true;
           Literal_resident_name.Text = p.incoming.resident_name;
           Literal_house_num_and_street.Text = p.incoming.resident_house_num_and_street;
@@ -80,7 +82,12 @@ namespace confirm_paypal_donation
 
     protected void Button_yes_Click(object sender, System.EventArgs e)
       {
-      p.biz_donations.Process(p.incoming,k.Safe(Literal_city.Text,k.safe_hint_type.POSTAL_CITY));
+      p.biz_donations.Process
+        (
+        incoming:p.incoming,
+        city:k.Safe(Literal_city.Text,k.safe_hint_type.POSTAL_CITY),
+        do_force_donor_name_into_rod_record:CheckBox_do_force_donor_name_into_rod_record.Checked
+        );
       BackTrack(2);
       }
 
