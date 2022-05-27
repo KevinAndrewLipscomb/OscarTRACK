@@ -24,13 +24,13 @@ namespace add_member
     protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
 
     /// <summary>
-    /// RadioButtonList_member_or_observer control.
+    /// RadioButtonList_member_observer_guestprovider control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_member_or_observer;
+    protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_member_observer_guestprovider;
 
     /// <summary>
     /// TextBox_first_name control.

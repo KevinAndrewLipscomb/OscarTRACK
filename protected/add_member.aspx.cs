@@ -45,8 +45,12 @@ namespace add_member
             {
                 if (k.Has((string[])(Session["privilege_array"]), "see-all-squads"))
                 {
-                    RadioButtonList_member_or_observer.Enabled = true;
-                    RequireConfirmation(c:RadioButtonList_member_or_observer,prompt:"If you put this form in Observer mode, it will stay that way until you exit the form and re-enter it.  Are you sure you want to add an Observer?");
+                    RadioButtonList_member_observer_guestprovider.Enabled = true;
+                    RequireConfirmation
+                      (
+                      c:RadioButtonList_member_observer_guestprovider,
+                      prompt:"If you put this form in Observer or Guest Provider mode, it will stay that way until you exit the form and re-enter it.  Are you sure you want to add an Observer or Guest Provider?"
+                      );
                     TableRow_agency.Visible = true;
                     p.biz_agencies.BindListControlShortDashLong(DropDownList_agency);
                 }
@@ -226,16 +230,26 @@ namespace add_member
             return result;
         }
 
-    protected void RadioButtonList_member_or_observer_SelectedIndexChanged(object sender, EventArgs e)
+    protected void RadioButtonList_member_observer_guestprovider_SelectedIndexChanged(object sender, EventArgs e)
       {
+      var nonmember_enrollment_level = k.Safe(RadioButtonList_member_observer_guestprovider.SelectedValue,k.safe_hint_type.ALPHA_WORDS);
       RequiredFieldValidator_phone_num.Enabled = true;
       RequiredFieldValidator_email_address.Enabled = true;
-      TextBox_cad_num.Text = p.biz_members.NextObserverDesignator();
+      TextBox_cad_num.Text = p.biz_members.NextGuestDesignator();
       TextBox_cad_num.Enabled = false;
       RegularExpressionValidator_cad_num.Enabled = false;
-      DropDownList_medical_release_level.ClearSelection();
-      DropDownList_medical_release_level.Items.FindByValue("1").Selected = true;
-      DropDownList_medical_release_level.Enabled = false;
+      if (nonmember_enrollment_level == "Observer")
+        {
+        DropDownList_medical_release_level.ClearSelection();
+        DropDownList_medical_release_level.Items.FindByValue("1").Selected = true;
+        DropDownList_medical_release_level.Enabled = false;
+        }
+      else if (nonmember_enrollment_level == "Guest Provider")
+        {
+        DropDownList_medical_release_level.ClearSelection();
+        DropDownList_medical_release_level.Items.FindByText("Guest Intern").Selected = true;
+        DropDownList_medical_release_level.Enabled = false;
+        }
       RadioButtonList_driver_qualified_yes_no.ClearSelection();
       RadioButtonList_driver_qualified_yes_no.Items.FindByValue("No").Selected = true;
       RadioButtonList_driver_qualified_yes_no.Enabled = false;
@@ -245,12 +259,12 @@ namespace add_member
       UserControl_enrollment_date.selectedvalue = DateTime.Today;
       UserControl_enrollment_date.enabled = false;
       DropDownList_enrollment_level.ClearSelection();
-      DropDownList_enrollment_level.Items.Insert(index:0,item:new ListItem(text:"Observer",value:p.biz_enrollment.CodeOf("Observer")));
+      DropDownList_enrollment_level.Items.Insert(index:0,item:new ListItem(text:nonmember_enrollment_level,value:p.biz_enrollment.CodeOf(nonmember_enrollment_level)));
       DropDownList_enrollment_level.Items[0].Selected = true;
       DropDownList_enrollment_level.Enabled = false;
       RequiredFieldValidator_enrollment_level.Enabled = false;
       //
-      RadioButtonList_member_or_observer.Enabled = false;
+      RadioButtonList_member_observer_guestprovider.Enabled = false;
       }
 
     } // end TWebForm_add_member

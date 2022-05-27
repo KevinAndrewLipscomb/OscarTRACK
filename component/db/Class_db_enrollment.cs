@@ -152,7 +152,7 @@ namespace Class_db_enrollment
       Open();
       ((target) as ListControl).Items.Clear();
       ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-      using var my_sql_command = new MySqlCommand("SELECT code, description from enrollment_level where description <> 'Observer' and be_hereafter_valid order by pecking_order", connection);
+      using var my_sql_command = new MySqlCommand("SELECT code, description from enrollment_level where description not in ('Observer','Guest Provider') and be_hereafter_valid order by pecking_order", connection);
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
