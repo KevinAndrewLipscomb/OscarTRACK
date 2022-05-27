@@ -31,7 +31,7 @@ namespace Class_biz_members
         private readonly TClass_db_sms_gateways db_sms_gateways = null;
         private readonly TClass_db_users db_users = null;
 
-        public static readonly Exception OBSERVER_OVERFLOW = new Exception("Cannot exceed observer designator Z9Z9Z9.");
+        public static readonly Exception GUEST_OVERFLOW = new Exception("Cannot exceed guest designator Z9Z9Z9.");
 
         public TClass_biz_members() : base()
         {
@@ -87,7 +87,7 @@ namespace Class_biz_members
                   section_num
                   );
                 var enrollment_description = biz_enrollment.DescriptionOf(enrollment_level);
-                if (enrollment_description != "Observer")
+                if (!new ArrayList {"Observer","Guest Provider"}.Contains(enrollment_description))
                   {
                   biz_notifications.IssueForMemberAdded
                     (
@@ -277,34 +277,7 @@ namespace Class_biz_members
           db_members.BindEvaluateesDirectToListControl(target,unselected_literal,selected_value);
           }
 
-    internal string NextObserverDesignator()
-      {
-      var next_observer_designator = "A0A0A0";
-      var last_assigned_observer_designator = db_members.LastAssignedObserverDesignator();
-      if (last_assigned_observer_designator == "Z9Z9Z9")
-        {
-        throw OBSERVER_OVERFLOW;
-        }
-      if (last_assigned_observer_designator.Length > 0)
-        {
-        var be_done = false;
-        for (var i = new k.int_nonnegative(next_observer_designator.Length); i.val > 0 && !be_done; i.val--)
-          {
-          if (new ArrayList {'9','Z'}.Contains(last_assigned_observer_designator[i.val - 1]))
-            {
-            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + (i.val % 2 == 0 ? '0' : 'A');
-            }
-          else
-            {
-            next_observer_designator = last_assigned_observer_designator.Substring(0,i.val - 1) + Convert.ToChar(last_assigned_observer_designator[i.val - 1] + 1) + next_observer_designator.Substring(i.val);
-            be_done = true;
-            }
-          }
-        }
-      return next_observer_designator;
-      }
-
-    internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
+        internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
           {
           BindEvaluateesDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
           }
@@ -723,6 +696,33 @@ namespace Class_biz_members
             result = db_members.NamesSimilarTo(first_name, last_name, separator);
             return result;
         }
+
+    internal string NextGuestDesignator()
+      {
+      var next_guest_designator = "A0A0A0";
+      var last_assigned_guest_designator = db_members.LastAssignedGuestDesignator();
+      if (last_assigned_guest_designator == "Z9Z9Z9")
+        {
+        throw GUEST_OVERFLOW;
+        }
+      if (last_assigned_guest_designator.Length > 0)
+        {
+        var be_done = false;
+        for (var i = new k.int_nonnegative(next_guest_designator.Length); i.val > 0 && !be_done; i.val--)
+          {
+          if (new ArrayList {'9','Z'}.Contains(last_assigned_guest_designator[i.val - 1]))
+            {
+            next_guest_designator = last_assigned_guest_designator.Substring(0,i.val - 1) + (i.val % 2 == 0 ? '0' : 'A');
+            }
+          else
+            {
+            next_guest_designator = last_assigned_guest_designator.Substring(0,i.val - 1) + Convert.ToChar(last_assigned_guest_designator[i.val - 1] + 1) + next_guest_designator.Substring(i.val);
+            be_done = true;
+            }
+          }
+        }
+      return next_guest_designator;
+      }
 
         public k.int_nonnegative NumTapouts1MonthAgoOf(object summary)
           {

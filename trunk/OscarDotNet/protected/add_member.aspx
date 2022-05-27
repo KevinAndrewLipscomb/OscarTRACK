@@ -24,9 +24,10 @@
                       <td><strong>Add</strong></td>
                       <td>
                         <strong>
-                          <asp:RadioButtonList ID="RadioButtonList_member_or_observer" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList_member_or_observer_SelectedIndexChanged" enabled="false">
-                            <asp:ListItem Selected="True">member</asp:ListItem>
-                            <asp:ListItem>observer</asp:ListItem>
+                          <asp:RadioButtonList ID="RadioButtonList_member_observer_guestprovider" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList_member_observer_guestprovider_SelectedIndexChanged" enabled="false">
+                            <asp:ListItem Selected="True">Member</asp:ListItem>
+                            <asp:ListItem>Observer</asp:ListItem>
+                            <asp:ListItem>Guest Provider</asp:ListItem>
                           </asp:RadioButtonList>
                         </strong>
                       </td>

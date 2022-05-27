@@ -151,7 +151,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void DropDownList_compliancy_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.ALPHANUM));
+      p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.ALPHANUM)); // S is Field Staff
       Bind();
       }
 
