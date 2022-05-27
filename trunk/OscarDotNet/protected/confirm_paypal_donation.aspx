@@ -30,8 +30,8 @@
                     <asp:Literal ID="Literal_donation_date" runat="server"></asp:Literal></strong></blockquote>
                   <p>should be logged to the following donor:</p>
                   <blockquote>
+                    <strong><asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal></strong>&nbsp;&nbsp;<asp:CheckBox ID="CheckBox_do_force_donor_name_into_rod_record" runat="server" Text="Force into ROD record" Visible="False" />
                     <strong>
-                      <asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal>&nbsp;&nbsp;<asp:CheckBox ID="CheckBox_do_force_donor_name_into_rod_record" runat="server" Text="Force into ROD record" Visible="False" />
                       <asp:Panel ID="Panel_selected" runat="server" Visible="false">
                         <br />
                         <asp:Literal ID="Literal_resident_name" runat="server"></asp:Literal><br />
