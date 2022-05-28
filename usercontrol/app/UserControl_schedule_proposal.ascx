@@ -98,7 +98,8 @@
               o&nbsp;=&nbsp;Observer,&nbsp;
               Ð&nbsp;=&nbsp;non-driver
               <br />
-              001&nbsp;=&nbsp;EMS-1&nbsp;etc,&nbsp; 010&nbsp;=&nbsp;Chief&nbsp;10,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; C14&nbsp;=&nbsp;Cart-14&nbsp;etc, ALI&nbsp;=&nbsp;ALS&nbsp;Intern, SE1&nbsp;=&nbsp;Special&nbsp;Event&nbsp;1&nbsp;etc, RPP&nbsp;=Respiratory&nbsp;Protection&nbsp;Program
+              001&nbsp;=&nbsp;EMS-1&nbsp;etc,&nbsp; 010&nbsp;=&nbsp;Chief&nbsp;10,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; C14&nbsp;=&nbsp;Cart-14&nbsp;etc, ALI&nbsp;=&nbsp;ALS&nbsp;Intern,
+              SE1&nbsp;=&nbsp;Special&nbsp;Event&nbsp;1&nbsp;etc, RPP&nbsp;=&nbsp;Respiratory&nbsp;Protection&nbsp;Program, VAX&nbsp;=&nbsp;Community&nbsp;Service&nbsp;Medic
             </small>
           </td>
         </tr>
