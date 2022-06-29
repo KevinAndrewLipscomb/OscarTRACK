@@ -94,12 +94,11 @@
                   <asp:Literal ID="Literal_watchbill_rendition" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"watchbill_rendition") %>'></asp:Literal>&nbsp;=&nbsp;<asp:Literal ID="Literal_description" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"description") %>'></asp:Literal>,&nbsp;
                 </ItemTemplate>
               </asp:DataList>
-              g&nbsp;=&nbsp;Guest&nbsp;Provider,&nbsp;
               o&nbsp;=&nbsp;Observer,&nbsp;
               Ð&nbsp;=&nbsp;non-driver
               <br />
-              001&nbsp;=&nbsp;EMS-1&nbsp;etc,&nbsp; 010&nbsp;=&nbsp;Chief&nbsp;10,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; C14&nbsp;=&nbsp;Cart-14&nbsp;etc, ALI&nbsp;=&nbsp;ALS&nbsp;Intern,
-              SE1&nbsp;=&nbsp;Special&nbsp;Event&nbsp;1&nbsp;etc, RPP&nbsp;=&nbsp;Respiratory&nbsp;Protection&nbsp;Program, VAX&nbsp;=&nbsp;Community&nbsp;Service&nbsp;Medic
+              001&nbsp;=&nbsp;EMS-1&nbsp;etc,&nbsp; 010&nbsp;=&nbsp;Chief&nbsp;10,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; ¢14&nbsp;=&nbsp;Cart-14&nbsp;etc, ALI&nbsp;=&nbsp;ALS&nbsp;Intern,
+              SE1&nbsp;=&nbsp;Special&nbsp;Event&nbsp;1&nbsp;etc, RPP&nbsp;=&nbsp;Respiratory&nbsp;Protection&nbsp;Program, CSM&nbsp;=&nbsp;Community&nbsp;Service&nbsp;Medic, CDR&nbsp;=&nbsp;Civil&nbsp;Disturbance&nbsp;Response
             </small>
           </td>
         </tr>
