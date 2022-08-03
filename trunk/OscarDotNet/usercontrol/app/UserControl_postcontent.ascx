@@ -11,7 +11,7 @@
           <td>
             <table cellspacing="0" cellpadding="5" border="0">
               <tr>
-                <td style="border-left:2px dashed lightsteelblue; border-top:2px dashed lightsteelblue;" valign="top">
+                <td id="Td_reference_material" runat="server" style="border-left:2px dashed lightsteelblue; border-top:2px dashed lightsteelblue;" valign="top">
                   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="0">
                     <tr>
                       <td>
@@ -46,7 +46,7 @@
                   </table>
                 </td>
                 <td>&nbsp;</td>
-                <td style="border-left:2px dashed lightsteelblue; border-top:2px dashed lightsteelblue;" valign="top">
+                <td id="Td_process_improvement" runat="server" style="border-left:2px dashed lightsteelblue; border-top:2px dashed lightsteelblue;" valign="top">
                   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="0">
                     <tr>
                       <td>
@@ -65,6 +65,8 @@
                 </td>
               </tr>
             </table>
+            <ajaxToolkit:DropShadowExtender ID="DropShadowExtender_reference_material" runat="server" TargetControlID="Td_reference_material" />
+            <ajaxToolkit:DropShadowExtender ID="DropShadowExtender_process_improvement" runat="server" TargetControlID="Td_process_improvement" />
           </td>
         </tr>
       </table>
