@@ -94,7 +94,7 @@ Remember, the above details apply to *next month*.  If any of the above details 
 
 To receive OSCALERTs, your phone number and cellular provider must be set correctly.  You can update these settings yourself by logging into <application_name/> and clicking the "profile" link near the upper left corner.
 
-FINALLY, personnel with required ambulance duties must submit availabilities to <application_name/> by the 10th of the month.  The web address for availability submissions is:
+FINALLY, personnel with required ambulance duties must submit availabilities to <application_name/> by the <last_day_of_month_to_submit_schedule_availabilities/>th of the month.  The web address for availability submissions is:
 
     http://<host_domain_name/>/<application_name/>
 
