@@ -1354,6 +1354,7 @@ namespace Class_biz_notifications
                 .Replace("<last_name/>", last_name)
                 .Replace("<member_id/>", member_id)
                 .Replace("<kind_of_leave/>", kind_of_leave)
+                .Replace("<last_day_of_month_to_submit_schedule_availabilities/>", ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"])
                 ;
               };
 
@@ -2929,6 +2930,7 @@ namespace Class_biz_notifications
               .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num))
               .Replace("<phone_service/>", phone_service)
               .Replace("<role_list/>", role_list)
+              .Replace("<last_day_of_month_to_submit_schedule_availabilities/>", ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"])
               ;
             };
 
