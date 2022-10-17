@@ -1615,15 +1615,19 @@ namespace Class_db_members
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED)
           {
-          filter += " in ('EMT','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI','Physician') ";
+          filter += " in ('EMT','Provisional Medic','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI','Physician') ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED_BLS)
           {
-          filter += " in ('EMT','EMT-ST','EMT-E','AEMT') ";
+          filter += " in ('EMT','Provisional Medic','EMT-ST','EMT-E','AEMT') ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT)
           {
           filter += " = 'EMT' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.PROVISIONAL_MEDIC)
+          {
+          filter += " = 'Provisional Medic' ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_ST)
           {
