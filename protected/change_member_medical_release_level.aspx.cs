@@ -136,13 +136,15 @@ namespace change_member_medical_release_level
           p.enrollment_level_to_force_description = k.EMPTY;
           //
           var new_level_code = k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM);
-          Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level) && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_level_code));
-          Panel_will_force_physician_choice_enrollment.Visible = Panel_effective_date.Visible && p.biz_medical_release_levels.DescriptionOf(new_level_code).Contains("Physician");
+          var new_level_description = p.biz_medical_release_levels.DescriptionOf(new_level_code);
+          Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level) && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_level_code))
+            || (new_level_description == "Provisional Medic");
+          Panel_will_force_physician_choice_enrollment.Visible = Panel_effective_date.Visible && new_level_description.Contains("Physician");
           RequiredFieldValidator_physician_choice.Enabled = Panel_will_force_physician_choice_enrollment.Visible;
           Panel_will_force_no_choice_enrollment.Visible = Panel_effective_date.Visible && !Panel_will_force_physician_choice_enrollment.Visible;
-          p.enrollment_level_to_force_description = (Panel_will_force_no_choice_enrollment.Visible ? "Regular" : k.EMPTY);
+          p.enrollment_level_to_force_description = (Panel_will_force_no_choice_enrollment.Visible ? (new_level_description == "Provisional Medic" ? "Field staff" : "Regular") : k.EMPTY);
+          Literal_membership_status.Text = p.enrollment_level_to_force_description;
           }
 
     } // end TWebForm_change_member_medical_release_level
-
-}
+  }
