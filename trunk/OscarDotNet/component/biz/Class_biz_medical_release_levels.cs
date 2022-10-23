@@ -16,7 +16,6 @@ namespace Class_biz_medical_release_levels
     RELEASED,
     RELEASED_BLS,
     EMT,
-    PROVISIONAL_MEDIC,
     EMT_ST,
     EMT_E,
     AEMT,

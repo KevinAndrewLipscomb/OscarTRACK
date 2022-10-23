@@ -132,15 +132,6 @@ namespace change_member_medical_release_level
     protected global::System.Web.UI.WebControls.Literal Literal_member_name_4;
 
     /// <summary>
-    /// Literal_membership_status control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal Literal_membership_status;
-
-    /// <summary>
     /// Panel_will_force_physician_choice_enrollment control.
     /// </summary>
     /// <remarks>
