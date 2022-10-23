@@ -38,7 +38,6 @@
                                     <ASP:ListItem value="released"             >- Released</ASP:ListItem>
                                     <ASP:ListItem value="released_bls"         >- - Released BLS</ASP:ListItem>
                                     <ASP:ListItem value="emt"                  >- - - EMT</ASP:ListItem>
-                                    <ASP:ListItem value="provisional_medic"    >- - - Provisional Medic</ASP:ListItem>
                                     <ASP:ListItem value="emt_st"               >- - - EMT-ST</ASP:ListItem>
                                     <ASP:ListItem value="emt_e"                >- - - EMT-E</ASP:ListItem>
                                     <ASP:ListItem value="aemt"                 >- - - AEMT</ASP:ListItem>

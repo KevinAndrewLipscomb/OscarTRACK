@@ -44,7 +44,7 @@
                               <asp:CustomValidator id="CustomValidator_control" runat="server" display="Dynamic" font-bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
                             </blockquote>
                             <asp:Panel  id="Panel_will_force_no_choice_enrollment" runat="server" visible="false">
-                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to <asp:Literal ID="Literal_membership_status" runat="server"></asp:Literal> for you.</p>
+                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to Regular for you.</p>
                             </asp:Panel>
                             <asp:Panel  id="Panel_will_force_physician_choice_enrollment" runat="server" visible="false">
                               <p>
