@@ -1,5 +1,6 @@
 using kix;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Class_biz_quick_messages
   {
@@ -48,7 +49,12 @@ namespace Class_biz_quick_messages
       k.SmtpMailSend
         (
         from: ConfigurationManager.AppSettings["sender_email_address"],
-        to: distribution_list,
+        to: Regex.Replace
+          (
+          input:distribution_list,
+          pattern:ConfigurationManager.AppSettings["main_headquarters_phone_number"] + "@.+?(,|$)", // matches for example 7573851999@clicksend.com terminated by a comma or EOL
+          replacement:k.EMPTY
+          ),
         subject: subject,
         message_string: attribution
         + body
