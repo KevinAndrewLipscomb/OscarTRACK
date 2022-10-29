@@ -1,4 +1,6 @@
-function EndRequestHandler(sender, args)
+/*global Sys*/
+
+function EndRequestHandler(sender,args)
   {
   //
   // This function gets registered (by the last line in this file) to run at the end of *every* request, so it must test to see whether or not there has been an error.
@@ -6,9 +8,10 @@ function EndRequestHandler(sender, args)
   if (args.get_error() !== null) // There has been an error.
     {
     const APP_HANDLED_ERROR_MESSAGE_LINE = "Sys.WebForms.PageRequestManagerServerErrorException: -=:App-Handled-Message:=-\n"; // must correspond to ki_web_ui.common.APP_HANDLED_ASYNC_POST_BACK_ERROR_MESSAGE_MARK
+    const custom_response_header_value = args.get_response().getResponseHeader("KiAspdotnetFramework-Pragma");
+    const incoming_error_message = String(args.get_error().message);
     //
-    let outgoing_error_message = incoming_error_message = String(args.get_error().message);
-    let custom_response_header_value = args.get_response().getResponseHeader("KiAspdotnetFramework-Pragma");
+    let outgoing_error_message = incoming_error_message;
     //
     if (custom_response_header_value === "Session-Interrupted")
       {
