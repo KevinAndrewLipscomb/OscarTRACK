@@ -2659,7 +2659,7 @@
     <Content Include="css\standard.css" />
     <Content Include="doc\roles.aspx" />
     <Content Include="js\gradient.js" />
-    <Content Include="js\ErrorHandler.js" />
+    <TypeScriptCompile Include="js\ErrorHandler.ts" />
     <Content Include="noninteractive\report_monthly_transferees.aspx" />
     <Content Include="noninteractive\daily_tasks.aspx" />
     <Content Include="noninteractive\milestone_sweep.aspx" />
