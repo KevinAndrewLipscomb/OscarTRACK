@@ -3,7 +3,7 @@
 set base_db_name=oscar
 set the_host=localhost
 set the_user=root
-if "%COMPUTERNAME%"=="fp2w-bravo" goto :OPS
+if "%COMPUTERNAME%"=="FP2W-BRAVO" goto :OPS
 if "%COMPUTERNAME%"=="alpha" goto :OPS
 if "%COMPUTERNAME%"=="WIN-O968FBUMJDS" goto :OPS
 if "%1"=="x" set the_host=elm.phpwebhosting.com
