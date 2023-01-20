@@ -157,6 +157,9 @@
     <Content Include="Default.aspx" />
     <Content Include="exception.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="js\ErrorHandler.js">
+      <DependentUpon>ErrorHandler.ts</DependentUpon>
+    </Content>
     <Content Include="js\sha1.js" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
@@ -2750,6 +2753,7 @@
     <Content Include="unpublished.config" />
     <None Include="deploy.bat" />
     <Content Include="js\tsconfig.json" />
+    <Content Include="js\.eslintrc.json" />
     <None Include="noninteractive\.crontab" />
     <Content Include="protected\Web.config" />
     <Content Include="usercontrol\app\UserControl_about.ascx" />
@@ -2822,6 +2826,8 @@
     <Content Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx" />
     <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
     <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
     <None Include="packages.config" />
     <None Include="work.bat" />
   </ItemGroup>

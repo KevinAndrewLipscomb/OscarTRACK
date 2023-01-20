@@ -1,0 +1,83 @@
+{
+"extends":
+  [
+  "eslint:all",
+  //"plugin:angular/johnpapa",
+  "plugin:json/recommended",
+  //"plugin:lodash/recommended",
+  "plugin:security/recommended"
+  //"plugin:you-dont-need-lodash-underscore/compatible"
+  ],
+"rules":
+  {
+  "array-element-newline": "off",
+  "block-spacing": "off",
+  "brace-style": "off",
+  "camelcase": "off",
+  "capitalized-comments": "off",
+  "comma-spacing": "off",
+  "dot-location": "off",
+  "func-style": "off",
+  "func-call-spacing": "off",
+  "function-call-argument-newline": "off",
+  "function-paren-newline": "off",
+  "id-length": "off",
+  "indent": "off",
+  "key-spacing": "off",
+  "line-comment-position": "off",
+  "linebreak-style": "off",
+  "lodash/import-scope": "off",
+  "lodash/prefer-lodash-method": "off",
+  "lodash/prefer-lodash-typecheck": "off",
+  "max-lines": "off",
+  "max-lines-per-function": "off",
+  "max-params": "off",
+  "max-statements": "off",
+  "multiline-comment-style": "off",
+  "multiline-ternary": "off",
+  "newline-per-chained-call": "off",
+  "no-alert": "off",
+  "no-extra-parens": "off",
+  "no-inline-comments": "off",
+  "no-magic-numbers": "off",
+  "no-nested-ternary": "off",
+  "no-plusplus": "off",
+  "no-ternary": "off",
+  "no-unexpected-multiline": "off",
+  "no-use-before-define": "off",
+  "object-curly-spacing": "off",
+  "object-shorthand": "off",
+  "one-var": "off",
+  "padded-blocks": "off",
+  "prefer-arrow-callback": "off",
+  "prefer-destructuring": "off",
+  "radix": "off",
+  "sort-keys": "off",
+  "space-before-blocks": "off",
+  "space-before-function-paren": "off",
+  "spaced-comment": "off",
+  "wrap-iife": "off",
+  "you-dont-need-lodash-underscore/each": "off",
+  "you-dont-need-lodash-underscore/filter": "off",
+  "you-dont-need-lodash-underscore/find": "off",
+  "you-dont-need-lodash-underscore/find-index": "off",
+  "you-dont-need-lodash-underscore/for-each": "off",
+  "you-dont-need-lodash-underscore/includes": "off",
+  "you-dont-need-lodash-underscore/index-of": "off",
+  "you-dont-need-lodash-underscore/map": "off",
+  "you-dont-need-lodash-underscore/uniq": "off",
+  "you-dont-need-lodash-underscore/values": "off",
+  //
+  //"angular/file-name": "warn",
+  //"angular/module-getter": "warn",
+  "keyword-spacing": "warn",
+  "max-statements-per-line": "warn",
+  "no-console": "warn",
+  //
+  "max-len": ["error",{"code": 240}]
+  },
+"ignorePatterns":
+  [
+  "Scripts/TypeLite.d.ts"
+  ]
+}
