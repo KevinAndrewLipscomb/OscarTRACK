@@ -1,14 +1,22 @@
 //
 // Declare references to global variables for ESLint
 //
-/*global Sys*/
+/* global alert */
+/* global Sys */
+/* global window */
 
-function EndRequestHandler
+//
+// Declare references type definitions for TypeScript
+//
+/// <reference path="../node_modules/@types/microsoft-ajax/index.d.ts" />
+
+(<any>window).EndRequestHandler = function EndRequestHandler
   (
   _sender:any,
-  args:any
+  args:Sys.WebForms.EndRequestEventArgs
   )
   {
+  "use strict";
   //
   // This function gets registered (by the last line in this file) to run at the end of *every* request, so it must test to see whether or not there has been an error.
   //
@@ -39,6 +47,9 @@ function EndRequestHandler
     alert(outgoing_error_message);
     args.set_errorHandled(true);
     }
-  }
+  };
 
-if (Sys.WebForms) Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+if (Sys.WebForms)
+  {
+  Sys.WebForms.PageRequestManager.getInstance().add_endRequest((<any>window).EndRequestHandler);
+  }
