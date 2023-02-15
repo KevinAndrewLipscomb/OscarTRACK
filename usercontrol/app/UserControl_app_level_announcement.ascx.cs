@@ -19,7 +19,7 @@ namespace UserControl_app_level_announcement
       if (!p.be_loaded)
         {
         Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
-        Panel_content.Visible = DateTime.Now < new DateTime(2019,6,1,20,0,0);
+        Panel_content.Visible = DateTime.Now < new DateTime(2023,2,17,22,0,0);
         p.be_loaded = true;
         }
       }
