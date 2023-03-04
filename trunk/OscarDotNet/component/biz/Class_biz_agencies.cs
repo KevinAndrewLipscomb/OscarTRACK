@@ -228,14 +228,12 @@ namespace Class_biz_agencies
             );
           }
 
-        public string IdOfShortDesignator(string short_designator)
-        {
-            string result;
-            result = db_agencies.IdOfShortDesignator(short_designator);
-            return result;
-        }
+    public string IdOfShortDesignator(string short_designator)
+      {
+      return db_agencies.IdOfShortDesignator(short_designator) ?? null;
+      }
 
-        internal string IdResponsibleForPost(string post_id)
+    internal string IdResponsibleForPost(string post_id)
           {
           return db_agencies.IdResponsibleForPost(post_id);
           }
