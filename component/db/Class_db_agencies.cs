@@ -456,17 +456,16 @@ namespace Class_db_agencies
           return result;
           }
 
-        public string IdOfShortDesignator(string short_designator)
-        {
-            string result;
-            Open();
-            using var my_sql_command = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", connection);
-            result = my_sql_command.ExecuteScalar().ToString();
-            Close();
-            return result;
-        }
+    public string IdOfShortDesignator(string short_designator)
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", connection);
+      var result = my_sql_command.ExecuteScalar()?.ToString() ?? null;
+      Close();
+      return result;
+      }
 
-        internal string IdResponsibleForPost(string post_id)
+    internal string IdResponsibleForPost(string post_id)
           {
           Open();
           using var my_sql_command = new MySqlCommand

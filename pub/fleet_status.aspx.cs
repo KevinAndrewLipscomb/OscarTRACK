@@ -37,7 +37,7 @@ namespace fleet_status
       Session.Add("mode:report/pub-fleet-status", k.EMPTY);
       var c = ((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx")));
       PlaceHolder_fleet_status.Controls.Add(c);
-      c.SetP(agency_short_designator:k.Safe(Request["agency"] ?? "911",k.safe_hint_type.ALPHANUM)); // If no agency is specified in the request, use one that is valid but that will never own any vehicles.
+      c.SetP(agency_short_designator:k.Safe(Request["agency"] ?? k.EMPTY,k.safe_hint_type.ALPHANUM));
 //
 // Uncomment the following line to disable partial page rendering.
 //

@@ -627,7 +627,8 @@ namespace UserControl_fleet
 
     internal void SetP(string agency_short_designator)
       {
-      p.agency_filter = p.biz_agencies.IdOfShortDesignator(agency_short_designator);
+      p.agency_filter = p.biz_agencies.IdOfShortDesignator(agency_short_designator.Length > 0 ? agency_short_designator : "911") ?? "911";
+        // If no agency (or a non-existent one) is specified in the request, use one that is valid but that will never own any vehicles.
       }
 
     } // end TWebUserControl_fleet
