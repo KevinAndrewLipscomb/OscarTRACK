@@ -105,10 +105,6 @@
     </Reference>
     <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
     <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
-    <Reference Include="Renci.SshNet, Version=2020.0.1.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106">
-      <HintPath>packages\SSH.NET.2020.0.1\lib\net40\Renci.SshNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
