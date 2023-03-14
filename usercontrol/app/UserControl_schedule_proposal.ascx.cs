@@ -6,6 +6,7 @@ using Class_biz_schedule_assignments;
 using Class_biz_shifts;
 using Class_biz_user;
 using Class_msg_protected;
+using ki_web_ui;
 using kix;
 using System;
 using System.Collections;
@@ -18,17 +19,13 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_proposal
-  {
+{
 
-  public partial class TWebUserControl_schedule_proposal: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_schedule_proposal: usercontrol_class
     {
 
     private static class Static
       {
-      public const string APP_ATTRIBUTE_ASSIGNMENT_ID = "data-ot-1";
-      public const string APP_ATTRIBUTE_POST_ID = "data-ot-2";
-      public const string APP_ATTRIBUTE_MEMBER_AGENCY_ID = "data-ot-3";
-      public const string APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION = "data-ot-4";
       public const int TCI_NOMINAL_DAY = 0;
       public const int TCI_DISPLAY_SEQ_NUM = 1;
       public const int TCI_D_SPACER_MAJOR = 2;
@@ -837,15 +834,9 @@ namespace UserControl_schedule_proposal
             //
             if (be_ok_to_enable_controls)
               {
-              post_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_ASSIGNMENT_ID,value:e.Item.Cells[tci_assignment_id].Text);
-              post_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_POST_ID,value:post_id);
-              post_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID,value:e.Item.Cells[tci_member_agency_id].Text);
-              post_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION,value:e.Item.Cells[tci_medical_release_description].Text);
+              post_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key:e.Item.Cells[tci_assignment_id].Text);
               post_drop_down_list.Enabled = true;
-              post_cardinality_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_ASSIGNMENT_ID,value:e.Item.Cells[tci_assignment_id].Text);
-              post_cardinality_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_POST_ID,value:post_id);
-              post_cardinality_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID,value:e.Item.Cells[tci_member_agency_id].Text);
-              post_cardinality_drop_down_list.Attributes.Add(key:Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION,value:e.Item.Cells[tci_medical_release_description].Text);
+              post_cardinality_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key:e.Item.Cells[tci_assignment_id].Text);
               post_cardinality_drop_down_list.Enabled = true;
               }
             }
@@ -1133,16 +1124,19 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
+      var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
+      var new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
-          post_id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_POST_ID],k.safe_hint_type.NUM),
+          post_id:new_post_id,
           be_interactive:p.be_interactive,
           be_ok_to_edit_post:p.be_ok_to_edit_post,
-          agency_id:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID],
+          agency_id:p.biz_schedule_assignments.MemberAgencyIdOf(summary),
           own_agency:p.own_agency,
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
-          medical_release_description:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION],
+          medical_release_description:p.biz_schedule_assignments.MemberMedicalReleaseLevelOf(summary),
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
@@ -1157,8 +1151,8 @@ namespace UserControl_schedule_proposal
         {
         p.biz_schedule_assignments.SetPost
           (
-          id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_ASSIGNMENT_ID],k.safe_hint_type.NUM),
-          post_id:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM)
+          id:assignment_id,
+          post_id:new_post_id
           );
         }
       else
@@ -1171,16 +1165,19 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
+      var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
+      var new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
-          post_id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_POST_ID],k.safe_hint_type.NUM),
+          post_id:new_post_id,
           be_interactive:p.be_interactive,
           be_ok_to_edit_post:p.be_ok_to_edit_post,
-          agency_id:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID],
+          agency_id:p.biz_schedule_assignments.MemberAgencyIdOf(summary),
           own_agency:p.own_agency,
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
-          medical_release_description:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION],
+          medical_release_description:p.biz_schedule_assignments.MemberMedicalReleaseLevelOf(summary),
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
@@ -1195,8 +1192,8 @@ namespace UserControl_schedule_proposal
         {
         p.biz_schedule_assignments.SetPost
           (
-          id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_ASSIGNMENT_ID],k.safe_hint_type.NUM),
-          post_id:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM)
+          id:assignment_id,
+          post_id:new_post_id
           );
         }
       else
@@ -1209,16 +1206,19 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
+      var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
+      var new_post_cardinality = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
-          post_id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_POST_ID],k.safe_hint_type.NUM),
+          post_id:p.biz_schedule_assignments.PostIdOf(summary),
           be_interactive:p.be_interactive,
           be_ok_to_edit_post:p.be_ok_to_edit_post,
-          agency_id:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID],
+          agency_id:p.biz_schedule_assignments.MemberAgencyIdOf(summary),
           own_agency:p.own_agency,
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
-          medical_release_description:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION],
+          medical_release_description:p.biz_schedule_assignments.MemberMedicalReleaseLevelOf(summary),
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
@@ -1233,8 +1233,8 @@ namespace UserControl_schedule_proposal
         {
         p.biz_schedule_assignments.SetPostCardinality
           (
-          id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_ASSIGNMENT_ID],k.safe_hint_type.NUM),
-          post_cardinality:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA)
+          id:assignment_id,
+          post_cardinality:new_post_cardinality
           );
         }
       else
@@ -1247,16 +1247,19 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
+      var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
+      var new_post_cardinality = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
           (
-          post_id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_POST_ID],k.safe_hint_type.NUM),
+          post_id:p.biz_schedule_assignments.PostIdOf(summary),
           be_interactive:p.be_interactive,
           be_ok_to_edit_post:p.be_ok_to_edit_post,
-          agency_id:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEMBER_AGENCY_ID],
+          agency_id:p.biz_schedule_assignments.MemberAgencyIdOf(summary),
           own_agency:p.own_agency,
           be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
-          medical_release_description:(sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_MEDICAL_RELEASE_DESCRIPTION],
+          medical_release_description:p.biz_schedule_assignments.MemberMedicalReleaseLevelOf(summary),
           be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
           be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
@@ -1271,8 +1274,8 @@ namespace UserControl_schedule_proposal
         {
         p.biz_schedule_assignments.SetPostCardinality
           (
-          id:k.Safe((sender as DropDownList).Attributes[Static.APP_ATTRIBUTE_ASSIGNMENT_ID],k.safe_hint_type.NUM),
-          post_cardinality:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA)
+          id:assignment_id,
+          post_cardinality:new_post_cardinality
           );
         }
       else
