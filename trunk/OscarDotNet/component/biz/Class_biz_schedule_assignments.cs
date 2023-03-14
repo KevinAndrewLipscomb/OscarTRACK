@@ -997,9 +997,19 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.MarkMemberToBeReleased(member_id,relative_month);
       }
 
+    internal string MemberAgencyIdOf(object summary)
+      {
+      return db_schedule_assignments.MemberAgencyIdOf(summary);
+      }
+
     internal string MemberIdOf(object summary)
       {
       return db_schedule_assignments.MemberIdOf(summary);
+      }
+
+    internal string MemberMedicalReleaseLevelOf(object summary)
+      {
+      return db_schedule_assignments.MemberMedicalReleaseLevelOf(summary);
       }
 
     internal string MonthlessRenditionOfId(string id)
@@ -1053,6 +1063,11 @@ namespace Class_biz_schedule_assignments
     internal string PostDesignatorOf(object summary)
       {
       return db_schedule_assignments.PostDesignatorOf(summary);
+      }
+
+    internal string PostIdOf(object summary)
+      {
+      return db_schedule_assignments.PostIdOf(summary);
       }
 
     internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
