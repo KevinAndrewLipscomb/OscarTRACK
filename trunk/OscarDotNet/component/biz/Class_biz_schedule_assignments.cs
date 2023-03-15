@@ -1326,10 +1326,10 @@ namespace Class_biz_schedule_assignments
       )
       {
       var saved_post = db_schedule_assignments.PostDesignatorOf(db_schedule_assignments.Summary(id));
-      db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
       var post = biz_agencies.ShortDesignatorOf(post_id);
       if (post != saved_post)
         {
+        db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
         db_schedule_assignment_logs.Enter
           (
           assignment_id:id,
@@ -1345,9 +1345,9 @@ namespace Class_biz_schedule_assignments
       )
       {
       var saved_post_cardinality = db_schedule_assignments.PostCardinalityOf(db_schedule_assignments.Summary(id));
-      db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
       if (post_cardinality != saved_post_cardinality)
         {
+        db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
         db_schedule_assignment_logs.Enter
           (
           assignment_id:id,
