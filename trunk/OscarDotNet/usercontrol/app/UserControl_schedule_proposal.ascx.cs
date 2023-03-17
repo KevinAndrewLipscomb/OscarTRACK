@@ -1125,7 +1125,21 @@ namespace UserControl_schedule_proposal
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
       var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
-      var new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var new_post_id = k.EMPTY;
+      try
+        {
+        new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+        }
+      catch (IndexOutOfRangeException)
+        {
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
+        throw;
+        }
       var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
@@ -1166,7 +1180,20 @@ namespace UserControl_schedule_proposal
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
       var assignment_id = k.Safe((sender as DropDownList).UntieKeyFromSelection(),k.safe_hint_type.NUM);
-      var new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+      var new_post_id = k.EMPTY;
+      try
+        {
+        new_post_id = k.Safe((sender as DropDownList).UntieValueFromSelection(),k.safe_hint_type.NUM);
+        }
+      catch (IndexOutOfRangeException)
+        {
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
+        throw;
+        }
       var summary = p.biz_schedule_assignments.Summary(assignment_id);
       v.be_full_watchbill_publish_mandatory = p.biz_agencies.BeFullWatchbillPublishMandatory(p.relative_month);
       if(p.biz_schedule_assignments.BeOkToEnableControls
