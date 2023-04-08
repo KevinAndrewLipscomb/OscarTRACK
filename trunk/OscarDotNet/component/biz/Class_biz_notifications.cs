@@ -17,8 +17,10 @@ using Class_biz_vehicles;
 using Class_db_notifications;
 using kix;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace Class_biz_notifications
@@ -110,7 +112,7 @@ namespace Class_biz_notifications
             BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
-        public void BindTallies(object DataGrid_for_cycle, object DataGrid_for_lifetime)
+    public void BindTallies(object DataGrid_for_cycle, object DataGrid_for_lifetime)
         {
             db_notifications.BindTallies(DataGrid_for_cycle, DataGrid_for_lifetime);
         }
@@ -2890,6 +2892,37 @@ namespace Class_biz_notifications
             );
           template_reader.Close();
           }
+
+    private delegate string IssueLoveLetterReport_Merge(string s);
+    internal void IssueLoveLetterReport
+      (
+      IEnumerable<string> love_letter_targets,
+      string agency_id
+      )
+      {
+
+      IssueLoveLetterReport_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<agency/>", new TClass_biz_agencies().KeyclickEnumeratorOf(agency_id))
+          .Replace("<love_letter_targets/>", string.Join("\n",love_letter_targets))
+          ;
+        };
+
+      var biz_role_member_map = new TClass_biz_role_member_map();
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("~/cloudmailin/template/notification/love_letter_report.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_role_member_map.EmailTargetOfAgencyIdList("Squad Fund Drive Coordinator",agency_id),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        cc:biz_role_member_map.EmailTargetOfAgencyIdList("Squad President",agency_id) + k.COMMA + biz_role_member_map.EmailTargetOfAgencyIdList("Squad Vice President",agency_id)
+        );
+      template_reader.Close();
+      }
 
         private delegate string IssueMemberStatusStatement_Merge(string s);
         public void IssueMemberStatusStatement

@@ -1136,7 +1136,6 @@ namespace UserControl_schedule_proposal
         SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
         SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
         SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
-        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
         SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
         throw;
         }
@@ -1172,6 +1171,11 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
         throw k.PRIVILEGE_VIOLATION;
         }
       v.be_full_watchbill_publish_mandatory.Clear();
@@ -1226,6 +1230,11 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
         throw k.PRIVILEGE_VIOLATION;
         }
       v.be_full_watchbill_publish_mandatory.Clear();
@@ -1267,6 +1276,11 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
         throw k.PRIVILEGE_VIOLATION;
         }
       v.be_full_watchbill_publish_mandatory.Clear();
@@ -1308,6 +1322,11 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
+        SessionSet("wandering_list_control_id",(sender as DropDownList).ID);
+        SessionSet("wandering_list_control_unique_id",(sender as DropDownList).UniqueID);
+        SessionSet("wandering_list_control_client_id",(sender as DropDownList).ClientID);
+        SessionSet("wandering_list_control_selected_item_text",(sender as DropDownList).SelectedItem.Text);
+        SessionSet("wandering_list_control_selected_item_value",(sender as DropDownList).SelectedItem.Value);
         throw k.PRIVILEGE_VIOLATION;
         }
       v.be_full_watchbill_publish_mandatory.Clear();

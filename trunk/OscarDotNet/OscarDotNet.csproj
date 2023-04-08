@@ -148,6 +148,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cloudmailin\scenes_reached_distributor.aspx" />
     <Content Include="cloudmailin\fleetman.aspx" />
     <Content Include="cloudmailin\group.aspx" />
     <Content Include="Default.aspx" />
@@ -281,6 +282,7 @@
     <Content Include="service\Authentication.svc" />
     <Content Include="service\FleetStatus.svc" />
     <Content Include="service\WatchbillByShift.svc" />
+    <Content Include="cloudmailin\template\notification\love_letter_report.txt" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_activity_lookback.ascx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
@@ -378,6 +380,7 @@
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_cloudmailin_scenes_reached_distributor.ascx" />
     <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_catalog.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_class.ascx" />
@@ -436,6 +439,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appcommon.cs" />
+    <Compile Include="cloudmailin\scenes_reached_distributor.aspx.cs">
+      <DependentUpon>scenes_reached_distributor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cloudmailin\scenes_reached_distributor.aspx.designer.cs">
+      <DependentUpon>scenes_reached_distributor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="cloudmailin\fleetman.aspx.cs">
       <DependentUpon>fleetman.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -465,6 +475,7 @@
     <Compile Include="component\biz\Class_biz_evals.cs" />
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
     <Compile Include="component\biz\Class_biz_field_situations.cs" />
+    <Compile Include="component\biz\Class_biz_scenes_reached_distributor.cs" />
     <Compile Include="component\biz\Class_biz_fleetman.cs" />
     <Compile Include="component\biz\Class_biz_fund_drives.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
@@ -585,6 +596,7 @@
     <Compile Include="component\db\Class_db_role_member_map_logs.cs" />
     <Compile Include="component\db\Class_db_role_notification_map.cs" />
     <Compile Include="component\db\Class_db_role_privilege_map.cs" />
+    <Compile Include="component\db\Class_db_scenes_reached.cs" />
     <Compile Include="component\db\Class_db_schedule_assignment_logs.cs" />
     <Compile Include="component\db\Class_db_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_sms_gateways.cs" />
@@ -2394,6 +2406,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx.designer.cs">
       <DependentUpon>UserControl_test_cloudmailin_group.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_scenes_reached_distributor.ascx.cs">
+      <DependentUpon>UserControl_test_cloudmailin_scenes_reached_distributor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_scenes_reached_distributor.ascx.designer.cs">
+      <DependentUpon>UserControl_test_cloudmailin_scenes_reached_distributor.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.cs">
       <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>
