@@ -1,6 +1,4 @@
 using Class_biz_notifications;
-using Class_db_agencies;
-using Class_db_role_member_map;
 using Class_db_scenes_reached;
 using kix;
 using System.Configuration;
@@ -41,7 +39,11 @@ namespace Class_biz_scenes_reached_distributor
         //
         // Skip the first line, which contains column headers.
         //
-        foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachments.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
+        var lines = attachments.Split('\n');
+        var data = lines.Skip(1);
+        var scene_reached_descriptors = data.Select(SceneReachedDescriptorOf);
+        var groups = db_scenes_reached.ByAgencyFromDescriptors(scene_reached_descriptors);
+        foreach (var group in groups)
           {
           biz_notifications.IssueLoveLetterReport
             (
