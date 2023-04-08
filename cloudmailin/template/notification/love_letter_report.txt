@@ -1,0 +1,13 @@
+﻿Love Letter Report - <agency/>
+<agency/> Fund Drive Coordinator(s),
+
+Below is a report showing the addresses of the scenes reached by <agency/> ambulances (determined by bumper number) from the first day to the last day of last month. The data may enable, encourage, or support conducting a "Love Letter" program at <agency/>.
+
+There are also features available free in <application_name/> (if you want them enabled for your squad) that can ease the task of tracking your donors and comparing the attached data to your donation records. For instance, you may wish not to send a Love Letter to an address from which you've received a donation within the past year. <application_name/> can do that filtering for you.
+
+If you have any questions, please contact the <application_name/> Application Administrator at <application_name/>@<host_domain_name/>.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
+
+
+<love_letter_targets/>

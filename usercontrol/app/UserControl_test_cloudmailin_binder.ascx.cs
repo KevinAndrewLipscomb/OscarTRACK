@@ -3,6 +3,7 @@
 using kix;
 using UserControl_test_cloudmailin_fleetman;
 using UserControl_test_cloudmailin_group;
+using UserControl_test_cloudmailin_scenes_reached_distributor;
 using System;
 
 namespace UserControl_test_cloudmailin_binder
@@ -21,6 +22,7 @@ namespace UserControl_test_cloudmailin_binder
       {
       public const int TSSI_FLEETMAN = 0;
       public const int TSSI_GROUP = 1;
+      public const int TSSI_SCENES_REACHED_DISTRIBUTOR = 2;
       }
 
     private struct p_type
@@ -49,6 +51,11 @@ namespace UserControl_test_cloudmailin_binder
         {
         var c = ((TWebUserControl_test_cloudmailin_group)(LoadControl("~/usercontrol/app/UserControl_test_cloudmailin_group.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_cloudmailin_group",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        }
+      else if (p.tab_index == Static.TSSI_SCENES_REACHED_DISTRIBUTOR)
+        {
+        var c = ((TWebUserControl_test_cloudmailin_scenes_reached_distributor)(LoadControl("~/usercontrol/app/UserControl_test_cloudmailin_scenes_reached_distributor.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_cloudmailin_scenes_reached_distributor",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
@@ -153,6 +160,10 @@ namespace UserControl_test_cloudmailin_binder
         else if (target.ToLower().Contains("/group/"))
           {
           p.tab_index = Static.TSSI_GROUP;
+          }
+        else if (target.ToLower().Contains("/scenes_reached_distributor/"))
+          {
+          p.tab_index = Static.TSSI_SCENES_REACHED_DISTRIBUTOR;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;

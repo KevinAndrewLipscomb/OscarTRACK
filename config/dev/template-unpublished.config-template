@@ -9,6 +9,7 @@
   <add key="google_static_maps_api_key" value="~"/>
   <add key="perplexibase_salt" value="~" />
   <add key="query_string_protection_password" value="~"/>
+  <add key="scenes_reached_distributor_address_local_part" value="~"/>
   <add key="sysadmin_encoded_password" value="~" />
   <add key="vbemsbridge_username" value="~"/>
   <add key="vbemsbridge_password" value="~"/>

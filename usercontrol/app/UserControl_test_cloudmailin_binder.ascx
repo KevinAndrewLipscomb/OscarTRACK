@@ -9,6 +9,7 @@
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <cc1:TabPanel runat="server" headertext="fleetman" id="TabPanel_fleetman"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="group" id="TabPanel_group"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="scenes_reached_distributor" id="TabPanel_scenes_reached_distributor"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>
