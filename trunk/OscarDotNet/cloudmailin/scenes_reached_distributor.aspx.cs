@@ -1,4 +1,5 @@
 using Class_biz_scenes_reached_distributor;
+using kix;
 using System;
 using System.Text;
 
@@ -27,9 +28,9 @@ namespace scenes_reached_distributor
         {
         new TClass_biz_scenes_reached_distributor().ProcessCloudmailinRequest
           (
-          envelope_to:Request.Unvalidated.Form["envelope[to]"],
-          headers_to:Request.Unvalidated.Form["headers[to]"],
-          attachment:Encoding.ASCII.GetString(bytes:buffer)
+          envelope_to:k.Safe(Request.Unvalidated.Form["envelope[to]"],k.safe_hint_type.EMAIL_ADDRESS),
+          headers_to:k.Safe(Request.Unvalidated.Form["headers[to]"],k.safe_hint_type.EMAIL_ADDRESS),
+          attachment:k.Safe(Encoding.ASCII.GetString(bytes:buffer),k.safe_hint_type.MEMO)
           );
         }
       else
