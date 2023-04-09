@@ -3,8 +3,10 @@ using Class_db_scenes_reached;
 using kix;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Class_biz_scenes_reached_distributor
 {
@@ -24,23 +26,28 @@ namespace Class_biz_scenes_reached_distributor
       (
       string envelope_to,
       string headers_to,
-      string attachments
+      string attachment
       )
       {
       //
       // Validate the request.
       //
-      var scenes_reached_distributor_address_local_part = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
+      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/scenes_reached_distributor.log"),append:true);
+      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: envelope_to = {envelope_to}");
+      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: headers_to = {headers_to}");
+      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: attachment = {attachment}");
+      var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
+      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: scenes_reached_distributor_address = {scenes_reached_distributor_address}");
       if(
-          (headers_to == scenes_reached_distributor_address_local_part)
+          (headers_to == scenes_reached_distributor_address)
         &&
-          (envelope_to == scenes_reached_distributor_address_local_part)
+          (envelope_to == scenes_reached_distributor_address)
         )
         {
         //
         // Skip the first line, which contains column headers.
         //
-        var lines = attachments.Split('\n');
+        var lines = attachment.Split('\n');
         var data = lines.Skip(1);
         var scene_reached_descriptors = data.Select(SceneReachedDescriptorOf);
         var groups = db_scenes_reached.ByAgencyFromDescriptors(scene_reached_descriptors);
