@@ -1,5 +1,6 @@
 using Class_biz_scenes_reached_distributor;
 using System;
+using System.Text;
 
 namespace scenes_reached_distributor
 {
@@ -20,8 +21,6 @@ namespace scenes_reached_distributor
       //
       // https://docs.cloudmailin.com/http_post_formats/multipart_normalized/
       //
-      SessionSet(name:"envelope_to", value:Request.Unvalidated.Form["envelope[to]"]);
-      SessionSet(name:"headers_to", value:Request.Unvalidated.Form["headers[to]"]);
       var content_length = Request.Files[0].ContentLength;
       var buffer = new byte[content_length];
       if (Request.Files[0].InputStream.Read(buffer:buffer, offset:0, count:content_length) > 0)
@@ -30,7 +29,7 @@ namespace scenes_reached_distributor
           (
           envelope_to:Request.Unvalidated.Form["envelope[to]"],
           headers_to:Request.Unvalidated.Form["headers[to]"],
-          attachments:System.Text.Encoding.ASCII.GetString(bytes:buffer)
+          attachments:Encoding.ASCII.GetString(bytes:buffer)
           );
         }
       else
