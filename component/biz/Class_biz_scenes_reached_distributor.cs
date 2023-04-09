@@ -32,7 +32,7 @@ namespace Class_biz_scenes_reached_distributor
       //
       // Validate the request.
       //
-      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/scenes_reached_distributor.log"),append:true);
+      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath($"~/{ConfigurationManager.AppSettings["scratch_folder"]}/scenes_reached_distributor.log"),append:true);
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: envelope_to = {envelope_to}");
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: headers_to = {headers_to}");
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: attachment = {attachment}");
