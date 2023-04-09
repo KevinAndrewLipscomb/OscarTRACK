@@ -2907,7 +2907,7 @@ namespace Class_biz_notifications
           .Replace("<application_name/>", application_name)
           .Replace("<host_domain_name/>", host_domain_name)
           .Replace("<agency/>", new TClass_biz_agencies().KeyclickEnumeratorOf(agency_id))
-          .Replace("<love_letter_targets/>", string.Join("\n",love_letter_targets))
+          .Replace("<love_letter_targets/>", love_letter_targets.Count() > 0 ? string.Join("\n",love_letter_targets) : "(none)")
           ;
         };
 
