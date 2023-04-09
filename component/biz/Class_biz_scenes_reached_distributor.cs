@@ -29,33 +29,12 @@ namespace Class_biz_scenes_reached_distributor
       string attachment
       )
       {
-      //
-      // Validate the request.
-      //
-      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath($"~/cloudmailin/{ConfigurationManager.AppSettings["scratch_folder"]}/scenes_reached_distributor.log"),append:false);
-      var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
-      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: scenes_reached_distributor_address = {scenes_reached_distributor_address}");
-      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: envelope_to = {envelope_to}");
-      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: headers_to = {headers_to}");
-      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: attachment = {attachment}");
-      if(
-          (headers_to == scenes_reached_distributor_address)
-        &&
-          (envelope_to == scenes_reached_distributor_address)
-        )
+      if (new[]{envelope_to,headers_to}.All(address => address == ConfigurationManager.AppSettings["scenes_reached_distributor_address"]))
         {
         //
         // Skip the first line, which contains column headers.
         //
-        var lines = attachment.Split('\n');
-        log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: lines.Length = {lines.Length}");
-        var data = lines.Skip(1);
-        log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: data.Count() = {data.Count()}");
-        var scene_reached_descriptors = data.Select(SceneReachedDescriptorOf);
-        log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: scene_reached_descriptors.Count() = {scene_reached_descriptors.Count()}");
-        var groups = db_scenes_reached.ByAgencyFromDescriptors(scene_reached_descriptors);
-        log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: groups.Count = {groups.Count}");
-        foreach (var group in groups)
+        foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
           {
           biz_notifications.IssueLoveLetterReport
             (
@@ -63,35 +42,40 @@ namespace Class_biz_scenes_reached_distributor
             agency_id:group.Key
             );
           }
-        log.Flush();
         }
       else
         {
-        throw new Exception(message:"Invalid request");
+        throw new Exception(message:"Not all 'To:' fields match the unpublished gateway address.");
         }
       }
 
     private SceneReachedDescriptor SceneReachedDescriptorOf(string scene_reached_csv)
       {
       //
-      // By the time the scenes_reached_csv gets here, k.Safe() has converted its quotation marks to diaeresis characters.
+      // By the time the scenes_reached_csv gets here, k.Safe() is required to have converted its quotation marks to diaeresis
+      // characters, or deriving a descriptor will fail.
       //
-      const string PATTERN = $"{k.DIAERESIS}(.+?){k.DIAERESIS},{k.DIAERESIS}([0-9]+?){k.DIAERESIS},{k.DIAERESIS}(.*){k.DIAERESIS}";
+      const string INITIAL_PATTERN = $"{k.DIAERESIS}(.+?){k.DIAERESIS},{k.DIAERESIS}([0-9]+?){k.DIAERESIS},{k.DIAERESIS}(.*){k.DIAERESIS}";
       return new SceneReachedDescriptor()
-       {
-       address = Regex.Replace
-         (
-         input:scene_reached_csv,
-         pattern:PATTERN,
-         replacement:"$1 UNIT $3"
-         ),
-       bumper_number = Regex.Replace
-         (
-         input:scene_reached_csv,
-         pattern:PATTERN,
-         replacement:"$2"
-         )
-       };
+        {
+        address = Regex.Replace // Outer replace removes dangling " UNIT " endings.
+          (
+          input:Regex.Replace // Inner replace often leaves dangling " UNIT " endings.
+            (
+            input:scene_reached_csv,
+            pattern:INITIAL_PATTERN,
+            replacement:"$1 UNIT $3"
+            ),
+          pattern:" UNIT $",
+          replacement:k.EMPTY
+          ),
+        bumper_number = Regex.Replace
+          (
+          input:scene_reached_csv,
+          pattern:INITIAL_PATTERN,
+          replacement:"$2"
+          )
+        };
       }
 
     } // end TClass_biz_scenes_reached_distributor
