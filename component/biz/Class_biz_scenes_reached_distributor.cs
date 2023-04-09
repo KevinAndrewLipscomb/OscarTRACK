@@ -33,11 +33,12 @@ namespace Class_biz_scenes_reached_distributor
       // Validate the request.
       //
       var log = new StreamWriter(path:HttpContext.Current.Server.MapPath($"~/cloudmailin/{ConfigurationManager.AppSettings["scratch_folder"]}/scenes_reached_distributor.log"),append:true);
+      var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
+      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: scenes_reached_distributor_address = {scenes_reached_distributor_address}");
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: envelope_to = {envelope_to}");
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: headers_to = {headers_to}");
       log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: attachment = {attachment}");
-      var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
-      log.WriteLine($"{DateTime.Now:s}: {nameof(TClass_biz_scenes_reached_distributor)}.{nameof(ProcessCloudmailinRequest)}: scenes_reached_distributor_address = {scenes_reached_distributor_address}");
+      log.Flush();
       if(
           (headers_to == scenes_reached_distributor_address)
         &&
