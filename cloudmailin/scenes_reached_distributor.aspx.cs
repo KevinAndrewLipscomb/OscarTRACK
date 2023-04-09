@@ -20,16 +20,19 @@ namespace scenes_reached_distributor
       //
       // https://docs.cloudmailin.com/http_post_formats/multipart_normalized/
       //
-      SessionSet
+      var content_length = Request.Files[0].ContentLength;
+      var buffer = new byte[content_length];
+      Request.Files[0].InputStream.Read
         (
-        name:"Request.Unvalidated.Form.AllKeys",
-        value:string.Join(",",Request.Unvalidated.Form.AllKeys)
+        buffer:buffer,
+        offset:0,
+        count:content_length
         );
       new TClass_biz_scenes_reached_distributor().ProcessCloudmailinRequest
         (
         envelope_to:Request.Unvalidated.Form["envelope[to]"],
         headers_to:Request.Unvalidated.Form["headers[to]"],
-        attachments:Request.Unvalidated.Form["attachments[]"]
+        attachments:System.Text.Encoding.ASCII.GetString(bytes:buffer)
         );
       }
 
