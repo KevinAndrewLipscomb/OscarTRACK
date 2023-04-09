@@ -29,7 +29,7 @@ namespace scenes_reached_distributor
           (
           envelope_to:Request.Unvalidated.Form["envelope[to]"],
           headers_to:Request.Unvalidated.Form["headers[to]"],
-          attachments:Encoding.ASCII.GetString(bytes:buffer)
+          attachment:Encoding.ASCII.GetString(bytes:buffer)
           );
         }
       else

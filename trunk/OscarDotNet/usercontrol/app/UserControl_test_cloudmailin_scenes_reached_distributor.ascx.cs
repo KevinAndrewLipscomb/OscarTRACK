@@ -76,7 +76,7 @@ namespace UserControl_test_cloudmailin_scenes_reached_distributor
         (
         envelope_to:k.Safe(TextBox_envelope_to.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
         headers_to:k.Safe(TextBox_headers_to.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
-        attachments:k.Safe(TextBox_attachments.Text,k.safe_hint_type.MEMO)
+        attachment:k.Safe(TextBox_attachments.Text,k.safe_hint_type.MEMO)
         );
       //
       Alert
