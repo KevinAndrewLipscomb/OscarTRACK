@@ -1,6 +1,7 @@
 using Class_biz_notifications;
 using Class_db_scenes_reached;
 using kix;
+using System;
 using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -51,6 +52,10 @@ namespace Class_biz_scenes_reached_distributor
             agency_id:group.Key
             );
           }
+        }
+      else
+        {
+        throw new Exception(message:"Invalid request");
         }
       }
 
