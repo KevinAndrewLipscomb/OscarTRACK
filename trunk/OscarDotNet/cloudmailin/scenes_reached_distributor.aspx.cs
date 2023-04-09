@@ -20,20 +20,23 @@ namespace scenes_reached_distributor
       //
       // https://docs.cloudmailin.com/http_post_formats/multipart_normalized/
       //
+      SessionSet(name:"envelope_to", value:Request.Unvalidated.Form["envelope[to]"]);
+      SessionSet(name:"headers_to", value:Request.Unvalidated.Form["headers[to]"]);
       var content_length = Request.Files[0].ContentLength;
       var buffer = new byte[content_length];
-      Request.Files[0].InputStream.Read
-        (
-        buffer:buffer,
-        offset:0,
-        count:content_length
-        );
-      new TClass_biz_scenes_reached_distributor().ProcessCloudmailinRequest
-        (
-        envelope_to:Request.Unvalidated.Form["envelope[to]"],
-        headers_to:Request.Unvalidated.Form["headers[to]"],
-        attachments:System.Text.Encoding.ASCII.GetString(bytes:buffer)
-        );
+      if (Request.Files[0].InputStream.Read(buffer:buffer, offset:0, count:content_length) > 0)
+        {
+        new TClass_biz_scenes_reached_distributor().ProcessCloudmailinRequest
+          (
+          envelope_to:Request.Unvalidated.Form["envelope[to]"],
+          headers_to:Request.Unvalidated.Form["headers[to]"],
+          attachments:System.Text.Encoding.ASCII.GetString(bytes:buffer)
+          );
+        }
+      else
+        {
+        throw new Exception(message:"Zero-length attachment");
+        }
       }
 
     protected override void OnInit(EventArgs e)
