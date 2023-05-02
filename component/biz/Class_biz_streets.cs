@@ -67,6 +67,11 @@ namespace Class_biz_streets
       return db_streets.IdOf(street_name,city_name);
       }
 
+    internal string NameOfId(string id)
+      {
+      return db_streets.NameOfId(id);
+      }
+
     internal string NormalizedSuffixRendition(string name)
       {
       return db_streets.NormalizedSuffixRendition(name);

@@ -99,6 +99,16 @@ namespace Class_biz_agencies
             BindEmsPostListControlShort(target, selected_id, be_available_option_all, "All");
         }
 
+    internal void BindListControlKeyclickEnumerator
+      (
+      object target,
+      string unselected_literal = "All",
+      string selected_value = ""
+      )
+      {
+      db_agencies.BindListControlKeyclickEnumerator(target, unselected_literal, selected_value);
+      }
+
         public void BindListControlShort(object target)
         {
             BindListControlShort(target, "");
