@@ -1,4 +1,5 @@
 using Class_db_residents;
+using Class_db_streets;
 using kix;
 using System.Text.RegularExpressions;
 
@@ -8,6 +9,7 @@ namespace Class_biz_residents
       {
 
       private readonly TClass_db_residents db_residents = null;
+      private readonly TClass_db_streets db_streets = null;
       
       public TClass_biz_residents() : base()
         {
@@ -321,6 +323,28 @@ namespace Class_biz_residents
       internal void ScrubToApplicationStandards()
         {
         db_residents.ScrubToApplicationStandards();
+        }
+
+      internal string NormalizedAddressOfHouseNumAndStreetId
+        (
+        string house_num,
+        string street_id
+        )
+        {
+        return NormalizedAddressOfHouseNumAndStreetName
+          (
+          house_num:house_num,
+          street_name:db_streets.NameOfId(street_id)
+          );
+        }
+
+      internal string NormalizedAddressOfHouseNumAndStreetName
+        (
+        string house_num,
+        string street_name
+        )
+        {
+        return (street_name == "PO BOX" ? $"{street_name} {house_num}" : $"{house_num} {street_name}");
         }
 
       }

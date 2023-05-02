@@ -6,6 +6,8 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace Class_db_agencies
@@ -164,6 +166,45 @@ namespace Class_db_agencies
           if (selected_id.Length > 0)
             {
             (target as ListControl).SelectedValue = selected_id;
+            }
+          Close();
+          }
+
+        internal void BindListControlKeyclickEnumerator
+          (
+          object target,
+          string unselected_literal = "All",
+          string selected_value = ""
+          )
+          {
+          var trespass_nonparticipant_quoted_csv_list = ConfigurationManager.AppSettings["trespass_nonparticipant_quoted_csv_list"];
+          Open();
+          (target as ListControl).Items.Clear();
+          if (unselected_literal.Length > 0)
+            {
+            (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
+            }
+          using var my_sql_command = new MySqlCommand
+            (
+            cmdText:new StringBuilder()
+              .Append($"SELECT keyclick_enumerator")
+              .Append($" ,long_designator")
+              .Append($" from agency")
+              .Append($" where keyclick_enumerator is not null")
+              .Append(  $" and keyclick_enumerator not in ({trespass_nonparticipant_quoted_csv_list})")
+              .Append($" order by id")
+              .ToString(),
+            connection:connection
+            );
+          var dr = my_sql_command.ExecuteReader();
+          while (dr.Read())
+            {
+            (target as ListControl).Items.Add(new ListItem(text:dr["long_designator"].ToString(), value:dr["keyclick_enumerator"].ToString()));
+            }
+          dr.Close();
+          if (selected_value.Length > 0)
+            {
+            (target as ListControl).SelectedValue = selected_value;
             }
           Close();
           }

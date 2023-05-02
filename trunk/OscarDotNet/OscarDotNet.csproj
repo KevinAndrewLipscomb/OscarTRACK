@@ -272,6 +272,7 @@
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="protected\template\notification\vehicle_ready_email.txt" />
+    <Content Include="protected\trespassing.aspx" />
     <Content Include="protected\watchbill.aspx" />
     <Content Include="protected\watchbill_maag.aspx" />
     <Content Include="pub\field_situation.aspx" />
@@ -382,6 +383,8 @@
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_scenes_reached_distributor.ascx" />
     <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
+    <Content Include="usercontrol\app\UserControl_trespass.ascx" />
+    <Content Include="usercontrol\app\UserControl_trespassing.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_catalog.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_class.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_mart.ascx" />
@@ -527,6 +530,7 @@
     <Compile Include="component\biz\Class_biz_subjoined_attributes.cs" />
     <Compile Include="component\biz\Class_biz_tapouts.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
+    <Compile Include="component\biz\Class_biz_trespasses.cs" />
     <Compile Include="component\biz\Class_biz_uniform_catalogs.cs" />
     <Compile Include="component\biz\Class_biz_uniform_classes.cs" />
     <Compile Include="component\biz\Class_biz_uniform_option_categories.cs" />
@@ -605,6 +609,7 @@
     <Compile Include="component\db\Class_db_subjoined_attributes.cs" />
     <Compile Include="component\db\Class_db_tapouts.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
+    <Compile Include="component\db\Class_db_trespasses.cs" />
     <Compile Include="component\db\Class_db_uniform_catalogs.cs" />
     <Compile Include="component\db\Class_db_uniform_classes.cs" />
     <Compile Include="component\db\Class_db_uniform_option_categories.cs" />
@@ -1292,6 +1297,13 @@
     </Compile>
     <Compile Include="protected\register_on_vb_ems_sideband.aspx.designer.cs">
       <DependentUpon>register_on_vb_ems_sideband.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\trespassing.aspx.cs">
+      <DependentUpon>trespassing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\trespassing.aspx.designer.cs">
+      <DependentUpon>trespassing.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\update_vehicle_mileage.aspx.cs">
       <DependentUpon>update_vehicle_mileage.aspx</DependentUpon>
@@ -2420,6 +2432,20 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.designer.cs">
       <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_trespass.ascx.cs">
+      <DependentUpon>UserControl_trespass.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_trespass.ascx.designer.cs">
+      <DependentUpon>UserControl_trespass.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_trespassing.ascx.cs">
+      <DependentUpon>UserControl_trespassing.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_trespassing.ascx.designer.cs">
+      <DependentUpon>UserControl_trespassing.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_uniform_catalog.ascx.cs">
       <DependentUpon>UserControl_uniform_catalog.ascx</DependentUpon>

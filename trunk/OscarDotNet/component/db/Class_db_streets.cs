@@ -86,6 +86,7 @@ namespace Class_db_streets
         ((target) as ListControl).SelectedValue = selected_value;
         }
       }
+
     public void BindDirectToListControl(object target, string agency_keyclick_enumerator, string unselected_literal)
       {
       BindDirectToListControl(target, agency_keyclick_enumerator, unselected_literal, k.EMPTY);
@@ -160,6 +161,15 @@ namespace Class_db_streets
       var id_of_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_of_obj == null ? k.EMPTY : id_of_obj.ToString());
+      }
+
+    internal string NameOfId(string id)
+      {
+      Open();
+      using var my_sql_command = new MySqlCommand($"select name from street where id = '{id}'",connection);
+      var obj = my_sql_command.ExecuteScalar();
+      Close();
+      return (obj?.ToString() ?? k.EMPTY);
       }
 
     internal string NormalizedSuffixRendition(string name)

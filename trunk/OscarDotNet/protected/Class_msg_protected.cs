@@ -73,5 +73,10 @@ namespace Class_msg_protected
       internal string nominal_day_filter = k.EMPTY;
       internal string shift_name = k.EMPTY;
       }
+    internal class trespass_detail
+      {
+      internal string house_num = k.EMPTY;
+      internal k.int_positive street_id;
+      }
 	  }
 }

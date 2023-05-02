@@ -3,10 +3,8 @@ using Class_db_scenes_reached;
 using kix;
 using System;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace Class_biz_scenes_reached_distributor
 {
@@ -29,23 +27,31 @@ namespace Class_biz_scenes_reached_distributor
       string attachment
       )
       {
-      if (new[]{envelope_to,headers_to}.All(address => address == ConfigurationManager.AppSettings["scenes_reached_distributor_address"]))
+      var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
+      if (envelope_to == scenes_reached_distributor_address)
         {
-        //
-        // Skip the first line, which contains column headers.
-        //
-        foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
+        if (headers_to == scenes_reached_distributor_address)
           {
-          biz_notifications.IssueLoveLetterReport
-            (
-            love_letter_targets:group.Value.ToList(),
-            agency_id:group.Key
-            );
+          //
+          // Skip the first line, which contains column headers.
+          //
+          foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
+            {
+            biz_notifications.IssueLoveLetterReport
+              (
+              love_letter_targets:group.Value.ToList(),
+              agency_id:group.Key
+              );
+            }
+          }
+        else
+          {
+          throw new Exception(message:$"The headers_to field '{headers_to}' does not match the unpublished gateway address.");
           }
         }
       else
         {
-        throw new Exception(message:"Not all 'To:' fields match the unpublished gateway address.");
+        throw new Exception(message:$"The envelope_to field '{envelope_to}' does not match the unpublished gateway address.");
         }
       }
 
