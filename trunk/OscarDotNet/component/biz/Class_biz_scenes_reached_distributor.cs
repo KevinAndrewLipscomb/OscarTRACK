@@ -3,8 +3,10 @@ using Class_db_scenes_reached;
 using kix;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Class_biz_scenes_reached_distributor
 {
@@ -13,6 +15,7 @@ namespace Class_biz_scenes_reached_distributor
 
     private readonly TClass_biz_notifications biz_notifications = null;
     private readonly TClass_db_scenes_reached db_scenes_reached = null;
+    private readonly StreamWriter log = new(path:HttpContext.Current.Server.MapPath($"{ConfigurationManager.AppSettings["scratch_folder"]}/Class_biz_scenes_reached_distributor.log"),append:true);
 
     internal TClass_biz_scenes_reached_distributor() : base()
       {
@@ -35,6 +38,8 @@ namespace Class_biz_scenes_reached_distributor
           //
           // Skip the first line, which contains column headers.
           //
+          log.AutoFlush = true;
+          log.WriteLine(DateTime.Now.ToString("s") + " Class_biz_scenes_reached_distributor.ProcessCloudmailinRequest:");
           foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
             {
             biz_notifications.IssueLoveLetterReport
@@ -43,6 +48,8 @@ namespace Class_biz_scenes_reached_distributor
               agency_id:group.Key
               );
             }
+          log.WriteLine();
+          log.Close();
           }
         else
           {
@@ -57,6 +64,7 @@ namespace Class_biz_scenes_reached_distributor
 
     private SceneReachedDescriptor SceneReachedDescriptorOf(string scene_reached_csv)
       {
+      log.WriteLine($"{scene_reached_csv}");
       //
       // By the time the scenes_reached_csv gets here, k.Safe() is required to have converted its quotation marks to diaeresis
       // characters, or deriving a descriptor will fail.
