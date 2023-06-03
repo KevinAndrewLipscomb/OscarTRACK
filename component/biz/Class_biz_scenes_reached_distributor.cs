@@ -15,7 +15,7 @@ namespace Class_biz_scenes_reached_distributor
 
     private readonly TClass_biz_notifications biz_notifications = null;
     private readonly TClass_db_scenes_reached db_scenes_reached = null;
-    private readonly StreamWriter log = new(path:HttpContext.Current.Server.MapPath($"{ConfigurationManager.AppSettings["scratch_folder"]}/Class_biz_scenes_reached_distributor.log"),append:true);
+    private readonly StreamWriter log = new(path:HttpContext.Current.Server.MapPath($"{ConfigurationManager.AppSettings["scratch_folder"]}/Class_biz_scenes_reached_distributor.log"));
 
     internal TClass_biz_scenes_reached_distributor() : base()
       {
@@ -39,8 +39,12 @@ namespace Class_biz_scenes_reached_distributor
           // Skip the first line, which contains column headers.
           //
           log.AutoFlush = true;
-          log.WriteLine(DateTime.Now.ToString("s") + " Class_biz_scenes_reached_distributor.ProcessCloudmailinRequest:");
-          foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
+          var attachment_lines = attachment.Split
+            (
+            separator:new string[] {"\r\r\n"},
+            options:StringSplitOptions.RemoveEmptyEntries
+            );
+          foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment_lines.Skip(1).Select(SceneReachedDescriptorOf)))
             {
             log.WriteLine($"group.Key = {group.Key}");
             biz_notifications.IssueLoveLetterReport
