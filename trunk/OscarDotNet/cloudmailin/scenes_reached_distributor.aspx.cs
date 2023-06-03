@@ -1,7 +1,10 @@
 using Class_biz_scenes_reached_distributor;
 using kix;
 using System;
+using System.Configuration;
+using System.IO;
 using System.Text;
+using System.Web;
 
 namespace scenes_reached_distributor
 {
@@ -19,6 +22,11 @@ namespace scenes_reached_distributor
 
     protected void Page_Load(object sender, EventArgs e)
       {
+      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/scenes_reached_distributor.log"),append:true);
+      log.AutoFlush = true;
+      log.WriteLine(DateTime.Now.ToString("s") + " scenes_reached_distributor.Page_Load: Request = ");
+      log.WriteLine(Request);
+      log.WriteLine();
       //
       // https://docs.cloudmailin.com/http_post_formats/multipart_normalized/
       //
@@ -37,6 +45,7 @@ namespace scenes_reached_distributor
         {
         throw new Exception(message:"Zero-length attachment");
         }
+      log.Close();
       }
 
     protected override void OnInit(EventArgs e)
