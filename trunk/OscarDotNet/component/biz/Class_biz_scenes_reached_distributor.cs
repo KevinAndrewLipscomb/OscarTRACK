@@ -41,7 +41,7 @@ namespace Class_biz_scenes_reached_distributor
           log.AutoFlush = true;
           var attachment_lines = attachment.Split
             (
-            separator:new string[] {"\r\r\n"},
+            separator:new string[] {"\r\n"},
             options:StringSplitOptions.RemoveEmptyEntries
             );
           foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment_lines.Skip(1).Select(SceneReachedDescriptorOf)))
