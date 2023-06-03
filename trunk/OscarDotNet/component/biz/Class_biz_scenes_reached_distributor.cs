@@ -65,13 +65,13 @@ namespace Class_biz_scenes_reached_distributor
 
     private SceneReachedDescriptor SceneReachedDescriptorOf(string scene_reached_csv)
       {
-      log.WriteLine($"[{scene_reached_csv}]");
+      log.WriteLine($"{HttpUtility.HtmlEncode(scene_reached_csv)}");
       //
       // By the time the scenes_reached_csv gets here, k.Safe() is required to have converted its quotation marks to diaeresis
       // characters, or deriving a descriptor will fail.
       //
       const string INITIAL_PATTERN = $"{k.DIAERESIS}(.+?){k.DIAERESIS},{k.DIAERESIS}([0-9]+?){k.DIAERESIS},{k.DIAERESIS}(.*){k.DIAERESIS}";
-      var result = new SceneReachedDescriptor()
+      return new SceneReachedDescriptor()
         {
         address = Regex.Replace // Outer replace removes dangling " UNIT " endings.
           (
@@ -91,8 +91,6 @@ namespace Class_biz_scenes_reached_distributor
           replacement:"$2"
           )
         };
-      log.WriteLine($"result.address = {result.address}, result.bumper_number = {result.bumper_number}");
-      return result;
       }
 
     } // end TClass_biz_scenes_reached_distributor
