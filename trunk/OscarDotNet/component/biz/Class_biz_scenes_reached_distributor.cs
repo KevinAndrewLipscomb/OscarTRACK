@@ -42,6 +42,7 @@ namespace Class_biz_scenes_reached_distributor
           log.WriteLine(DateTime.Now.ToString("s") + " Class_biz_scenes_reached_distributor.ProcessCloudmailinRequest:");
           foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment.Split('\n').Skip(1).Select(SceneReachedDescriptorOf)))
             {
+            log.WriteLine($"group.Key = {group.Key}");
             biz_notifications.IssueLoveLetterReport
               (
               love_letter_targets:group.Value.ToList(),
@@ -64,13 +65,13 @@ namespace Class_biz_scenes_reached_distributor
 
     private SceneReachedDescriptor SceneReachedDescriptorOf(string scene_reached_csv)
       {
-      log.WriteLine($"{scene_reached_csv}");
+      log.WriteLine($"[{scene_reached_csv}]");
       //
       // By the time the scenes_reached_csv gets here, k.Safe() is required to have converted its quotation marks to diaeresis
       // characters, or deriving a descriptor will fail.
       //
       const string INITIAL_PATTERN = $"{k.DIAERESIS}(.+?){k.DIAERESIS},{k.DIAERESIS}([0-9]+?){k.DIAERESIS},{k.DIAERESIS}(.*){k.DIAERESIS}";
-      return new SceneReachedDescriptor()
+      var result = new SceneReachedDescriptor()
         {
         address = Regex.Replace // Outer replace removes dangling " UNIT " endings.
           (
@@ -90,6 +91,8 @@ namespace Class_biz_scenes_reached_distributor
           replacement:"$2"
           )
         };
+      log.WriteLine($"result.address = {result.address}, result.bumper_number = {result.bumper_number}");
+      return result;
       }
 
     } // end TClass_biz_scenes_reached_distributor
