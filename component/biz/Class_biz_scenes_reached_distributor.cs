@@ -15,7 +15,6 @@ namespace Class_biz_scenes_reached_distributor
 
     private readonly TClass_biz_notifications biz_notifications = null;
     private readonly TClass_db_scenes_reached db_scenes_reached = null;
-    private readonly StreamWriter log = new(path:HttpContext.Current.Server.MapPath($"{ConfigurationManager.AppSettings["scratch_folder"]}/Class_biz_scenes_reached_distributor.log"));
 
     internal TClass_biz_scenes_reached_distributor() : base()
       {
@@ -38,7 +37,6 @@ namespace Class_biz_scenes_reached_distributor
           //
           // Skip the first line, which contains column headers.
           //
-          log.AutoFlush = true;
           var attachment_lines = attachment.Split
             (
             separator:new string[] {"\r\n"},
@@ -46,15 +44,12 @@ namespace Class_biz_scenes_reached_distributor
             );
           foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment_lines.Skip(1).Select(SceneReachedDescriptorOf)))
             {
-            log.WriteLine($"group.Key = {group.Key}");
             biz_notifications.IssueLoveLetterReport
               (
               love_letter_targets:group.Value.ToList(),
               agency_id:group.Key
               );
             }
-          log.WriteLine();
-          log.Close();
           }
         else
           {
@@ -69,7 +64,6 @@ namespace Class_biz_scenes_reached_distributor
 
     private SceneReachedDescriptor SceneReachedDescriptorOf(string scene_reached_csv)
       {
-      log.WriteLine($"{HttpUtility.HtmlEncode(scene_reached_csv)}");
       //
       // By the time the scenes_reached_csv gets here, k.Safe() is required to have converted its quotation marks to diaeresis
       // characters, or deriving a descriptor will fail.
