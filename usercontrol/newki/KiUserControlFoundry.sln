@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KiUsercontrolFoundry", "KiUsercontrolFoundry.csproj", "{D2A75FFE-435F-4112-8382-E8046CE807D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A20C347B-5154-47B9-A275-36157BF73352} = {A20C347B-5154-47B9-A275-36157BF73352}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ki", "lib\ki\ki.csproj", "{A20C347B-5154-47B9-A275-36157BF73352}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2A75FFE-435F-4112-8382-E8046CE807D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A75FFE-435F-4112-8382-E8046CE807D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A75FFE-435F-4112-8382-E8046CE807D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A75FFE-435F-4112-8382-E8046CE807D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

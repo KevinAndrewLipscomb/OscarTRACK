@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/KevinAndrewLipscomb/KiUsercontrolFoundry.git
+	branch = master
+	commit = c61fc89fd0443b44c1f78be5402b56d234b5883b
+	parent = e0a6ba627a26577ae09ccacb45d37cf19009b4f4
+	method = merge
+	cmdver = 0.4.6
