@@ -32,28 +32,21 @@ namespace Class_biz_scenes_reached_distributor
       var scenes_reached_distributor_address = ConfigurationManager.AppSettings["scenes_reached_distributor_address"];
       if (envelope_to == scenes_reached_distributor_address)
         {
-        if (headers_to == scenes_reached_distributor_address)
+        //
+        // Skip the first line, which contains column headers.
+        //
+        var attachment_lines = attachment.Split
+          (
+          separator:new string[] {"\r\n"},
+          options:StringSplitOptions.RemoveEmptyEntries
+          );
+        foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment_lines.Skip(1).Select(SceneReachedDescriptorOf)))
           {
-          //
-          // Skip the first line, which contains column headers.
-          //
-          var attachment_lines = attachment.Split
+          biz_notifications.IssueLoveLetterReport
             (
-            separator:new string[] {"\r\n"},
-            options:StringSplitOptions.RemoveEmptyEntries
+            love_letter_targets:group.Value.ToList(),
+            agency_id:group.Key
             );
-          foreach (var group in db_scenes_reached.ByAgencyFromDescriptors(attachment_lines.Skip(1).Select(SceneReachedDescriptorOf)))
-            {
-            biz_notifications.IssueLoveLetterReport
-              (
-              love_letter_targets:group.Value.ToList(),
-              agency_id:group.Key
-              );
-            }
-          }
-        else
-          {
-          throw new Exception(message:$"The headers_to field '{headers_to}' does not match the unpublished gateway address.");
           }
         }
       else
