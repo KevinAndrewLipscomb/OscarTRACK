@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/KevinAndrewLipscomb/oscalib.git
+	branch = master
+	commit = 8b203e798cc3d0fecfa346b41f7062a376d6c603
+	parent = d7ee46d5dad53b286438e144e291c5c9545dd2c7
+	method = merge
+	cmdver = 0.4.6

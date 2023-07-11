@@ -37,11 +37,10 @@
 /bin/ki.dll.config
 /config/dev/unpublished.config
 /config/dev/1-user-setup.sql
-/dbscript
 /lib
 /node_modules
 /obj
 /packages
-/unpublished.config
 /usercontrol/ki
 /Web.config
+/unpublished.config
