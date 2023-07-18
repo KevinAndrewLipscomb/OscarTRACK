@@ -2,20 +2,20 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+*.lnk
+*.log
 *.*-SAV
 *.user
-/.svn
-/.vs
-/bin
-/config/dev/1-user-setup.sql
-/config/dev/unpublished.config
-/dbscript/*.lnk
-/dbscript/create-table-trespass.sql
-/lib
+.svn/
+.vs/
+1-user-setup.sql
+obj/
+packages/
+unpublished.*
+/bin/*.dll.config
+/bin/*.pdb
+/bin/*.xml
+/lib/ki/
+/lib/oscalib/
 /node_modules
-/obj
-/packages
-/protected/scratch
-/usercontrol/ki
 /Web.config
-/unpublished.config
