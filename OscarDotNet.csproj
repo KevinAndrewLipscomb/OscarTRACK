@@ -212,6 +212,7 @@
     <Content Include="service\WatchbillByShift.svc" />
     <Content Include="cloudmailin\template\notification\love_letter_report.txt" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\000-README-RE-REQUIRED-ki-JUNCTION.txt" />
     <Content Include="usercontrol\app\UserControl_activity_lookback.ascx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
@@ -325,6 +326,56 @@
     <Content Include="usercontrol\app\UserControl_uniform_priority.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
+    <Content Include="usercontrol\ki\image\add-docket.png" />
+    <Content Include="usercontrol\ki\image\browse.png" />
+    <Content Include="usercontrol\ki\image\check-number-entry.png" />
+    <Content Include="usercontrol\ki\image\delete-docket.png" />
+    <Content Include="usercontrol\ki\image\delete_x16_h.png" />
+    <Content Include="usercontrol\ki\image\docket-content.png" />
+    <Content Include="usercontrol\ki\image\go-next.png" />
+    <Content Include="usercontrol\ki\image\invoices-1.jpg" />
+    <Content Include="usercontrol\ki\image\invoices.jpg" />
+    <Content Include="usercontrol\ki\image\laser-voucher-check-on-top-1.jpg" />
+    <Content Include="usercontrol\ki\image\laser-voucher-check-on-top.jpg" />
+    <Content Include="usercontrol\ki\image\mail_check.jpg" />
+    <Content Include="usercontrol\ki\image\manage-dockets.png" />
+    <Content Include="usercontrol\ki\image\mark-ready.png" />
+    <Content Include="usercontrol\ki\image\open-docket.png" />
+    <Content Include="usercontrol\ki\image\other-uploads.png" />
+    <Content Include="usercontrol\ki\image\paperclip_16x16.gif" />
+    <Content Include="usercontrol\ki\image\popup-and-dialog.png" />
+    <Content Include="usercontrol\ki\image\print-check-small.jpg" />
+    <Content Include="usercontrol\ki\image\print-check.jpg" />
+    <Content Include="usercontrol\ki\image\print-final.png" />
+    <Content Include="usercontrol\ki\image\Quill-1.jpg" />
+    <Content Include="usercontrol\ki\image\Quill.jpg" />
+    <Content Include="usercontrol\ki\image\sample-final-imprint.png" />
+    <Content Include="usercontrol\ki\image\save-files-to-hard-drive.jpg" />
+    <Content Include="usercontrol\ki\image\save-to-hard-drive-b.jpg" />
+    <Content Include="usercontrol\ki\image\save-to-hard-drive.jpg" />
+    <Content Include="usercontrol\ki\image\scan-control-panel.jpg" />
+    <Content Include="usercontrol\ki\image\scan-small.jpg" />
+    <Content Include="usercontrol\ki\image\scan.jpg" />
+    <Content Include="usercontrol\ki\image\select-check-file.png" />
+    <Content Include="usercontrol\ki\image\sign-with-arrow.jpg" />
+    <Content Include="usercontrol\ki\image\sign.png" />
+    <Content Include="usercontrol\ki\image\upload.png" />
+    <Content Include="usercontrol\ki\UserControl_about_by.ascx" />
+    <Content Include="usercontrol\ki\UserControl_about_tools.ascx" />
+    <Content Include="usercontrol\ki\UserControl_attachment_explorer.ascx" />
+    <Content Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
+    <Content Include="usercontrol\ki\UserControl_config_welcome.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_datetime.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_price.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_tutorial.ascx" />
+    <Content Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx" />
+    <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
+    <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
     <Content Include="verify_efficipay_signature.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2476,6 +2527,116 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_watchbill_maag.ascx.designer.cs">
       <DependentUpon>UserControl_watchbill_maag.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_by.ascx.cs">
+      <DependentUpon>UserControl_about_by.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_by.ascx.designer.cs">
+      <DependentUpon>UserControl_about_by.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_tools.ascx.cs">
+      <DependentUpon>UserControl_about_tools.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_tools.ascx.designer.cs">
+      <DependentUpon>UserControl_about_tools.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.cs">
+      <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.designer.cs">
+      <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx.cs">
+      <DependentUpon>UserControl_bread_crumb_trail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx.designer.cs">
+      <DependentUpon>UserControl_bread_crumb_trail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_config_welcome.ascx.cs">
+      <DependentUpon>UserControl_config_welcome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_config_welcome.ascx.designer.cs">
+      <DependentUpon>UserControl_config_welcome.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.cs">
+      <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_datetime.ascx.cs">
+      <DependentUpon>UserControl_drop_down_datetime.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_datetime.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_datetime.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.cs">
+      <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_basic_concept.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_basic_concept.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_price.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_price.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_price.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_price.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_signatures.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_signatures.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_slogan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_slogan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_tutorial.ascx.cs">
+      <DependentUpon>UserControl_efficipay_tutorial.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_tutorial.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_tutorial.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx.cs">
+      <DependentUpon>UserControl_iva_attachment_explorer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx.designer.cs">
+      <DependentUpon>UserControl_iva_attachment_explorer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_print_div.ascx.cs">
+      <DependentUpon>UserControl_print_div.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_print_div.ascx.designer.cs">
+      <DependentUpon>UserControl_print_div.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_session_interrupted.ascx.cs">
+      <DependentUpon>UserControl_session_interrupted.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_session_interrupted.ascx.designer.cs">
+      <DependentUpon>UserControl_session_interrupted.ascx</DependentUpon>
     </Compile>
     <Compile Include="verify_efficipay_signature.aspx.cs">
       <DependentUpon>verify_efficipay_signature.aspx</DependentUpon>
