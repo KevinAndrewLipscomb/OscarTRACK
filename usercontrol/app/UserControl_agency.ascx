@@ -112,7 +112,7 @@
 	</td>
 	<td>
 	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_door_code" runat="server" ControlToValidate="TextBox_door_code" 
-      ErrorMessage="Please enter a valid Door code using only numbers, letters, stars (&quot;*&quot;), pound (&quot;#&quot;), commas, and plus (&quot;+&quot;) signs." Font-Bold="True" display="Dynamic" ValidationExpression="[0-9a-zA-Z#*+,]+">!ERR!</asp:RegularExpressionValidator>
+      ErrorMessage="Please enter a valid Door code using only numbers, letters, spaces, stars (&quot;*&quot;), pound (&quot;#&quot;), commas, and plus (&quot;+&quot;) signs." Font-Bold="True" display="Dynamic" ValidationExpression="[0-9a-zA-Z#*+, ]+">!ERR!</asp:RegularExpressionValidator>
 	</td>
   </tr>
   <tr>
