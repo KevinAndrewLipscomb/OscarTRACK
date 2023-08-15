@@ -2816,7 +2816,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="lib\ki\ki.csproj">
-      <Project>{a20c347b-5154-47b9-a275-36157bf73352}</Project>
+      <Project>{A20C347B-5154-47B9-A275-36157BF73352}</Project>
       <Name>ki</Name>
     </ProjectReference>
     <ProjectReference Include="lib\oscalib\oscalib.csproj">
