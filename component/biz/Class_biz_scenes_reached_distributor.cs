@@ -33,7 +33,7 @@ namespace Class_biz_scenes_reached_distributor
         //
         // Skip the first line, which contains column headers.
         //
-        var attachment_lines = attachment.Split
+        var attachment_lines = k.Unix2Dos(attachment).Split
           (
           separator:new string[] {"\r\n"},
           options:StringSplitOptions.RemoveEmptyEntries
