@@ -834,11 +834,16 @@ namespace UserControl_schedule_proposal
             //
             if (be_ok_to_enable_controls)
               {
-              post_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key:e.Item.Cells[tci_assignment_id].Text);
               post_drop_down_list.Enabled = true;
-              post_cardinality_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key:e.Item.Cells[tci_assignment_id].Text);
               post_cardinality_drop_down_list.Enabled = true;
               }
+            //
+            // Because un-Tie-d drop_down_lists were observed to be the subjects of index change events when we only performed the
+            // Tie transformation if be_ok_to_enable_controls was true, we've moved these transformations outside of that condition
+            // block.
+            //
+            post_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key: e.Item.Cells[tci_assignment_id].Text);
+            post_cardinality_drop_down_list.TieKeyToPotentialValuesForWanderingListControl(key: e.Item.Cells[tci_assignment_id].Text);
             }
           else
             {
