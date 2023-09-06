@@ -318,6 +318,8 @@ namespace Class_biz_schedule_assignments
             ||
               (biz_agencies.BeAgencyResponsibleForPost(own_agency, post_id) && be_before_guard_hours)
             ||
+              ((post_id == "0") && be_before_guard_hours)
+            ||
               (
                 be_ok_to_edit_schedule_liberally
               &&
