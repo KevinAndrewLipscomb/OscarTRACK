@@ -565,12 +565,14 @@ namespace Class_biz_members
         );
       }
 
-        public string HighestTierOf(string id)
-        {
-            string result;
-            result = db_members.HighestTierOf(id);
-            return result;
-        }
+    public string HighestTierOf
+      (
+      string id,
+      bool be_for_scheduling = false
+      )
+      {
+      return db_members.HighestTierOf(id,be_for_scheduling);
+      }
 
         public string IdOf(object summary)
         {

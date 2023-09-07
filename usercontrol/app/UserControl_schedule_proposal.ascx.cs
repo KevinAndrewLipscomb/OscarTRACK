@@ -562,7 +562,7 @@ namespace UserControl_schedule_proposal
         var proto_post_list_item_collection = new ListItemCollection();
         p.biz_agencies.BindEmsPostListItemCollectionShort
           (
-          tier:(p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),
+          tier:(p.be_interactive ? p.biz_members.HighestTierOf(id:Session["member_id"].ToString(),be_for_scheduling:true) : "1"),
           agency_filter:p.agency_filter,
           post_footprint:p.post_footprint,
           be_condensed:!CheckBox_expand_posts.Checked,
@@ -957,7 +957,7 @@ namespace UserControl_schedule_proposal
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency,
           be_full_watchbill_publish_mandatory:v.be_full_watchbill_publish_mandatory,
           fundamental_shift_start:nominal_day_datetime.AddHours(6)
-          );;
+          );
         var n_be_selected = (e.Item.Cells[Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
         var n_be_ok_to_enable_controls = p.biz_schedule_assignments.BeOkToEnableControls

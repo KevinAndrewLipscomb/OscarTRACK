@@ -2166,7 +2166,11 @@ namespace Class_db_members
       Close();
       }
 
-    public string HighestTierOf(string id)
+    public string HighestTierOf
+      (
+      string id,
+      bool be_for_scheduling = false
+      )
       {
       //
       // Note that tier_id=1 is the "highest" tier.  The default return value, therefore, indicates the lowest representable tier.
@@ -2175,16 +2179,43 @@ namespace Class_db_members
       highest_tier_of.val = highest_tier_of.LAST;
       //
       Open();
-      using var my_sql_command_1 = new MySqlCommand
-        ("select min(tier_id) from member join role_member_map on (role_member_map.member_id=member.id) join role on (role.id=role_member_map.role_id) where member.id = '" + id + "'",connection);
+      var cmd_text_1 = new StringBuilder();
+      cmd_text_1.Append($"select min(tier_id)");
+      cmd_text_1.Append($" from member");
+      cmd_text_1.Append(  $" join role_member_map on (role_member_map.member_id=member.id)");
+      cmd_text_1.Append(  $" join role on (role.id=role_member_map.role_id)");
+      if (be_for_scheduling)
+        {
+        cmd_text_1.Append($" join role_privilege_map on (role_privilege_map.role_id=role.id)");
+        cmd_text_1.Append($" join privilege on (privilege.id=role_privilege_map.privilege_id)");
+        }
+      cmd_text_1.Append($" where member.id = '{id}'");
+      if (be_for_scheduling)
+        {
+        cmd_text_1.Append($" and privilege.name like 'edit-schedule%'");
+        }
+      using var my_sql_command_1 = new MySqlCommand(cmd_text_1.ToString(),connection);
       var standard_tier_id_obj = my_sql_command_1.ExecuteScalar();
       if ((standard_tier_id_obj != null) && (standard_tier_id_obj != DBNull.Value))
         {
         highest_tier_of.val = int.Parse(standard_tier_id_obj.ToString());
         }
-      using var my_sql_command_2 = new MySqlCommand
-        ("select min(tier_id) from member join special_role_member_map on (special_role_member_map.member_id=member.id) join role on (role.id=special_role_member_map.role_id) where member.id = '" + id + "'",connection)
-        ;
+      var cmd_text_2 = new StringBuilder();
+      cmd_text_2.Append($"select min(tier_id)");
+      cmd_text_2.Append($" from member");
+      cmd_text_2.Append(  $" join special_role_member_map on (special_role_member_map.member_id=member.id)");
+      cmd_text_2.Append(  $" join role on (role.id=special_role_member_map.role_id)");
+      if (be_for_scheduling)
+      {
+        cmd_text_1.Append($" join role_privilege_map on (role_privilege_map.role_id=role.id)");
+        cmd_text_1.Append($" join privilege on (privilege.id=role_privilege_map.privilege_id)");
+      }
+      cmd_text_2.Append($" where member.id = '{id}'");
+      if (be_for_scheduling)
+        {
+        cmd_text_1.Append($" and privilege.name like 'edit-schedule%'");
+        }
+      using var my_sql_command_2 = new MySqlCommand(cmd_text_2.ToString(),connection);
       var special_tier_id_obj = my_sql_command_2.ExecuteScalar();
       if ((special_tier_id_obj != null) && (special_tier_id_obj != DBNull.Value))
         {
