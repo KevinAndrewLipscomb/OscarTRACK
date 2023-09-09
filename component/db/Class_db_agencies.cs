@@ -300,7 +300,7 @@ namespace Class_db_agencies
             +     (be_user_volunteer_field_supervisor_team_scheduler ? " or short_designator = 'VFS'" : k.EMPTY)
             +     (be_user_mci_team_scheduler ? " or short_designator = 'MCI'" : k.EMPTY)
             +     (be_user_bike_team_scheduler ? " or short_designator = 'BKT'" : k.EMPTY)
-            + " order by agency.id",
+            + " order by agency.presentation_order",
             connection
             );
           var dr = my_sql_command.ExecuteReader();
