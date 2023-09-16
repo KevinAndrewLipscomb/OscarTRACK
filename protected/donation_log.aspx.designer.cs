@@ -22,13 +22,13 @@ namespace donation_log {
         protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// UserControl_donation_log1 control.
+        /// UserControl_donation_log_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_donation_log.TWebUserControl_donation_log UserControl_donation_log1;
+        protected global::UserControl_donation_log.TWebUserControl_donation_log UserControl_donation_log_control;
         
         /// <summary>
         /// UserControl_postcontent control.

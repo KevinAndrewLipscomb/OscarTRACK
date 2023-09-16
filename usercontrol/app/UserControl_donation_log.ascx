@@ -54,15 +54,17 @@
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
-              <td>
+              <td style="font-size:smaller">
                 <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" allowsorting="True">
                   <Columns>
                     <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select" Visible="false"></asp:ButtonColumn>
                     <asp:BoundColumn datafield="key" ReadOnly="True" HeaderText="Key" SortExpression="entered_by%, per_clerk_seq_num desc">
                       <HeaderStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
+                    <asp:BoundColumn DataField="donation_date" HeaderText="Donation date" ReadOnly="True" SortExpression="donation_date%, timestamp, entered_by, per_clerk_seq_num">
+                    </asp:BoundColumn>
                     <asp:BoundColumn DataField="timestamp" HeaderText="Time logged" ReadOnly="True" SortExpression="timestamp%, entered_by, per_clerk_seq_num">
-                      <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
+                      <HeaderStyle Font-Bold="True"/>
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="amount" dataformatstring="{0:C}" headertext="Amount" ReadOnly="True" SortExpression="amount%, timestamp">
                       <ItemStyle horizontalalign="Right"></ItemStyle>
