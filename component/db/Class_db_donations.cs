@@ -80,24 +80,27 @@ namespace Class_db_donations
       Open();
       using var my_sql_command = new MySqlCommand
         (
-        "select CONCAT(entered_by,'-',per_clerk_seq_num) as `key`"
-        + " , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp"
-        + " , amount"
-        + " , IFNULL(resident_base.name,'OUR FRIENDS AT') as name"
-        + " , CONCAT(house_num,' ',street.name) as address"
-        + " , city.name as city"
-        + " , abbreviation as state"
-        + " from donation"
-        + " join resident_base using (id)"
-        + " join street on (street.id=resident_base.street_id)"
-        + " join city on (city.id=street.city_id)"
-        + " join state on (state.id=city.state_id)"
-        + " where " + range_condition
-        + " and agency = '" + agency_scope + "'"
-        + " and donation.id > 0"
-        + " and " + EnteredByConditionOf(user_email_address,entered_by_filter)
-        + " order by " + sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc")),
-        connection
+        cmdText:new StringBuilder()
+          .Append($"select CONCAT(entered_by,'-',per_clerk_seq_num) as `key`")
+          .Append($" , DATE_FORMAT(date,'%Y-%m-%d') as donation_date")
+          .Append($" , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp")
+          .Append($" , amount")
+          .Append($" , IFNULL(resident_base.name,'OUR FRIENDS AT') as name")
+          .Append($" , CONCAT(house_num,' ',street.name) as address")
+          .Append($" , city.name as city")
+          .Append($" , abbreviation as state")
+          .Append($" from donation")
+          .Append(  $" join resident_base using (id)")
+          .Append(  $" join street on (street.id=resident_base.street_id)")
+          .Append(  $" join city on (city.id=street.city_id)")
+          .Append($" join state on (state.id=city.state_id)")
+          .Append($" where {range_condition}")
+          .Append(  $" and agency = '{agency_scope}'")
+          .Append(  $" and donation.id > 0")
+          .Append($" and {EnteredByConditionOf(user_email_address,entered_by_filter)}")
+          .Append($" order by {sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc"))}")
+          .ToString(),
+        connection:connection
         );
       (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
