@@ -23,15 +23,11 @@
                               <table cellspacing="0" cellpadding="5" border="0">
                                 <tr>
                                   <td valign="top">&bull;</td>
-                                  <td><small><a href="http://www.vbems.com/" target="_blank">Va Beach Dept of EMS</a></small></td>
+                                  <td><small><a href="https://ems.virginiabeach.gov/" target="_blank">Va Beach Dept of EMS</a></small></td>
                                 </tr>
                                 <tr>
                                   <td valign="top">&bull;</td>
                                   <td><small><a href="http://www.vbrescuecouncil.org/" target="_blank">Council of Virginia Beach Volunteer Rescue Squads, Inc.</a></small></td>
-                                </tr>
-                                <tr>
-                                  <td valign="top">&bull;</td>
-                                  <td><small><a href="https://www.vbems.com/download/policies/operations/OPS-EMS-Duty-Policy.pdf" target="_blank">EMS Duty Policy</a></small></td>
                                 </tr>
                                 <tr>
                                   <td valign="top">&bull;</td>

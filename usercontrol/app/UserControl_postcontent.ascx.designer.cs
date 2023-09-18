@@ -7,27 +7,65 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_postcontent {
-    
-    
-    public partial class TWebUserControl_postcontent {
-        
-        /// <summary>
-        /// TableRow_bounty_program control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_bounty_program;
-        
-        /// <summary>
-        /// HyperLink_bounty_program control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_bounty_program;
-    }
+namespace UserControl_postcontent
+{
+
+
+  public partial class TWebUserControl_postcontent
+  {
+
+    /// <summary>
+    /// Td_reference_material control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_reference_material;
+
+    /// <summary>
+    /// Td_process_improvement control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_process_improvement;
+
+    /// <summary>
+    /// TableRow_bounty_program control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_bounty_program;
+
+    /// <summary>
+    /// HyperLink_bounty_program control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.HyperLink HyperLink_bounty_program;
+
+    /// <summary>
+    /// DropShadowExtender_reference_material control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.DropShadowExtender DropShadowExtender_reference_material;
+
+    /// <summary>
+    /// DropShadowExtender_process_improvement control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::AjaxControlToolkit.DropShadowExtender DropShadowExtender_process_improvement;
+  }
 }
