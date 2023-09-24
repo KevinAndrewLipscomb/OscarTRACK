@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace eval_detail
 {
-    public partial class TWebForm_eval_detail: ki_web_ui.page_class
+  public partial class TWebForm_eval_detail: ki_web_ui.page_class
     {
         private struct p_type
           {
